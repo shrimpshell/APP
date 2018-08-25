@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">蝦殼飯店</string>
+    <string name="intro_title">飯店介紹</string>
+    <string name="introduction1">\t\t蝦殼飯店創立於2018年。從一個五人的軟體APP研發團隊開始，其目標是為了更好的客戶體驗。</string>
+    <string name="introduction2">\t\t蝦殼使用創新元素帶給客戶即時的回饋。</string>
+    <string name="location_title">交通資訊</string>
+    <string name="event_title">活動優惠</string>
+    <string name="rp_title">房間預覽</string>
+    <string name="location_address">地址：320桃園市中壢區中大路300號</string>
+    <string name="location_phone">聯絡電話：03 425 7387</string>
+    <string name="location_email">連絡信箱：contact@shrimpshell.com.tw</string>
+    <string name="booking">預約房間</string>
+    <string name="profile">會員資料</string>
+    <string name="home">首頁</string>
+    <string name="reserved">預約記錄</string>
+</resources>
