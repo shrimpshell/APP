@@ -41,6 +41,8 @@
             android:name=".JoinActivity"
             android:parentActivityName=".LoginActivity" />
 
+
+
         <activity android:name=".EmployeeHomeActivity" />
         <activity android:name=".LoginActivity" />
     </application>

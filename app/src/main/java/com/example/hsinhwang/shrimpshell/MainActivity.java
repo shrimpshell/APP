@@ -12,6 +12,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 
 public class MainActivity extends AppCompatActivity {
@@ -81,5 +82,9 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.content, fragment);
         fragmentTransaction.commit();
     }
+
+    
+
+
 
 }
