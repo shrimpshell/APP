@@ -19,4 +19,14 @@
     <string name="textLogInPassword">Password</string>
     <string name="textLogJoin">Join</string>
     <string name="textLogLogIn">Log In</string>
+    <string name="textMyProfile">My Profile</string>
+    <string name="textProfileName">Name</string>
+    <string name="textProfileEmail">Email</string>
+    <string name="textProfilePassword">Password</string>
+    <string name="textReenterPassword">Re-enter Password</string>
+    <string name="textProfileFemale">Female</string>
+    <string name="textProfileMale">Male</string>
+    <string name="textProfileBirthday">Birthday</string>
+    <string name="textProfilePhone">Phone</string>
+    <string name="textProfileAddress">Address</string>
 </resources>
