@@ -166,7 +166,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         @NonNull
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-            View itemView = inflater.inflate(R.layout.item_event, viewGroup, false);
+            View itemView = inflater.inflate(R.layout.item_one_event, viewGroup, false);
             return new ViewHolder(itemView);
         }
 
@@ -218,7 +218,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         @NonNull
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-            View itemView = inflater.inflate(R.layout.item_event, viewGroup, false);
+            View itemView = inflater.inflate(R.layout.item_one_event, viewGroup, false);
             return new RoomAdapter.ViewHolder(itemView);
         }
 
