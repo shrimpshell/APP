@@ -230,7 +230,13 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
             roomItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(getActivity(), room.getRoomName(), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getActivity(), room.getRoomName(), Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getActivity(), RoomDetailActivity.class);
+                    Bundle bundle = new Bundle();
+                    Rooms innerRoom = new Rooms(room.getRoomImageId(), room.getRoomId(), room.getRoomName(), room.getRoomiDetail());
+                    bundle.putSerializable("room", innerRoom);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
                 }
             });
         }
