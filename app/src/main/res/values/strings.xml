@@ -13,4 +13,5 @@
     <string name="profile">會員資料</string>
     <string name="home">首頁</string>
     <string name="reserved">預約記錄</string>
+    <string name="login_title">會員登入</string>
 </resources>

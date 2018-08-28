@@ -2,18 +2,19 @@ package com.example.hsinhwang.shrimpshell;
 
 import android.graphics.Color;
 import android.os.Build;
-import android.os.Bundle;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.Window;
 
-public class IntroductionActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
     private Window window;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_introduction);
+        setContentView(R.layout.activity_login);
         initialization();
     }
 

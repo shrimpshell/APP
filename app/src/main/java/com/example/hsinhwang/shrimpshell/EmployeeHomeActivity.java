@@ -19,5 +19,7 @@ public class EmployeeHomeActivity extends AppCompatActivity {
             window = getWindow();
             window.setStatusBarColor(Color.parseColor("#B4875D"));
         }
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
     }
 }

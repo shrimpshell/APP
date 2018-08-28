@@ -4,14 +4,20 @@ package com.example.hsinhwang.shrimpshell;
 import java.sql.Date;
 
 public class Events {
+    private int imageId;
     private String name, description;
-    private Date start_date, end_date;
+    private Date startDate, endDate;
 
-    public Events(String name, String description, Date start_date, Date end_date) {
+    public Events(int imageId, String name, String description, Date startDate, Date endDate) {
+        this.imageId = imageId;
         this.name = name;
         this.description = description;
-        this.start_date = start_date;
-        this.end_date = end_date;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+    public int getImageId() {
+        return imageId;
     }
 
     public String getName() {
@@ -22,11 +28,11 @@ public class Events {
         return description;
     }
 
-    public Date getStart_date() {
-        return start_date;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public Date getEnd_date() {
-        return end_date;
+    public Date getEndDate() {
+        return endDate;
     }
 }
