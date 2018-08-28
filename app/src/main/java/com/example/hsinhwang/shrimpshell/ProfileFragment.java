@@ -38,7 +38,7 @@ public class ProfileFragment extends Fragment {
     }
 
     public void goToEmployee() {
-        Intent intent = new Intent(getActivity(), EmployeeHomeActivity.class);
+        Intent intent = new Intent(getActivity(), JoinActivity.class);
         startActivity(intent);
     }
 }
