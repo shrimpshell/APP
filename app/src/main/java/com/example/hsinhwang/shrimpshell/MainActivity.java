@@ -19,6 +19,7 @@ import android.view.Window;
 public class MainActivity extends AppCompatActivity {
     private Window window;
     boolean login = false;
+    BottomNavigationView navigation;
 
     private BottomNavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -65,8 +66,15 @@ public class MainActivity extends AppCompatActivity {
         initContent();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        navigation.setSelectedItemId(R.id.item_home);
+        initContent();
+    }
+
     private void initialization() {
-        BottomNavigationView navigation = findViewById(R.id.navigation);
+        navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window = getWindow();
@@ -89,9 +97,5 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.content, fragment);
         fragmentTransaction.commit();
     }
-
-    
-
-
 
 }
