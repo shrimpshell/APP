@@ -9,7 +9,13 @@
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:text="Profile" />
+
+    <Button
+        android:id="@+id/toEmployeePage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="員工頁面"/>
 
 </LinearLayout>

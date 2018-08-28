@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.hsinhwang.shrimpshell">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!--以下為位置資訊應用-->
+    <!-- 以下為位置資訊應用 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
@@ -22,6 +21,7 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBLaf9Xp4BvUjCWGopML_x_rDAlPANYpIw" />
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,10 +29,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".IntroductionActivity" android:parentActivityName=".MainActivity"/>
-        <activity android:name=".LocationActivity" android:parentActivityName=".MainActivity"/>
-        <activity android:name=".EventActivity" android:parentActivityName=".MainActivity"/>
-        <activity android:name=".RoomPreviewActivity" android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".IntroductionActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".LocationActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".EventActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".RoomPreviewActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".EmployeeHomeActivity" />
+        <activity android:name=".LoginActivity"></activity>
     </application>
 
 </manifest>
