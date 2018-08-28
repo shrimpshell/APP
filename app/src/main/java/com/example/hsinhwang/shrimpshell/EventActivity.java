@@ -15,7 +15,7 @@ import java.sql.Date;
 public class EventActivity extends AppCompatActivity {
     private Window window;
     private TextView textView;
-    
+    // 活動頁面修改 改好玩的
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
