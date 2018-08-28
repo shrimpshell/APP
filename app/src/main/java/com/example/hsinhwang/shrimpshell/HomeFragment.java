@@ -58,11 +58,11 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         mainRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mainRecyclerView.setAdapter(new MainAdapter(inflater, optionList));
         List<Events> actualEventList = new ArrayList<>();
-        actualEventList.add(new Events(R.drawable.ss, "event1", "this is event 1", Date.valueOf("2018-09-01"), Date.valueOf("2018-09-02")));
-        actualEventList.add(new Events(R.drawable.ss, "event2", "this is event 2", Date.valueOf("2018-09-03"), Date.valueOf("2018-09-04")));
-        actualEventList.add(new Events(R.drawable.ss, "event3", "this is event 3", Date.valueOf("2018-09-05"), Date.valueOf("2018-09-06")));
-        actualEventList.add(new Events(R.drawable.ss, "event4", "this is event 4", Date.valueOf("2018-09-07"), Date.valueOf("2018-09-08")));
-        actualEventList.add(new Events(R.drawable.ss, "event5", "this is event 5", Date.valueOf("2018-09-09"), Date.valueOf("2018-09-10")));
+        actualEventList.add(new Events(R.drawable.ss, "event1", "this is item_event 1", Date.valueOf("2018-09-01"), Date.valueOf("2018-09-02")));
+        actualEventList.add(new Events(R.drawable.ss, "event2", "this is item_event 2", Date.valueOf("2018-09-03"), Date.valueOf("2018-09-04")));
+        actualEventList.add(new Events(R.drawable.ss, "event3", "this is item_event 3", Date.valueOf("2018-09-05"), Date.valueOf("2018-09-06")));
+        actualEventList.add(new Events(R.drawable.ss, "event4", "this is item_event 4", Date.valueOf("2018-09-07"), Date.valueOf("2018-09-08")));
+        actualEventList.add(new Events(R.drawable.ss, "event5", "this is item_event 5", Date.valueOf("2018-09-09"), Date.valueOf("2018-09-10")));
         eventRecyclerView = view.findViewById(R.id.eventRecyclerView);
         eventRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         eventRecyclerView.setAdapter(new EventAdapter(inflater, actualEventList));
