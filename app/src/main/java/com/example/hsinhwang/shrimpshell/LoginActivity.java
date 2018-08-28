@@ -18,12 +18,20 @@ import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
     private Window window;
+    private EditText etEmail;
+    private EditText etPassword;
+    private Context context;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        Button btLogIn = (Button) findViewById(R.id.btLogIn);
+        etEmail = (EditText) findViewById(R.id.etEmail);
+        etPassword = (EditText) findViewById(R.id.etPassword);
+        btLogIn.setOnClickListener(btLogInListener);
+        context = LoginActivity.this;
         initialization();
     }
 
@@ -35,5 +43,25 @@ public class LoginActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
     }
+
+    private Button.OnClickListener btLogInListener = new Button.OnClickListener(){
+
+        @Override
+        public void onClick(View view) {
+            String uid = etEmail.getText().toString();
+            String pw = etPassword.getText().toString();
+            Log.e("Button", "onClick");
+            if (uid.equals("xxx") && pw.equals("1234")){
+                Toast.makeText(context, "登入成功", Toast.LENGTH_SHORT).show();
+                finish();
+            }else{
+                new AlertDialog.Builder(context)
+                        .setTitle("SS Hotel")
+                        .setMessage("登入失敗")
+                        .setPositiveButton("OK", null)
+                        .show();
+            }
+        }
+    };
 
 }
