@@ -57,7 +57,8 @@ public class LoginActivity extends AppCompatActivity {
             String pw = etPassword.getText().toString();
             if (uid.equals("xxx") && pw.equals("1234")) {
                 Toast.makeText(context, "登入成功", Toast.LENGTH_SHORT).show();
-                finish();
+                Intent intent = new Intent(context, MainActivity.class);
+                startActivity(intent);
             } else {
                 new AlertDialog.Builder(context)
                         .setTitle("SS Hotel")

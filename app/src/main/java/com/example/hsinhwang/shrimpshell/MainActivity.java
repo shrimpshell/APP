@@ -1,5 +1,6 @@
 package com.example.hsinhwang.shrimpshell;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -17,6 +18,7 @@ import android.view.Window;
 
 public class MainActivity extends AppCompatActivity {
     private Window window;
+    boolean login = false;
 
     private BottomNavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -35,9 +37,14 @@ public class MainActivity extends AppCompatActivity {
                     setTitle(R.string.reserved);
                     return true;
                 case R.id.item_profile:
-                    fragment = new ProfileFragment();
-                    changeFragment(fragment);
-                    setTitle(R.string.profile);
+                    if (!login) {
+                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                    } else {
+                        fragment = new ProfileFragment();
+                        changeFragment(fragment);
+                        setTitle(R.string.profile);
+                    }
                     return true;
                 default:
                     item.setChecked(true);
