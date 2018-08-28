@@ -15,6 +15,7 @@ import java.sql.Date;
 public class EventActivity extends AppCompatActivity {
     private Window window;
     private TextView textView;
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
