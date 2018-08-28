@@ -1,4 +1,4 @@
-package com.example.hsinhwang.shrimpshell;
+package com.example.hsinhwang.shrimpshell.Classes;
 
 public class Rooms {
     private int roomImageId, roomId;

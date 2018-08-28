@@ -42,7 +42,7 @@
             android:name=".RoomPreviewActivity"
             android:parentActivityName=".MainActivity" />
         <activity android:name=".EmployeeHomeActivity" />
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".LoginActivity" />
     </application>
 
 </manifest>
