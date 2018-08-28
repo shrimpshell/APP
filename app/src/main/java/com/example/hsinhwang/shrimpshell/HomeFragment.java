@@ -17,6 +17,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hsinhwang.shrimpshell.Classes.Events;
+import com.example.hsinhwang.shrimpshell.Classes.Rooms;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -176,7 +178,13 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
             eventItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(getActivity(), event.getName(), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getActivity(), event.getName(), Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getActivity(), EventActivity.class);
+                    Bundle bundle = new Bundle();
+                    Events innerEvent = new Events(event.getImageId(), event.getName(), event.getDescription(), event.getStartDate(), event.getEndDate());
+                    bundle.putSerializable("event", innerEvent);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
                 }
             });
         }
