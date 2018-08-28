@@ -26,7 +26,7 @@
     <string name="textReenterPassword">Re-enter Password</string>
     <string name="textProfileFemale">Female</string>
     <string name="textProfileMale">Male</string>
-    <string name="textProfileBirthday">Birthday</string>
+    <string name="textProfileBirthday">Birthday : </string>
     <string name="textProfilePhone">Phone</string>
     <string name="textProfileAddress">Address</string>
 </resources>
