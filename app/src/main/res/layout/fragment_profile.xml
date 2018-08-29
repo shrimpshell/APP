@@ -1,88 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ProfileFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
 
     <android.support.design.widget.TabLayout
-        android:id="@+id/tab_layout"
+        android:id="@+id/tabs"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <android.support.design.widget.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:tabSelectedTextColor="#0048ff"
-            app:tabTextColor="#000000"
-            android:text="會員資料"
-            />
-
-        <android.support.design.widget.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="明細"
-            />
-
-        <android.support.design.widget.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="評論"
-            />
-
-    </android.support.design.widget.TabLayout>
-
-    <TextView
-        android:id="@+id/txMyProfile"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity=""
-        android:layout_marginTop="6dp"
-        android:layout_marginLeft="10dp"
-        android:text="@string/textMyProfile"
-        android:textSize="30sp" />
+        app:tabMode="fixed"
+        android:minHeight="?attr/actionBarSize"
+        app:tabGravity="fill"
+        app:tabTextColor="#8b5e5e5e"
+        app:tabSelectedTextColor="#006aff"
+        />
 
-    <TextView
-        android:id="@+id/txMyMemberNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:text="95279527"
-        android:textSize="30sp" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@drawable/man128"/>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
-    <TextView
-        android:id="@+id/txMyName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:text="黃先生"
-        android:textSize="30sp" />
 
-    <TextView
-        android:id="@+id/txMemberEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="xxx@gmail.com"
-        android:layout_marginTop="10dp"
-        android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/txPhoneNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="0932333774"
-        android:layout_marginTop="10dp"
-        android:textSize="20sp" />
 </LinearLayout>
