@@ -1,6 +1,8 @@
 package com.example.hsinhwang.shrimpshell.Classes;
 
-public class Rooms {
+import java.io.Serializable;
+
+public class Rooms implements Serializable {
     private int roomImageId, roomId;
     private String roomName, roomiDetail;
 
@@ -9,6 +11,12 @@ public class Rooms {
         this.roomId = roomId;
         this.roomName = roomName;
         this.roomiDetail = roomiDetail;
+    }
+
+    @Override
+    public String toString() {
+        String text = this.roomName + "\n" + this.roomiDetail;
+        return text;
     }
 
     public int getRoomImageId() {
