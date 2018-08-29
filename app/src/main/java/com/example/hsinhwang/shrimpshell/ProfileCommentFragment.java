@@ -52,7 +52,7 @@ public class ProfileCommentFragment extends Fragment {
             }
 
         });
-        
+
     }
     public RatingBar.OnRatingBarChangeListener ratingBarOnRatingBarChange
             = new RatingBar.OnRatingBarChangeListener()  {
