@@ -1,8 +1,11 @@
 package com.example.hsinhwang.shrimpshell.Classes;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 
-public class Rooms implements Serializable {
+public class Rooms implements Serializable, Parcelable {
     private int roomImageId, roomId;
     private String roomName, roomiDetail;
 
@@ -33,5 +36,18 @@ public class Rooms implements Serializable {
 
     public String getRoomiDetail() {
         return roomiDetail;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(roomImageId);
+        parcel.writeInt(roomId);
+        parcel.writeString(roomName);
+        parcel.writeString(roomiDetail);
     }
 }

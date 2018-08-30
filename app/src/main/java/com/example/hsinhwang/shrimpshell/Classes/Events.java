@@ -1,10 +1,13 @@
 package com.example.hsinhwang.shrimpshell.Classes;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 import java.sql.Date;
 
-public class Events implements Serializable {
+public class Events implements Serializable,Parcelable {
     private int imageId;
     private String name, description;
     private Date startDate, endDate;
@@ -42,5 +45,19 @@ public class Events implements Serializable {
 
     public Date getEndDate() {
         return endDate;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(imageId);
+        parcel.writeString(name);
+        parcel.writeString(description);
+        parcel.writeValue(startDate);
+        parcel.writeValue(endDate);
     }
 }

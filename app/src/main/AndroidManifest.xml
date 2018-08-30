@@ -41,9 +41,8 @@
         <activity android:name=".EmployeeHomeActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".RoomDetailActivity" />
-        <activity android:name=".ManagerPanel.ManagerHomeActivity" />
         <activity
-            android:name=".ManagerHomeActivity"
+            android:name=".ManagerPanel.ManagerHomeActivity"
             android:label="@string/title_activity_manager_home"
             android:theme="@style/AppTheme"></activity>
     </application>
