@@ -1,16 +1,16 @@
 <resources>
-    <string name="app_name">蝦殼飯店</string>
-    <string name="intro_title">飯店介紹</string>
+    <string name="app_name">Shrimp Shell</string>
+    <string name="intro_title">Intro Duction</string>
     <string name="introduction1">\t\t蝦殼飯店創立於2018年。從一個五人的軟體APP研發團隊開始，其目標是為了更好的客戶體驗。</string>
     <string name="introduction2">\t\t蝦殼使用創新元素帶給客戶即時的回饋。</string>
-    <string name="location_title">交通資訊</string>
-    <string name="event_title">活動優惠</string>
-    <string name="rp_title">房間預覽</string>
-    <string name="booking">預約房間</string>
-    <string name="profile">會員資料</string>
-    <string name="home">首頁</string>
-    <string name="reserved">預約記錄</string>
-    <string name="login_title">會員登入</string>
+    <string name="location_title">Traffic Information</string>
+    <string name="event_title">Latest Event</string>
+    <string name="rp_title">Room Preview</string>
+    <string name="booking">Booking a room</string>
+    <string name="profile">Customer Profile</string>
+    <string name="home">Home</string>
+    <string name="reserved">Reserved booking</string>
+    <string name="login_title">Login</string>
     <string name="txLogInWelcome">Welcome</string>
     <string name="textLogEmail">Email or Account</string>
     <string name="textLogInPassword">Password</string>
@@ -35,5 +35,11 @@
 
     <!--測試用字串-->
     <string name="hello_employee_fragment">Hello employee fragment</string>
+    <string name="employeeCode">EmployeeCode</string>
+    <string name="employeeGender">Gender</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="phone">Phone</string>
+    <string name="address">Address</string>
 
 </resources>
