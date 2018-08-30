@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 import java.io.Serializable;
 
-public class Rooms implements Serializable, Parcelable {
+public class Rooms implements Serializable {
     private int roomImageId, roomId;
     private String roomName, roomiDetail;
 
@@ -38,16 +38,4 @@ public class Rooms implements Serializable, Parcelable {
         return roomiDetail;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(roomImageId);
-        parcel.writeInt(roomId);
-        parcel.writeString(roomName);
-        parcel.writeString(roomiDetail);
-    }
 }

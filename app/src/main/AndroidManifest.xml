@@ -44,7 +44,9 @@
         <activity
             android:name=".ManagerPanel.ManagerHomeActivity"
             android:label="@string/title_activity_manager_home"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".ManagerPanel.EventEditActivity" />
+        <activity android:name=".ManagerPanel.ManagerEditActivity"></activity>
     </application>
 
 </manifest>
