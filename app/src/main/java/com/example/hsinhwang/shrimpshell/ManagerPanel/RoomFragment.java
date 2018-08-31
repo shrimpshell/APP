@@ -28,6 +28,12 @@ public class RoomFragment extends Fragment {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        // 資料庫在這裡處理
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_room, container, false);

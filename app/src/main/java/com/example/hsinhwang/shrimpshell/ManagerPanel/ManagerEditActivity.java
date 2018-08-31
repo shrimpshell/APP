@@ -1,13 +1,12 @@
 package com.example.hsinhwang.shrimpshell.ManagerPanel;
 
-import android.content.Intent;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.example.hsinhwang.shrimpshell.Classes.Events;
 import com.example.hsinhwang.shrimpshell.Classes.Rooms;
@@ -56,9 +55,8 @@ public class ManagerEditActivity extends AppCompatActivity {
                 btnSubmit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(ManagerEditActivity.this, ManagerHomeActivity.class);
                         // 儲存到資料庫Event
-                        startActivity(intent);
+                        finish();
                     }
                 });
             } else {
@@ -69,9 +67,8 @@ public class ManagerEditActivity extends AppCompatActivity {
                 btnSubmit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(ManagerEditActivity.this, ManagerHomeActivity.class);
                         // 儲存到資料庫Room
-                        startActivity(intent);
+                        finish();
                     }
                 });
             }

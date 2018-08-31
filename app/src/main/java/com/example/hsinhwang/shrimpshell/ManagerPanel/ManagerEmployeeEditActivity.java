@@ -56,9 +56,8 @@ public class ManagerEmployeeEditActivity extends AppCompatActivity {
                 btnEmployeeSubmit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(ManagerEmployeeEditActivity.this, ManagerHomeActivity.class);
                         // 儲存到資料庫Employee
-                        startActivity(intent);
+                        finish();
                     }
                 });
             }
