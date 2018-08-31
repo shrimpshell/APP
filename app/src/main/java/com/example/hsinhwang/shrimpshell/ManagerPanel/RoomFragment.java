@@ -4,6 +4,7 @@ package com.example.hsinhwang.shrimpshell.ManagerPanel;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,6 +22,7 @@ import java.util.List;
 
 public class RoomFragment extends Fragment {
     private RecyclerView roomFragmentRecyclerView;
+    private FloatingActionButton toAddRoom;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,14 @@ public class RoomFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_room, container, false);
         roomFragmentRecyclerView = view.findViewById(R.id.roomFragmentRecyclerView);
+        toAddRoom = view.findViewById(R.id.toAddRoom);
+        toAddRoom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), AddRoomActivity.class);
+                startActivity(intent);
+            }
+        });
         List<Rooms> topFiveRooms = new ArrayList<>();
         topFiveRooms.add(new Rooms(R.drawable.ss, 1, "room1", "this is room 1"));
         topFiveRooms.add(new Rooms(R.drawable.ss, 2, "room2", "this is room 2"));

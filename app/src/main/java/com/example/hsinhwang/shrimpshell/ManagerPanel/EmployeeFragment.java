@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,6 +30,7 @@ public class EmployeeFragment extends Fragment {
     private RelativeLayout employeeLayout;
     private ImageView employeeImageView;
     private TextView employeeName;
+    private FloatingActionButton toAddEmployee;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,14 @@ public class EmployeeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_employee, container, false);
         employeeFragmentRecyclerView = view.findViewById(R.id.employeeFragmentRecyclerView);
+        toAddEmployee = view.findViewById(R.id.toAddEmployee);
+        toAddEmployee.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), AddEmployeeActivity.class);
+                startActivity(intent);
+            }
+        });
         List<Employees> getEmployeeList = new ArrayList<>();
         getEmployeeList.add(new Employees("黃信",UUID.randomUUID() + "", "employee1@email.com", UUID.randomUUID() + "", "MALE", "02-21345678", "address1"));
         getEmployeeList.add(new Employees("李若歆",UUID.randomUUID() + "", "employee2@email.com", UUID.randomUUID() + "", "FEMALE", "02-27654321", "address2"));

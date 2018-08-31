@@ -6,79 +6,53 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ManagerPanel.ManagerEditActivity"
     android:padding="16dp"
+    tools:context=".ManagerPanel.AddEventActivity"
     android:background="@drawable/employee_home">
 
-    <TextView
-        android:id="@+id/employeeCode"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/employeeCode"
-        android:textSize="25sp"/>
-    <TextView
-        android:id="@+id/employeeGender"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/employeeGender"
-        android:textSize="25sp"/>
-    <!--Name-->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/name"
         android:textSize="25sp"/>
     <EditText
-        android:id="@+id/etEmployeeName"
+        android:id="@+id/etAddEventName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-    <!--email-->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/email"
+        android:text="@string/description"
         android:textSize="25sp"/>
     <EditText
-        android:id="@+id/etEmployeeEmail"
+        android:id="@+id/etAddEventDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-    <!--password-->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/password"
+        android:text="@string/startTime"
         android:textSize="25sp"/>
-    <EditText
-        android:id="@+id/etEmployeePass"
+    <DatePicker
+        android:id="@+id/etAddEventStartTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPassword"/>
-    <!--Phone-->
+        android:datePickerMode="spinner" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/phone"
+        android:text="@string/endTime"
         android:textSize="25sp"/>
-    <EditText
-        android:id="@+id/etEmployeePhone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <!--Address-->
-    <TextView
+    <DatePicker
+        android:id="@+id/etAddEventEndTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/address"
-        android:textSize="25sp"/>
-    <EditText
-        android:id="@+id/etEmployeeAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
+        android:datePickerMode="spinner"/>
 
     <Button
-        android:id="@+id/btnEmployeeSubmit"
+        android:id="@+id/btnAddEvent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/submit"/>
+        android:text="@string/add"/>
 
 </LinearLayout>

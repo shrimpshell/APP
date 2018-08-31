@@ -4,6 +4,7 @@ package com.example.hsinhwang.shrimpshell.ManagerPanel;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,6 +24,7 @@ import java.util.List;
 
 public class EventFragment extends Fragment {
     private RecyclerView eventFragmentRecyclerView;
+    private FloatingActionButton toAddEvent;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,14 @@ public class EventFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_event, container, false);
         eventFragmentRecyclerView = view.findViewById(R.id.eventFragmentRecyclerView);
+        toAddEvent = view.findViewById(R.id.toAddEvent);
+        toAddEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), AddEventActivity.class);
+                startActivity(intent);
+            }
+        });
         List<Events> actualEventList = new ArrayList<>();
         actualEventList.add(new Events(R.drawable.ss, "event1", "this is item_event 1", Date.valueOf("2018-09-01"), Date.valueOf("2018-09-02")));
         actualEventList.add(new Events(R.drawable.ss, "event2", "this is item_event 2", Date.valueOf("2018-09-03"), Date.valueOf("2018-09-04")));

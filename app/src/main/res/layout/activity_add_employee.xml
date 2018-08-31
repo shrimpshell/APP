@@ -6,30 +6,50 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ManagerPanel.ManagerEditActivity"
     android:padding="16dp"
+    tools:context=".ManagerPanel.AddEmployeeActivity"
     android:background="@drawable/employee_home">
 
     <TextView
-        android:id="@+id/employeeCode"
+        android:id="@+id/employeeAddCode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/employeeCode"
         android:textSize="25sp"/>
     <TextView
-        android:id="@+id/employeeGender"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/employeeGender"
         android:textSize="25sp"/>
+
     <!--Name-->
+    <RadioGroup
+        android:id="@+id/employeeAddGenderGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/Male"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/male" />
+
+        <RadioButton
+            android:id="@+id/Female"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/female" />
+    </RadioGroup>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/name"
         android:textSize="25sp"/>
     <EditText
-        android:id="@+id/etEmployeeName"
+        android:id="@+id/etEmployeeAddName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <!--email-->
@@ -39,7 +59,7 @@
         android:text="@string/email"
         android:textSize="25sp"/>
     <EditText
-        android:id="@+id/etEmployeeEmail"
+        android:id="@+id/etEmployeeAddEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <!--password-->
@@ -49,7 +69,7 @@
         android:text="@string/password"
         android:textSize="25sp"/>
     <EditText
-        android:id="@+id/etEmployeePass"
+        android:id="@+id/etEmployeeAddPass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPassword"/>
@@ -60,7 +80,7 @@
         android:text="@string/phone"
         android:textSize="25sp"/>
     <EditText
-        android:id="@+id/etEmployeePhone"
+        android:id="@+id/etEmployeeAddPhone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <!--Address-->
@@ -70,15 +90,15 @@
         android:text="@string/address"
         android:textSize="25sp"/>
     <EditText
-        android:id="@+id/etEmployeeAddress"
+        android:id="@+id/etEmployeeAddAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
 
     <Button
-        android:id="@+id/btnEmployeeSubmit"
+        android:id="@+id/btnEmployeeAdd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/submit"/>
+        android:text="@string/add"/>
 
 </LinearLayout>

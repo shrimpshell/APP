@@ -45,9 +45,11 @@
             android:name=".ManagerPanel.ManagerHomeActivity"
             android:label="@string/title_activity_manager_home"
             android:theme="@style/AppTheme" />
-        <activity android:name=".ManagerPanel.EventEditActivity" />
         <activity android:name=".ManagerPanel.ManagerEditActivity" />
-        <activity android:name=".ManagerPanel.ManagerEmployeeEditActivity"></activity>
+        <activity android:name=".ManagerPanel.ManagerEmployeeEditActivity" />
+        <activity android:name=".ManagerPanel.AddEmployeeActivity" />
+        <activity android:name=".ManagerPanel.AddEventActivity" />
+        <activity android:name=".ManagerPanel.AddRoomActivity"></activity>
     </application>
 
 </manifest>

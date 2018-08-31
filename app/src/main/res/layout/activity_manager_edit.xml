@@ -7,7 +7,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ManagerPanel.ManagerEditActivity"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@drawable/employee_home">
 
     <TextView
         android:layout_width="match_parent"
