@@ -5,18 +5,20 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.Calendar;
 
 public class BookingFragment extends Fragment {
-    private TextView txFirstDaySelected, txFirstMonSelected, txFirstWeekSelected, txLastDaySelected, txLastMonSelected, txLastWeekSelected, txAdultQuantity, txChildQuatity;
-    private Button btAdultMinus, btAdultplus, btChildMinus, btChildplus;
+    private TextView tvFirstDaySelected, tvFirstMonSelected, tvFirstWeekSelected, tvLastDaySelected, tvLastMonSelected, tvLastWeekSelected, tvAdultQuantity, tvChildQuantity;
+    private ImageButton btAdultMinus, btAdultplus, btChildMinus, btChildplus;
     private Spinner spChildAge;
     private String weekName;
 
@@ -36,24 +38,78 @@ public class BookingFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         FloatingActionButton fabBooking = (FloatingActionButton) getView().findViewById(R.id.fabBooking);
         fabBooking.setOnClickListener(BookingFragmentChange_Listener);
-        txFirstDaySelected = (TextView) getView().findViewById(R.id.txFirstDaySelected);
-        txFirstMonSelected = (TextView) getView().findViewById(R.id.txFirstMonSelected);
-        txFirstWeekSelected = (TextView) getView().findViewById(R.id.txFirstWeekSelected);
-        txLastDaySelected = (TextView) getView().findViewById(R.id.txLastDaySelected);
-        txLastMonSelected = (TextView) getView().findViewById(R.id.txLastMonSelected);
-        txLastWeekSelected = (TextView) getView().findViewById(R.id.txLastWeekSelected);
+        tvFirstDaySelected = (TextView) getView().findViewById(R.id.tvFirstDaySelected);
+        tvFirstMonSelected = (TextView) getView().findViewById(R.id.tvFirstMonSelected);
+        tvFirstWeekSelected = (TextView) getView().findViewById(R.id.tvFirstWeekSelected);
+        tvLastDaySelected = (TextView) getView().findViewById(R.id.tvLastDaySelected);
+        tvLastMonSelected = (TextView) getView().findViewById(R.id.tvLastMonSelected);
+        tvLastWeekSelected = (TextView) getView().findViewById(R.id.tvLastWeekSelected);
+        tvAdultQuantity = (TextView) getView().findViewById(R.id.tvAdultQuantity);
+        tvChildQuantity = (TextView) getView().findViewById(R.id.tvChildQuantity);
+        btAdultMinus = (ImageButton) getActivity().findViewById(R.id.btAdultMinus);
+        btAdultplus = (ImageButton) getActivity().findViewById(R.id.btAdultPlus);
+        btChildMinus = (ImageButton) getActivity().findViewById(R.id.btChildMinus);
+        btChildplus = (ImageButton) getActivity().findViewById(R.id.btChildPlus);
+        spChildAge = (Spinner) getActivity().findViewById(R.id.spChildAge);
+
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH) + 1;
         int day = calendar.get(Calendar.DAY_OF_MONTH);
         int week = calendar.get(Calendar.DAY_OF_WEEK);
-        int lasDay = calendar.get(Calendar.DAY_OF_MONTH) + 1;
-        txFirstDaySelected.setText(String.valueOf(day));
-        txFirstMonSelected.setText(" " + String.valueOf(month) + " 月");
-        txFirstWeekSelected.setText(changerWeekName(week));
-        txLastDaySelected.setText(String.valueOf(lasDay));
-        txLastMonSelected.setText(" " + String.valueOf(month) + " 月");
-        txLastWeekSelected.setText(changerWeekName(week + 1));
+        calendar.add(Calendar.DAY_OF_MONTH, 1);
+        int lastMonth = calendar.get(Calendar.MONTH) + 1;
+        int lastDay = calendar.get(Calendar.DAY_OF_MONTH);
+        int lastWeek = calendar.get(Calendar.DAY_OF_WEEK);
+
+        tvFirstDaySelected.setText(String.valueOf(day));
+        tvFirstMonSelected.setText(" " + String.valueOf(month) + " 月");
+        tvFirstWeekSelected.setText(changerWeekName(week));
+        tvLastDaySelected.setText(String.valueOf(lastDay));
+        tvLastMonSelected.setText(" " + String.valueOf(lastMonth) + " 月");
+        tvLastWeekSelected.setText(changerWeekName(lastWeek));
+        btAdultMinus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int adultQuantity = Integer.parseInt(tvAdultQuantity.getText().toString());
+                if (adultQuantity != 0) {
+                    tvAdultQuantity.setText(String.valueOf(adultQuantity - 1));
+                }
+            }
+        });
+        btChildplus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int childQuantity = Integer.parseInt(tvChildQuantity.getText().toString());
+                tvChildQuantity.setText(String.valueOf(childQuantity + 1));
+            }
+        });
+        btChildMinus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int childQuantity = Integer.parseInt(tvChildQuantity.getText().toString());
+                if (childQuantity != 0) {
+                    tvChildQuantity.setText(String.valueOf(childQuantity - 1));
+                } else {
+
+                }
+            }
+        });
+        btChildplus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int childQuantity = Integer.parseInt(tvChildQuantity.getText().toString());
+                tvChildQuantity.setText(String.valueOf(childQuantity + 1));
+            }
+        });
+
+        //使用Spinner
+        ArrayAdapter spinnerAadapter = ArrayAdapter.createFromResource(getActivity().getApplication(),
+                R.array.AgeArray, R.layout.spinner_style_booking);
+        spinnerAadapter
+                .setDropDownViewResource(R.layout.spinner_style_booking);
+        spChildAge.setAdapter(spinnerAadapter);
+
     }
 
     public String changerWeekName(int w) {
@@ -82,6 +138,7 @@ public class BookingFragment extends Fragment {
         return weekName;
     }
 
+
     FloatingActionButton.OnClickListener BookingFragmentChange_Listener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -89,6 +146,4 @@ public class BookingFragment extends Fragment {
             startActivity(intent);
         }
     };
-
-
 }
