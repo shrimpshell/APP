@@ -64,8 +64,6 @@ public class MainActivity extends AppCompatActivity {
             window = getWindow();
             window.setStatusBarColor(Color.parseColor("#01728B"));
         }
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
     }
 
     private void initContent() {

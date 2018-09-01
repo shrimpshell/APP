@@ -74,6 +74,7 @@
                             android:text="@string/firstMonth"
                             android:textColor="@color/white"
                             android:textSize="20sp" />
+
                         <TextView
                             android:id="@+id/tvFirstWeekSelected"
                             android:layout_width="wrap_content"
@@ -145,6 +146,7 @@
                             android:text="@string/lastMonth"
                             android:textColor="@color/white"
                             android:textSize="20sp" />
+
                         <TextView
                             android:id="@+id/tvLastWeekSelected"
                             android:layout_width="wrap_content"
@@ -246,13 +248,12 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/ageLayOut"
+            android:id="@+id/loAge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_marginBottom="5dp"
-            android:layout_marginEnd="10dp"
-            >
+            android:layout_marginEnd="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -283,20 +284,30 @@
         android:textSize="28sp"
         android:textStyle="bold" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabBooking"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:layout_margin="16dp"
-        android:backgroundTint="@color/lightBlue"
-        android:elevation="5dp"
-        android:src="@drawable/ic_fab_plus"
-        app:borderWidth="0dp"
-        app:layout_anchor="@id/container"
-        app:layout_anchorGravity="right|bottom"
-        app:pressedTranslationZ="10dp"
-        app:rippleColor="@color/whiteBlue"
-        tools:targetApi="lollipop" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabBooking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="16dp"
+            android:backgroundTint="@color/lightBlue"
+            android:elevation="5dp"
+            android:tint="@android:color/white"
+            app:borderWidth="0dp"
+            app:pressedTranslationZ="10dp"
+            app:rippleColor="@color/whiteBlue"
+            app:srcCompat="@android:drawable/ic_input_add"
+            tools:ignore="RtlHardcoded"
+            tools:targetApi="lollipop" />
+
+    </RelativeLayout>
+
 </LinearLayout>
 

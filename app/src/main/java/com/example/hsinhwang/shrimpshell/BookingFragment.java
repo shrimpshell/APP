@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -21,6 +22,8 @@ public class BookingFragment extends Fragment {
     private ImageButton btAdultMinus, btAdultplus, btChildMinus, btChildplus;
     private Spinner spChildAge;
     private String weekName;
+    private LinearLayout loAge;
+    private static final String TAG = "Debug";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,21 +39,29 @@ public class BookingFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        FloatingActionButton fabBooking = (FloatingActionButton) getView().findViewById(R.id.fabBooking);
+        FloatingActionButton fabBooking = getView().findViewById(R.id.fabBooking);
         fabBooking.setOnClickListener(BookingFragmentChange_Listener);
-        tvFirstDaySelected = (TextView) getView().findViewById(R.id.tvFirstDaySelected);
-        tvFirstMonSelected = (TextView) getView().findViewById(R.id.tvFirstMonSelected);
-        tvFirstWeekSelected = (TextView) getView().findViewById(R.id.tvFirstWeekSelected);
-        tvLastDaySelected = (TextView) getView().findViewById(R.id.tvLastDaySelected);
-        tvLastMonSelected = (TextView) getView().findViewById(R.id.tvLastMonSelected);
-        tvLastWeekSelected = (TextView) getView().findViewById(R.id.tvLastWeekSelected);
-        tvAdultQuantity = (TextView) getView().findViewById(R.id.tvAdultQuantity);
-        tvChildQuantity = (TextView) getView().findViewById(R.id.tvChildQuantity);
-        btAdultMinus = (ImageButton) getActivity().findViewById(R.id.btAdultMinus);
-        btAdultplus = (ImageButton) getActivity().findViewById(R.id.btAdultPlus);
-        btChildMinus = (ImageButton) getActivity().findViewById(R.id.btChildMinus);
-        btChildplus = (ImageButton) getActivity().findViewById(R.id.btChildPlus);
-        spChildAge = (Spinner) getActivity().findViewById(R.id.spChildAge);
+        tvFirstDaySelected = getView().findViewById(R.id.tvFirstDaySelected);
+        tvFirstMonSelected = getView().findViewById(R.id.tvFirstMonSelected);
+        tvFirstWeekSelected = getView().findViewById(R.id.tvFirstWeekSelected);
+        tvLastDaySelected = getView().findViewById(R.id.tvLastDaySelected);
+        tvLastMonSelected = getView().findViewById(R.id.tvLastMonSelected);
+        tvLastWeekSelected = getView().findViewById(R.id.tvLastWeekSelected);
+        tvAdultQuantity = getView().findViewById(R.id.tvAdultQuantity);
+        tvChildQuantity = getView().findViewById(R.id.tvChildQuantity);
+        btAdultMinus = getActivity().findViewById(R.id.btAdultMinus);
+        btAdultplus = getActivity().findViewById(R.id.btAdultPlus);
+        btChildMinus = getActivity().findViewById(R.id.btChildMinus);
+        btChildplus = getActivity().findViewById(R.id.btChildPlus);
+        spChildAge = getActivity().findViewById(R.id.spChildAge);
+        loAge = getActivity().findViewById(R.id.loAge);
+
+        int childQuantity = Integer.parseInt(tvChildQuantity.getText().toString());
+        if (childQuantity == 0) {
+            loAge.setVisibility(View.GONE);
+        } else {
+            loAge.setVisibility(View.VISIBLE);
+        }
 
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
@@ -84,14 +95,18 @@ public class BookingFragment extends Fragment {
                 tvChildQuantity.setText(String.valueOf(childQuantity + 1));
             }
         });
+
         btChildMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int childQuantity = Integer.parseInt(tvChildQuantity.getText().toString());
-                if (childQuantity != 0) {
-                    tvChildQuantity.setText(String.valueOf(childQuantity - 1));
-                } else {
 
+                if (childQuantity != 0) {
+                    loAge.setVisibility(View.VISIBLE);
+                    tvChildQuantity.setText(String.valueOf(childQuantity - 1));
+                }
+                if (childQuantity == 0) {
+                    loAge.setVisibility(View.GONE);
                 }
             }
         });
@@ -100,6 +115,12 @@ public class BookingFragment extends Fragment {
             public void onClick(View view) {
                 int childQuantity = Integer.parseInt(tvChildQuantity.getText().toString());
                 tvChildQuantity.setText(String.valueOf(childQuantity + 1));
+                if (childQuantity == 0) {
+                    loAge.setVisibility(View.GONE);
+                }
+                if (childQuantity != 0) {
+                    loAge.setVisibility(View.VISIBLE);
+                }
             }
         });
 
@@ -142,7 +163,7 @@ public class BookingFragment extends Fragment {
     FloatingActionButton.OnClickListener BookingFragmentChange_Listener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(getActivity(), EventActivity.class);
+            Intent intent = new Intent(getActivity(), CalendarActivity.class);
             startActivity(intent);
         }
     };
