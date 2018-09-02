@@ -59,4 +59,6 @@
     <string name="lastDay">日</string>
     <string name="lastMonth">月</string>
     <string name="lastWeek">週</string>
+    <string name="lastYear">年</string>
+    <string name="firstYear">年</string>
 </resources>
