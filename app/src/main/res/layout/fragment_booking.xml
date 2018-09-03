@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:padding="10dp"
     tools:context=".BookingFragment">
+
     <!--標題-->
     <TextView
+        android:id="@+id/tvResrvationTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
@@ -16,316 +18,267 @@
         android:textColor="@color/white"
         android:textSize="24sp" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <!--住房時間選擇-->
+    <!--Checking Day-->
+    <TextView
+        android:id="@+id/tvFirstDate"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="vertical">
-        <!--住房時間選擇-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
-            <!--Checking Day-->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:text="@string/first_day_selected"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
-                <TextView
-                    android:id="@+id/tvFirstYearSelected"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:text="@string/firstYear"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/tvFirstDaySelected"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="@string/firstDay"
-                        android:textColor="@color/white"
-                        android:textSize="50sp" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/tvFirstMonSelected"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="@string/firstMonth"
-                            android:textColor="@color/white"
-                            android:textSize="20sp" />
-
-                        <TextView
-                            android:id="@+id/tvFirstWeekSelected"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="@string/firstWeek"
-                            android:textColor="@color/white"
-                            android:textSize="20sp" />
-                    </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_weight="1.0"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="80dp"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="35dp"
-                    android:background="@drawable/item_arrow" />
-            </LinearLayout>
-            <!--Check out day-->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:text="@string/last_day_selected"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/tvLastYearSelected"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:text="@string/lastYear"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/tvLastDaySelected"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="@string/lastDay"
-                        android:textColor="@color/white"
-                        android:textSize="50sp" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginTop="10dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/tvLastMonSelected"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="@string/lastMonth"
-                            android:textColor="@color/white"
-                            android:textSize="20sp" />
-
-                        <TextView
-                            android:id="@+id/tvLastWeekSelected"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="@string/lastWeek"
-                            android:textColor="@color/white"
-                            android:textSize="20sp" />
-                    </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
-        <!--人數選擇-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:text="@string/adult"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
-
-                <ImageButton
-                    android:id="@+id/btAdultMinus"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginTop="1dp"
-                    android:background="@drawable/ic_minus" />
-
-                <TextView
-                    android:id="@+id/tvAdultQuantity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:text="@string/adultnumber"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
-
-                <ImageButton
-                    android:id="@+id/btAdultPlus"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_marginTop="1dp"
-                    android:background="@drawable/ic_plus" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:text="@string/child"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
-
-                <ImageButton
-                    android:id="@+id/btChildMinus"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginTop="1dp"
-                    android:background="@drawable/ic_minus" />
-
-                <TextView
-                    android:id="@+id/tvChildQuantity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:text="@string/childnumber"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
-
-                <ImageButton
-                    android:id="@+id/btChildPlus"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_marginTop="1dp"
-                    android:background="@drawable/ic_plus" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/loAge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginBottom="5dp"
-            android:layout_marginEnd="10dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                android:text="@string/age"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
-
-            <Spinner
-                android:id="@+id/spChildAge"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:entries="@array/AgeArray"
-                android:spinnerMode="dialog"
-                android:textAlignment="center" />
-        </LinearLayout>
-    </LinearLayout>
+        android:layout_below="@+id/tvResrvationTitle"
+        android:layout_marginStart="30dp"
+        android:text="@string/first_day_selected"
+        android:textColor="@color/white"
+        android:textSize="25sp" />
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:background="@drawable/dotted_line_gray"
+        android:id="@+id/tvFirstYearSelected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvFirstDate"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/firstyear"
+        android:textColor="@color/white"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/tvFirstDaySelected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvFirstYearSelected"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="-5dp"
+        android:text="@string/firstday"
+        android:textColor="@color/white"
+        android:textSize="65sp" />
+
+    <TextView
+        android:id="@+id/tvFirstMonSelected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvFirstYearSelected"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@+id/tvFirstDaySelected"
+        android:text="@string/firstmonth"
+        android:textColor="@color/white"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/tvFirstWeekSelected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvFirstMonSelected"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@+id/tvFirstDaySelected"
         android:gravity="center"
-        android:text="@string/newbooking"
-        android:textColor="@color/lightGray"
-        android:textSize="28sp"
-        android:textStyle="bold" />
+        android:text="@string/firstweek"
+        android:textColor="@color/white"
+        android:textSize="30sp" />
+
+    <ImageView
+        android:id="@+id/ivArrow"
+        android:layout_width="105dp"
+        android:layout_height="90dp"
+        android:layout_below="@+id/tvFirstYearSelected"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="-15dp"
+        android:layout_toEndOf="@+id/tvFirstMonSelected"
+        android:background="@drawable/item_arrow" />
+
+    <!--Check out day-->
+
+    <TextView
+        android:id="@+id/tvLastDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvResrvationTitle"
+        android:layout_marginStart="125dp"
+        android:layout_toEndOf="@+id/tvFirstDate"
+        android:text="@string/last_day_selected"
+        android:textColor="@color/white"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/tvLastYearSelected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvLastDate"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@+id/ivArrow"
+        android:text="@string/lastyear"
+        android:textColor="@color/white"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/tvLastDaySelected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvLastYearSelected"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="-5dp"
+        android:layout_toEndOf="@+id/ivArrow"
+        android:text="@string/lastday"
+        android:textColor="@color/white"
+        android:textSize="65sp" />
+
+    <TextView
+        android:id="@+id/tvLastMonSelected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvFirstYearSelected"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@+id/tvLastDaySelected"
+        android:text="@string/lastmonth"
+        android:textColor="@color/white"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/tvLastWeekSelected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvLastMonSelected"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@+id/tvLastDaySelected"
+        android:text="@string/lastweek"
+        android:textColor="@color/white"
+        android:textSize="30sp" />
+
+    <!--人數選擇-->
+    <TextView
+        android:id="@+id/tvAdult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvFirstDaySelected"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
+        android:text="@string/adult"
+        android:textColor="@color/white"
+        android:textSize="30sp" />
+
+    <ImageButton
+        android:id="@+id/ibtAdultMinus"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/ivArrow"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="18dp"
+        android:layout_toEndOf="@+id/tvAdult"
+        android:background="@drawable/ic_minus" />
+
+    <TextView
+        android:id="@+id/tvAdultQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivArrow"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="18dp"
+        android:layout_toEndOf="@+id/ibtAdultMinus"
+        android:text="@string/adultnumber"
+        android:textColor="@color/white"
+        android:textSize="30sp" />
+
+    <ImageButton
+        android:id="@+id/ibtAdultPlus"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/ivArrow"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="18dp"
+        android:layout_toEndOf="@+id/tvAdultQuantity"
+        android:background="@drawable/ic_plus" />
+
+    <TextView
+        android:id="@+id/tvChild"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvAdult"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
+        android:text="@string/child"
+        android:textColor="@color/white"
+        android:textSize="30sp" />
+
+    <ImageButton
+        android:id="@+id/ibtChildMinus"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/ibtAdultMinus"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="18dp"
+        android:layout_toEndOf="@+id/tvChild"
+        android:background="@drawable/ic_minus" />
+
+    <TextView
+        android:id="@+id/tvChildQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvAdultQuantity"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="18dp"
+        android:layout_toEndOf="@+id/ibtChildMinus"
+        android:text="@string/childnumber"
+        android:textColor="@color/white"
+        android:textSize="30sp" />
+
+    <ImageButton
+        android:id="@+id/ibtChildPlus"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/ibtAdultPlus"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="18dp"
+        android:layout_toEndOf="@+id/tvChildQuantity"
+        android:background="@drawable/ic_plus" />
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:id="@+id/loAge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvChild"
+        android:layout_marginTop="15dp">
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fabBooking"
+        <TextView
+            android:id="@+id/tvAge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_gravity="end|bottom"
-            android:layout_margin="16dp"
-            android:backgroundTint="@color/lightBlue"
-            android:elevation="5dp"
-            android:tint="@android:color/white"
-            app:borderWidth="0dp"
-            app:pressedTranslationZ="10dp"
-            app:rippleColor="@color/whiteBlue"
-            app:srcCompat="@android:drawable/ic_input_add"
-            tools:ignore="RtlHardcoded"
-            tools:targetApi="lollipop" />
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp"
+            android:text="@string/age"
+            android:textColor="@color/white"
+            android:textSize="30sp" />
 
-
+        <Spinner
+            android:id="@+id/spChildAge"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_toEndOf="@+id/tvAge"
+            android:entries="@array/AgeArray"
+            android:spinnerMode="dialog"
+            android:textAlignment="textStart" />
     </RelativeLayout>
 
-</LinearLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabBooking"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="16dp"
+        android:backgroundTint="@color/lightBlue"
+        android:elevation="5dp"
+        android:tint="@android:color/white"
+        app:borderWidth="0dp"
+        app:pressedTranslationZ="10dp"
+        app:rippleColor="@color/whiteBlue"
+        app:srcCompat="@android:drawable/ic_input_add"
+        tools:ignore="RtlHardcoded"
+        tools:targetApi="lollipop" />
+</RelativeLayout>
 

@@ -29,8 +29,7 @@
     <string name="age">年齡</string>
     <string name="confirm">確 定</string>
     <string-array name="AgeArray">
-        <item>無</item>
-        <item>0歲</item>
+        <item>不到1歲</item>
         <item>1歲</item>
         <item>2歲</item>
         <item>3歲</item>
@@ -53,12 +52,13 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_calendar">CalendarActivity</string>
-    <string name="firstDay">日</string>
-    <string name="firstMonth">月</string>
-    <string name="firstWeek">週</string>
-    <string name="lastDay">日</string>
-    <string name="lastMonth">月</string>
-    <string name="lastWeek">週</string>
-    <string name="lastYear">年</string>
-    <string name="firstYear">年</string>
+    <string name="firstday">日</string>
+    <string name="firstmonth">月</string>
+    <string name="firstweek">週</string>
+    <string name="lastday">日</string>
+    <string name="lastmonth">月</string>
+    <string name="lastweek">週</string>
+    <string name="lastyear">2018</string>
+    <string name="firstyear">2018</string>
+    <string name="chooseage">請選擇孩童年齡</string>
 </resources>

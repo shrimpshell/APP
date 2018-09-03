@@ -6,7 +6,7 @@
     tools:context=".CalendarActivity">
 
 
-    <include layout="@layout/content_calendar" />
+    <include layout="@layout/content_calendar"/>
 
 
 </LinearLayout>
