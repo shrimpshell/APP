@@ -14,6 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="7dp"
         android:text="@string/booking"
         android:textColor="@color/white"
         android:textSize="24sp" />
@@ -25,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvResrvationTitle"
-        android:layout_marginStart="30dp"
+        android:layout_marginStart="35dp"
         android:text="@string/first_day_selected"
         android:textColor="@color/white"
         android:textSize="25sp" />
@@ -35,22 +37,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvFirstDate"
-        android:layout_marginStart="30dp"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="5dp"
         android:text="@string/firstyear"
         android:textColor="@color/white"
-        android:textSize="30sp" />
+        android:textSize="25sp" />
 
     <TextView
         android:id="@+id/tvFirstDaySelected"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_below="@+id/tvFirstYearSelected"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="-5dp"
+        android:gravity="center"
         android:text="@string/firstday"
         android:textColor="@color/white"
-        android:textSize="65sp" />
+        android:textSize="60sp" />
 
     <TextView
         android:id="@+id/tvFirstMonSelected"
@@ -61,7 +64,7 @@
         android:layout_toEndOf="@+id/tvFirstDaySelected"
         android:text="@string/firstmonth"
         android:textColor="@color/white"
-        android:textSize="30sp" />
+        android:textSize="25sp" />
 
     <TextView
         android:id="@+id/tvFirstWeekSelected"
@@ -73,16 +76,15 @@
         android:gravity="center"
         android:text="@string/firstweek"
         android:textColor="@color/white"
-        android:textSize="30sp" />
+        android:textSize="25sp" />
 
     <ImageView
         android:id="@+id/ivArrow"
-        android:layout_width="105dp"
-        android:layout_height="90dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="-10dp"
         android:layout_below="@+id/tvFirstYearSelected"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="-15dp"
-        android:layout_toEndOf="@+id/tvFirstMonSelected"
+        android:layout_centerHorizontal="true"
         android:background="@drawable/item_arrow" />
 
     <!--Check out day-->
@@ -92,7 +94,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvResrvationTitle"
-        android:layout_marginStart="125dp"
+        android:layout_marginStart="130dp"
         android:layout_toEndOf="@+id/tvFirstDate"
         android:text="@string/last_day_selected"
         android:textColor="@color/white"
@@ -103,24 +105,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvLastDate"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="35dp"
         android:layout_marginTop="5dp"
         android:layout_toEndOf="@+id/ivArrow"
         android:text="@string/lastyear"
         android:textColor="@color/white"
-        android:textSize="30sp" />
+        android:textSize="25sp" />
 
     <TextView
         android:id="@+id/tvLastDaySelected"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_below="@+id/tvLastYearSelected"
         android:layout_marginStart="20dp"
         android:layout_marginTop="-5dp"
         android:layout_toEndOf="@+id/ivArrow"
+        android:gravity="center"
         android:text="@string/lastday"
         android:textColor="@color/white"
-        android:textSize="65sp" />
+        android:textSize="60sp" />
 
     <TextView
         android:id="@+id/tvLastMonSelected"
@@ -131,7 +134,7 @@
         android:layout_toEndOf="@+id/tvLastDaySelected"
         android:text="@string/lastmonth"
         android:textColor="@color/white"
-        android:textSize="30sp" />
+        android:textSize="25sp" />
 
     <TextView
         android:id="@+id/tvLastWeekSelected"
@@ -142,7 +145,7 @@
         android:layout_toEndOf="@+id/tvLastDaySelected"
         android:text="@string/lastweek"
         android:textColor="@color/white"
-        android:textSize="30sp" />
+        android:textSize="25sp" />
 
     <!--人數選擇-->
     <TextView
@@ -152,7 +155,7 @@
         android:layout_below="@+id/tvFirstDaySelected"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="25dp"
         android:text="@string/adult"
         android:textColor="@color/white"
         android:textSize="30sp" />
@@ -240,26 +243,12 @@
         android:layout_below="@+id/tvChild"
         android:layout_marginTop="15dp">
 
-        <TextView
-            android:id="@+id/tvAge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="15dp"
-            android:text="@string/age"
-            android:textColor="@color/white"
-            android:textSize="30sp" />
-
-        <Spinner
-            android:id="@+id/spChildAge"
-            android:layout_width="160dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_toEndOf="@+id/tvAge"
-            android:entries="@array/AgeArray"
-            android:spinnerMode="dialog"
-            android:textAlignment="textStart" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/ageRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingBottom="72dp"></android.support.v7.widget.RecyclerView>
     </RelativeLayout>
 
     <android.support.design.widget.FloatingActionButton

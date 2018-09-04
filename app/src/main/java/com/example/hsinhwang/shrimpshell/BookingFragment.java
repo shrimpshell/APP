@@ -2,11 +2,13 @@ package com.example.hsinhwang.shrimpshell;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +20,9 @@ import android.widget.TextView;
 
 import com.example.hsinhwang.shrimpshell.Classes.ReservationDate;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class BookingFragment extends Fragment {
     private TextView tvFirstYearSelected, tvFirstDaySelected, tvFirstMonSelected, tvFirstWeekSelected,
@@ -29,6 +33,7 @@ public class BookingFragment extends Fragment {
     private String weekName;
     private RelativeLayout loAge;
     private Calendar calendar = Calendar.getInstance();
+    private RecyclerView ageRecyclerView;
     private static final String TAG = "Debug";
 
     @Override
@@ -39,11 +44,15 @@ public class BookingFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_booking, container, false);
-        handleViews(view);
+        ageRecyclerView = view.findViewById(R.id.ageRecyclerView);
+        List<AgeOptions> ageOptionsList = new ArrayList<>();
+        ageRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        ageRecyclerView.setAdapter(new AgeAdaper(inflater, ageOptionsList));
+        findViews(view);
         return view;
     }
 
-    private void handleViews(View view) {
+    private void findViews(View view) {
         FloatingActionButton fabBooking = view.findViewById(R.id.fabBooking);
         fabBooking.setOnClickListener(BookingFragmentChange_Listener);
         tvFirstYearSelected = view.findViewById(R.id.tvFirstYearSelected);
@@ -128,13 +137,51 @@ public class BookingFragment extends Fragment {
                 }
             }
         });
+    }
 
-        //使用Spinner
-        ArrayAdapter spinnerAadapter = ArrayAdapter.createFromResource(getActivity().getApplication(),
-                R.array.AgeArray, R.layout.spinner_style_booking);
-        spinnerAadapter
-                .setDropDownViewResource(R.layout.spinner_style_booking);
-        spChildAge.setAdapter(spinnerAadapter);
+    private class AgeAdaper extends RecyclerView.Adapter<AgeAdaper.ViewHolder> {
+        LayoutInflater inflater;
+        List<AgeOptions> ageOptionsList;
+        TextView tvChildAge;
+        Spinner spChildAge;
+
+        public AgeAdaper(LayoutInflater inflater, List<AgeOptions> ageOptionsList) {
+            this.inflater = inflater;
+            this.ageOptionsList = ageOptionsList;
+        }
+
+        @NonNull
+        @Override
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+            View itemview = inflater.inflate(R.layout.item_spinner_age, viewGroup, false);
+            return new ViewHolder(itemview);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+            final AgeOptions ageOptions = ageOptionsList.get(i);
+            tvChildAge.setText(ageOptions.getTvChild());
+            //使用Spinner
+            ArrayAdapter spinnerAadapter = ArrayAdapter.createFromResource(getActivity().getApplication(),
+                    R.array.AgeArray, R.layout.spinner_style_booking);
+            spinnerAadapter
+                    .setDropDownViewResource(R.layout.spinner_style_booking);
+            spChildAge.setAdapter(spinnerAadapter);
+        }
+
+        @Override
+        public int getItemCount() {
+            return ageOptionsList.size();
+        }
+
+        class ViewHolder extends RecyclerView.ViewHolder {
+
+            public ViewHolder(@NonNull View itemview) {
+                super(itemview);
+                tvChildAge = itemview.findViewById(R.id.tvChildAge);
+                spChildAge = itemview.findViewById(R.id.spChildAge);
+            }
+        }
     }
 
     private void showFirstDate() {
