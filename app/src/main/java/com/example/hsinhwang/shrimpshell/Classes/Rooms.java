@@ -1,5 +1,8 @@
 package com.example.hsinhwang.shrimpshell.Classes;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 
 public class Rooms implements Serializable {
@@ -34,4 +37,5 @@ public class Rooms implements Serializable {
     public String getRoomiDetail() {
         return roomiDetail;
     }
+
 }

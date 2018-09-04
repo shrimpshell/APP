@@ -1,6 +1,9 @@
 package com.example.hsinhwang.shrimpshell.Classes;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 import java.sql.Date;
 
@@ -43,4 +46,5 @@ public class Events implements Serializable {
     public Date getEndDate() {
         return endDate;
     }
+
 }
