@@ -46,6 +46,8 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View view) {
 
+                finish();
+
             }
         });
 
@@ -60,6 +62,7 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
                             public void onClick(DialogInterface dialog, int i) {
                                 Intent intent = new Intent(context,MainActivity.class);
                                 startActivity(intent);
+                                finish();
                             }
                         })
                         .setNegativeButton("我後悔了", new DialogInterface.OnClickListener() {
@@ -73,6 +76,7 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
+    //以下為日期選擇功能
     private void initDateTime() {
         Calendar calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);

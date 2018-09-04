@@ -52,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(context, "登入成功", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(context, MainActivity.class);
                 startActivity(intent);
+                finish();
             } else {
                 new AlertDialog.Builder(context)
                         .setTitle("SS Hotel")
