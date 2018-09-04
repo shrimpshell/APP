@@ -17,8 +17,6 @@ public class ProfileFragment extends Fragment {
     private View viewContent, view;
     private ViewPager viewPager;
 
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

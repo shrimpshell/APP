@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ManagerPanel.ManagerEditActivity"
+    android:padding="16dp"
+    android:background="@drawable/employee_home">
+
+    <TextView
+        android:id="@+id/employeeCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/employeeCode"
+        android:textSize="25sp"/>
+    <TextView
+        android:id="@+id/employeeGender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/employeeGender"
+        android:textSize="25sp"/>
+    <!--Name-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/name"
+        android:textSize="25sp"/>
+    <EditText
+        android:id="@+id/etEmployeeName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <!--email-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/email"
+        android:textSize="25sp"/>
+    <EditText
+        android:id="@+id/etEmployeeEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <!--password-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/password"
+        android:textSize="25sp"/>
+    <EditText
+        android:id="@+id/etEmployeePass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"/>
+    <!--Phone-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/phone"
+        android:textSize="25sp"/>
+    <EditText
+        android:id="@+id/etEmployeePhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <!--Address-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/address"
+        android:textSize="25sp"/>
+    <EditText
+        android:id="@+id/etEmployeeAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <Button
+        android:id="@+id/btnEmployeeSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/submit"/>
+
+</LinearLayout>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".ManagerPanel.AddEmployeeActivity"
+    android:background="@drawable/employee_home">
+
+    <TextView
+        android:id="@+id/employeeAddCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/employeeCode"
+        android:textSize="25sp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/employeeGender"
+        android:textSize="25sp"/>
+
+    <!--Name-->
+    <RadioGroup
+        android:id="@+id/employeeAddGenderGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/Male"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/male" />
+
+        <RadioButton
+            android:id="@+id/Female"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/female" />
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/name"
+        android:textSize="25sp"/>
+    <EditText
+        android:id="@+id/etEmployeeAddName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <!--email-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/email"
+        android:textSize="25sp"/>
+    <EditText
+        android:id="@+id/etEmployeeAddEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <!--password-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/password"
+        android:textSize="25sp"/>
+    <EditText
+        android:id="@+id/etEmployeeAddPass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"/>
+    <!--Phone-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/phone"
+        android:textSize="25sp"/>
+    <EditText
+        android:id="@+id/etEmployeeAddPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <!--Address-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/address"
+        android:textSize="25sp"/>
+    <EditText
+        android:id="@+id/etEmployeeAddAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <Button
+        android:id="@+id/btnEmployeeAdd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add"/>
+
+</LinearLayout>

@@ -32,20 +32,24 @@
         <activity
             android:name=".IntroductionActivity"
             android:parentActivityName=".MainActivity" />
-
         <activity
             android:name=".EventActivity"
             android:parentActivityName=".MainActivity" />
-
         <activity
             android:name=".JoinActivity"
             android:parentActivityName=".LoginActivity" />
-
-
-
         <activity android:name=".EmployeeHomeActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".RoomDetailActivity"></activity>
+        <activity android:name=".RoomDetailActivity" />
+        <activity
+            android:name=".ManagerPanel.ManagerHomeActivity"
+            android:label="@string/title_activity_manager_home"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".ManagerPanel.ManagerEditActivity" />
+        <activity android:name=".ManagerPanel.ManagerEmployeeEditActivity" />
+        <activity android:name=".ManagerPanel.AddEmployeeActivity" />
+        <activity android:name=".ManagerPanel.AddEventActivity" />
+        <activity android:name=".ManagerPanel.AddRoomActivity"></activity>
     </application>
 
 </manifest>
