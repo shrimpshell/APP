@@ -1,14 +1,13 @@
 package com.example.hsinhwang.shrimpshell.Classes;
 
-import android.widget.TextView;
-
 import java.io.Serializable;
 
 public class ReservationDate implements Serializable {
-    private TextView year, month, day, week, lastYear, lastMonth, lastDay, lastWeek;
+    private String year, month, day, week, lastYear, lastMonth, lastDay, lastWeek, adultQuantity, childQuantity;
 
-    public ReservationDate(TextView year, TextView month, TextView day, TextView week,
-                           TextView lastYear, TextView lastMonth, TextView lastDay, TextView lastWeek) {
+    public ReservationDate(String year, String month, String day, String week,
+                           String lastYear, String lastMonth, String lastDay,
+                           String lastWeek, String adultQuantity, String childQuantity) {
         this.year = year;
         this.month = month;
         this.day = day;
@@ -17,69 +16,87 @@ public class ReservationDate implements Serializable {
         this.lastMonth = lastMonth;
         this.lastDay = lastDay;
         this.lastWeek = lastWeek;
+        this.adultQuantity = adultQuantity;
+        this.childQuantity = childQuantity;
     }
 
-    public TextView getYear() {
+    public String getAdultQuantity() {
+        return adultQuantity;
+    }
+
+    public void setAdultQuantity(String adultQuantity) {
+        this.adultQuantity = adultQuantity;
+    }
+
+    public String getChildQuantity() {
+        return childQuantity;
+    }
+
+    public void setChildQuantity(String childQuantity) {
+        this.childQuantity = childQuantity;
+    }
+
+    public String getYear() {
         return year;
     }
 
-    public void setYear(TextView year) {
+    public void setYear(String year) {
         this.year = year;
     }
 
-    public TextView getMonth() {
+    public String getMonth() {
         return month;
     }
 
-    public void setMonth(TextView month) {
+    public void setMonth(String month) {
         this.month = month;
     }
 
-    public TextView getDay() {
+    public String getDay() {
         return day;
     }
 
-    public void setDay(TextView day) {
+    public void setDay(String day) {
         this.day = day;
     }
 
-    public TextView getWeek() {
+    public String getWeek() {
         return week;
     }
 
-    public void setWeek(TextView week) {
+    public void setWeek(String week) {
         this.week = week;
     }
 
-    public TextView getLastYear() {
+    public String getLastYear() {
         return lastYear;
     }
 
-    public void setLastYear(TextView lastYear) {
+    public void setLastYear(String lastYear) {
         this.lastYear = lastYear;
     }
 
-    public TextView getLastMonth() {
+    public String getLastMonth() {
         return lastMonth;
     }
 
-    public void setLastMonth(TextView lastMonth) {
+    public void setLastMonth(String lastMonth) {
         this.lastMonth = lastMonth;
     }
 
-    public TextView getLastDay() {
+    public String getLastDay() {
         return lastDay;
     }
 
-    public void setLastDay(TextView lastDay) {
+    public void setLastDay(String lastDay) {
         this.lastDay = lastDay;
     }
 
-    public TextView getLastWeek() {
+    public String getLastWeek() {
         return lastWeek;
     }
 
-    public void setLastWeek(TextView lastWeek) {
+    public void setLastWeek(String lastWeek) {
         this.lastWeek = lastWeek;
     }
 }

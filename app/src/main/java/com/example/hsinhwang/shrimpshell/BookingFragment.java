@@ -55,6 +55,8 @@ public class BookingFragment extends Fragment {
         showFirstDate();
         showLastDate();
 
+
+
         ibtAdultMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -147,12 +149,12 @@ public class BookingFragment extends Fragment {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(getActivity(), CalendarActivity.class);
-            ReservationDate date = new ReservationDate(tvFirstYearSelected, tvFirstDaySelected,
-                    tvFirstMonSelected, tvFirstWeekSelected, tvLastYearSelected, tvLastDaySelected,
-                    tvLastMonSelected, tvLastWeekSelected);
-//            Bundle bundle = new Bundle();
-//            bundle.putSerializable("reservationDate", date);
-//            intent.putExtras(bundle);
+            ReservationDate date = new ReservationDate(tvFirstYearSelected.getText().toString(), tvFirstMonSelected.getText().toString(),
+                    tvFirstDaySelected.getText().toString(), tvFirstWeekSelected.getText().toString(), tvLastYearSelected.getText().toString(), tvLastMonSelected.getText().toString(),
+                    tvLastDaySelected.getText().toString(), tvLastWeekSelected.getText().toString(),tvAdultQuantity.getText().toString(),tvChildQuantity.getText().toString());
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("reservationDate", date);
+            intent.putExtras(bundle);
             startActivity(intent);
         }
     };

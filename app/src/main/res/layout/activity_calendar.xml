@@ -6,7 +6,7 @@
     android:layout_marginStart="30dp"
     android:orientation="vertical">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
@@ -24,17 +24,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:ellipsize="end"
                 android:gravity="center"
-                android:maxLines="1"
-                android:maxWidth="250dp"
-                android:singleLine="true"
+                android:layout_gravity="center_horizontal"
                 android:text="@string/first_day_selected"
-                android:textColor="@android:color/black"
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/first_day_selected"
+                android:id="@+id/tvFirstDay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -44,7 +40,6 @@
                 android:maxWidth="250dp"
                 android:singleLine="true"
                 android:text="@string/day_month_year"
-                android:textColor="@android:color/black"
                 android:textSize="20sp" />
 
         </LinearLayout>
@@ -59,19 +54,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="6dp"
-                android:ellipsize="end"
                 android:gravity="center"
-                android:maxLines="1"
-                android:maxWidth="250dp"
                 android:singleLine="true"
                 android:text="@string/last_day_selected"
-                android:textColor="@android:color/black"
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/last_day_selected"
+                android:id="@+id/tvLastDay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -81,7 +72,6 @@
                 android:maxWidth="250dp"
                 android:singleLine="true"
                 android:text="@string/day_month_year"
-                android:textColor="@android:color/black"
                 android:textSize="20sp" />
         </LinearLayout>
     </RelativeLayout>
