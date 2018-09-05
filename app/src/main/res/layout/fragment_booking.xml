@@ -22,114 +22,125 @@
 
     <!--住房時間選擇-->
     <!--Checking Day-->
-    <TextView
-        android:id="@+id/tvFirstDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <RelativeLayout
+        android:id="@+id/rlFirstDate"
+        android:layout_width="125dp"
+        android:layout_height="160dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
         android:layout_below="@+id/tvResrvationTitle"
-        android:layout_marginStart="35dp"
-        android:text="@string/first_day_selected"
-        android:textColor="@color/white"
-        android:textSize="25sp" />
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tvFirstYearSelected"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvFirstDate"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="5dp"
-        android:text="@string/firstyear"
-        android:textColor="@color/white"
-        android:textSize="25sp" />
+        <TextView
+            android:id="@+id/tvFirstDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:text="@string/first_day_selected"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/tvFirstDaySelected"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_below="@+id/tvFirstYearSelected"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="-5dp"
-        android:gravity="center"
-        android:text="@string/firstday"
-        android:textColor="@color/white"
-        android:textSize="60sp" />
+        <TextView
+            android:id="@+id/tvFirstYearSelected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="5dp"
+            android:text="@string/firstyear"
+            android:layout_below="@+id/tvFirstDate"
+            android:textColor="@color/white"
+            android:textSize="25sp" />
 
-    <TextView
-        android:id="@+id/tvFirstMonSelected"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tvFirstYearSelected"
-        android:layout_marginStart="5dp"
-        android:layout_toEndOf="@+id/tvFirstDaySelected"
-        android:text="@string/firstmonth"
-        android:textColor="@color/white"
-        android:textSize="25sp" />
+        <TextView
+            android:id="@+id/tvFirstDaySelected"
+            android:layout_width="60dp"
+            android:layout_height="80dp"
+            android:layout_below="@+id/tvFirstYearSelected"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="-5dp"
+            android:gravity="center"
+            android:text="@string/firstday"
+            android:textColor="@color/white"
+            android:textSize="65sp" />
 
-    <TextView
-        android:id="@+id/tvFirstWeekSelected"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvFirstMonSelected"
-        android:layout_marginStart="5dp"
-        android:layout_toEndOf="@+id/tvFirstDaySelected"
-        android:gravity="center"
-        android:text="@string/firstweek"
-        android:textColor="@color/white"
-        android:textSize="25sp" />
+        <TextView
+            android:id="@+id/tvFirstMonSelected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvFirstYearSelected"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@+id/tvFirstDaySelected"
+            android:text="@string/firstmonth"
+            android:textColor="@color/white"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/tvFirstWeekSelected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvFirstMonSelected"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@+id/tvFirstDaySelected"
+            android:gravity="center"
+            android:text="@string/firstweek"
+            android:textColor="@color/white"
+            android:textSize="25sp" />
+    </RelativeLayout>
 
     <ImageView
         android:id="@+id/ivArrow"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginTop="-10dp"
-        android:layout_below="@+id/tvFirstYearSelected"
+        android:layout_alignBottom="@+id/rlFirstDate"
         android:layout_centerHorizontal="true"
         android:background="@drawable/item_arrow" />
 
     <!--Check out day-->
+    <RelativeLayout
+        android:id="@+id/rlLastDate"
+        android:layout_width="125dp"
+        android:layout_height="160dp"
+        android:layout_marginStart="10dp"
+        android:layout_below="@+id/tvResrvationTitle"
+        android:layout_toEndOf="@+id/ivArrow" >
 
     <TextView
         android:id="@+id/tvLastDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvResrvationTitle"
-        android:layout_marginStart="130dp"
-        android:layout_toEndOf="@+id/tvFirstDate"
+        android:layout_marginStart="25dp"
         android:text="@string/last_day_selected"
         android:textColor="@color/white"
-        android:textSize="25sp" />
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/tvLastYearSelected"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvLastDate"
-        android:layout_marginStart="35dp"
+        android:layout_marginStart="25dp"
         android:layout_marginTop="5dp"
-        android:layout_toEndOf="@+id/ivArrow"
         android:text="@string/lastyear"
         android:textColor="@color/white"
         android:textSize="25sp" />
 
     <TextView
         android:id="@+id/tvLastDaySelected"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="60dp"
+        android:layout_height="80dp"
         android:layout_below="@+id/tvLastYearSelected"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="-5dp"
-        android:layout_toEndOf="@+id/ivArrow"
         android:gravity="center"
         android:text="@string/lastday"
         android:textColor="@color/white"
-        android:textSize="60sp" />
+        android:textSize="65sp" />
 
     <TextView
         android:id="@+id/tvLastMonSelected"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvFirstYearSelected"
+        android:layout_below="@+id/tvLastYearSelected"
         android:layout_marginStart="5dp"
         android:layout_toEndOf="@+id/tvLastDaySelected"
         android:text="@string/lastmonth"
@@ -146,16 +157,16 @@
         android:text="@string/lastweek"
         android:textColor="@color/white"
         android:textSize="25sp" />
-
+</RelativeLayout>
     <!--人數選擇-->
     <TextView
         android:id="@+id/tvAdult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvFirstDaySelected"
+        android:layout_below="@+id/rlFirstDate"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="20dp"
         android:text="@string/adult"
         android:textColor="@color/white"
         android:textSize="30sp" />
@@ -236,21 +247,6 @@
         android:layout_toEndOf="@+id/tvChildQuantity"
         android:background="@drawable/ic_plus" />
 
-    <RelativeLayout
-        android:id="@+id/loAge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvChild"
-        android:layout_marginTop="15dp">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/ageRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:paddingBottom="72dp"></android.support.v7.widget.RecyclerView>
-    </RelativeLayout>
-
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabBooking"
         android:layout_width="wrap_content"
@@ -266,7 +262,7 @@
         app:borderWidth="0dp"
         app:pressedTranslationZ="10dp"
         app:rippleColor="@color/whiteBlue"
-        app:srcCompat="@android:drawable/ic_input_add"
+        app:srcCompat="@drawable/ic_chevron_right"
         tools:ignore="RtlHardcoded"
         tools:targetApi="lollipop" />
 </RelativeLayout>

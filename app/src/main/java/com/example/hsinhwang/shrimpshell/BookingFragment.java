@@ -2,38 +2,24 @@ package com.example.hsinhwang.shrimpshell;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.hsinhwang.shrimpshell.Classes.ReservationDate;
-
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 public class BookingFragment extends Fragment {
     private TextView tvFirstYearSelected, tvFirstDaySelected, tvFirstMonSelected, tvFirstWeekSelected,
             tvLastYearSelected, tvLastDaySelected, tvLastMonSelected, tvLastWeekSelected,
             tvAdultQuantity, tvChildQuantity;
     private ImageButton ibtAdultMinus, ibtAdultplus, ibtChildMinus, ibtChildplus;
-    private Spinner spChildAge;
     private String weekName;
-    private RelativeLayout loAge;
     private Calendar calendar = Calendar.getInstance();
-    private RecyclerView ageRecyclerView;
     private static final String TAG = "Debug";
 
     @Override
@@ -44,15 +30,11 @@ public class BookingFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_booking, container, false);
-        ageRecyclerView = view.findViewById(R.id.ageRecyclerView);
-        List<AgeOptions> ageOptionsList = new ArrayList<>();
-        ageRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        ageRecyclerView.setAdapter(new AgeAdaper(inflater, ageOptionsList));
-        findViews(view);
+        handleViews(view);
         return view;
     }
 
-    private void findViews(View view) {
+    private void handleViews(View view) {
         FloatingActionButton fabBooking = view.findViewById(R.id.fabBooking);
         fabBooking.setOnClickListener(BookingFragmentChange_Listener);
         tvFirstYearSelected = view.findViewById(R.id.tvFirstYearSelected);
@@ -69,15 +51,6 @@ public class BookingFragment extends Fragment {
         ibtAdultplus = view.findViewById(R.id.ibtAdultPlus);
         ibtChildMinus = view.findViewById(R.id.ibtChildMinus);
         ibtChildplus = view.findViewById(R.id.ibtChildPlus);
-        spChildAge = view.findViewById(R.id.spChildAge);
-        loAge = view.findViewById(R.id.loAge);
-
-        int childQuantity = Integer.parseInt(tvChildQuantity.getText().toString());
-        if (childQuantity == 0) {
-            loAge.setVisibility(View.GONE);
-        } else {
-            loAge.setVisibility(View.VISIBLE);
-        }
 
         showFirstDate();
         showLastDate();
@@ -117,71 +90,6 @@ public class BookingFragment extends Fragment {
                 tvChildQuantity.setText(String.valueOf(childQuantity + 1));
             }
         });
-
-        tvChildQuantity.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                int childQuantity = Integer.parseInt(tvChildQuantity.getText().toString());
-                if (childQuantity > 0) {
-                    loAge.setVisibility(View.VISIBLE);
-                } else {
-                    loAge.setVisibility(View.GONE);
-                }
-            }
-        });
-    }
-
-    private class AgeAdaper extends RecyclerView.Adapter<AgeAdaper.ViewHolder> {
-        LayoutInflater inflater;
-        List<AgeOptions> ageOptionsList;
-        TextView tvChildAge;
-        Spinner spChildAge;
-
-        public AgeAdaper(LayoutInflater inflater, List<AgeOptions> ageOptionsList) {
-            this.inflater = inflater;
-            this.ageOptionsList = ageOptionsList;
-        }
-
-        @NonNull
-        @Override
-        public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-            View itemview = inflater.inflate(R.layout.item_spinner_age, viewGroup, false);
-            return new ViewHolder(itemview);
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-            final AgeOptions ageOptions = ageOptionsList.get(i);
-            tvChildAge.setText(ageOptions.getTvChild());
-            //使用Spinner
-            ArrayAdapter spinnerAadapter = ArrayAdapter.createFromResource(getActivity().getApplication(),
-                    R.array.AgeArray, R.layout.spinner_style_booking);
-            spinnerAadapter
-                    .setDropDownViewResource(R.layout.spinner_style_booking);
-            spChildAge.setAdapter(spinnerAadapter);
-        }
-
-        @Override
-        public int getItemCount() {
-            return ageOptionsList.size();
-        }
-
-        class ViewHolder extends RecyclerView.ViewHolder {
-
-            public ViewHolder(@NonNull View itemview) {
-                super(itemview);
-                tvChildAge = itemview.findViewById(R.id.tvChildAge);
-                spChildAge = itemview.findViewById(R.id.spChildAge);
-            }
-        }
     }
 
     private void showFirstDate() {
