@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp"
+    android:layout_margin="10dp"
     tools:context=".BookingFragment">
 
     <!--標題-->
@@ -261,7 +261,7 @@
         android:tint="@android:color/white"
         app:borderWidth="0dp"
         app:pressedTranslationZ="10dp"
-        app:rippleColor="@color/whiteBlue"
+        app:rippleColor="@color/white"
         app:srcCompat="@drawable/ic_chevron_right"
         tools:ignore="RtlHardcoded"
         tools:targetApi="lollipop" />

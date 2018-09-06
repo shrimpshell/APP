@@ -8,9 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.hsinhwang.shrimpshell.Classes.ReservationDate;
+
 import java.util.Calendar;
 
 public class BookingFragment extends Fragment {
@@ -20,6 +22,7 @@ public class BookingFragment extends Fragment {
     private ImageButton ibtAdultMinus, ibtAdultplus, ibtChildMinus, ibtChildplus;
     private String weekName;
     private Calendar calendar = Calendar.getInstance();
+    private RelativeLayout rlFirstDate, rlLastDate;
     private static final String TAG = "Debug";
 
     @Override
@@ -35,6 +38,8 @@ public class BookingFragment extends Fragment {
     }
 
     private void handleViews(View view) {
+        rlFirstDate = view.findViewById(R.id.rlFirstDate);
+        rlLastDate = view.findViewById(R.id.rlLastDate);
         FloatingActionButton fabBooking = view.findViewById(R.id.fabBooking);
         fabBooking.setOnClickListener(BookingFragmentChange_Listener);
         tvFirstYearSelected = view.findViewById(R.id.tvFirstYearSelected);
@@ -55,7 +60,33 @@ public class BookingFragment extends Fragment {
         showFirstDate();
         showLastDate();
 
+        rlFirstDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), CalendarActivity.class);
+                ReservationDate date = new ReservationDate(tvFirstYearSelected.getText().toString(), tvFirstMonSelected.getText().toString(),
+                        tvFirstDaySelected.getText().toString(), tvFirstWeekSelected.getText().toString(), tvLastYearSelected.getText().toString(), tvLastMonSelected.getText().toString(),
+                        tvLastDaySelected.getText().toString(), tvLastWeekSelected.getText().toString(), tvAdultQuantity.getText().toString(), tvChildQuantity.getText().toString());
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("reservationDate", date);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
 
+        rlLastDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), CalendarActivity.class);
+                ReservationDate date = new ReservationDate(tvFirstYearSelected.getText().toString(), tvFirstMonSelected.getText().toString(),
+                        tvFirstDaySelected.getText().toString(), tvFirstWeekSelected.getText().toString(), tvLastYearSelected.getText().toString(), tvLastMonSelected.getText().toString(),
+                        tvLastDaySelected.getText().toString(), tvLastWeekSelected.getText().toString(), tvAdultQuantity.getText().toString(), tvChildQuantity.getText().toString());
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("reservationDate", date);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
 
         ibtAdultMinus.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,10 +179,10 @@ public class BookingFragment extends Fragment {
     FloatingActionButton.OnClickListener BookingFragmentChange_Listener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(getActivity(), CalendarActivity.class);
+            Intent intent = new Intent(getActivity(), RoomChooseActivity.class);
             ReservationDate date = new ReservationDate(tvFirstYearSelected.getText().toString(), tvFirstMonSelected.getText().toString(),
                     tvFirstDaySelected.getText().toString(), tvFirstWeekSelected.getText().toString(), tvLastYearSelected.getText().toString(), tvLastMonSelected.getText().toString(),
-                    tvLastDaySelected.getText().toString(), tvLastWeekSelected.getText().toString(),tvAdultQuantity.getText().toString(),tvChildQuantity.getText().toString());
+                    tvLastDaySelected.getText().toString(), tvLastWeekSelected.getText().toString(), tvAdultQuantity.getText().toString(), tvChildQuantity.getText().toString());
             Bundle bundle = new Bundle();
             bundle.putSerializable("reservationDate", date);
             intent.putExtras(bundle);
