@@ -5,8 +5,9 @@
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ManagerPanel.ManagerHomeActivity$PlaceholderFragment"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@drawable/employee_home_background"
+    tools:context=".ManagerPanel.ManagerHomeActivity$PlaceholderFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/managerRecyclerView"

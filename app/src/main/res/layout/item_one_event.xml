@@ -9,11 +9,11 @@
     android:layout_marginRight="5dp"
     app:cardElevation="6dp">
 
-    <RelativeLayout
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/eventItem"
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="130dp"
+        android:background="@color/rvEven"
         android:padding="10dp"
         tools:context=".MainActivity">
 
@@ -28,8 +28,10 @@
             android:id="@+id/eventTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/eventImageView"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/eventImageView"
             android:paddingLeft="5dp"
+            android:textColor="@android:color/black"
             android:text="Event"/>
 
     </RelativeLayout>

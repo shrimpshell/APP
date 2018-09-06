@@ -23,12 +23,12 @@
             android:layout_height="wrap_content"
             android:id="@+id/main_title"
             android:textSize="36dp"
-            android:textColor="#FFFFFF"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="50dp"
-            android:shadowColor="#000000"
-            android:shadowDx="5"
-            android:shadowDy="5"
+            android:textColor="#000000"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="40dp"
+            android:shadowColor="#FFFFFF"
+            android:shadowDx="3"
+            android:shadowDy="3"
             android:shadowRadius="1"
             android:text="Title"/>
 

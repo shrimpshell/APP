@@ -7,12 +7,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".EventActivity"
-    android:background="@drawable/employee_home">
+    android:background="@drawable/customer_detail_background"
+    tools:context=".EventActivity">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
         app:cardCornerRadius="12dp"
         app:cardElevation="6dp">
 
@@ -21,7 +22,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
             android:orientation="vertical"
-            android:paddingTop="60dp">
+            android:paddingTop="60dp"
+            android:background="@color/atBackground">
 
             <ImageView
                 android:id="@+id/imageView"
@@ -42,6 +44,8 @@
                     android:id="@+id/eventPageTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white"
                     android:text="Name"
                     android:textSize="25sp" />
 
