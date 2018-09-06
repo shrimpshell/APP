@@ -1,4 +1,4 @@
-package com.example.hsinhwang.shrimpshell;
+package com.example.hsinhwang.shrimpshell.CustomerPanel;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Toast;
+
+import com.example.hsinhwang.shrimpshell.R;
 
 public class ProfileCommentFragment extends Fragment {
     private Button btCommentCancel, btCommentOK;

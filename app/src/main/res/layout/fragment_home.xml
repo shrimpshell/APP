@@ -20,7 +20,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="最新活動"
+                android:text="@string/lastest_events"
                 android:textSize="24dp"
                 android:textColor="#FFFFFF"
                 android:layout_marginBottom="10dp"/>
@@ -32,7 +32,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="房間預覽"
+                android:text="@string/rooms"
                 android:textSize="24dp"
                 android:textColor="#FFFFFF"
                 android:layout_marginBottom="10dp"/>
@@ -44,8 +44,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="地理位置"
+                android:text="@string/location"
                 android:textSize="24dp"
+                android:textColor="#FFFFFF"
                 android:layout_marginBottom="10dp"/>
 
             <fragment

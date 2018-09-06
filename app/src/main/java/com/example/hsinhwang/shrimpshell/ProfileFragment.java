@@ -10,11 +10,16 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.hsinhwang.shrimpshell.CustomerPanel.ProfileCommentFragment;
+import com.example.hsinhwang.shrimpshell.CustomerPanel.ProfileInformationFragment;
+import com.example.hsinhwang.shrimpshell.CustomerPanel.ProfileReceiptFragment;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProfileFragment extends Fragment {
-    private View viewContent, view;
+    private View view;
     private ViewPager viewPager;
 
     @Override
@@ -26,7 +31,7 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_profile, container, false);
-        ViewPager viewPager = (ViewPager) view.findViewById(R.id.pager);
+        viewPager = (ViewPager) view.findViewById(R.id.pager);
         Adapter adapter = new Adapter(getChildFragmentManager());
         adapter.addFragment(new ProfileInformationFragment(), "會員資訊");
         adapter.addFragment(new ProfileReceiptFragment(), "消費明細");
