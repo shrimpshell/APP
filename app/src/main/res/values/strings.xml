@@ -63,7 +63,8 @@
     <string name="adultnumber">2</string>
     <string name="childnumber">0</string>
     <string name="age">年齡</string>
-    <string name="confirm">確 定</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
     <string-array name="AgeArray">
         <item>不到1歲</item>
         <item>1歲</item>
@@ -114,6 +115,9 @@
     <string name="roomTypePrice">3,800</string>
     <string name="roomTypeQTitle">數量</string>
     <string name="roomTypeQuantity">1</string>
+
+    <string name="title_exit">Exit</string>
+    <string name="confirm_exit">Are you sure you want to exit?</string>
 </resources>
 
 
