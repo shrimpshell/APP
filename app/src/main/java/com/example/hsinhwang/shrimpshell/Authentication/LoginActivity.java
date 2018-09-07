@@ -1,4 +1,4 @@
-package com.example.hsinhwang.shrimpshell;
+package com.example.hsinhwang.shrimpshell.Authentication;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +12,9 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.hsinhwang.shrimpshell.MainActivity;
+import com.example.hsinhwang.shrimpshell.R;
 
 public class LoginActivity extends AppCompatActivity {
     private Window window;
@@ -52,6 +55,7 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(context, "登入成功", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(context, MainActivity.class);
                 startActivity(intent);
+                finish();
             } else {
                 new AlertDialog.Builder(context)
                         .setTitle("SS Hotel")

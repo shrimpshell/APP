@@ -1,4 +1,4 @@
-package com.example.hsinhwang.shrimpshell;
+package com.example.hsinhwang.shrimpshell.Authentication;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -11,6 +11,9 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.example.hsinhwang.shrimpshell.MainActivity;
+import com.example.hsinhwang.shrimpshell.R;
 
 import java.util.Calendar;
 
@@ -46,6 +49,8 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View view) {
 
+                finish();
+
             }
         });
 
@@ -60,6 +65,7 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
                             public void onClick(DialogInterface dialog, int i) {
                                 Intent intent = new Intent(context,MainActivity.class);
                                 startActivity(intent);
+                                finish();
                             }
                         })
                         .setNegativeButton("我後悔了", new DialogInterface.OnClickListener() {
@@ -73,6 +79,7 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
+    //以下為日期選擇功能
     private void initDateTime() {
         Calendar calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);

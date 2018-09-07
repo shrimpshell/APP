@@ -1,4 +1,4 @@
-package com.example.hsinhwang.shrimpshell;
+package com.example.hsinhwang.shrimpshell.CustomerPanel;
 
 public class ProfileReceiptDetail {
     private String title, detail;

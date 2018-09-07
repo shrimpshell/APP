@@ -1,6 +1,5 @@
 package com.example.hsinhwang.shrimpshell;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -12,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.Window;
+
+import com.example.hsinhwang.shrimpshell.Classes.LogIn;
 
 public class MainActivity extends AppCompatActivity {
     private Window window;
@@ -35,21 +36,15 @@ public class MainActivity extends AppCompatActivity {
                     setTitle(R.string.reserved);
                     return true;
                 case R.id.item_profile:
-                    if (!login) {
-                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                        startActivity(intent);
-                    } else {
-                        fragment = new ProfileFragment();
-                        changeFragment(fragment);
-                        setTitle(R.string.profile);
-                    }
+                    fragment = new ProfileFragment();
+                    changeFragment(fragment);
+                    setTitle(R.string.profile);
                     return true;
                 default:
                     item.setChecked(true);
                     initContent();
-                    break;
+                    return true;
             }
-            return false;
         }
 
     };
@@ -58,16 +53,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        initialization();
         initContent();
+        initialization();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        navigation.setSelectedItemId(R.id.item_home);
-        initContent();
+        if (!LogIn.CustomerLogIn() && !LogIn.EmployeeLogIn()){
+            initContent();
+            navigation.setSelectedItemId(R.id.item_home);
+        }
+
     }
 
     private void initialization() {

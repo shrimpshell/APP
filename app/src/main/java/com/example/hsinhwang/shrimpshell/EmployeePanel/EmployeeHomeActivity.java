@@ -1,4 +1,4 @@
-package com.example.hsinhwang.shrimpshell;
+package com.example.hsinhwang.shrimpshell.EmployeePanel;
 
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +9,8 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import com.example.hsinhwang.shrimpshell.R;
 
 public class EmployeeHomeActivity extends AppCompatActivity {
     private Window window;

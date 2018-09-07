@@ -15,7 +15,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.hsinhwang.shrimpshell.Classes.Events;
-import com.example.hsinhwang.shrimpshell.EventActivity;
 import com.example.hsinhwang.shrimpshell.R;
 
 import java.sql.Date;

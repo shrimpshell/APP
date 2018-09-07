@@ -7,6 +7,7 @@
     <!-- 以下為位置資訊應用 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -30,18 +31,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".IntroductionActivity"
+            android:name=".GeneralPages.IntroductionActivity"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".EventActivity"
+            android:name=".GeneralPages.EventActivity"
             android:parentActivityName=".MainActivity" />
         <activity
+
             android:name=".JoinActivity"
             android:parentActivityName=".LoginActivity" />
         <activity android:name=".EmployeeHomeActivity" />
         <activity android:name=".LoginActivity" />
-<<<<<<< HEAD
-        <activity android:name=".RoomDetailActivity" />
+
         <activity
             android:name=".ManagerPanel.ManagerHomeActivity"
             android:label="@string/title_activity_manager_home"
@@ -51,7 +52,7 @@
         <activity android:name=".ManagerPanel.AddEmployeeActivity" />
         <activity android:name=".ManagerPanel.AddEventActivity" />
         <activity android:name=".ManagerPanel.AddRoomActivity"></activity>
-=======
+
         <activity
             android:name=".CalendarActivity"
             android:label="@string/title_activity_calendar"
@@ -60,7 +61,7 @@
             android:name=".RoomChooseActivity"
             android:label="@string/title_activity_room_choose"
             android:theme="@style/AppTheme"></activity>
->>>>>>> branch_1
+
     </application>
 
 </manifest>
