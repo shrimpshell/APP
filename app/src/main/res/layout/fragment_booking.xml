@@ -1,15 +1,269 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BookingFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_margin="10dp"
+    tools:context=".BookingFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <!--標題-->
     <TextView
+        android:id="@+id/tvResrvationTitle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Booking" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="7dp"
+        android:text="@string/booking"
+        android:textColor="@color/white"
+        android:textSize="24sp" />
 
-</LinearLayout>
+    <!--住房時間選擇-->
+    <!--Checking Day-->
+    <RelativeLayout
+        android:id="@+id/rlFirstDate"
+        android:layout_width="125dp"
+        android:layout_height="160dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_below="@+id/tvResrvationTitle"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvFirstDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:text="@string/first_day_selected"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tvFirstYearSelected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="5dp"
+            android:text="@string/firstyear"
+            android:layout_below="@+id/tvFirstDate"
+            android:textColor="@color/white"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/tvFirstDaySelected"
+            android:layout_width="60dp"
+            android:layout_height="80dp"
+            android:layout_below="@+id/tvFirstYearSelected"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="-5dp"
+            android:gravity="center"
+            android:text="@string/firstday"
+            android:textColor="@color/white"
+            android:textSize="65sp" />
+
+        <TextView
+            android:id="@+id/tvFirstMonSelected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvFirstYearSelected"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@+id/tvFirstDaySelected"
+            android:text="@string/firstmonth"
+            android:textColor="@color/white"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/tvFirstWeekSelected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvFirstMonSelected"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@+id/tvFirstDaySelected"
+            android:gravity="center"
+            android:text="@string/firstweek"
+            android:textColor="@color/white"
+            android:textSize="25sp" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/ivArrow"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignBottom="@+id/rlFirstDate"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/item_arrow" />
+
+    <!--Check out day-->
+    <RelativeLayout
+        android:id="@+id/rlLastDate"
+        android:layout_width="125dp"
+        android:layout_height="160dp"
+        android:layout_marginStart="10dp"
+        android:layout_below="@+id/tvResrvationTitle"
+        android:layout_toEndOf="@+id/ivArrow" >
+
+    <TextView
+        android:id="@+id/tvLastDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:text="@string/last_day_selected"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/tvLastYearSelected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvLastDate"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/lastyear"
+        android:textColor="@color/white"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/tvLastDaySelected"
+        android:layout_width="60dp"
+        android:layout_height="80dp"
+        android:layout_below="@+id/tvLastYearSelected"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="-5dp"
+        android:gravity="center"
+        android:text="@string/lastday"
+        android:textColor="@color/white"
+        android:textSize="65sp" />
+
+    <TextView
+        android:id="@+id/tvLastMonSelected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvLastYearSelected"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@+id/tvLastDaySelected"
+        android:text="@string/lastmonth"
+        android:textColor="@color/white"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/tvLastWeekSelected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvLastMonSelected"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@+id/tvLastDaySelected"
+        android:text="@string/lastweek"
+        android:textColor="@color/white"
+        android:textSize="25sp" />
+</RelativeLayout>
+    <!--人數選擇-->
+    <TextView
+        android:id="@+id/tvAdult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rlFirstDate"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/adult"
+        android:textColor="@color/white"
+        android:textSize="30sp" />
+
+    <ImageButton
+        android:id="@+id/ibtAdultMinus"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/ivArrow"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="18dp"
+        android:layout_toEndOf="@+id/tvAdult"
+        android:background="@drawable/ic_minus" />
+
+    <TextView
+        android:id="@+id/tvAdultQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivArrow"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="18dp"
+        android:layout_toEndOf="@+id/ibtAdultMinus"
+        android:text="@string/adultnumber"
+        android:textColor="@color/white"
+        android:textSize="30sp" />
+
+    <ImageButton
+        android:id="@+id/ibtAdultPlus"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/ivArrow"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="18dp"
+        android:layout_toEndOf="@+id/tvAdultQuantity"
+        android:background="@drawable/ic_plus" />
+
+    <TextView
+        android:id="@+id/tvChild"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvAdult"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
+        android:text="@string/child"
+        android:textColor="@color/white"
+        android:textSize="30sp" />
+
+    <ImageButton
+        android:id="@+id/ibtChildMinus"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/ibtAdultMinus"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="18dp"
+        android:layout_toEndOf="@+id/tvChild"
+        android:background="@drawable/ic_minus" />
+
+    <TextView
+        android:id="@+id/tvChildQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvAdultQuantity"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="18dp"
+        android:layout_toEndOf="@+id/ibtChildMinus"
+        android:text="@string/childnumber"
+        android:textColor="@color/white"
+        android:textSize="30sp" />
+
+    <ImageButton
+        android:id="@+id/ibtChildPlus"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/ibtAdultPlus"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="18dp"
+        android:layout_toEndOf="@+id/tvChildQuantity"
+        android:background="@drawable/ic_plus" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabBooking"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="16dp"
+        android:backgroundTint="@color/lightBlue"
+        android:elevation="5dp"
+        android:tint="@android:color/white"
+        app:borderWidth="0dp"
+        app:pressedTranslationZ="10dp"
+        app:rippleColor="@color/white"
+        app:srcCompat="@drawable/ic_chevron_right"
+        tools:ignore="RtlHardcoded"
+        tools:targetApi="lollipop" />
+</RelativeLayout>
+

@@ -40,6 +40,7 @@
             android:parentActivityName=".LoginActivity" />
         <activity android:name=".EmployeeHomeActivity" />
         <activity android:name=".LoginActivity" />
+<<<<<<< HEAD
         <activity android:name=".RoomDetailActivity" />
         <activity
             android:name=".ManagerPanel.ManagerHomeActivity"
@@ -50,6 +51,16 @@
         <activity android:name=".ManagerPanel.AddEmployeeActivity" />
         <activity android:name=".ManagerPanel.AddEventActivity" />
         <activity android:name=".ManagerPanel.AddRoomActivity"></activity>
+=======
+        <activity
+            android:name=".CalendarActivity"
+            android:label="@string/title_activity_calendar"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".RoomChooseActivity"
+            android:label="@string/title_activity_room_choose"
+            android:theme="@style/AppTheme"></activity>
+>>>>>>> branch_1
     </application>
 
 </manifest>
