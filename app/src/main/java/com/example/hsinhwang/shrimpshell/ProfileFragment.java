@@ -1,6 +1,7 @@
 package com.example.hsinhwang.shrimpshell;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,7 @@ import com.example.hsinhwang.shrimpshell.CustomerPanel.ProfileReceiptFragment;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class ProfileFragment extends Fragment {
     private View view;
@@ -39,7 +41,6 @@ public class ProfileFragment extends Fragment {
         viewPager.setAdapter(adapter);
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
-
         return view;
     }
 

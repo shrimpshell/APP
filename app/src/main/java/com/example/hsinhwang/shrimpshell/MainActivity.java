@@ -1,5 +1,6 @@
 package com.example.hsinhwang.shrimpshell;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -13,6 +14,7 @@ import android.view.MenuItem;
 import android.view.Window;
 
 import com.example.hsinhwang.shrimpshell.Classes.LogIn;
+import com.example.hsinhwang.shrimpshell.EmployeePanel.EmployeeHomeActivity;
 
 public class MainActivity extends AppCompatActivity {
     private Window window;
@@ -36,9 +38,15 @@ public class MainActivity extends AppCompatActivity {
                     setTitle(R.string.reserved);
                     return true;
                 case R.id.item_profile:
-                    fragment = new ProfileFragment();
-                    changeFragment(fragment);
-                    setTitle(R.string.profile);
+                    if (LogIn.EmployeeLogIn()) {
+                        Intent intent = new Intent(MainActivity.this, EmployeeHomeActivity.class);
+                        startActivity(intent);
+                    } else {
+                        fragment = new ProfileFragment();
+                        changeFragment(fragment);
+                        setTitle(R.string.profile);
+                    }
+
                     return true;
                 default:
                     item.setChecked(true);
@@ -60,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if (!LogIn.CustomerLogIn() && !LogIn.EmployeeLogIn()){
+        if (!LogIn.CustomerLogIn()){
             initContent();
             navigation.setSelectedItemId(R.id.item_home);
         }

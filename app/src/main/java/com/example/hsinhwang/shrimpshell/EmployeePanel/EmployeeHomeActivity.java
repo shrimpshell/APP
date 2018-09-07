@@ -1,5 +1,6 @@
 package com.example.hsinhwang.shrimpshell.EmployeePanel;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.hsinhwang.shrimpshell.ManagerPanel.ManagerHomeActivity;
 import com.example.hsinhwang.shrimpshell.R;
 
 public class EmployeeHomeActivity extends AppCompatActivity {
@@ -52,7 +54,9 @@ public class EmployeeHomeActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(EmployeeHomeActivity.this, "工作進度", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(EmployeeHomeActivity.this, "工作進度", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(EmployeeHomeActivity.this, ManagerHomeActivity.class);
+                startActivity(intent);
             }
         });
         employHomeBottom.addView(btn);
