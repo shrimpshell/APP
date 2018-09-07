@@ -1,4 +1,4 @@
-package com.example.hsinhwang.shrimpshell;
+package com.example.hsinhwang.shrimpshell.Authentication;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -11,6 +11,9 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.example.hsinhwang.shrimpshell.MainActivity;
+import com.example.hsinhwang.shrimpshell.R;
 
 import java.util.Calendar;
 

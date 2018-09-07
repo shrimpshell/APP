@@ -1,4 +1,4 @@
-package com.example.hsinhwang.shrimpshell;
+package com.example.hsinhwang.shrimpshell.GeneralPages;
 
 import android.graphics.Color;
 import android.os.Build;
@@ -7,14 +7,17 @@ import android.os.Bundle;
 import android.view.Window;
 import android.widget.TextView;
 
-public class RoomDetailActivity extends AppCompatActivity {
+import com.example.hsinhwang.shrimpshell.R;
+
+public class EventActivity extends AppCompatActivity {
     private Window window;
     private TextView textView;
+    // 活動頁面修改 改好玩的
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_room_detail);
+        setContentView(R.layout.activity_event);
         initialization();
         handleBundle();
     }
@@ -24,14 +27,14 @@ public class RoomDetailActivity extends AppCompatActivity {
             window = getWindow();
             window.setStatusBarColor(Color.parseColor("#01728B"));
         }
-        textView = findViewById(R.id.roomPageTextView);
+        textView = findViewById(R.id.eventPageTextView);
     }
 
     private void handleBundle() {
         Bundle bundle = getIntent().getExtras();
         String text = "Data error!!";
         if (bundle != null) {
-            Object score = bundle.getSerializable("room");
+            Object score = bundle.getSerializable("event");
             if (score != null) {
                 text = score.toString();
             }

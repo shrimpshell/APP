@@ -5,12 +5,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/customer_detail_background1"
     tools:context=".MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingTop="16dp">
 
         <TextView
             android:id="@+id/txJoinMyProfile"
@@ -19,8 +21,10 @@
             android:layout_gravity=""
             android:layout_marginTop="6dp"
             android:layout_marginLeft="10dp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
             android:text="MyProfile"
-            android:textSize="30sp" />
+            android:textSize="25sp" />
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -117,9 +121,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="生日"
                 android:drawableLeft="@drawable/cake24"
-                android:drawablePadding="15dp"/>
+                android:drawablePadding="10dp"
+                android:text="生日" />
 
             <TextView
                 android:id="@+id/tvDate"
@@ -171,25 +175,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:paddingTop="20dp">
 
 
             <Button
                 android:id="@+id/btJoinCancel"
-                android:layout_width="wrap_content"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                android:text="取消"
+                android:background="@color/atBackground"
                 android:drawableRight="@drawable/close24"
-                android:background="@color/colorGray"/>
+                android:textSize="20sp"
+                android:text="取  消" />
 
             <Button
                 android:id="@+id/btJoinCecked"
-                android:layout_width="wrap_content"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="50dp"
-                android:text="確認"
+                android:background="@color/atBackground"
                 android:drawableRight="@drawable/checked24"
-                android:background="@color/colorGray"/>
+                android:text="確  認"
+                android:textSize="20sp" />
 
         </LinearLayout>
     </LinearLayout>

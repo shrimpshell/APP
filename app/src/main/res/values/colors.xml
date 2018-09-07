@@ -6,4 +6,9 @@
     <color name="colorWhite">#81ffffff</color>
     <color name="colorGray">#10888888</color>
     <color name="colorMyProfileBackGround">#daedfd</color>
+    <color name="edText">#a2f1dbc5</color>
+    <color name="btcolor">#b4f4d6b8</color>
+    <color name="atBackground">#7fb2c1</color>
+    <color name="appBar">#805D42</color>
+    <color name="rvEven">#dceef2</color>
 </resources>

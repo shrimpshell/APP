@@ -31,17 +31,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".IntroductionActivity"
+            android:name=".GeneralPages.IntroductionActivity"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".EventActivity"
+            android:name=".GeneralPages.EventActivity"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".JoinActivity"
-            android:parentActivityName=".LoginActivity" />
-        <activity android:name=".EmployeeHomeActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".RoomDetailActivity" />
+            android:name=".Authentication.JoinActivity"
+            android:parentActivityName=".Authentication.LoginActivity" />
+        <activity android:name=".EmployeePanel.EmployeeHomeActivity" />
+        <activity android:name=".Authentication.LoginActivity" />
+        <activity android:name=".GeneralPages.RoomDetailActivity" />
         <activity
             android:name=".ManagerPanel.ManagerHomeActivity"
             android:label="@string/title_activity_manager_home"

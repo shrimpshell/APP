@@ -1,0 +1,56 @@
+<resources>
+    <string name="app_name">蝦殼</string>
+    <string name="intro_title">飯店介紹</string>
+    <string name="introduction1">\t\t蝦殼飯店創立於2018年。從一個五人的軟體APP研發團隊開始，其目標是為了更好的客戶體驗。</string>
+    <string name="introduction2">\t\t蝦殼使用創新元素帶給客戶即時的回饋。</string>
+    <string name="location_title">交通資訊</string>
+    <string name="event_title">最新消息</string>
+    <string name="rp_title">房間預覽</string>
+    <string name="booking">訂房</string>
+    <string name="profile">消費者資訊</string>
+    <string name="home">首頁</string>
+    <string name="reserved">預約資訊</string>
+    <string name="login_title">登入</string>
+    <string name="txLogInWelcome">歡迎</string>
+    <string name="textLogEmail">Email或帳號</string>
+    <string name="textLogInPassword">密碼</string>
+    <string name="textLogJoin">加入</string>
+    <string name="textLogLogIn">登入</string>
+    <string name="textMyProfile">我的資訊</string>
+    <string name="textProfileName">姓名</string>
+    <string name="textProfileEmail">Email</string>
+    <string name="textProfilePassword">密碼</string>
+    <string name="textReenterPassword">重設密碼</string>
+    <string name="textProfileFemale">女性</string>
+    <string name="textProfileMale">男性</string>
+    <string name="textProfileBirthday">生日 : </string>
+    <string name="textProfilePhone">電話</string>
+    <string name="textProfileAddress">地址</string>
+    <string name="title_activity_manager_home">員工首頁</string>
+    <string name="name">名稱</string>
+    <string name="description">內容</string>
+    <string name="startTime">開始時間</string>
+    <string name="endTime">結束時間</string>
+    <string name="submit">提交</string>
+
+    <!--測試用字串-->
+    <string name="hello_employee_fragment">Hello employee fragment</string>
+    <string name="employeeCode">員工編號</string>
+    <string name="employeeGender">員工性別</string>
+    <string name="email">員工Email</string>
+    <string name="password">員工密碼</string>
+    <string name="phone">員工電話</string>
+    <string name="address">員工地址</string>
+    <string name="add">新增</string>
+    <string name="male">男性</string>
+    <string name="female">女性</string>
+    <string name="lastest_events">最新消息</string>
+    <string name="rooms">房間預覽</string>
+    <string name="location">交通資訊</string>
+    <string name="login">會員登入</string>
+    <string name="about">關於我們</string>
+
+</resources>
+
+
+
