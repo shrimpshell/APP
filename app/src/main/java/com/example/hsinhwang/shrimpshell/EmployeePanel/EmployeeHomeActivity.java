@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.example.hsinhwang.shrimpshell.ManagerPanel.ManagerHomeActivity;
 import com.example.hsinhwang.shrimpshell.R;
