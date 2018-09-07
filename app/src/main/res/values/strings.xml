@@ -69,12 +69,13 @@
     <string name="roomTypeNoSmoking">禁煙</string>
     <string name="roomTypeWifi">免費WiFi</string>
     <string name="roomTypeMeal">含早餐</string>
-    <string name="roomTypePeopleA">最多可住3位大人</string>
-    <string name="roomTypePeopleC">1位小孩</string>
+    <string name="roomTypePeopleAdult">最多可住3位大人</string>
+    <string name="roomTypePeopleChild">1位小孩</string>
     <string name="roomTypeLastA">剩</string>
     <string name="roomTypeLastB">間</string>
     <string name="roomTypeLastQuantity">3</string>
     <string name="roomTypePriceN">NT$</string>
     <string name="roomTypePrice">3,800</string>
     <string name="roomTypeQTitle">數量</string>
+    <string name="roomTypeQuantity">1</string>
 </resources>

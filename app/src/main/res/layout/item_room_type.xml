@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_margin="6dp"
     android:padding="6dp"
     app:cardCornerRadius="6dp"
@@ -142,25 +142,25 @@
             android:background="@drawable/ic_roomtype_people" />
 
         <TextView
-            android:id="@+id/tvRoomTypePeopleA"
+            android:id="@+id/tvRoomTypePeopleAdult"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvRoomTypeName"
             android:layout_marginStart="10dp"
             android:layout_marginTop="14dp"
             android:layout_toEndOf="@+id/ivRoomTypePeople"
-            android:text="@string/roomTypePeopleA"
+            android:text="@string/roomTypePeopleAdult"
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/tvRoomTypePeopleC"
+            android:id="@+id/tvRoomTypePeopleChild"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvRoomTypePeopleA"
+            android:layout_below="@+id/tvRoomTypePeopleAdult"
             android:layout_marginStart="10dp"
             android:layout_marginTop="14dp"
             android:layout_toEndOf="@+id/ivRoomTypePeople"
-            android:text="@string/roomTypePeopleC"
+            android:text="@string/roomTypePeopleChild"
             android:textSize="18sp" />
 
         <TextView
@@ -228,17 +228,38 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/ivRoomTypeMeal"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="10dp"
             android:text="@string/roomTypeQTitle"
-            android:textSize="32sp" />
-
-        <Spinner
-            android:id="@+id/spRoomTypeQuantity"
-            android:layout_width="80dp"
+            android:textSize="28sp" />
+        <ImageButton
+            android:id="@+id/ibtRoomQuantityMinus"
+            android:layout_width="40dp"
             android:layout_height="40dp"
+            android:background="@drawable/ic_minus"
             android:layout_below="@+id/tvRoomTypeMeal"
+            android:layout_toEndOf="@+id/tvRoomTypeQTitle"
+            android:layout_marginTop="8dp"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="60dp"
-            android:layout_toEndOf="@+id/tvRoomTypeQTitle" />
+            android:onClick="RoomQuantityMinus"/>
+        <TextView
+            android:id="@+id/tvRoomTypeQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ivRoomTypeMeal"
+            android:layout_toEndOf="@+id/tvRoomTypeQTitle"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/roomTypeQuantity"
+            android:textSize="28sp" />
+        <ImageButton
+            android:id="@+id/ibtRoomQuantityPlus"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/ic_plus"
+            android:layout_below="@+id/tvRoomTypeMeal"
+            android:layout_toEndOf="@+id/tvRoomTypeQuantity"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="10dp"
+            android:onClick="RoomQuantityPlus"/>
     </RelativeLayout>
 </android.support.v7.widget.CardView>
