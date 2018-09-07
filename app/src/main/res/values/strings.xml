@@ -3,15 +3,8 @@
     <string name="intro_title">Intro Duction</string>
     <string name="introduction1">\t\t蝦殼飯店創立於2018年。從一個五人的軟體APP研發團隊開始，其目標是為了更好的客戶體驗。</string>
     <string name="introduction2">\t\t蝦殼使用創新元素帶給客戶即時的回饋。</string>
-<<<<<<< HEAD
-    <string name="location_title">Traffic Information</string>
-    <string name="event_title">Latest Event</string>
-    <string name="rp_title">Room Preview</string>
-    <string name="booking">Booking a room</string>
-    <string name="profile">Customer Profile</string>
-    <string name="home">Home</string>
-    <string name="reserved">Reserved booking</string>
-    <string name="login_title">Login</string>
+
+
     <string name="txLogInWelcome">Welcome</string>
     <string name="textLogEmail">Email or Account</string>
     <string name="textLogInPassword">Password</string>
@@ -51,7 +44,7 @@
     <string name="login">Account Login</string>
     <string name="about">About Us</string>
 
-=======
+
     <string name="location_title">交通資訊</string>
     <string name="event_title">活動優惠</string>
     <string name="rp_title">房間預覽</string>
@@ -127,7 +120,7 @@
     <string name="roomTypePrice">3,800</string>
     <string name="roomTypeQTitle">數量</string>
     <string name="roomTypeQuantity">1</string>
->>>>>>> branch_1
+
 </resources>
 
 
