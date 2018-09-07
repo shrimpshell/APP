@@ -1,10 +1,12 @@
-package com.example.hsinhwang.shrimpshell;
+package com.example.hsinhwang.shrimpshell.GeneralPages;
 
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
+
+import com.example.hsinhwang.shrimpshell.R;
 
 public class IntroductionActivity extends AppCompatActivity {
     private Window window;

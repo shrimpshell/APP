@@ -1,6 +1,5 @@
 package com.example.hsinhwang.shrimpshell;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -37,21 +36,15 @@ public class MainActivity extends AppCompatActivity {
                     setTitle(R.string.reserved);
                     return true;
                 case R.id.item_profile:
-//                    if (!login) {
-//                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-//                        startActivity(intent);
-//                    } else {
-                        fragment = new ProfileFragment();
-                        changeFragment(fragment);
-                        setTitle(R.string.profile);
-//                    }
+                    fragment = new ProfileFragment();
+                    changeFragment(fragment);
+                    setTitle(R.string.profile);
                     return true;
                 default:
                     item.setChecked(true);
                     initContent();
-                    break;
+                    return true;
             }
-            return false;
         }
 
     };
@@ -62,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initContent();
         initialization();
-
     }
 
     @Override

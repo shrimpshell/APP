@@ -1,4 +1,4 @@
-package com.example.hsinhwang.shrimpshell;
+package com.example.hsinhwang.shrimpshell.Classes;
 
 import android.app.Activity;
 import android.content.pm.PackageManager;

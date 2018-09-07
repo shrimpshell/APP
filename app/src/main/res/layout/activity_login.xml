@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="50dp"
+        android:textColor="#FFFFFF"
         android:text="@string/txLogInWelcome"
         android:textSize="60sp" />
 
@@ -66,8 +67,10 @@
             android:layout_height="50dp"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="30dp"
+            android:background="@color/atBackground"
             android:text="@string/textLogJoin"
-            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textColor="#FFFFFF"
             android:onClick="join"
             android:textStyle="bold"/>
 
@@ -78,8 +81,10 @@
             android:layout_alignParentRight="true"
             android:layout_marginTop="30dp"
             android:layout_marginRight="50dp"
+            android:background="@color/atBackground"
             android:text="@string/textLogLogIn"
-            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textColor="#FFFFFF"
             android:onClick="login"
             android:textStyle="bold"/>
     </RelativeLayout>

@@ -16,9 +16,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.hsinhwang.shrimpshell.Authentication.LoginActivity;
 import com.example.hsinhwang.shrimpshell.Classes.Events;
 import com.example.hsinhwang.shrimpshell.Classes.MainOptions;
 import com.example.hsinhwang.shrimpshell.Classes.Rooms;
+import com.example.hsinhwang.shrimpshell.GeneralPages.EventActivity;
+import com.example.hsinhwang.shrimpshell.GeneralPages.IntroductionActivity;
+import com.example.hsinhwang.shrimpshell.GeneralPages.RoomDetailActivity;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -33,10 +37,11 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.hsinhwang.shrimpshell.Classes.LogIn;
+
 
 public class HomeFragment extends Fragment implements OnMapReadyCallback {
     private RecyclerView mainRecyclerView, eventRecyclerView, roomRecyclerView;
-    private boolean isLoggedIn = false;
     private GoogleMap map;
     private Marker hotel_mark;
     private LatLng hotel_latlng;
@@ -51,11 +56,10 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         initialization();
         List<MainOptions> optionList = new ArrayList<>();
-        if (isLoggedIn) {
-        } else {
-            optionList.add(new MainOptions(R.string.login_title, "會員登入", R.drawable.login));
+        if (!LogIn.CustomerLogIn() && !LogIn.EmployeeLogIn()) {
+            optionList.add(new MainOptions(R.string.login_title, (String)getText(R.string.login), R.drawable.login));
         }
-        optionList.add(new MainOptions(R.string.intro_title, "飯店介紹", R.drawable.introduction));
+        optionList.add(new MainOptions(R.string.intro_title, (String)getText(R.string.about), R.drawable.introduction));
         mainRecyclerView = view.findViewById(R.id.mainRecyclerView);
         mainRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mainRecyclerView.setAdapter(new MainAdapter(inflater, optionList));
