@@ -1,22 +1,19 @@
-package com.example.hsinhwang.shrimpshell;
+package com.example.hsinhwang.shrimpshell.ReservationPanel;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
 import android.widget.CalendarView;
 import android.widget.TextView;
 
+import com.example.hsinhwang.shrimpshell.BookingFragment;
 import com.example.hsinhwang.shrimpshell.Classes.ReservationDate;
-
-import java.util.Calendar;
+import com.example.hsinhwang.shrimpshell.R;
 
 public class CalendarActivity extends AppCompatActivity {
     private TextView tvFirstDay, tvLastDay;

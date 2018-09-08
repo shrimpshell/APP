@@ -54,11 +54,11 @@
         <activity android:name=".ManagerPanel.AddRoomActivity"></activity>
 
         <activity
-            android:name=".CalendarActivity"
+            android:name=".ReservationPanel.CalendarActivity"
             android:label="@string/title_activity_calendar"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".RoomChooseActivity"
+            android:name=".ReservationPanel.RoomChooseActivity"
             android:label="@string/title_activity_room_choose"
             android:theme="@style/AppTheme"></activity>
 

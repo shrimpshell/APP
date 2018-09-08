@@ -1,18 +1,17 @@
 package com.example.hsinhwang.shrimpshell.Classes;
 
 public class RoomType {
-    int ivRoomType, tvRoomTypeLastQuantity, tvRoomTypeQuantity, tvRoomTypePrice;
+    int ivRoomType, tvRoomTypeLastQuantity, tvRoomTypePrice;
     String tvRoomTypeName, tvRoomTypeSize, tvRoomTypeBed, tvRoomTypeAdult, tvRoomTypeChild;
 
     public RoomType() {
         super();
     }
 
-    public RoomType(int ivRoomType, int tvRoomTypeLastQuantity, int tvRoomTypeQuantity,
-                    int tvRoomTypePrice, String tvRoomTypeName, String tvRoomTypeSize,
-                    String tvRoomTypeBed, String tvRoomTypeAdult, String tvRoomTypeChild) {
+    public RoomType(int ivRoomType, int tvRoomTypeLastQuantity, int tvRoomTypePrice,
+                    String tvRoomTypeName, String tvRoomTypeSize, String tvRoomTypeBed,
+                    String tvRoomTypeAdult, String tvRoomTypeChild) {
         this.ivRoomType = ivRoomType;
-        this.tvRoomTypeQuantity = tvRoomTypeQuantity;
         this.tvRoomTypeLastQuantity = tvRoomTypeLastQuantity;
         this.tvRoomTypePrice = tvRoomTypePrice;
         this.tvRoomTypeName = tvRoomTypeName;
@@ -28,14 +27,6 @@ public class RoomType {
 
     public void setIvRoomType(int ivRoomType) {
         this.ivRoomType = ivRoomType;
-    }
-
-    public int getTvRoomTypeQuantity() {
-        return tvRoomTypeQuantity;
-    }
-
-    public void setTvRoomTypeQuantity(int tvRoomTypeQuantity) {
-        this.tvRoomTypeQuantity = tvRoomTypeQuantity;
     }
 
     public int getTvRoomTypeLastQuantity() {
