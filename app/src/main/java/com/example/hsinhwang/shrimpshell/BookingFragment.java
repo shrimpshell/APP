@@ -98,7 +98,7 @@ public class BookingFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 int adultQuantity = Integer.parseInt(tvAdultQuantity.getText().toString());
-                if (adultQuantity != 0) {
+                if (adultQuantity > 0) {
                     tvAdultQuantity.setText(String.valueOf(adultQuantity - 1));
                 }
             }
@@ -186,12 +186,12 @@ public class BookingFragment extends Fragment {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(getActivity(), RoomChooseActivity.class);
-            ReservationDate date = new ReservationDate(tvFirstYearSelected.getText().toString(), tvFirstMonSelected.getText().toString(),
-                    tvFirstDaySelected.getText().toString(), tvFirstWeekSelected.getText().toString(), tvLastYearSelected.getText().toString(), tvLastMonSelected.getText().toString(),
-                    tvLastDaySelected.getText().toString(), tvLastWeekSelected.getText().toString(), tvAdultQuantity.getText().toString(), tvChildQuantity.getText().toString());
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("reservationDate", date);
-            intent.putExtras(bundle);
+//            Bundle bundle = new Bundle();
+//            bundle.putIntArray("PepoeleQuantity", new int[]{Integer.valueOf(tvAdultQuantity.
+//                    getText().toString()), Integer.valueOf(tvChildQuantity.getText().toString())});
+//            Log.i(TAG,tvAdultQuantity.getText().toString());
+//            Log.i(TAG,tvChildQuantity.getText().toString());
+//            intent.putExtras(bundle);
             startActivity(intent);
         }
     };

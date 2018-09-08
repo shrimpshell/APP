@@ -39,7 +39,7 @@
         app:borderWidth="0dp"
         app:pressedTranslationZ="10dp"
         app:rippleColor="@color/white"
-        app:srcCompat="@drawable/ic_chevron_right"
+        app:srcCompat="@android:drawable/ic_input_add"
         tools:ignore="RtlHardcoded"
         tools:targetApi="lollipop" />
 </RelativeLayout>

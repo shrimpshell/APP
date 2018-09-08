@@ -85,9 +85,7 @@
         <item>17歲</item>
     </string-array>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_calendar">CalendarActivity</string>
+
     <string name="firstday">日</string>
     <string name="firstmonth">月</string>
     <string name="firstweek">週</string>
@@ -116,6 +114,13 @@
     <string name="roomTypeQTitle">數量</string>
     <string name="roomTypeQuantity">1</string>
     <string name="roomCheck">確 認 訂 房</string>
+    <string name="checkRoom">確認訂房</string>
+    <string name="roomQuantityName">數量</string>
+    <string name="roomQuantity">1</string>
+    <string name="roomQuantityName2">間</string>
+    <string name="changeQuantity">修改數量</string>
+    <string name="deletRoom">刪除房間</string>
+    <string name="sentReservation">送 出 訂 單</string>
 </resources>
 
 

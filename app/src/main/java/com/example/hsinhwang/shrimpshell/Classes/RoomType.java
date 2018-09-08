@@ -2,15 +2,17 @@ package com.example.hsinhwang.shrimpshell.Classes;
 
 public class RoomType {
     int ivRoomType, tvRoomTypeLastQuantity, tvRoomTypePrice;
-    String tvRoomTypeName, tvRoomTypeSize, tvRoomTypeBed, tvRoomTypeAdult, tvRoomTypeChild;
+    String tvRoomTypeName, tvRoomTypeSize, tvRoomTypeBed, tvRoomTypeAdult;
 
     public RoomType() {
         super();
     }
 
-    public RoomType(int ivRoomType, int tvRoomTypeLastQuantity, int tvRoomTypePrice,
-                    String tvRoomTypeName, String tvRoomTypeSize, String tvRoomTypeBed,
-                    String tvRoomTypeAdult, String tvRoomTypeChild) {
+    public RoomType(int ivRoomType, int tvRoomTypeLastQuantity,
+                    int tvRoomTypePrice, String tvRoomTypeName,
+                    String tvRoomTypeSize, String tvRoomTypeBed,
+                    String tvRoomTypeAdult) {
+        super();
         this.ivRoomType = ivRoomType;
         this.tvRoomTypeLastQuantity = tvRoomTypeLastQuantity;
         this.tvRoomTypePrice = tvRoomTypePrice;
@@ -18,7 +20,6 @@ public class RoomType {
         this.tvRoomTypeSize = tvRoomTypeSize;
         this.tvRoomTypeBed = tvRoomTypeBed;
         this.tvRoomTypeAdult = tvRoomTypeAdult;
-        this.tvRoomTypeChild = tvRoomTypeChild;
     }
 
     public int getIvRoomType() {
@@ -75,13 +76,5 @@ public class RoomType {
 
     public void setTvRoomTypeAdult(String tvRoomTypeAdult) {
         this.tvRoomTypeAdult = tvRoomTypeAdult;
-    }
-
-    public String getTvRoomTypeChild() {
-        return tvRoomTypeChild;
-    }
-
-    public void setTvRoomTypeChild(String tvRoomTypeChild) {
-        this.tvRoomTypeChild = tvRoomTypeChild;
     }
 }

@@ -9,7 +9,7 @@
     app:cardElevation="6dp">
 
     <RelativeLayout
-        android:id="@+id/layout"
+        android:id="@+id/rlChooseRoomLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -17,7 +17,7 @@
             android:id="@+id/ivRoomType"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:background="@drawable/pic_roomtype_2seaview" />
+            android:src="@drawable/pic_roomtype_2seaview" />
 
         <TextView
             android:id="@+id/tvRoomTypeName"
@@ -162,7 +162,7 @@
             android:text="@string/roomTypePeopleAdult"
             android:textSize="18sp" />
 
-        <TextView
+       <TextView
             android:id="@+id/tvRoomTypePeopleChild"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

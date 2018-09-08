@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.hsinhwang.shrimpshell.Classes.ReservationDate;
 import com.example.hsinhwang.shrimpshell.Classes.RoomType;
 import com.example.hsinhwang.shrimpshell.R;
 
@@ -31,6 +33,7 @@ public class RoomChooseActivity extends AppCompatActivity {
     private List<RoomType> roomTypeList;
     private Window window;
     private RoomType roomType;
+    private String TAG = "no data";
 
 
     @Override
@@ -45,11 +48,21 @@ public class RoomChooseActivity extends AppCompatActivity {
     }
 
     private void handleViews() {
+//        Bundle bundle = this.getIntent().getExtras();
+//        int adultQuantity, childQuantity;
+//        if (bundle != null) {
+//            int[] peopleQuantity = bundle.getIntArray("PeopleQuantity");
+//            adultQuantity = peopleQuantity[0];
+//            childQuantity = peopleQuantity[1];
+//            Log.i(TAG,String.valueOf(adultQuantity));
+//            Log.i(TAG,String.valueOf(childQuantity));
+//        }
         rvRoomChoose = findViewById(R.id.rvRoomChoose);
         rvRoomChoose.setLayoutManager(
                 new StaggeredGridLayoutManager(1,
                         StaggeredGridLayoutManager.HORIZONTAL));
         roomTypeList = getRoomTypeList();
+
         rvRoomChoose.setAdapter(new RoomTypeAdapter(this, roomTypeList));
 
         /* 不處理捲動事件所以監聽器設為null */
@@ -65,8 +78,8 @@ public class RoomChooseActivity extends AppCompatActivity {
                 int roomTypeLastQuantity;
                 roomTypeLastQuantity = roomType.getTvRoomTypeLastQuantity();
                 if (roomTypeLastQuantity > 0) {
-                    roomTypeLastQuantity = roomTypeLastQuantity - 1;
-
+                    roomType.setTvRoomTypeLastQuantity(roomTypeLastQuantity - 1);
+                    Log.i(TAG, String.valueOf(roomType.getTvRoomTypeLastQuantity()));
                 }
             }
         });
@@ -86,17 +99,16 @@ public class RoomChooseActivity extends AppCompatActivity {
         class MyViewHolder extends RecyclerView.ViewHolder {
             ImageView ivRoomType;
             TextView tvRoomTypeName, tvRoomTypeSize, tvRoomTypeBed, tvRoomTypeAdult,
-                    tvRoomTypeChild, tvRoomTypeLastQuantity, tvRoomTypePrice;
+                    tvRoomTypeLastQuantity, tvRoomTypePrice;
             Button btRoomCheck;
 
-            MyViewHolder(@NonNull View itemView) {
+            public MyViewHolder(@NonNull View itemView) {
                 super(itemView);
                 ivRoomType = findViewById(R.id.ivRoomType);
                 tvRoomTypeName = findViewById(R.id.tvRoomTypeName);
                 tvRoomTypeSize = findViewById(R.id.tvRoomTypeSize);
                 tvRoomTypeBed = findViewById(R.id.tvRoomTypeBed);
                 tvRoomTypeAdult = findViewById(R.id.tvRoomTypePeopleAdult);
-                tvRoomTypeChild = findViewById(R.id.tvRoomTypePeopleChild);
                 tvRoomTypeLastQuantity = findViewById(R.id.tvRoomTypeLastQuantity);
                 tvRoomTypePrice = findViewById(R.id.tvRoomTypePrice);
             }
@@ -123,20 +135,16 @@ public class RoomChooseActivity extends AppCompatActivity {
             myViewHolder.tvRoomTypeSize.setText(roomType.getTvRoomTypeSize());
             myViewHolder.tvRoomTypeBed.setText(roomType.getTvRoomTypeBed());
             myViewHolder.tvRoomTypeAdult.setText(roomType.getTvRoomTypeAdult());
-            myViewHolder.tvRoomTypeChild.setText(roomType.getTvRoomTypeChild());
             myViewHolder.tvRoomTypeLastQuantity.setText(roomType.getTvRoomTypeLastQuantity());
             myViewHolder.tvRoomTypePrice.setText(roomType.getTvRoomTypePrice());
-            myViewHolder.btRoomCheck.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(RoomChooseActivity.this,
-                            RoomCheckFragment.class);
-//                    Bundle bundle = new Bundle();
-//                    bundle.putSerializable("reservationDate", date);
-//                    intent.putExtras(bundle);
-                    startActivity(intent);
-                }
-            });
+//            myViewHolder.btRoomCheck.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    Intent intent = new Intent(RoomChooseActivity.this,
+//                            RoomCheckFragment.class);
+//                    startActivity(intent);
+//                }
+//            });
         }
     }
 
@@ -146,52 +154,52 @@ public class RoomChooseActivity extends AppCompatActivity {
                 3,
                 4100, "海景標準雙人房",
                 "35平方公尺", "1張雙人床",
-                "3位大人", "1位孩童"));
+                "3位大人"));
         roomTypeList.add(new RoomType(R.drawable.pic_roomtype_2seaview,
                 2,
                 3800, "山景標準雙人房",
                 "35平方公尺", "1張雙人床",
-                "3位大人", "1位孩童"));
+                "3位大人"));
         roomTypeList.add(new RoomType(R.drawable.pic_roomtype_2seaview,
                 1,
                 5300, "海景標準四人房",
                 "45平方公尺", "2張雙人床",
-                "4位大人", "1位孩童"));
+                "4位大人"));
         roomTypeList.add(new RoomType(R.drawable.pic_roomtype_2seaview,
                 3,
                 4900, "山景標準四人房",
                 "45平方公尺", "1張雙人床",
-                "4位大人", "1位孩童"));
+                "4位大人"));
         roomTypeList.add(new RoomType(R.drawable.pic_roomtype_2seaview,
                 1,
                 5800, "海景精緻雙人房",
                 "42平方公尺", "1張雙人床",
-                "3位大人", "1位孩童"));
+                "3位大人"));
         roomTypeList.add(new RoomType(R.drawable.pic_roomtype_2seaview,
                 2,
                 5400, "山景精緻雙人房",
                 "42平方公尺", "1張雙人床",
-                "3位大人", "1位孩童"));
+                "3位大人"));
         roomTypeList.add(new RoomType(R.drawable.pic_roomtype_2seaview,
                 1,
                 7000, "海景精緻四人房",
                 "52平方公尺", "1張雙人床",
-                "5位大人", "1位孩童"));
+                "5位大人"));
         roomTypeList.add(new RoomType(R.drawable.pic_roomtype_2seaview,
                 1,
                 6800, "山景精緻四人房",
                 "52平方公尺", "1張雙人床",
-                "5位大人", "1位孩童"));
+                "5位大人"));
         roomTypeList.add(new RoomType(R.drawable.pic_roomtype_2seaview,
                 1,
                 8000, "海景豪華雙人房",
                 "60平方公尺", "1張雙人床",
-                "3位大人", "1位孩童"));
+                "3位大人"));
         roomTypeList.add(new RoomType(R.drawable.pic_roomtype_2seaview,
                 1,
                 7600, "山景豪華雙人房",
                 "60平方公尺", "1張雙人床",
-                "3位大人", "1位孩童"));
+                "3位大人"));
 //        roomTypeList.add(new RoomType(R.drawable.pic_roomtype_2seaview,
 //                Integer.valueOf(R.string.roomTypeLastQuantity),
 //                Integer.valueOf(R.string.roomTypePrice),String.valueOf(R.string.roomTypeName),
