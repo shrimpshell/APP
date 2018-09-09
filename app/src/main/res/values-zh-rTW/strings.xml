@@ -55,6 +55,30 @@
     <string name="title_exit">離開</string>
     <string name="confirm_exit">確定要離開嗎？</string>
 
+    <!--消費明細 start-->
+    <string name="text_order_detail">明細</string>
+    <string name="text_date">入住日期</string>
+    <string name="text_room_type">房型</string>
+    <string name="text_meals">餐點</string>
+    <string name="text_discounted">優惠折扣</string>
+    <string name="text_quantity">數量</string>
+    <string name="text_price">總金額</string>
+    <string name="text_order_number">訂單編號</string>
+    <string name="text_result">結果</string>
+    <string name="text_order_meals">加購餐點</string>
+    <string name="text_discounted_detail">此入住期間享</string>
+    <string name="text_discount">8折</string>
+    <string name="text_discount2">優惠</string>
+    <string name="text_bfdiscount">原價NT$</string>
+    <string name="text_last_price">折扣後總金額為</string>
+    <string name="text_tot_price">NT$</string>
+    <string name="text_checkout">退 房</string>
+    <string name="textTitle">辦理中</string>
+    <string name="textMessage">請至櫃檯完成付款手續
+                               謝謝</string>
+    <string name="textOk">確定</string>
+    <!--消費明細 end-->
+
 </resources>
 
 

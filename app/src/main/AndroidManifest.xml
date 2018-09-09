@@ -64,7 +64,7 @@
             android:name=".RoomChooseActivity"
             android:label="@string/title_activity_room_choose"
             android:theme="@style/AppTheme"></activity>
-
+        <activity android:name=".ProfileReceiptDetailResultActivity"></activity>
     </application>
 
 </manifest>
