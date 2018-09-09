@@ -53,10 +53,9 @@
 
         <TextView
             android:id="@+id/tvFirstDaySelected"
-            android:layout_width="60dp"
+            android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_below="@+id/tvFirstYearSelected"
-            android:layout_marginStart="5dp"
             android:layout_marginTop="-5dp"
             android:gravity="center"
             android:text="@string/firstday"
@@ -68,23 +67,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tvFirstYearSelected"
-            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
             android:layout_toEndOf="@+id/tvFirstDaySelected"
             android:text="@string/firstmonth"
             android:textColor="@color/white"
-            android:textSize="25sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/tvFirstWeekSelected"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvFirstMonSelected"
-            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
             android:layout_toEndOf="@+id/tvFirstDaySelected"
             android:gravity="center"
             android:text="@string/firstweek"
             android:textColor="@color/white"
-            android:textSize="25sp" />
+            android:textSize="20sp" />
     </RelativeLayout>
 
     <ImageView
@@ -126,10 +125,9 @@
 
         <TextView
             android:id="@+id/tvLastDaySelected"
-            android:layout_width="60dp"
+            android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_below="@+id/tvLastYearSelected"
-            android:layout_marginStart="5dp"
             android:layout_marginTop="-5dp"
             android:gravity="center"
             android:text="@string/lastday"
@@ -141,22 +139,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvLastYearSelected"
-            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
             android:layout_toEndOf="@+id/tvLastDaySelected"
             android:text="@string/lastmonth"
             android:textColor="@color/white"
-            android:textSize="25sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/tvLastWeekSelected"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvLastMonSelected"
-            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
             android:layout_toEndOf="@+id/tvLastDaySelected"
             android:text="@string/lastweek"
             android:textColor="@color/white"
-            android:textSize="25sp" />
+            android:textSize="20sp" />
     </RelativeLayout>
     <!--人數選擇-->
     <TextView

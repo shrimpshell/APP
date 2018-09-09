@@ -1,80 +1,78 @@
 package com.example.hsinhwang.shrimpshell.Classes;
 
 public class RoomType {
-    int ivRoomType, tvRoomTypeLastQuantity, tvRoomTypePrice;
-    String tvRoomTypeName, tvRoomTypeSize, tvRoomTypeBed, tvRoomTypeAdult;
+    int roomTypeImageId, roomTypeLastQuantity, roomTypePrice;
+    String roomTypeName, roomTypeSize, roomTypeBed, roomTypeAdult;
 
     public RoomType() {
         super();
     }
 
-    public RoomType(int ivRoomType, int tvRoomTypeLastQuantity,
-                    int tvRoomTypePrice, String tvRoomTypeName,
-                    String tvRoomTypeSize, String tvRoomTypeBed,
-                    String tvRoomTypeAdult) {
-        super();
-        this.ivRoomType = ivRoomType;
-        this.tvRoomTypeLastQuantity = tvRoomTypeLastQuantity;
-        this.tvRoomTypePrice = tvRoomTypePrice;
-        this.tvRoomTypeName = tvRoomTypeName;
-        this.tvRoomTypeSize = tvRoomTypeSize;
-        this.tvRoomTypeBed = tvRoomTypeBed;
-        this.tvRoomTypeAdult = tvRoomTypeAdult;
+    public RoomType(int roomTypeImageId, int roomTypeLastQuantity,
+                    int roomTypePrice, String roomTypeName, String roomTypeSize,
+                    String roomTypeBed, String roomTypeAdult) {
+        this.roomTypeImageId = roomTypeImageId;
+        this.roomTypeLastQuantity = roomTypeLastQuantity;
+        this.roomTypePrice = roomTypePrice;
+        this.roomTypeName = roomTypeName;
+        this.roomTypeSize = roomTypeSize;
+        this.roomTypeBed = roomTypeBed;
+        this.roomTypeAdult = roomTypeAdult;
     }
 
-    public int getIvRoomType() {
-        return ivRoomType;
+    public int getRoomTypeImageId() {
+        return roomTypeImageId;
     }
 
-    public void setIvRoomType(int ivRoomType) {
-        this.ivRoomType = ivRoomType;
+    public void setRoomTypeImageId(int roomTypeImageId) {
+        this.roomTypeImageId = roomTypeImageId;
     }
 
-    public int getTvRoomTypeLastQuantity() {
-        return tvRoomTypeLastQuantity;
+    public int getRoomTypeLastQuantity() {
+        return roomTypeLastQuantity;
     }
 
-    public void setTvRoomTypeLastQuantity(int tvRoomTypeLastQuantity) {
-        this.tvRoomTypeLastQuantity = tvRoomTypeLastQuantity;
+    public void setRoomTypeLastQuantity(int roomTypeLastQuantity) {
+        this.roomTypeLastQuantity = roomTypeLastQuantity;
     }
 
-    public int getTvRoomTypePrice() {
-        return tvRoomTypePrice;
+    public int getRoomTypePrice() {
+        return roomTypePrice;
     }
 
-    public void setTvRoomTypePrice(int tvRoomTypePrice) {
-        this.tvRoomTypePrice = tvRoomTypePrice;
+    public void setRoomTypePrice(int roomTypePrice) {
+        this.roomTypePrice = roomTypePrice;
     }
 
-    public String getTvRoomTypeName() {
-        return tvRoomTypeName;
+    public String getRoomTypeName() {
+        return roomTypeName;
     }
 
-    public void setTvRoomTypeName(String tvRoomTypeName) {
-        this.tvRoomTypeName = tvRoomTypeName;
+    public void setRoomTypeName(String roomTypeName) {
+        this.roomTypeName = roomTypeName;
     }
 
-    public String getTvRoomTypeSize() {
-        return tvRoomTypeSize;
+    public String getRoomTypeSize() {
+        return roomTypeSize;
     }
 
-    public void setTvRoomTypeSize(String tvRoomTypeSize) {
-        this.tvRoomTypeSize = tvRoomTypeSize;
+    public void setRoomTypeSize(String roomTypeSize) {
+        this.roomTypeSize = roomTypeSize;
     }
 
-    public String getTvRoomTypeBed() {
-        return tvRoomTypeBed;
+    public String getRoomTypeBed() {
+        return roomTypeBed;
     }
 
-    public void setTvRoomTypeBed(String tvRoomTypeBed) {
-        this.tvRoomTypeBed = tvRoomTypeBed;
+    public void setRoomTypeBed(String roomTypeBed) {
+        this.roomTypeBed = roomTypeBed;
     }
 
-    public String getTvRoomTypeAdult() {
-        return tvRoomTypeAdult;
+    public String getRoomTypeAdult() {
+        return roomTypeAdult;
     }
 
-    public void setTvRoomTypeAdult(String tvRoomTypeAdult) {
-        this.tvRoomTypeAdult = tvRoomTypeAdult;
+    public void setRoomTypeAdult(String roomTypeAdult) {
+        this.roomTypeAdult = roomTypeAdult;
     }
 }

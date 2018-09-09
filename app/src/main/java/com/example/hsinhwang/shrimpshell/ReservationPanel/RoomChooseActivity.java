@@ -48,15 +48,14 @@ public class RoomChooseActivity extends AppCompatActivity {
     }
 
     private void handleViews() {
-//        Bundle bundle = this.getIntent().getExtras();
-//        int adultQuantity, childQuantity;
-//        if (bundle != null) {
-//            int[] peopleQuantity = bundle.getIntArray("PeopleQuantity");
-//            adultQuantity = peopleQuantity[0];
-//            childQuantity = peopleQuantity[1];
-//            Log.i(TAG,String.valueOf(adultQuantity));
-//            Log.i(TAG,String.valueOf(childQuantity));
-//        }
+        Bundle bundle = this.getIntent().getExtras();
+        int adultQuantity, childQuantity;
+        if (bundle != null) {
+            adultQuantity = bundle.getInt("AdultQuantity");
+            childQuantity = bundle.getInt("ChildQuantity");
+            Log.i(TAG,String.valueOf(adultQuantity));
+            Log.i(TAG,String.valueOf(childQuantity));
+        }
         rvRoomChoose = findViewById(R.id.rvRoomChoose);
         rvRoomChoose.setLayoutManager(
                 new StaggeredGridLayoutManager(1,
@@ -76,10 +75,10 @@ public class RoomChooseActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 int roomTypeLastQuantity;
-                roomTypeLastQuantity = roomType.getTvRoomTypeLastQuantity();
+                roomTypeLastQuantity = roomType.getRoomTypeLastQuantity();
                 if (roomTypeLastQuantity > 0) {
-                    roomType.setTvRoomTypeLastQuantity(roomTypeLastQuantity - 1);
-                    Log.i(TAG, String.valueOf(roomType.getTvRoomTypeLastQuantity()));
+                    roomType.setRoomTypeLastQuantity(roomTypeLastQuantity - 1);
+                    Log.i(TAG, String.valueOf(roomType.getRoomTypeLastQuantity()));
                 }
             }
         });
@@ -128,23 +127,23 @@ public class RoomChooseActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, int i) {
+        public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
             final RoomType roomType = roomTypeList.get(i);
-            myViewHolder.ivRoomType.setImageResource(roomType.getIvRoomType());
-            myViewHolder.tvRoomTypeName.setText(roomType.getTvRoomTypeName());
-            myViewHolder.tvRoomTypeSize.setText(roomType.getTvRoomTypeSize());
-            myViewHolder.tvRoomTypeBed.setText(roomType.getTvRoomTypeBed());
-            myViewHolder.tvRoomTypeAdult.setText(roomType.getTvRoomTypeAdult());
-            myViewHolder.tvRoomTypeLastQuantity.setText(roomType.getTvRoomTypeLastQuantity());
-            myViewHolder.tvRoomTypePrice.setText(roomType.getTvRoomTypePrice());
-//            myViewHolder.btRoomCheck.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    Intent intent = new Intent(RoomChooseActivity.this,
-//                            RoomCheckFragment.class);
-//                    startActivity(intent);
-//                }
-//            });
+            myViewHolder.ivRoomType.setImageResource(roomType.getRoomTypeImageId());
+            myViewHolder.tvRoomTypeName.setText(roomType.getRoomTypeName());
+            myViewHolder.tvRoomTypeSize.setText(roomType.getRoomTypeSize());
+            myViewHolder.tvRoomTypeBed.setText(roomType.getRoomTypeBed());
+            myViewHolder.tvRoomTypeAdult.setText(roomType.getRoomTypeAdult());
+            myViewHolder.tvRoomTypeLastQuantity.setText(roomType.getRoomTypeLastQuantity());
+            myViewHolder.tvRoomTypePrice.setText(roomType.getRoomTypePrice());
+            myViewHolder.btRoomCheck.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(RoomChooseActivity.this,
+                            RoomCheckFragment.class);
+                    startActivity(intent);
+                }
+            });
         }
     }
 
@@ -204,7 +203,7 @@ public class RoomChooseActivity extends AppCompatActivity {
 //                Integer.valueOf(R.string.roomTypeLastQuantity),
 //                Integer.valueOf(R.string.roomTypePrice),String.valueOf(R.string.roomTypeName),
 //                String.valueOf(R.string.roomTypeSize),String.valueOf(R.string.roomTypeBed),
-//                String.valueOf(R.string.roomTypePeopleAdult),String.valueOf(R.string.roomTypePeopleChild)));
+//                String.valueOf(R.string.roomTypePeopleAdult)));
         return roomTypeList;
     }
 }

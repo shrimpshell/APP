@@ -186,12 +186,13 @@ public class BookingFragment extends Fragment {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(getActivity(), RoomChooseActivity.class);
-//            Bundle bundle = new Bundle();
-//            bundle.putIntArray("PepoeleQuantity", new int[]{Integer.valueOf(tvAdultQuantity.
-//                    getText().toString()), Integer.valueOf(tvChildQuantity.getText().toString())});
-//            Log.i(TAG,tvAdultQuantity.getText().toString());
-//            Log.i(TAG,tvChildQuantity.getText().toString());
-//            intent.putExtras(bundle);
+            Bundle bundle = new Bundle();
+            bundle.putInt("AdultQuantity", Integer.valueOf(tvAdultQuantity.
+                    getText().toString()));
+            bundle.putInt("ChildQuantity",Integer.valueOf(tvChildQuantity.getText().toString()));
+            Log.i(TAG,tvAdultQuantity.getText().toString());
+            Log.i(TAG,tvChildQuantity.getText().toString());
+            intent.putExtras(bundle);
             startActivity(intent);
         }
     };

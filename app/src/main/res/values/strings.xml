@@ -85,7 +85,7 @@
         <item>17歲</item>
     </string-array>
 
-
+    <string name="title_activity_calendar">CalendarActivity</string>
     <string name="firstday">日</string>
     <string name="firstmonth">月</string>
     <string name="firstweek">週</string>

@@ -17,7 +17,8 @@
             android:id="@+id/ivRoomType"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:src="@drawable/pic_roomtype_2seaview" />
+            android:layout_margin="10dp"
+            android:src="@drawable/pic_roomtype_2seaview"/>
 
         <TextView
             android:id="@+id/tvRoomTypeName"
@@ -25,7 +26,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/ivRoomType"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
             android:text="@string/roomTypeName"
             android:textColor="@color/lightBlue"
             android:textSize="32sp" />
@@ -239,7 +239,7 @@
             android:layout_below="@+id/tvRoomTypeMeal"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="35dp"
             android:background="@color/lightBlue"
             android:text="@string/roomCheck"
             android:textColor="@color/white"
