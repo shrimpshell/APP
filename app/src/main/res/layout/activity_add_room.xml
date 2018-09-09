@@ -111,6 +111,22 @@
             android:textSize="25sp"/>
 
         <EditText
+            android:id="@+id/etAddRoomPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/edText"
+            android:inputType="number"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:text="@string/roomPrice"
+            android:textSize="25sp"/>
+
+        <EditText
             android:id="@+id/etAddRoomQuantity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

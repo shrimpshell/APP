@@ -80,18 +80,18 @@ public class RoomFragment extends Fragment {
         public void onBindViewHolder(@NonNull RoomAdapter.ViewHolder viewHolder, int i) {
             final Rooms room = roomList.get(i);
             String str = "" + room.getRoomSize() +
-                    "\n床型：" + room.getRoomBed() +
-                    "\n大人數：" + room.getRoomAdult() +
-                    "\n小孩數：" + room.getRoomChild() +
+                    "\n床型：" + room.getBed() +
+                    "\n大人數：" + room.getAdultQuantity() +
+                    "\n小孩數：" + room.getChildQuantity() +
                     "\n房間數量：" + room.getRoomQuantity();
-            roomName.setText(room.getRoomName());
+            roomName.setText(room.getName());
             roomDetail.setText(str);
             roomItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(getActivity(), ManagerEditActivity.class);
                     Bundle bundle = new Bundle();
-                    Rooms innerRoom = new Rooms(room.getRoomId(), room.getRoomName(), room.getRoomSize(), room.getRoomBed(), room.getRoomAdult(), room.getRoomChild(), room.getRoomQuantity());
+                    Rooms innerRoom = new Rooms(room.getId(), room.getName(), room.getRoomSize(), room.getBed(), room.getAdultQuantity(), room.getChildQuantity(), room.getRoomQuantity(), room.getPrice());
                     bundle.putSerializable("room", innerRoom);
                     intent.putExtras(bundle);
                     startActivity(intent);

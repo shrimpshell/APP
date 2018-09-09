@@ -152,6 +152,7 @@
     <string name="msg_InsertFail">Fail to insert</string>
     <string name="msg_InsertSuccess">Successfully inserted</string>
     <string name="msg_NoNetwork">No Internet Connected</string>
+    <string name="roomPrice">Price</string>
 
 </resources>
 

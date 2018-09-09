@@ -15,7 +15,7 @@ import com.example.hsinhwang.shrimpshell.Classes.CommonTask;
 
 public class AddRoomActivity extends AppCompatActivity {
     private final static String TAG = "AddRoomActivity";
-    private EditText etAddRoomName, etAddRoomSize, etAddRoomBed, etAddRoomAdult, etAddRoomChild, etAddRoomQuantity;
+    private EditText etAddRoomName, etAddRoomSize, etAddRoomBed, etAddRoomAdult, etAddRoomChild, etAddRoomQuantity, etAddRoomPrice;
     private Button btnAddRoom;
     private byte[] image;
 
@@ -33,6 +33,7 @@ public class AddRoomActivity extends AppCompatActivity {
         etAddRoomAdult = findViewById(R.id.etAddRoomAdult);
         etAddRoomChild = findViewById(R.id.etAddRoomChild);
         etAddRoomQuantity = findViewById(R.id.etAddRoomQuantity);
+        etAddRoomPrice = findViewById(R.id.etAddRoomPrice);
 
         btnAddRoom = findViewById(R.id.btnAddRoom);
         btnAddRoom.setOnClickListener(new View.OnClickListener() {
@@ -51,11 +52,12 @@ public class AddRoomActivity extends AppCompatActivity {
                 bed = etAddRoomBed.getText().toString().trim();
         int adult = Integer.parseInt(etAddRoomAdult.getText().toString().trim()),
                 child = Integer.parseInt(etAddRoomChild.getText().toString().trim()),
-                quantity = Integer.parseInt(etAddRoomQuantity.getText().toString().trim());
+                quantity = Integer.parseInt(etAddRoomQuantity.getText().toString().trim()),
+                price = Integer.parseInt(etAddRoomPrice.getText().toString().trim());
 
         if (Common.networkConnected(this)) {
             String url = Common.URL + "/RoomServlet";
-            Rooms room = new Rooms(0, name, roomSize, bed, adult, child, quantity);
+            Rooms room = new Rooms(0, name, roomSize, bed, adult, child, quantity, price);
 //            String imageBase64 = Base64.encodeToString(image, Base64.DEFAULT);
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("action", "roomInsert");

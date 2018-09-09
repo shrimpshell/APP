@@ -84,6 +84,7 @@
     <string name="roomChild">小孩</string>
     <string name="roomQuantity">庫存數</string>
     <string name="description">詳情</string>
+    <string name="roomPrice">價錢</string>
 
 </resources>
 
