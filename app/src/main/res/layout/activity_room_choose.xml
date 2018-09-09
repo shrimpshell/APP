@@ -1,45 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
+    android:background="@drawable/customer_global_background"
     tools:context=".ReservationPanel.RoomChooseActivity">
 
-    <TextView
-        android:id="@+id/tvRoomChooseTitle"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginStart="7dp"
-        android:layout_marginTop="7dp"
-        android:text="@string/roomChoose"
-        android:textColor="@color/white"
-        android:textSize="24sp" />
+        android:layout_height="match_parent"
+        android:layout_margin="10dp">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvRoomChoose"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvRoomChooseTitle" />
+        <TextView
+            android:id="@+id/tvRoomChooseTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="7dp"
+            android:text="@string/roomChoose"
+            android:textColor="@color/white"
+            android:textSize="24sp" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabRoomChoose"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_gravity="end|bottom"
-        android:layout_margin="16dp"
-        android:backgroundTint="@color/lightBlue"
-        android:elevation="5dp"
-        android:tint="@android:color/white"
-        app:borderWidth="0dp"
-        app:pressedTranslationZ="10dp"
-        app:rippleColor="@color/white"
-        app:srcCompat="@android:drawable/ic_input_add"
-        tools:ignore="RtlHardcoded"
-        tools:targetApi="lollipop" />
-</RelativeLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvRoomChoose"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvRoomChooseTitle" />
+
+        <Button
+            android:id="@+id/btRoomCheck"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_below="@+id/rvRoomChoose"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/whiteBlue"
+            android:text="@string/roomCheck"
+            android:textColor="@color/white"
+            android:textSize="24sp" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabRoomChoose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="16dp"
+            android:backgroundTint="@color/red"
+            android:elevation="5dp"
+            android:tint="@android:color/white"
+            app:borderWidth="0dp"
+            app:pressedTranslationZ="10dp"
+            app:rippleColor="@color/white"
+            app:srcCompat="@android:drawable/ic_input_add"
+            tools:ignore="RtlHardcoded"
+            tools:targetApi="lollipop" />
+    </RelativeLayout>
+</LinearLayout>
