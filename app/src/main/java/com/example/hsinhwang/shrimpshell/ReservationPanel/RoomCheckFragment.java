@@ -29,5 +29,6 @@ public class RoomCheckFragment extends Fragment {
     }
 
     private void handleViews() {
+
     }
 }

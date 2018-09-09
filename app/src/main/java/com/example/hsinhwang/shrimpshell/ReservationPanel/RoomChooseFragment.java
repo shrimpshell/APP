@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
@@ -20,36 +21,34 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.hsinhwang.shrimpshell.Classes.ReservationDate;
 import com.example.hsinhwang.shrimpshell.Classes.RoomType;
 import com.example.hsinhwang.shrimpshell.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoomChooseActivity extends AppCompatActivity {
+public class RoomChooseFragment extends Fragment {
     private FloatingActionButton fabRoomChoose;
     private RecyclerView rvRoomChoose;
     private List<RoomType> roomTypeList;
-    private Window window;
     private Button btRoomCheck;
     private RoomType roomType;
     private String TAG = "no data";
 
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_room_choose);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window = getWindow();
-            window.setStatusBarColor(Color.parseColor("#01728B"));
-        }
-        handleViews();
     }
 
-    private void handleViews() {
-        Bundle bundle = this.getIntent().getExtras();
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_room_choose, container, false);
+        handleViews(view);
+        return view;
+    }
+
+    private void handleViews(View view) {
+        Bundle bundle = getArguments();
         int adultQuantity, childQuantity;
         if (bundle != null) {
             adultQuantity = bundle.getInt("AdultQuantity");
@@ -57,29 +56,29 @@ public class RoomChooseActivity extends AppCompatActivity {
             Log.i(TAG, String.valueOf(adultQuantity));
             Log.i(TAG, String.valueOf(childQuantity));
         }
-        rvRoomChoose = findViewById(R.id.rvRoomChoose);
+        rvRoomChoose = view.findViewById(R.id.rvRoomChoose);
         rvRoomChoose.setLayoutManager(
                 new StaggeredGridLayoutManager(1,
                         StaggeredGridLayoutManager.HORIZONTAL));
         roomTypeList = getRoomTypeList();
 
-        rvRoomChoose.setAdapter(new RoomTypeAdapter(this, roomTypeList));
+        rvRoomChoose.setAdapter(new RoomTypeAdapter(getActivity(), roomTypeList));
 
         /* 不處理捲動事件所以監聽器設為null */
         rvRoomChoose.setOnFlingListener(null);
         /* 如果希望一次滑動一頁資料，要加上PagerSnapHelper物件 */
         PagerSnapHelper pagerSnapHelper = new PagerSnapHelper();
         pagerSnapHelper.attachToRecyclerView(rvRoomChoose);
-        btRoomCheck = findViewById(R.id.btRoomCheck);
+        btRoomCheck = view.findViewById(R.id.btRoomCheck);
         btRoomCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(RoomChooseActivity.this,
+                Intent intent = new Intent(getActivity(),
                         RoomCheckFragment.class);
                 startActivity(intent);
             }
         });
-        fabRoomChoose = findViewById(R.id.fabRoomChoose);
+        fabRoomChoose = view.findViewById(R.id.fabRoomChoose);
         fabRoomChoose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

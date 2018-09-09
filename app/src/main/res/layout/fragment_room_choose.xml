@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/customer_global_background"
-    tools:context=".ReservationPanel.RoomChooseActivity">
+    tools:context=".ReservationPanel.RoomChooseFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -38,7 +38,7 @@
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:background="@color/whiteBlue"
+            android:background="@color/lightBlue"
             android:text="@string/roomCheck"
             android:textColor="@color/white"
             android:textSize="24sp" />

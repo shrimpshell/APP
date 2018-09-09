@@ -11,8 +11,7 @@
     <RelativeLayout
         android:id="@+id/rlChooseRoomLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="10dp">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/ivRoomType"
@@ -178,7 +177,7 @@
             android:id="@+id/tvRoomTypeLastA"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/tvRoomTypeMeal"
+            android:layout_alignTop="@+id/tvRoomTypeWifi"
             android:layout_marginEnd="30dp"
             android:layout_toStartOf="@+id/tvRoomTypeLastB"
             android:text="@string/roomTypeLastA"
@@ -189,7 +188,7 @@
             android:id="@+id/tvRoomTypeLastQuantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/tvRoomTypeMeal"
+            android:layout_alignTop="@+id/tvRoomTypeWifi"
             android:layout_marginEnd="8dp"
             android:layout_toStartOf="@+id/tvRoomTypeLastB"
             android:text="@string/roomTypeLastQuantity"
@@ -201,7 +200,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_alignTop="@+id/tvRoomTypeMeal"
+            android:layout_alignTop="@+id/tvRoomTypeWifi"
             android:layout_marginEnd="15dp"
             android:text="@string/roomTypeLastB"
             android:textColor="@color/red"

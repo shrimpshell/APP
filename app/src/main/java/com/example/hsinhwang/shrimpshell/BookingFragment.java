@@ -4,20 +4,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.hsinhwang.shrimpshell.Classes.ReservationDate;
-import com.example.hsinhwang.shrimpshell.R;
 import com.example.hsinhwang.shrimpshell.ReservationPanel.CalendarActivity;
-import com.example.hsinhwang.shrimpshell.ReservationPanel.RoomChooseActivity;
+import com.example.hsinhwang.shrimpshell.ReservationPanel.RoomChooseFragment;
 
 import java.util.Calendar;
 
@@ -28,6 +27,8 @@ public class BookingFragment extends Fragment {
     private ImageButton ibtAdultMinus, ibtAdultplus, ibtChildMinus, ibtChildplus;
     private String weekName;
     private Calendar calendar = Calendar.getInstance();
+    private FragmentManager manager;
+    private FragmentTransaction transaction;
     private RelativeLayout rlFirstDate, rlLastDate;
     private static final String TAG = "Debug";
 
@@ -185,15 +186,20 @@ public class BookingFragment extends Fragment {
     FloatingActionButton.OnClickListener BookingFragmentChange_Listener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(getActivity(), RoomChooseActivity.class);
+            RoomChooseFragment roomChooseFragment = new RoomChooseFragment();
             Bundle bundle = new Bundle();
+            manager = getActivity().getSupportFragmentManager();
+            transaction = manager.beginTransaction();
+            transaction.replace(R.id.content, roomChooseFragment, "fragment");
+            transaction.addToBackStack("fragment");
             bundle.putInt("AdultQuantity", Integer.valueOf(tvAdultQuantity.
                     getText().toString()));
-            bundle.putInt("ChildQuantity",Integer.valueOf(tvChildQuantity.getText().toString()));
-            Log.i(TAG,tvAdultQuantity.getText().toString());
-            Log.i(TAG,tvChildQuantity.getText().toString());
-            intent.putExtras(bundle);
-            startActivity(intent);
+            bundle.putInt("ChildQuantity", Integer.valueOf(tvChildQuantity.
+                    getText().toString()));
+            Log.i(TAG, tvAdultQuantity.getText().toString());
+            Log.i(TAG, tvChildQuantity.getText().toString());
+            roomChooseFragment.setArguments(bundle);
+            transaction.commit();
         }
     };
 }
