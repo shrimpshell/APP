@@ -3,8 +3,19 @@
     <string name="intro_title">Intro Duction</string>
     <string name="introduction1">\t\t蝦殼飯店創立於2018年。從一個五人的軟體APP研發團隊開始，其目標是為了更好的客戶體驗。</string>
     <string name="introduction2">\t\t蝦殼使用創新元素帶給客戶即時的回饋。</string>
+<<<<<<< HEAD
 
 
+=======
+    <string name="location_title">Traffic Information</string>
+    <string name="event_title">Latest Event</string>
+    <string name="rp_title">Room Preview</string>
+    <string name="booking">Booking a room</string>
+    <string name="profile">Customer Profile</string>
+    <string name="home">Home</string>
+    <string name="reserved">Reserved booking</string>
+    <string name="login_title">Login</string>
+>>>>>>> 7bc4811b8665ef849a212ca7f232b66cfa60aea6
     <string name="txLogInWelcome">Welcome</string>
     <string name="textLogEmail">Email or Account</string>
     <string name="textLogInPassword">Password</string>
@@ -44,6 +55,7 @@
     <string name="login">Account Login</string>
     <string name="about">About Us</string>
 
+<<<<<<< HEAD
 
     <string name="location_title">交通資訊</string>
     <string name="event_title">活動優惠</string>
@@ -56,6 +68,8 @@
     <string name="home">首頁</string>
     <string name="reserved">預約記錄</string>
     <string name="login_title">會員登入</string>
+=======
+>>>>>>> 7bc4811b8665ef849a212ca7f232b66cfa60aea6
     <string name="first_day_selected">入住日期</string>
     <string name="day_month_year">年 月 日</string>
     <string name="last_day_selected">退房日期</string>
@@ -69,7 +83,8 @@
     <string name="adultnumber">2</string>
     <string name="childnumber">0</string>
     <string name="age">年齡</string>
-    <string name="confirm">確 定</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
     <string-array name="AgeArray">
         <item>不到1歲</item>
         <item>1歲</item>
@@ -121,6 +136,11 @@
     <string name="roomTypeQTitle">數量</string>
     <string name="roomTypeQuantity">1</string>
 
+<<<<<<< HEAD
+=======
+    <string name="title_exit">Exit</string>
+    <string name="confirm_exit">Are you sure you want to exit?</string>
+>>>>>>> 7bc4811b8665ef849a212ca7f232b66cfa60aea6
 </resources>
 
 

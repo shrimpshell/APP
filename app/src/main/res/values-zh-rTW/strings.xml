@@ -50,6 +50,11 @@
     <string name="login">會員登入</string>
     <string name="about">關於我們</string>
 
+    <string name="confirm">確 定</string>
+    <string name="cancel">取 消</string>
+    <string name="title_exit">離開</string>
+    <string name="confirm_exit">確定要離開嗎？</string>
+
 </resources>
 
 

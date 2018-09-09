@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ManagerPanel.RoomFragment"
+    android:background="@drawable/employee_home_background"
     android:padding="16dp">
 
     <android.support.v7.widget.RecyclerView
