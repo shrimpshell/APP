@@ -28,7 +28,8 @@
     <string name="textProfileAddress">Address</string>
     <string name="title_activity_manager_home">ManagerHomeActivity</string>
     <string name="name">Name</string>
-    <string name="description">Description</string>
+    <string name="roomSize">Room Size</string>
+    <string name="bed">Bed</string>
     <string name="startTime">Start Time</string>
     <string name="endTime">End Time</string>
     <string name="submit">Submit</string>
@@ -119,6 +120,7 @@
 
     <string name="title_exit">Exit</string>
     <string name="confirm_exit">Are you sure you want to exit?</string>
+
     <!--消費明細 start-->
     <string name="text_order_detail">Detail</string>
     <string name="text_date">Check In Date</string>
@@ -142,6 +144,15 @@
                                Thank you</string>
     <string name="textOk">OK</string>
     <!--消費明細 end-->
+
+    <string name="roomAdult">Adults</string>
+    <string name="roomChild">Children</string>
+    <string name="roomQuantity">Quantity</string>
+    <string name="description">Description</string>
+    <string name="msg_InsertFail">Fail to insert</string>
+    <string name="msg_InsertSuccess">Successfully inserted</string>
+    <string name="msg_NoNetwork">No Internet Connected</string>
+
 </resources>
 
 

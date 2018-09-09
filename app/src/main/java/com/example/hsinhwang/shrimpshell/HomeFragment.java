@@ -73,11 +73,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         eventRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         eventRecyclerView.setAdapter(new EventAdapter(inflater, actualEventList));
         List<Rooms> topFiveRooms = new ArrayList<>();
-        topFiveRooms.add(new Rooms(R.drawable.ss, 1, "room1", "this is room 1"));
-        topFiveRooms.add(new Rooms(R.drawable.ss, 2, "room2", "this is room 2"));
-        topFiveRooms.add(new Rooms(R.drawable.ss, 3, "room3", "this is room 3"));
-        topFiveRooms.add(new Rooms(R.drawable.ss, 4, "room4", "this is room 4"));
-        topFiveRooms.add(new Rooms(R.drawable.ss, 5, "room5", "this is room 5"));
         roomRecyclerView = view.findViewById(R.id.roomRecyclerView);
         roomRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         roomRecyclerView.setAdapter(new RoomAdapter(inflater, topFiveRooms));
@@ -229,7 +224,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         @Override
         public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
             final Rooms room = roomList.get(i);
-            roomImageView.setImageResource(room.getRoomImageId());
+            roomImageView.setImageResource(room.getRoomId());
             roomTextView.setText(room.getRoomName());
             roomItem.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -237,7 +232,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
 //                    Toast.makeText(getActivity(), room.getRoomName(), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getActivity(), RoomDetailActivity.class);
                     Bundle bundle = new Bundle();
-                    Rooms innerRoom = new Rooms(room.getRoomImageId(), room.getRoomId(), room.getRoomName(), room.getRoomiDetail());
+                    Rooms innerRoom = new Rooms(room.getRoomId(), room.getRoomName(), room.getRoomSize(), room.getRoomBed(), room.getRoomAdult(), room.getRoomChild(), room.getRoomQuantity());
                     bundle.putSerializable("room", innerRoom);
                     intent.putExtras(bundle);
                     startActivity(intent);

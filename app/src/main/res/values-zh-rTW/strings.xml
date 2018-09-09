@@ -28,7 +28,8 @@
     <string name="textProfileAddress">地址</string>
     <string name="title_activity_manager_home">員工首頁</string>
     <string name="name">名稱</string>
-    <string name="description">內容</string>
+    <string name="roomSize">房型</string>
+    <string name="bed">床位</string>
     <string name="startTime">開始時間</string>
     <string name="endTime">結束時間</string>
     <string name="submit">提交</string>
@@ -78,6 +79,11 @@
                                謝謝</string>
     <string name="textOk">確定</string>
     <!--消費明細 end-->
+
+    <string name="roomAdult">大人</string>
+    <string name="roomChild">小孩</string>
+    <string name="roomQuantity">庫存數</string>
+    <string name="description">詳情</string>
 
 </resources>
 
