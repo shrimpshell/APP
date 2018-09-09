@@ -1,11 +1,15 @@
 package com.example.hsinhwang.shrimpshell.Classes;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,6 +17,15 @@ import java.util.Set;
 public class Common {
     public static final int REQ_EXTERNAL_STORAGE = 0;
     private static final String TAG = "Common";
+//    public static String URL = "http://192.168.50.46:8080/ShellService/"; // 手機用
+    public static String URL = "http://10.0.2.2:8080/ShellService"; // 模擬機用
+
+    public static boolean networkConnected(Activity activity) {
+        ConnectivityManager conManager =
+                (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = conManager != null ? conManager.getActiveNetworkInfo() : null;
+        return networkInfo != null && networkInfo.isConnected();
+    }
 
     public static Bitmap downSize(Bitmap srcBitmap, int newSize) {
         if (newSize <= 20) {
@@ -53,5 +66,13 @@ public class Common {
                     permissionsRequest.toArray(new String[permissionsRequest.size()]),
                     requestCode);
         }
+    }
+
+    public static void showToast(Context context, int messageResId) {
+        Toast.makeText(context, messageResId, Toast.LENGTH_SHORT).show();
+    }
+
+    public static void showToast(Context context, String message) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 }
