@@ -61,8 +61,13 @@ public class ManagerEditActivity extends AppCompatActivity {
                 });
             } else {
                 Rooms obj = (Rooms) room;
-                etName.setText(obj.getRoomName());
-                etDescription.setText(obj.getRoomiDetail());
+                String str = "" + obj.getRoomSize() +
+                        "\n床型：" + obj.getBed() +
+                        "\n大人數：" + obj.getAdultQuantity() +
+                        "\n小孩數：" + obj.getChildQuantity() +
+                        "\n房間數量：" + obj.getRoomQuantity();
+                etName.setText(obj.getName());
+                etDescription.setText(str);
                 eventElement.setVisibility(View.GONE);
                 btnSubmit.setOnClickListener(new View.OnClickListener() {
                     @Override

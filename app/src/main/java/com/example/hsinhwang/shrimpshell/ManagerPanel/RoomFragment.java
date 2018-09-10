@@ -49,11 +49,11 @@ public class RoomFragment extends Fragment {
             }
         });
         List<Rooms> topFiveRooms = new ArrayList<>();
-        topFiveRooms.add(new Rooms(R.drawable.ss, 1, "room1", "this is room 1"));
-        topFiveRooms.add(new Rooms(R.drawable.ss, 2, "room2", "this is room 2"));
-        topFiveRooms.add(new Rooms(R.drawable.ss, 3, "room3", "this is room 3"));
-        topFiveRooms.add(new Rooms(R.drawable.ss, 4, "room4", "this is room 4"));
-        topFiveRooms.add(new Rooms(R.drawable.ss, 5, "room5", "this is room 5"));
+//        topFiveRooms.add(new Rooms(R.drawable.ss, 1, "room1", "this is room 1"));
+//        topFiveRooms.add(new Rooms(R.drawable.ss, 2, "room2", "this is room 2"));
+//        topFiveRooms.add(new Rooms(R.drawable.ss, 3, "room3", "this is room 3"));
+//        topFiveRooms.add(new Rooms(R.drawable.ss, 4, "room4", "this is room 4"));
+//        topFiveRooms.add(new Rooms(R.drawable.ss, 5, "room5", "this is room 5"));
         roomFragmentRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         roomFragmentRecyclerView.setAdapter(new RoomAdapter(inflater, topFiveRooms));
         return view;
@@ -79,14 +79,19 @@ public class RoomFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull RoomAdapter.ViewHolder viewHolder, int i) {
             final Rooms room = roomList.get(i);
-            roomName.setText(room.getRoomName());
-            roomDetail.setText(room.getRoomiDetail());
+            String str = "" + room.getRoomSize() +
+                    "\n床型：" + room.getBed() +
+                    "\n大人數：" + room.getAdultQuantity() +
+                    "\n小孩數：" + room.getChildQuantity() +
+                    "\n房間數量：" + room.getRoomQuantity();
+            roomName.setText(room.getName());
+            roomDetail.setText(str);
             roomItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(getActivity(), ManagerEditActivity.class);
                     Bundle bundle = new Bundle();
-                    Rooms innerRoom = new Rooms(room.getRoomImageId(), room.getRoomId(), room.getRoomName(), room.getRoomiDetail());
+                    Rooms innerRoom = new Rooms(room.getId(), room.getName(), room.getRoomSize(), room.getBed(), room.getAdultQuantity(), room.getChildQuantity(), room.getRoomQuantity(), room.getPrice());
                     bundle.putSerializable("room", innerRoom);
                     intent.putExtras(bundle);
                     startActivity(intent);

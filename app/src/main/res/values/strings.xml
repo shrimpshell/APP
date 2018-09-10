@@ -21,7 +21,8 @@
     <string name="textProfileAddress">Address</string>
     <string name="title_activity_manager_home">ManagerHomeActivity</string>
     <string name="name">Name</string>
-    <string name="description">Description</string>
+    <string name="roomSize">Room Size</string>
+    <string name="bed">Bed</string>
     <string name="startTime">Start Time</string>
     <string name="endTime">End Time</string>
     <string name="submit">Submit</string>
@@ -127,6 +128,42 @@
     <string name="title_exit">Exit</string>
     <string name="confirm_exit">Are you sure you want to exit?</string>
 
+<<<<<<< HEAD
+=======
+    <!--消費明細 start-->
+    <string name="text_order_detail">Detail</string>
+    <string name="text_date">Check In Date</string>
+    <string name="text_room_type">Room Type</string>
+    <string name="text_meals">Meal Order</string>
+    <string name="text_discounted">Discount</string>
+    <string name="text_quantity">Quantity</string>
+    <string name="text_price">Total Amount</string>
+    <string name="text_order_number">Order ID</string>
+    <string name="text_result">Result</string>
+    <string name="text_order_meals">Add On</string>
+    <string name="text_discounted_detail">For this stay, you have earned</string>
+    <string name="text_discount">20% discount</string>
+    <string name="text_discount2">Discount Offer</string>
+    <string name="text_bfdiscount">Original Price NT$</string>
+    <string name="text_last_price">Amount after Discount would be </string>
+    <string name="text_tot_price">NT$</string>
+    <string name="text_checkout">Check Out</string>
+    <string name="textTitle">Processing</string>
+    <string name="textMessage">Please proceed to the front desk
+                               Thank you</string>
+    <string name="textOk">OK</string>
+    <!--消費明細 end-->
+
+    <string name="roomAdult">Adults</string>
+    <string name="roomChild">Children</string>
+    <string name="roomQuantity">Quantity</string>
+    <string name="description">Description</string>
+    <string name="msg_InsertFail">Fail to insert</string>
+    <string name="msg_InsertSuccess">Successfully inserted</string>
+    <string name="msg_NoNetwork">No Internet Connected</string>
+    <string name="roomPrice">Price</string>
+
+>>>>>>> 297b1316e463bc9f7098206fa9cdfdc60e96c0a1
 </resources>
 
 
