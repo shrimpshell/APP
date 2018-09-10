@@ -128,8 +128,7 @@
     <string name="title_exit">Exit</string>
     <string name="confirm_exit">Are you sure you want to exit?</string>
 
-<<<<<<< HEAD
-=======
+
     <!--消費明細 start-->
     <string name="text_order_detail">Detail</string>
     <string name="text_date">Check In Date</string>
@@ -163,7 +162,7 @@
     <string name="msg_NoNetwork">No Internet Connected</string>
     <string name="roomPrice">Price</string>
 
->>>>>>> 297b1316e463bc9f7098206fa9cdfdc60e96c0a1
+
 </resources>
 
 
