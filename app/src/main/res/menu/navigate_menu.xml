@@ -13,9 +13,9 @@
         android:title="@string/booking"/>
 
     <item
-        android:id="@+id/item_reserved"
+        android:id="@+id/item_instant"
         android:icon="@drawable/reserved"
-        android:title="@string/reserved"/>
+        android:title="@string/instant"/>
 
     <item
         android:id="@+id/item_profile"

@@ -55,7 +55,6 @@
     <string name="booking">預約房間</string>
     <string name="profile">會員資料</string>
     <string name="home">首頁</string>
-    <string name="reserved">預約記錄</string>
     <string name="login_title">會員登入</string>
 
     <string name="first_day_selected">入住日期</string>
@@ -161,6 +160,21 @@
     <string name="msg_InsertSuccess">Successfully inserted</string>
     <string name="msg_NoNetwork">No Internet Connected</string>
     <string name="roomPrice">Price</string>
+
+    <!-- 即時服務 -->
+    <string name="textStatusService">服務進度</string>
+    <string name="textInstantService">客房服務</string>
+    <string name="instant">即時服務</string>
+    <string name="textCallService">聯絡櫃檯</string>
+    <string name="dinlingCount">數量</string>
+    <string name="btDinling">確認送出</string>
+    <string name="roomServiceCount">數量</string>
+    <string name="btRoomService">確認送出</string>
+    <string name="trafficCount">人數</string>
+    <string name="btTraffic">確認送出</string>
+    <string name="textRoomService">客房服務</string>
+    <string name="textDinlingService">點餐服務</string>
+    <string name="textTrafficService">接送服務</string>
 
 
 </resources>

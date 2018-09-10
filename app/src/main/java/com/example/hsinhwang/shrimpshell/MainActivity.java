@@ -48,19 +48,19 @@ public class MainActivity extends AppCompatActivity {
                     changeFragment(fragment);
                     setTitle(R.string.booking);
                     return true;
-                case R.id.item_reserved:
-                    fragment = new ReservedFragment();
+                case R.id.item_instant:
+                    fragment = new InstantFragment();
                     changeFragment(fragment);
-                    setTitle(R.string.reserved);
+                    setTitle(R.string.instant);
                     return true;
                 case R.id.item_profile:
                     if (LogIn.EmployeeLogIn()) {
-                        Intent intent = new Intent(MainActivity.this, EmployeeHomeActivity.class);
-                        startActivity(intent);
-                    } else {
-                        fragment = new ProfileFragment();
-                        changeFragment(fragment);
-                        setTitle(R.string.profile);
+                            Intent intent = new Intent(MainActivity.this, EmployeeHomeActivity.class);
+                            startActivity(intent);
+                        } else {
+                            fragment = new ProfileFragment();
+                            changeFragment(fragment);
+                            setTitle(R.string.profile);
                     }
 
                     return true;

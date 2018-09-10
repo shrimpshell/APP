@@ -9,7 +9,7 @@
     <string name="booking">訂房</string>
     <string name="profile">消費者資訊</string>
     <string name="home">首頁</string>
-    <string name="reserved">預約資訊</string>
+    <string name="instant">即時服務</string>
     <string name="login_title">登入</string>
     <string name="txLogInWelcome">歡迎</string>
     <string name="textLogEmail">Email或帳號</string>

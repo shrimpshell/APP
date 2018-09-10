@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false"
+    android:orientation="vertical">
+
+
+    <FrameLayout
+        android:id="@+id/fab_item_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <terranovaproductions.newcomicreader.FloatingActionMenu
+        android:id="@+id/fab_menu_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp">
+
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_main_circle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_fabmenu"
+            fab:backgroundTint="@color/orange"
+            fab:fabSize="normal" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_room_service_circle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_room_service"
+            fab:backgroundTint="@color/orange"
+            fab:fabSize="mini" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_dinling_service_circle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_dinling"
+            fab:backgroundTint="@color/orange"
+            fab:fabSize="mini" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_traffic_service_circle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_traffic"
+            fab:backgroundTint="@color/orange"
+            fab:fabSize="mini" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_call_service_circle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_call_service_24"
+            fab:backgroundTint="@color/orange"
+            fab:fabSize="mini" />
+    </terranovaproductions.newcomicreader.FloatingActionMenu>
+
+
+
+
+</FrameLayout>
