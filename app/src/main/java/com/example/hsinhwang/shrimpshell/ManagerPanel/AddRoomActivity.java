@@ -105,11 +105,12 @@ public class AddRoomActivity extends AppCompatActivity {
         if (Common.networkConnected(this)) {
             String url = Common.URL + "/RoomServlet";
             Rooms room = new Rooms(0, name, roomSize, bed, adult, child, quantity, price);
-//            String imageBase64 = Base64.encodeToString(image, Base64.DEFAULT);
+            String imageBase64 = "";
+            if (image != null) imageBase64 = Base64.encodeToString(image, Base64.DEFAULT);
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("action", "roomInsert");
             jsonObject.addProperty("room", new Gson().toJson(room));
-//            jsonObject.addProperty("imageBase64", imageBase64);
+            jsonObject.addProperty("imageBase64", imageBase64);
             int count = 0;
             try {
                 String result = new CommonTask(url, jsonObject.toString()).execute().get();
