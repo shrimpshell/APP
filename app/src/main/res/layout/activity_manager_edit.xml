@@ -17,6 +17,11 @@
         tools:context=".ManagerPanel.ManagerEditActivity"
         android:background="@drawable/employee_home_background">
 
+        <ImageView
+            android:id="@+id/ivRoom"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:src="@drawable/room_review" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

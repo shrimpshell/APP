@@ -1,14 +1,24 @@
 package com.example.hsinhwang.shrimpshell.ManagerPanel;
 
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.hsinhwang.shrimpshell.Classes.CommonTask;
@@ -19,11 +29,17 @@ import com.example.hsinhwang.shrimpshell.Classes.Common;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import java.io.ByteArrayOutputStream;
+
 public class ManagerEditActivity extends AppCompatActivity {
     private final static String TAG = "EditActivity";
     private EditText etName, etDescription, etStartTime, etEndTime, etRoomSize, etBed, etAdult, etChild, etQuantity, etPrice;
     private LinearLayout eventElement, roomElement;
     private Button btnSubmit;
+    private ImageView ivRoom;
+    private byte[] image;
+    private static final int REQUEST_TAKE_PICTURE_SMALL = 0;
+    private static final int REQUEST_PICK_PICTURE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +50,51 @@ public class ManagerEditActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart() {
+    public void onStart() {
         super.onStart();
+        String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        Common.askPermissions(this, permissions, Common.REQ_EXTERNAL_STORAGE);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case Common.REQ_EXTERNAL_STORAGE:
+                if (grantResults.length > 0 &&
+                        grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    ivRoom.setEnabled(true);
+                } else {
+                    ivRoom.setEnabled(false);
+                }
+                break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent intent) {
+        if (resultCode == RESULT_OK) {
+            int newSize = 512;
+            Uri uri = intent.getData();
+            if (uri != null) {
+                String[] columns = {MediaStore.Images.Media.DATA};
+                Cursor cursor = ManagerEditActivity.this.getContentResolver().query(uri, columns,
+                        null, null, null);
+                if (cursor != null && cursor.moveToFirst()) {
+                    String imagePath = cursor.getString(0);
+                    cursor.close();
+                    Bitmap srcImage = BitmapFactory.decodeFile(imagePath);
+                    Bitmap downsizedImage = Common.downSize(srcImage, newSize);
+                    ivRoom.setImageBitmap(downsizedImage);
+                    ByteArrayOutputStream out = new ByteArrayOutputStream();
+                    srcImage.compress(Bitmap.CompressFormat.JPEG, 100, out);
+                    image = out.toByteArray();
+                }
+            }
+        }
     }
 
     private void initialization() {
+        ivRoom = findViewById(R.id.ivRoom);
         etName = findViewById(R.id.etName);
         etDescription = findViewById(R.id.etDescription);
         etStartTime = findViewById(R.id.etStartTime);
@@ -110,11 +166,11 @@ public class ManagerEditActivity extends AppCompatActivity {
                         if (Common.networkConnected(ManagerEditActivity.this)) {
                             String url = Common.URL + "/RoomServlet";
                             Rooms room = new Rooms(obj.getId(), name, roomSize, bed, adult, child, quantity, price);
-                            // String imageBase64 = Base64.encodeToString(image, Base64.DEFAULT);
+//                            String imageBase64 = Base64.encodeToString(image, Base64.DEFAULT);
                             JsonObject jsonObject = new JsonObject();
                             jsonObject.addProperty("action", "roomUpdate");
                             jsonObject.addProperty("room", new Gson().toJson(room));
-                            // jsonObject.addProperty("imageBase64", imageBase64);
+//                            jsonObject.addProperty("imageBase64", imageBase64);
                             int count = 0;
                             try {
                                 String result = new CommonTask(url, jsonObject.toString()).execute().get();
@@ -131,6 +187,15 @@ public class ManagerEditActivity extends AppCompatActivity {
                             Common.showToast(ManagerEditActivity.this, R.string.msg_NoNetwork);
                         }
                         finish();
+                    }
+                });
+
+                ivRoom.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(Intent.ACTION_PICK,
+                                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        startActivityForResult(intent, REQUEST_PICK_PICTURE);
                     }
                 });
             }

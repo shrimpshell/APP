@@ -3,6 +3,8 @@ package com.example.hsinhwang.shrimpshell.ManagerPanel;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -19,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -32,6 +35,8 @@ import com.example.hsinhwang.shrimpshell.Classes.CommonTask;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.List;
 
 public class RoomFragment extends Fragment {
@@ -116,6 +121,9 @@ public class RoomFragment extends Fragment {
                     Intent intent = new Intent(activity, ManagerEditActivity.class);
                     Bundle bundle = new Bundle();
                     Rooms innerRoom = new Rooms(room.getId(), room.getName(), room.getRoomSize(), room.getBed(), room.getAdultQuantity(), room.getChildQuantity(), room.getRoomQuantity(), room.getPrice());
+                    if (room.getImage() != null) {
+                        innerRoom.setImage(room.getImage());
+                    }
                     bundle.putSerializable("room", innerRoom);
                     intent.putExtras(bundle);
                     startActivity(intent);
