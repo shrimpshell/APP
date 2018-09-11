@@ -1,38 +1,63 @@
 package com.example.hsinhwang.shrimpshell.ManagerPanel;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hsinhwang.shrimpshell.Classes.Rooms;
 import com.example.hsinhwang.shrimpshell.R;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.example.hsinhwang.shrimpshell.Classes.Common;
+import com.example.hsinhwang.shrimpshell.Classes.CommonTask;
+import com.google.gson.reflect.TypeToken;
 
-import java.util.ArrayList;
+import java.lang.reflect.Type;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.List;
 
 public class RoomFragment extends Fragment {
+    private final static String TAG = "RoomFragment";
+    private SwipeRefreshLayout swiperefreshlayout;
     private RecyclerView roomFragmentRecyclerView;
     private FloatingActionButton toAddRoom;
+    private CommonTask roomGetAllTask, roomDeleteTask;
+    private FragmentActivity activity;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        activity = getActivity();
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        // 資料庫在這裡處理
+        showAllRooms();
     }
 
     @Override
@@ -40,33 +65,37 @@ public class RoomFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_room, container, false);
         roomFragmentRecyclerView = view.findViewById(R.id.roomFragmentRecyclerView);
+        swiperefreshlayout = view.findViewById(R.id.swiperefreshlayout);
+        swiperefreshlayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swiperefreshlayout.setRefreshing(true);
+                showAllRooms();
+                swiperefreshlayout.setRefreshing(false);
+            }
+        });
+
+        roomFragmentRecyclerView.setLayoutManager(new LinearLayoutManager(activity));
+
         toAddRoom = view.findViewById(R.id.toAddRoom);
         toAddRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), AddRoomActivity.class);
+                Intent intent = new Intent(activity, AddRoomActivity.class);
                 startActivity(intent);
             }
         });
-        List<Rooms> topFiveRooms = new ArrayList<>();
-//        topFiveRooms.add(new Rooms(R.drawable.ss, 1, "room1", "this is room 1"));
-//        topFiveRooms.add(new Rooms(R.drawable.ss, 2, "room2", "this is room 2"));
-//        topFiveRooms.add(new Rooms(R.drawable.ss, 3, "room3", "this is room 3"));
-//        topFiveRooms.add(new Rooms(R.drawable.ss, 4, "room4", "this is room 4"));
-//        topFiveRooms.add(new Rooms(R.drawable.ss, 5, "room5", "this is room 5"));
-        roomFragmentRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        roomFragmentRecyclerView.setAdapter(new RoomAdapter(inflater, topFiveRooms));
         return view;
     }
 
     private class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
         LayoutInflater inflater;
         List<Rooms> roomList;
-        TextView roomName, roomDetail;
+        TextView roomName, roomDetail, itemId;
         RelativeLayout roomItem;
 
-        public RoomAdapter(LayoutInflater inflater, List<Rooms> roomList) {
-            this.inflater = inflater;
+        public RoomAdapter(Context context, List<Rooms> roomList) {
+            this.inflater = LayoutInflater.from(context);
             this.roomList = roomList;
         }
         @NonNull
@@ -79,22 +108,60 @@ public class RoomFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull RoomAdapter.ViewHolder viewHolder, int i) {
             final Rooms room = roomList.get(i);
-            String str = "" + room.getRoomSize() +
-                    "\n床型：" + room.getRoomBed() +
-                    "\n大人數：" + room.getRoomAdult() +
-                    "\n小孩數：" + room.getRoomChild() +
-                    "\n房間數量：" + room.getRoomQuantity();
-            roomName.setText(room.getRoomName());
-            roomDetail.setText(str);
+            itemId.setText(String.valueOf(room.getId()));
+            roomName.setText(room.getName());
+            roomDetail.setText(room.getDetail());
             roomItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(getActivity(), ManagerEditActivity.class);
+                    Intent intent = new Intent(activity, ManagerEditActivity.class);
                     Bundle bundle = new Bundle();
-                    Rooms innerRoom = new Rooms(room.getRoomId(), room.getRoomName(), room.getRoomSize(), room.getRoomBed(), room.getRoomAdult(), room.getRoomChild(), room.getRoomQuantity());
+                    Rooms innerRoom = new Rooms(room.getId(), room.getName(), room.getRoomSize(), room.getBed(), room.getAdultQuantity(), room.getChildQuantity(), room.getRoomQuantity(), room.getPrice());
                     bundle.putSerializable("room", innerRoom);
                     intent.putExtras(bundle);
                     startActivity(intent);
+                }
+            });
+            roomItem.setOnLongClickListener(new View.OnLongClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+                @Override
+                public boolean onLongClick(View view) {
+                    PopupMenu popupMenu = new PopupMenu(activity, view, Gravity.END);
+                    popupMenu.inflate(R.menu.popup_menu);
+                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            switch (item.getItemId()) {
+                                case R.id.item_remove:
+                                    if (Common.networkConnected(activity)) {
+                                        String url = Common.URL + "/RoomServlet";
+                                        JsonObject jsonObject = new JsonObject();
+                                        jsonObject.addProperty("action", "roomRemove");
+                                        jsonObject.addProperty("room", new Gson().toJson(room));
+                                        int count = 0;
+                                        try {
+                                            roomDeleteTask = new CommonTask(url, jsonObject.toString());
+                                            String result = roomDeleteTask.execute().get();
+                                            count = Integer.valueOf(result);
+                                        } catch (Exception e) {
+                                            Log.e(TAG, e.toString());
+                                        }
+                                        if (count == 0) {
+                                            Common.showToast(activity, R.string.msg_DeleteFail);
+                                        } else {
+                                            roomList.remove(room);
+                                            RoomAdapter.this.notifyDataSetChanged();
+                                            Common.showToast(activity, R.string.msg_DeleteSuccess);
+                                        }
+                                    } else {
+                                        Common.showToast(activity, R.string.msg_NoNetwork);
+                                    }
+                            }
+                            return true;
+                        }
+                    });
+                    popupMenu.show();
+                    return true;
                 }
             });
         }
@@ -107,6 +174,7 @@ public class RoomFragment extends Fragment {
         class ViewHolder extends RecyclerView.ViewHolder {
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);
+                itemId = itemView.findViewById(R.id.itemId);
                 roomName = itemView.findViewById(R.id.itemName);
                 roomDetail = itemView.findViewById(R.id.itemDetail);
                 roomItem = itemView.findViewById(R.id.itemLayout);
@@ -114,4 +182,29 @@ public class RoomFragment extends Fragment {
         }
     }
 
+    private void showAllRooms() {
+        if (Common.networkConnected(activity)) {
+            String url = Common.URL + "/RoomServlet";
+            List<Rooms> rooms = null;
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("action", "getAll");
+            String jsonOut = jsonObject.toString();
+            roomGetAllTask = new CommonTask(url, jsonOut);
+            try {
+                String jsonIn = roomGetAllTask.execute().get();
+                Type listType = new TypeToken<List<Rooms>>() {
+                }.getType();
+                rooms = new Gson().fromJson(jsonIn, listType);
+            } catch (Exception e) {
+//                Log.e(TAG, e.toString());
+            }
+            if (rooms == null || rooms.isEmpty()) {
+                Common.showToast(activity, R.string.msg_NoRoomsFound);
+            } else {
+                roomFragmentRecyclerView.setAdapter(new RoomAdapter(activity, rooms));
+            }
+        } else {
+            Common.showToast(activity, R.string.msg_NoNetwork);
+        }
+    }
 }

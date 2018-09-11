@@ -152,6 +152,16 @@
     <string name="msg_InsertFail">Fail to insert</string>
     <string name="msg_InsertSuccess">Successfully inserted</string>
     <string name="msg_NoNetwork">No Internet Connected</string>
+    <string name="roomPrice">Price</string>
+    <string name="msg_NameIsInvalid">Name cannot be empty</string>
+    <string name="msg_NoRoomsFound">Cannot find any room</string>
+    <string name="msg_UpdateFail">Fail to update</string>
+    <string name="msg_UpdateSuccess">Successfully updated</string>
+    <string name="remove">Remove</string>
+    <string name="msg_DeleteFail">Fail to Delete</string>
+    <string name="msg_DeleteSuccess">Successfully Deleted</string>
+    <string name="msg_LoadImageFail">Failed to load Image</string>
+    <string name="msg_LoadImageSuccess">Successfully load Image</string>
 
 </resources>
 
