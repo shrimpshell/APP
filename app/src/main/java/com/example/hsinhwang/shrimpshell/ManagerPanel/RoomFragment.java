@@ -25,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hsinhwang.shrimpshell.Classes.Rooms;
 import com.example.hsinhwang.shrimpshell.R;
@@ -107,23 +108,15 @@ public class RoomFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull RoomAdapter.ViewHolder viewHolder, int i) {
             final Rooms room = roomList.get(i);
-            String str = "" + room.getRoomSize() +
-                    "\n床型：" + room.getBed() +
-                    "\n大人數：" + room.getAdultQuantity() +
-                    "\n小孩數：" + room.getChildQuantity() +
-                    "\n房間數量：" + room.getRoomQuantity();
             itemId.setText(String.valueOf(room.getId()));
             roomName.setText(room.getName());
-            roomDetail.setText(str);
+            roomDetail.setText(room.getDetail());
             roomItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(activity, ManagerEditActivity.class);
                     Bundle bundle = new Bundle();
                     Rooms innerRoom = new Rooms(room.getId(), room.getName(), room.getRoomSize(), room.getBed(), room.getAdultQuantity(), room.getChildQuantity(), room.getRoomQuantity(), room.getPrice());
-                    if (room.getImage() != null) {
-                        innerRoom.setImage(room.getImage());
-                    }
                     bundle.putSerializable("room", innerRoom);
                     intent.putExtras(bundle);
                     startActivity(intent);
@@ -203,7 +196,7 @@ public class RoomFragment extends Fragment {
                 }.getType();
                 rooms = new Gson().fromJson(jsonIn, listType);
             } catch (Exception e) {
-                Log.e(TAG, e.toString());
+//                Log.e(TAG, e.toString());
             }
             if (rooms == null || rooms.isEmpty()) {
                 Common.showToast(activity, R.string.msg_NoRoomsFound);

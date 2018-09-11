@@ -20,9 +20,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.hsinhwang.shrimpshell.Classes.CommonTask;
 import com.example.hsinhwang.shrimpshell.Classes.Events;
+import com.example.hsinhwang.shrimpshell.Classes.ImageTask;
 import com.example.hsinhwang.shrimpshell.Classes.Rooms;
 import com.example.hsinhwang.shrimpshell.R;
 import com.example.hsinhwang.shrimpshell.Classes.Common;
@@ -38,7 +40,6 @@ public class ManagerEditActivity extends AppCompatActivity {
     private Button btnSubmit;
     private ImageView ivRoom;
     private byte[] image;
-    private static final int REQUEST_TAKE_PICTURE_SMALL = 0;
     private static final int REQUEST_PICK_PICTURE = 1;
 
     @Override
@@ -140,6 +141,8 @@ public class ManagerEditActivity extends AppCompatActivity {
             } else {
                 roomElement.setVisibility(View.VISIBLE);
                 final Rooms obj = (Rooms) room;
+                Toast.makeText(this, String.valueOf(obj.getId()), Toast.LENGTH_SHORT).show();
+                loadImage(obj.getId());
                 etName.setText(obj.getName());
                 etRoomSize.setText(obj.getRoomSize());
                 etBed.setText(obj.getBed());
@@ -166,17 +169,18 @@ public class ManagerEditActivity extends AppCompatActivity {
                         if (Common.networkConnected(ManagerEditActivity.this)) {
                             String url = Common.URL + "/RoomServlet";
                             Rooms room = new Rooms(obj.getId(), name, roomSize, bed, adult, child, quantity, price);
-//                            String imageBase64 = Base64.encodeToString(image, Base64.DEFAULT);
+                            String imageBase64 = "";
+                            if (image != null) imageBase64 = Base64.encodeToString(image, Base64.DEFAULT);
                             JsonObject jsonObject = new JsonObject();
                             jsonObject.addProperty("action", "roomUpdate");
                             jsonObject.addProperty("room", new Gson().toJson(room));
-//                            jsonObject.addProperty("imageBase64", imageBase64);
+                            jsonObject.addProperty("imageBase64", imageBase64);
                             int count = 0;
                             try {
                                 String result = new CommonTask(url, jsonObject.toString()).execute().get();
                                 count = Integer.valueOf(result);
                             } catch (Exception e) {
-                                Log.e(TAG, e.toString());
+//                                Log.e(TAG, e.toString());
                             }
                             if (count == 0) {
                                 Common.showToast(ManagerEditActivity.this, R.string.msg_UpdateFail);
@@ -201,4 +205,25 @@ public class ManagerEditActivity extends AppCompatActivity {
             }
         }
     }
+
+    private void loadImage(int id) {
+        String url = Common.URL + "/RoomServlet";
+        int imageSize = getResources().getDisplayMetrics().widthPixels / 3;
+        Bitmap bitmap = null;
+
+        try {
+            bitmap = new ImageTask(url, id, imageSize).execute().get();
+        } catch (Exception e) {
+            Log.e(TAG, e.toString());
+        }
+        if (bitmap != null) {
+            ivRoom.setImageBitmap(bitmap);
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+            image = out.toByteArray();
+        } else {
+            ivRoom.setImageResource(R.drawable.room_review);
+        }
+    }
+
 }

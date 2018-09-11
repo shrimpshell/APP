@@ -160,6 +160,8 @@
     <string name="remove">Remove</string>
     <string name="msg_DeleteFail">Fail to Delete</string>
     <string name="msg_DeleteSuccess">Successfully Deleted</string>
+    <string name="msg_LoadImageFail">Failed to load Image</string>
+    <string name="msg_LoadImageSuccess">Successfully load Image</string>
 
 </resources>
 
