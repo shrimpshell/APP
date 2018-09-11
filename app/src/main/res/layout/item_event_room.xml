@@ -17,6 +17,15 @@
         android:padding="6dp"
         tools:context=".MainActivity">
 
+        <TextView
+            android:id="@+id/itemId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_alignStart="@id/itemDetail"
+            android:layout_toEndOf="@id/itemDetail"
+            android:text="1"/>
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
