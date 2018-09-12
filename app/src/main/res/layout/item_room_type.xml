@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cvRoomTypeChoose"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_margin="6dp"
     android:padding="6dp"
     app:cardCornerRadius="6dp"
@@ -11,7 +13,7 @@
     <RelativeLayout
         android:id="@+id/rlChooseRoomLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/ivRoomType"
@@ -36,7 +38,7 @@
             android:layout_height="22dp"
             android:layout_below="@+id/tvRoomTypeName"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="12dp"
             android:background="@drawable/ic_roomtype_roomsize" />
 
         <TextView
@@ -45,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvRoomTypeName"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="10dp"
             android:layout_toEndOf="@+id/ivRoomTypeSize"
             android:text="@string/roomTypeSize"
             android:textSize="18sp" />
@@ -56,7 +58,7 @@
             android:layout_height="22dp"
             android:layout_below="@+id/ivRoomTypeSize"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="12dp"
             android:background="@drawable/ic_roomtype_bed" />
 
         <TextView
@@ -65,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvRoomTypeSize"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="10dp"
             android:layout_toEndOf="@+id/ivRoomTypeBed"
             android:text="@string/roomTypeBed"
             android:textSize="18sp" />
@@ -76,7 +78,7 @@
             android:layout_height="22dp"
             android:layout_below="@+id/tvRoomTypeBed"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="12dp"
             android:background="@drawable/ic_roomtype_nosmoking" />
 
         <TextView
@@ -85,7 +87,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvRoomTypeBed"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="10dp"
             android:layout_toEndOf="@+id/ivRoomTypeBed"
             android:text="@string/roomTypeNoSmoking"
             android:textSize="18sp" />
@@ -96,7 +98,7 @@
             android:layout_height="22dp"
             android:layout_below="@+id/tvRoomTypeNoSmoking"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="12dp"
             android:background="@drawable/ic_roomtype_wifi" />
 
         <TextView
@@ -105,7 +107,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvRoomTypeNoSmoking"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="10dp"
             android:layout_toEndOf="@+id/ivRoomTypeWifi"
             android:text="@string/roomTypeWifi"
             android:textSize="18sp" />
@@ -116,7 +118,7 @@
             android:layout_height="22dp"
             android:layout_below="@+id/tvRoomTypeWifi"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="12dp"
             android:background="@drawable/ic_roomtype_meal" />
 
         <TextView
@@ -125,7 +127,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvRoomTypeWifi"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="10dp"
             android:layout_toEndOf="@+id/ivRoomTypeMeal"
             android:text="@string/roomTypeMeal"
             android:textSize="18sp" />
@@ -135,8 +137,8 @@
             android:layout_width="22dp"
             android:layout_height="22dp"
             android:layout_below="@+id/tvRoomTypeName"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="12dp"
             android:layout_toEndOf="@+id/tvRoomTypeSize"
             android:background="@drawable/ic_roomtype_people" />
 
@@ -146,7 +148,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvRoomTypeName"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="10dp"
             android:layout_toEndOf="@+id/ivRoomTypePeople"
             android:text="@string/roomTypePeople"
             android:textSize="18sp" />
@@ -156,28 +158,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvRoomTypeName"
-            android:layout_marginStart="2dp"
-            android:layout_marginTop="14dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
             android:layout_toEndOf="@+id/tvRoomTypePeople"
             android:text="@string/roomTypePeopleAdult"
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/tvRoomTypePeopleChild"
+            android:id="@+id/tvRoomTypePeopleB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvRoomTypePeopleAdult"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="14dp"
-            android:layout_toEndOf="@+id/ivRoomTypePeople"
-            android:text="@string/roomTypePeopleChild"
+            android:layout_below="@+id/tvRoomTypeName"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/tvRoomTypePeopleAdult"
+            android:text="@string/roomTypePeopleB"
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/tvRoomTypeLastA"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/tvRoomTypeWifi"
+            android:layout_alignTop="@+id/tvRoomTypeBed"
             android:layout_marginEnd="30dp"
             android:layout_toStartOf="@+id/tvRoomTypeLastB"
             android:text="@string/roomTypeLastA"
@@ -188,7 +190,7 @@
             android:id="@+id/tvRoomTypeLastQuantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/tvRoomTypeWifi"
+            android:layout_alignTop="@+id/tvRoomTypeBed"
             android:layout_marginEnd="8dp"
             android:layout_toStartOf="@+id/tvRoomTypeLastB"
             android:text="@string/roomTypeLastQuantity"
@@ -200,7 +202,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_alignTop="@+id/tvRoomTypeWifi"
+            android:layout_alignTop="@+id/tvRoomTypeBed"
             android:layout_marginEnd="15dp"
             android:text="@string/roomTypeLastB"
             android:textColor="@color/red"
@@ -229,6 +231,23 @@
             android:textColor="@color/red"
             android:textSize="28sp" />
 
-
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabRoomChoose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/tvRoomTypePrice"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="16dp"
+            android:backgroundTint="@color/greenBlue"
+            android:elevation="5dp"
+            android:tint="@android:color/white"
+            app:borderWidth="0dp"
+            app:pressedTranslationZ="10dp"
+            app:rippleColor="@color/white"
+            app:srcCompat="@android:drawable/ic_input_add"
+            tools:ignore="RtlHardcoded"
+            tools:targetApi="lollipop" />
     </RelativeLayout>
 </android.support.v7.widget.CardView>

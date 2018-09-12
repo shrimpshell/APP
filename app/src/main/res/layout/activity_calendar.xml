@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:calendar="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -81,7 +82,17 @@
     <CalendarView
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:firstDayOfWeek="2"
+        android:focusedMonthDateColor="#ff0"
+        android:maxDate="01/01/2019"
+        android:minDate="09/11/2018"
+        android:selectedDateVerticalBar="@color/whiteBlue"
+        android:selectedWeekBackgroundColor="#f00"
+        android:showWeekNumber="false"
+        android:unfocusedMonthDateColor="#f00"
+        android:weekNumberColor="#f00"
+        android:weekSeparatorLineColor="#0f0" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -96,7 +107,7 @@
             android:layout_alignParentRight="true"
             android:layout_gravity="end|bottom"
             android:layout_margin="16dp"
-            android:backgroundTint="@color/lightBlue"
+            android:backgroundTint="@color/greenBlue"
             android:elevation="5dp"
             android:tint="@android:color/white"
             app:borderWidth="0dp"

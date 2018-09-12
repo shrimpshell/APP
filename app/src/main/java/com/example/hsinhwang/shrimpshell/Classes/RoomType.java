@@ -1,14 +1,26 @@
 package com.example.hsinhwang.shrimpshell.Classes;
 
 public class RoomType {
-    int roomTypeImageId;
-    String roomTypeLastQuantity, roomTypePrice,roomTypeName, roomTypeSize, roomTypeBed, roomTypeAdult;
+    int roomTypeImageId, roomQuantity;
+    String roomTypeLastQuantity, roomTypePrice, roomTypeName, roomTypeSize, roomTypeBed, roomTypeAdult;
 
-    public RoomType() {
-        super();
+    public int getRoomQuantity() {
+        return roomQuantity;
     }
 
-    public RoomType(int roomTypeImageId, String roomTypeLastQuantity, String roomTypePrice, String roomTypeName, String roomTypeSize, String roomTypeBed, String roomTypeAdult) {
+    public void setRoomQuantity(int roomQuantity) {
+        this.roomQuantity = roomQuantity;
+    }
+
+    public RoomType(String roomTypeName, int roomQuantity) {
+
+        this.roomTypeName = roomTypeName;
+        this.roomQuantity = roomQuantity;
+    }
+
+    public RoomType(int roomTypeImageId, String roomTypeLastQuantity,
+                    String roomTypePrice, String roomTypeName, String roomTypeSize,
+                    String roomTypeBed, String roomTypeAdult) {
         this.roomTypeImageId = roomTypeImageId;
         this.roomTypeLastQuantity = roomTypeLastQuantity;
         this.roomTypePrice = roomTypePrice;

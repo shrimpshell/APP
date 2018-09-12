@@ -104,7 +104,7 @@
     <string name="roomTypeWifi">免費WiFi</string>
     <string name="roomTypeMeal">含早餐</string>
     <string name="roomTypePeople">最多可住</string>
-    <string name="roomTypePeopleAdult">3位大人</string>
+    <string name="roomTypePeopleAdult">3</string>
     <string name="roomTypePeopleChild">1位孩童</string>
     <string name="roomTypeLastA">剩</string>
     <string name="roomTypeLastB">間</string>
@@ -121,6 +121,7 @@
     <string name="changeQuantity">修改數量</string>
     <string name="deletRoom">刪除房間</string>
     <string name="sentReservation">送 出 訂 單</string>
+    <string name="roomTypePeopleB">位大人</string>
 </resources>
 
 

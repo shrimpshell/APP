@@ -30,6 +30,7 @@ public class BookingFragment extends Fragment {
     private FragmentManager manager;
     private FragmentTransaction transaction;
     private RelativeLayout rlFirstDate, rlLastDate;
+    private int year, month, day, week, lastYear, lastMonth, lastDay, lastWeek;
     private static final String TAG = "Debug";
 
     @Override
@@ -133,10 +134,10 @@ public class BookingFragment extends Fragment {
     }
 
     private void showFirstDate() {
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH) + 1;
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-        int week = calendar.get(Calendar.DAY_OF_WEEK);
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH) + 1;
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+        week = calendar.get(Calendar.DAY_OF_WEEK);
 
         tvFirstYearSelected.setText(String.valueOf(year) + " 年");
         tvFirstDaySelected.setText(String.valueOf(day));
@@ -146,10 +147,10 @@ public class BookingFragment extends Fragment {
 
     private void showLastDate() {
         calendar.add(Calendar.DAY_OF_MONTH, 1);
-        int lastYear = calendar.get(Calendar.YEAR);
-        int lastMonth = calendar.get(Calendar.MONTH) + 1;
-        int lastDay = calendar.get(Calendar.DAY_OF_MONTH);
-        int lastWeek = calendar.get(Calendar.DAY_OF_WEEK);
+        lastYear = calendar.get(Calendar.YEAR);
+        lastMonth = calendar.get(Calendar.MONTH) + 1;
+        lastDay = calendar.get(Calendar.DAY_OF_MONTH);
+        lastWeek = calendar.get(Calendar.DAY_OF_WEEK);
 
         tvLastYearSelected.setText(String.valueOf(lastYear) + " 年");
         tvLastDaySelected.setText(String.valueOf(lastDay));
@@ -192,12 +193,16 @@ public class BookingFragment extends Fragment {
             transaction = manager.beginTransaction();
             transaction.replace(R.id.content, roomChooseFragment, "fragment");
             transaction.addToBackStack("fragment");
+            String checkInDate = year + "年" + month + "月" + day + "日" + changeWeekName(week) + "週";
+            String checkOutDate = lastYear + "年" + lastMonth + "月" + lastDay + "日" + changeWeekName(lastWeek) + "週";
+            bundle.putString("checkInDate",checkInDate);
+            bundle.putString("checkOutDate",checkOutDate);
             bundle.putInt("AdultQuantity", Integer.valueOf(tvAdultQuantity.
                     getText().toString()));
             bundle.putInt("ChildQuantity", Integer.valueOf(tvChildQuantity.
                     getText().toString()));
-            Log.i(TAG, tvAdultQuantity.getText().toString());
-            Log.i(TAG, tvChildQuantity.getText().toString());
+            Log.d(TAG, tvAdultQuantity.getText().toString());
+            Log.d(TAG, tvChildQuantity.getText().toString());
             roomChooseFragment.setArguments(bundle);
             transaction.commit();
         }

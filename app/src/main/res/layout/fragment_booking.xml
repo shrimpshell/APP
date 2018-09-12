@@ -254,7 +254,7 @@
         android:layout_alignParentRight="true"
         android:layout_gravity="end|bottom"
         android:layout_margin="16dp"
-        android:backgroundTint="@color/lightBlue"
+        android:backgroundTint="@color/greenBlue"
         android:elevation="5dp"
         android:tint="@android:color/white"
         app:borderWidth="0dp"
