@@ -162,6 +162,8 @@
     <string name="msg_DeleteSuccess">Successfully Deleted</string>
     <string name="msg_LoadImageFail">Failed to load Image</string>
     <string name="msg_LoadImageSuccess">Successfully load Image</string>
+    <string name="msg_NoEventsFound">No Events found</string>
+    <string name="date_format">\"Please insert number in the follow order yyyy-MM-dd\"</string>
 
 </resources>
 
