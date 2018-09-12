@@ -1,6 +1,7 @@
 package com.example.hsinhwang.shrimpshell.InstantPanel;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 
 import com.example.hsinhwang.shrimpshell.Classes.DinlingServiceMsg;
+import com.example.hsinhwang.shrimpshell.Classes.StatusService;
 import com.example.hsinhwang.shrimpshell.R;
 
 import java.util.ArrayList;
@@ -34,9 +36,7 @@ public class DinlingServiceFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_dinling_service_fab,
                 container, false);
 
-
         handleViews(view);
-
 
 
         return view;
@@ -108,7 +108,6 @@ public class DinlingServiceFragment extends Fragment {
         public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, final int position) {
             final DinlingServiceMsg dinlingServiceMsg = dinlingServiceMsgs.get(position);
 
-
             myViewHolder.imageView.setImageResource(dinlingServiceMsg.getImage());
             myViewHolder.tvDinling1.setText(dinlingServiceMsg.getTvDinling1());
             myViewHolder.tvDinling2.setText(dinlingServiceMsg.getTvDinglin2());
@@ -124,13 +123,13 @@ public class DinlingServiceFragment extends Fragment {
                         case 0:
                             dinlingServiceMsgs.add(new DinlingServiceMsg
                                     ("商品：A餐", "價格：300 元",
-                                            R.drawable.icon_dinling_a, 1, 0));
+                                            R.drawable.icon_dinling_a, 1 ,0));
                             dinlingServiceMsgs.add(new DinlingServiceMsg
                                     ("商品：B餐", "價格：250 元",
-                                            R.drawable.icon_dinling_b, 2, 0));
+                                            R.drawable.icon_dinling_b, 2,0));
                             dinlingServiceMsgs.add(new DinlingServiceMsg
                                     ("商品：C餐", "價格：200 元",
-                                            R.drawable.icon_dinling_c, 3, 0));
+                                            R.drawable.icon_dinling_c, 3,0));
 
                             notifyItemInserted(dinlingServiceMsgs.size());
 
@@ -141,7 +140,6 @@ public class DinlingServiceFragment extends Fragment {
 
                                 myViewHolder.etDinling.setVisibility(View.VISIBLE);
                                 myViewHolder.btDinling.setVisibility(View.VISIBLE);
-
 
                             } else if (myViewHolder.btDinling.getVisibility() != View.GONE ||
                                     myViewHolder.etDinling.getVisibility() != View.GONE) {
@@ -159,7 +157,6 @@ public class DinlingServiceFragment extends Fragment {
                                 myViewHolder.etDinling.setVisibility(View.VISIBLE);
                                 myViewHolder.btDinling.setVisibility(View.VISIBLE);
 
-
                             } else if (myViewHolder.btDinling.getVisibility() != View.GONE ||
                                     myViewHolder.etDinling.getVisibility() != View.GONE) {
 
@@ -175,7 +172,6 @@ public class DinlingServiceFragment extends Fragment {
 
                                 myViewHolder.etDinling.setVisibility(View.VISIBLE);
                                 myViewHolder.btDinling.setVisibility(View.VISIBLE);
-
 
                             } else if (myViewHolder.btDinling.getVisibility() != View.GONE ||
                                     myViewHolder.etDinling.getVisibility() != View.GONE) {
@@ -199,14 +195,13 @@ public class DinlingServiceFragment extends Fragment {
 
             });
 
-
             myViewHolder.btDinling.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
 
-                    String UserEnter = myViewHolder.etDinling.getText().toString();
 
+                    String UserEnter = myViewHolder.etDinling.getText().toString();
 
                     switch (dinlingServiceMsg.getNumber()) {
 
@@ -220,12 +215,11 @@ public class DinlingServiceFragment extends Fragment {
                             } else {
 
 
-
                                 Toast.makeText(context, "你點的 A餐 數量為" + UserEnter + "份",
                                         Toast.LENGTH_SHORT).show();
 
+                                
                             }
-
 
                             break;
 
@@ -278,6 +272,7 @@ public class DinlingServiceFragment extends Fragment {
 
         return dinlingServiceMsgs;
     }
+
 
 
 }
