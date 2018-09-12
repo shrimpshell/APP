@@ -12,9 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.hsinhwang.shrimpshell.Classes.DinlingServiceMsg;
 import com.example.hsinhwang.shrimpshell.Classes.StatusService;
-import com.example.hsinhwang.shrimpshell.MainActivity;
 import com.example.hsinhwang.shrimpshell.R;
 
 
@@ -25,18 +23,22 @@ import java.util.List;
 public class StatusServiceFragment extends Fragment {
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.status_service_fragment,
+        View view = inflater.inflate(R.layout.fragment_status_service,
                 container, false);
+
         handleViews(view);
 
+        
 
         return view;
     }
 
     public void handleViews(View view) {
+
         RecyclerView rvStatusService = view.findViewById(R.id.rvStatusService);
         rvStatusService.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -85,7 +87,7 @@ public class StatusServiceFragment extends Fragment {
         public StatusServiceAdapter.MyViewHolder onCreateViewHolder
                 (@NonNull ViewGroup viewGroup, int viewType) {
             View itemView = LayoutInflater.from(context).
-                    inflate(R.layout.status_service_item, viewGroup, false);
+                    inflate(R.layout.item_status_service, viewGroup, false);
 
             return new MyViewHolder(itemView);
         }
@@ -100,19 +102,20 @@ public class StatusServiceFragment extends Fragment {
             myViewHolder.tvStatus.setText(statusService.getTvstatus());
 
 
+
+
+
         }
 
     }
 
 
     public List<StatusService> getStatusServiceList() {
-        List<StatusService> statusServices = new ArrayList<>();
-
-        statusServices.add(new StatusService
-                (R.drawable.icon_finish, "312", "312"));
+        List<StatusService> statusServicesList = new ArrayList<>();
 
 
-        return statusServices;
+
+        return statusServicesList;
     }
 
 }

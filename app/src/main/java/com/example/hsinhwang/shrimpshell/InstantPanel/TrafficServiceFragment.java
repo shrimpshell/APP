@@ -31,7 +31,7 @@ public class TrafficServiceFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.traffic_service_fab_fragment,
+        View view = inflater.inflate(R.layout.fragment_traffic_service_fab,
                 container, false);
 
         handlerView(view);
@@ -90,7 +90,7 @@ public class TrafficServiceFragment extends Fragment {
         @Override
         public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
             View itemView = LayoutInflater.from(context).
-                    inflate(R.layout.traffic_service_fab_item, viewGroup, false);
+                    inflate(R.layout.item_traffic_service_fab, viewGroup, false);
 
             return new MyViewHolder(itemView);
         }

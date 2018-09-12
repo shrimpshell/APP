@@ -1,19 +1,16 @@
 package com.example.hsinhwang.shrimpshell.InstantPanel;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.hsinhwang.shrimpshell.MainActivity;
 import com.example.hsinhwang.shrimpshell.R;
 
 import terranovaproductions.newcomicreader.FloatingActionMenu;
@@ -26,7 +23,7 @@ public class InstantServiceFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.instant_service_fragment,
+        View view = inflater.inflate(R.layout.fragment_instant_service,
                 container, false);
 
         initView(view);
