@@ -104,7 +104,7 @@ public class EmployeeInstantCallActivity extends AppCompatActivity {
             myViewHolder.layout_call.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    
+
                 }
             });
 
