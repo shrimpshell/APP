@@ -54,7 +54,7 @@ public class DinlingServiceFragment extends Fragment {
     }
 
 
-    public class DinlingServiceMsgAdapter extends
+    private class DinlingServiceMsgAdapter extends
             RecyclerView.Adapter<DinlingServiceMsgAdapter.MyViewHolder> {
         private Context context;
         private List<DinlingServiceMsg> dinlingServiceMsgs;
