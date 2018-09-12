@@ -45,7 +45,6 @@
     <string name="about">About Us</string>
 
 
-
     <string name="location_title">交通資訊</string>
     <string name="event_title">活動優惠</string>
     <string name="rp_title">房間預覽</string>
@@ -175,6 +174,9 @@
     <string name="textRoomService">客房服務</string>
     <string name="textDinlingService">點餐服務</string>
     <string name="textTrafficService">接送服務</string>
+    <string name="title_activity_acacac">ACACAC</string>
+    <string name="title_activity_instant">InstantActivity</string>
+    <string name="title_activity_status_service">StatusServiceActivity</string>
 
 
 </resources>

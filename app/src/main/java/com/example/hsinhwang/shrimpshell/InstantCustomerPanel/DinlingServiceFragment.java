@@ -1,4 +1,4 @@
-package com.example.hsinhwang.shrimpshell.InstantPanel;
+package com.example.hsinhwang.shrimpshell.InstantCustomerPanel;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,7 +19,6 @@ import android.widget.Toast;
 
 
 import com.example.hsinhwang.shrimpshell.Classes.DinlingServiceMsg;
-import com.example.hsinhwang.shrimpshell.Classes.StatusService;
 import com.example.hsinhwang.shrimpshell.R;
 
 import java.util.ArrayList;
@@ -213,6 +212,12 @@ public class DinlingServiceFragment extends Fragment {
 
 
                             } else {
+
+                                Intent intent = new Intent(getActivity(),StatusServiceActivity.class);
+                                Bundle bundle = new Bundle();
+                                bundle.putString("123",dinlingServiceMsg.getTvDinling1());
+                                intent.putExtras(bundle);
+                                startActivity(intent);
 
 
                                 Toast.makeText(context, "你點的 A餐 數量為" + UserEnter + "份",

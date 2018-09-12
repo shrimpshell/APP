@@ -40,12 +40,10 @@
             android:name=".GeneralPages.RoomDetailActivity"
             android:parentActivityName=".MainActivity" />
         <activity
-
             android:name=".Authentication.JoinActivity"
             android:parentActivityName=".Authentication.LoginActivity" />
         <activity android:name=".EmployeePanel.EmployeeHomeActivity" />
         <activity android:name=".Authentication.LoginActivity" />
-
         <activity
             android:name=".ManagerPanel.ManagerHomeActivity"
             android:label="@string/title_activity_manager_home"
@@ -54,8 +52,7 @@
         <activity android:name=".ManagerPanel.ManagerEmployeeEditActivity" />
         <activity android:name=".ManagerPanel.AddEmployeeActivity" />
         <activity android:name=".ManagerPanel.AddEventActivity" />
-        <activity android:name=".ManagerPanel.AddRoomActivity"></activity>
-
+        <activity android:name=".ManagerPanel.AddRoomActivity" />
         <activity
             android:name=".CalendarActivity"
             android:label="@string/title_activity_calendar"
@@ -63,8 +60,23 @@
         <activity
             android:name=".RoomChooseActivity"
             android:label="@string/title_activity_room_choose"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".ProfileReceiptDetailResultActivity" />
+        <activity
+            android:name=".InstantActivity"
+            android:label="@string/title_activity_instant"
             android:theme="@style/AppTheme"></activity>
-        <activity android:name=".ProfileReceiptDetailResultActivity"></activity>
+
+        <activity
+            android:name=".InstantCustomerPanel.StatusServiceActivity"
+            android:label="@string/title_activity_status_service"
+            android:theme="@style/AppTheme"></activity>
+
+
+
+
+
+
     </application>
 
 </manifest>

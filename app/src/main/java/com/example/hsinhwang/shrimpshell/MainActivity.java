@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -50,9 +49,8 @@ public class MainActivity extends AppCompatActivity {
                     setTitle(R.string.booking);
                     return true;
                 case R.id.item_instant:
-                    fragment = new InstantFragment();
-                    changeFragment(fragment);
-                    setTitle(R.string.instant);
+                    Intent intent1 = new Intent(MainActivity.this,InstantActivity.class);
+                    startActivity(intent1);
                     return true;
                 case R.id.item_profile:
                     if (LogIn.EmployeeLogIn()) {

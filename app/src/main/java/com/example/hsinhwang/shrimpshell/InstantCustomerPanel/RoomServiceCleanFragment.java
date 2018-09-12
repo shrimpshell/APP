@@ -1,4 +1,4 @@
-package com.example.hsinhwang.shrimpshell.InstantPanel;
+package com.example.hsinhwang.shrimpshell.InstantCustomerPanel;
 
 import android.content.Context;
 import android.os.Bundle;

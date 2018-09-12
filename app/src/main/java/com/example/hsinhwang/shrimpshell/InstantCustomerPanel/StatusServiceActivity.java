@@ -1,9 +1,10 @@
-package com.example.hsinhwang.shrimpshell.InstantPanel;
+package com.example.hsinhwang.shrimpshell.InstantCustomerPanel;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,32 +21,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class StatusServiceFragment extends Fragment {
-
-
+public class StatusServiceActivity extends AppCompatActivity {
+    RecyclerView rvStatusService;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_status_service,
-                container, false);
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_status_service);
 
-        handleViews(view);
-
-        
-
-        return view;
+        handlerView();
     }
 
-    public void handleViews(View view) {
 
-        RecyclerView rvStatusService = view.findViewById(R.id.rvStatusService);
-        rvStatusService.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+    public void handlerView() {
+
+        rvStatusService = findViewById(R.id.rvStatusService);
+        rvStatusService.setLayoutManager(new LinearLayoutManager(this));
 
 
         List<StatusService> statusServiceList = getStatusServiceList();
 
-        rvStatusService.setAdapter(new StatusServiceAdapter(getActivity(), statusServiceList));
+        rvStatusService.setAdapter(new StatusServiceAdapter(this, statusServiceList));
 
 
     }
@@ -112,6 +109,11 @@ public class StatusServiceFragment extends Fragment {
 
     public List<StatusService> getStatusServiceList() {
         List<StatusService> statusServicesList = new ArrayList<>();
+
+        String intent = getIntent().getStringExtra("123");
+
+        statusServicesList.add(new StatusService(R.drawable.icon_finish,
+                "123",intent));
 
 
 
