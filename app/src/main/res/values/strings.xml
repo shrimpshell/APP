@@ -177,6 +177,10 @@
     <string name="title_activity_acacac">ACACAC</string>
     <string name="title_activity_instant">InstantActivity</string>
     <string name="title_activity_status_service">StatusServiceActivity</string>
+    <string name="title_activity_employee_call_service">EmployeeCallServiceActivity</string>
+    <string name="title_activity_employee_dinling_service">EmployeeDinlingServiceActivity</string>
+    <string name="title_activity_employee_clean_service">EmployeeCleanServiceActivity</string>
+    <string name="title_activity_empolyee_room_service">EmpolyeeRoomServiceActivity</string>
 
 
 </resources>
