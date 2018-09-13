@@ -224,15 +224,15 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         @Override
         public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
             final Rooms room = roomList.get(i);
-            roomImageView.setImageResource(room.getRoomId());
-            roomTextView.setText(room.getRoomName());
+            roomImageView.setImageResource(room.getId());
+            roomTextView.setText(room.getName());
             roomItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 //                    Toast.makeText(getActivity(), room.getRoomName(), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getActivity(), RoomDetailActivity.class);
                     Bundle bundle = new Bundle();
-                    Rooms innerRoom = new Rooms(room.getRoomId(), room.getRoomName(), room.getRoomSize(), room.getRoomBed(), room.getRoomAdult(), room.getRoomChild(), room.getRoomQuantity());
+                    Rooms innerRoom = new Rooms(room.getId(), room.getName(), room.getRoomSize(), room.getBed(), room.getAdultQuantity(), room.getChildQuantity(), room.getRoomQuantity(), room.getPrice());
                     bundle.putSerializable("room", innerRoom);
                     intent.putExtras(bundle);
                     startActivity(intent);
