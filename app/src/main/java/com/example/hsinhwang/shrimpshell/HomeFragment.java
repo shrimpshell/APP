@@ -2,6 +2,7 @@ package com.example.hsinhwang.shrimpshell;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -17,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.hsinhwang.shrimpshell.Authentication.LoginActivity;
+import com.example.hsinhwang.shrimpshell.Classes.Common;
 import com.example.hsinhwang.shrimpshell.Classes.Events;
 import com.example.hsinhwang.shrimpshell.Classes.MainOptions;
 import com.example.hsinhwang.shrimpshell.Classes.Rooms;
@@ -45,6 +47,8 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
     private GoogleMap map;
     private Marker hotel_mark;
     private LatLng hotel_latlng;
+    SharedPreferences pref = getActivity().getSharedPreferences(Common.PREF_Customer,
+            MODE_PRIVATE);
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,7 +60,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         initialization();
         List<MainOptions> optionList = new ArrayList<>();
-        if (!LogIn.CustomerLogIn() && !LogIn.EmployeeLogIn()) {
+        if (!LogIn.CustomerLogIn(pref) && !LogIn.EmployeeLogIn()) {
             optionList.add(new MainOptions(R.string.login_title, (String)getText(R.string.login), R.drawable.login));
         }
         optionList.add(new MainOptions(R.string.intro_title, (String)getText(R.string.about), R.drawable.introduction));

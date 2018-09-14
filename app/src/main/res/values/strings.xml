@@ -162,6 +162,9 @@
     <string name="msg_DeleteSuccess">Successfully Deleted</string>
     <string name="msg_LoadImageFail">Failed to load Image</string>
     <string name="msg_LoadImageSuccess">Successfully load Image</string>
+    <string name="msg_NoProfileFound">No Profile Found</string>
+    <string name="MyProfileSetting">My Profile Setting</string>
+    <string name="msa_PasswordNoRight">Password Is Not Right</string>
 
 </resources>
 
