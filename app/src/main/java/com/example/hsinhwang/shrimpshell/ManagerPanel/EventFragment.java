@@ -148,7 +148,7 @@ public class EventFragment extends Fragment {
                                             Common.showToast(activity, R.string.msg_DeleteFail);
                                         } else {
                                             eventList.remove(event);
-                                            EventFragment.EventAdapter.this.notifyDataSetChanged();
+                                            EventAdapter.this.notifyDataSetChanged();
                                             Common.showToast(activity, R.string.msg_DeleteSuccess);
                                         }
                                     } else {
