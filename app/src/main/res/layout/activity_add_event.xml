@@ -15,6 +15,13 @@
         tools:context=".ManagerPanel.AddEventActivity"
         android:background="@drawable/employee_home_background">
 
+        <ImageView
+            android:id="@+id/ivEvent"
+            android:layout_width="250dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="50dp"
+            android:src="@drawable/events" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
