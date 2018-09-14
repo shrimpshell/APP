@@ -55,6 +55,8 @@
     <string name="cancel">取 消</string>
     <string name="title_exit">離開</string>
     <string name="confirm_exit">確定要離開嗎？</string>
+    <string name="sqrtmeter">多少平方公尺？</string>
+    <string name="bedQuantity">幾張床？</string>
 
     <!--消費明細 start-->
     <string name="text_order_detail">明細</string>

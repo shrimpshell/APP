@@ -54,7 +54,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/edText"
-            android:enabled="false"/>
+            android:enabled="false"
+            android:hint="@string/sqrtmeter"
+            android:inputType="number"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -69,7 +71,9 @@
             android:id="@+id/etAddRoomBed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/edText"/>
+            android:background="@color/edText"
+            android:inputType="number"
+            android:hint="@string/bedQuantity"/>
 
         <TextView
             android:layout_width="match_parent"

@@ -126,6 +126,9 @@ public class AddRoomActivity extends AppCompatActivity {
                 quantity = Integer.parseInt(etAddRoomQuantity.getText().toString().trim()),
                 price = Integer.parseInt(etAddRoomPrice.getText().toString().trim());
 
+        roomSize = roomSize + "平方公尺";
+        bed = bed + "張雙人床";
+
         if (Common.networkConnected(this)) {
             String url = Common.URL + "/RoomServlet";
             Rooms room = new Rooms(0, name, roomSize, bed, adult, child, quantity, price);

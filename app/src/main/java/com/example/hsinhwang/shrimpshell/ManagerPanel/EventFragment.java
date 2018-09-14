@@ -113,7 +113,7 @@ public class EventFragment extends Fragment {
                 public void onClick(View view) {
                     Intent intent = new Intent(getActivity(), ManagerEditActivity.class);
                     Bundle bundle = new Bundle();
-                    Events innerEvent = new Events(event.getEventId(), event.getName(), event.getDescription(), event.getStart(), event.getEnd());
+                    Events innerEvent = new Events(event.getEventId(), event.getName(), event.getDescription(), event.getStart(), event.getEnd(), event.getDiscount());
                     bundle.putSerializable("event", innerEvent);
                     intent.putExtras(bundle);
                     startActivity(intent);
