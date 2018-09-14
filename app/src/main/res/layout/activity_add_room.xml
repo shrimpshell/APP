@@ -53,7 +53,8 @@
             android:id="@+id/etAddRoomSize"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/edText"/>
+            android:background="@color/edText"
+            android:enabled="false"/>
 
         <TextView
             android:layout_width="match_parent"

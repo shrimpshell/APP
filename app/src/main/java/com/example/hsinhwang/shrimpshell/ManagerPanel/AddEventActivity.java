@@ -1,11 +1,14 @@
 package com.example.hsinhwang.shrimpshell.ManagerPanel;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -48,6 +51,13 @@ public class AddEventActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_event);
         initialization();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        Common.askPermissions(this, permissions, Common.REQ_EXTERNAL_STORAGE);
     }
 
     @Override
@@ -99,11 +109,25 @@ public class AddEventActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case Common.REQ_EXTERNAL_STORAGE:
+                if (grantResults.length > 0 &&
+                        grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    ivEvent.setEnabled(true);
+                } else {
+                    ivEvent.setEnabled(false);
+                }
+                break;
+        }
+    }
+
     private void insertAction() {
         String name = etAddEventName.getText().toString().trim(),
                 description = etAddEventDescription.getText().toString().trim();
-        String start = etAddEventStartTime.getYear() + "-" + (etAddEventStartTime.getMonth() + 1 > 10 ? etAddEventStartTime.getMonth() + 1 : "0" + (etAddEventStartTime.getMonth() + 1)) + "-" + etAddEventStartTime.getDayOfMonth(),
-                end = etAddEventEndTime.getYear() + "-" + (etAddEventEndTime.getMonth() + 1 > 10 ? etAddEventEndTime.getMonth() + 1 : "0" + (etAddEventEndTime.getMonth() + 1)) + "-" + etAddEventEndTime.getDayOfMonth();
+        String start = (etAddEventStartTime.getYear()) + "-" + ((etAddEventStartTime.getMonth()) + 1 > 9 ? etAddEventStartTime.getMonth() + 1 : "0" + (etAddEventStartTime.getMonth() + 1)) + "-" + etAddEventStartTime.getDayOfMonth(),
+                end = (etAddEventEndTime.getYear()) + "-" + ((etAddEventEndTime.getMonth() + 1) > 9 ? etAddEventEndTime.getMonth() + 1 : "0" + (etAddEventEndTime.getMonth() + 1)) + "-" + etAddEventEndTime.getDayOfMonth();
         if (Common.networkConnected(this)) {
             String url = Common.URL + "/EventServlet";
             Events event = new Events(0, name, description, start, end);
@@ -119,7 +143,7 @@ public class AddEventActivity extends AppCompatActivity {
                 String result = new CommonTask(url, jsonObject.toString()).execute().get();
                 count = Integer.valueOf(result);
             } catch (Exception e) {
-//                Log.e(TAG, e.toString());
+                Log.e(TAG, e.toString());
             }
             if (count == 0) {
                 Common.showToast(this, R.string.msg_InsertFail);
@@ -130,12 +154,4 @@ public class AddEventActivity extends AppCompatActivity {
             Common.showToast(this, R.string.msg_NoNetwork);
         }
     }
-
-    JsonSerializer<Date> ser = new JsonSerializer<Date>() {
-        @Override
-        public JsonElement serialize(Date src, Type typeOfSrc, JsonSerializationContext
-                context) {
-            return src == null ? null : new JsonPrimitive(src.getTime());
-        }
-    };
 }

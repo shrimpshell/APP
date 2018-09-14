@@ -216,7 +216,7 @@ public class ManagerEditActivity extends AppCompatActivity {
                                 String result = new CommonTask(url, jsonObject.toString()).execute().get();
                                 count = Integer.valueOf(result);
                             } catch (Exception e) {
-//                                Log.e(TAG, e.toString());
+                                Log.e(TAG, e.toString());
                             }
                             if (count == 0) {
                                 Common.showToast(ManagerEditActivity.this, R.string.msg_UpdateFail);

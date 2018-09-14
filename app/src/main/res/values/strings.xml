@@ -164,6 +164,14 @@
     <string name="msg_LoadImageSuccess">Successfully load Image</string>
     <string name="msg_NoEventsFound">No Events found</string>
     <string name="date_format">\"Please insert number in the follow order yyyy-MM-dd\"</string>
+    <string name="department">Department</string>
+    <string name="msg_NoEmployeesFound">No employees found</string>
+
+    <string-array name="department_options">
+        <item id="1">Clean Service</item>
+        <item id="2">Room Service</item>
+        <item id="3">Meal Service</item>
+    </string-array>
 
 </resources>
 

@@ -1,11 +1,14 @@
 package com.example.hsinhwang.shrimpshell.ManagerPanel;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -41,6 +44,13 @@ public class AddRoomActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        Common.askPermissions(this, permissions, Common.REQ_EXTERNAL_STORAGE);
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
         if (resultCode == RESULT_OK) {
@@ -61,6 +71,20 @@ public class AddRoomActivity extends AppCompatActivity {
                     image = out.toByteArray();
                 }
             }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case Common.REQ_EXTERNAL_STORAGE:
+                if (grantResults.length > 0 &&
+                        grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    ivRoom.setEnabled(true);
+                } else {
+                    ivRoom.setEnabled(false);
+                }
+                break;
         }
     }
 
@@ -116,7 +140,7 @@ public class AddRoomActivity extends AppCompatActivity {
                 String result = new CommonTask(url, jsonObject.toString()).execute().get();
                 count = Integer.valueOf(result);
             } catch (Exception e) {
-//                Log.e(TAG, e.toString());
+                Log.e(TAG, e.toString());
             }
             if (count == 0) {
                 Common.showToast(this, R.string.msg_InsertFail);
