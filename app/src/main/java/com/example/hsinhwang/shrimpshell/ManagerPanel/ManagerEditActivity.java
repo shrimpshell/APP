@@ -34,7 +34,7 @@ import java.io.ByteArrayOutputStream;
 
 public class ManagerEditActivity extends AppCompatActivity {
     private final static String TAG = "EditActivity";
-    private EditText etName, etDescription, etStartTime, etEndTime, etRoomSize, etBed, etAdult, etChild, etQuantity, etPrice;
+    private EditText etName, etDescription, etStartTime, etEndTime, etRoomSize, etBed, etAdult, etChild, etQuantity, etPrice, etDiscount;
     private LinearLayout eventElement, roomElement;
     private Button btnSubmit;
     private ImageView imageView;
@@ -109,6 +109,7 @@ public class ManagerEditActivity extends AppCompatActivity {
         etChild = findViewById(R.id.etChild);
         etQuantity = findViewById(R.id.etQuantity);
         etPrice = findViewById(R.id.etPrice);
+        etDiscount = findViewById(R.id.etDiscount);
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,23 +134,31 @@ public class ManagerEditActivity extends AppCompatActivity {
                 loadEventImage(obj.getEventId());
                 etName.setText(obj.getName());
                 etDescription.setText(obj.getDescription());
+                etDiscount.setText(String.valueOf(obj.getDiscount()));
                 etStartTime.setText(start);
                 etEndTime.setText(end);
 
                 btnSubmit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        float discount = 0.0f;
                         String name = etName.getText().toString();
                         if (name.length() <= 0) {
                             Common.showToast(ManagerEditActivity.this, R.string.msg_NameIsInvalid);
                             return;
                         }
+                        try {
+                            discount = Float.parseFloat(etDiscount.getText().toString());
+                        } catch (NumberFormatException e) {
+                            Common.showToast(ManagerEditActivity.this, "格式錯誤");
+                        }
+
                         String description = etDescription.getText().toString();
                         String start = etStartTime.getText().toString(), end = etEndTime.getText().toString();
 
                         if (Common.networkConnected(ManagerEditActivity.this)) {
                             String url = Common.URL + "/EventServlet";
-                            Events event = new Events(obj.getEventId(), name, description, start, end);
+                            Events event = new Events(obj.getEventId(), name, description, start, end, discount);
                             String imageBase64 = "";
                             if (image != null) imageBase64 = Base64.encodeToString(image, Base64.DEFAULT);
                             JsonObject jsonObject = new JsonObject();
@@ -161,7 +170,7 @@ public class ManagerEditActivity extends AppCompatActivity {
                                 String result = new CommonTask(url, jsonObject.toString()).execute().get();
                                 count = Integer.valueOf(result);
                             } catch (Exception e) {
-//                                Log.e(TAG, e.toString());
+                                Log.e(TAG, e.toString());
                             }
                             if (count == 0) {
                                 Common.showToast(ManagerEditActivity.this, R.string.msg_UpdateFail);
@@ -178,10 +187,14 @@ public class ManagerEditActivity extends AppCompatActivity {
             } else {
                 roomElement.setVisibility(View.VISIBLE);
                 final Rooms obj = (Rooms) room;
+
+                String roomSize = obj.getRoomSize().substring(0, obj.getRoomSize().indexOf("平")),
+                bed = obj.getBed().substring(0, obj.getBed().indexOf("張"));
+
                 loadRoomImage(obj.getId());
                 etName.setText(obj.getName());
-                etRoomSize.setText(obj.getRoomSize());
-                etBed.setText(obj.getBed());
+                etRoomSize.setText(roomSize);
+                etBed.setText(bed);
                 etAdult.setText(String.valueOf(obj.getAdultQuantity()));
                 etChild.setText(String.valueOf(obj.getChildQuantity()));
                 etQuantity.setText(String.valueOf(obj.getRoomQuantity()));
@@ -190,14 +203,13 @@ public class ManagerEditActivity extends AppCompatActivity {
                 btnSubmit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        // 儲存到資料庫Room
                         String name = etName.getText().toString();
                         if (name.length() <= 0) {
                             Common.showToast(ManagerEditActivity.this, R.string.msg_NameIsInvalid);
                             return;
                         }
-                        String roomSize = etRoomSize.getText().toString(),
-                                bed = etBed.getText().toString();
+                        String roomSize = etRoomSize.getText().toString() + "平方公尺",
+                                bed = etBed.getText().toString() + "張雙人床";
                         int adult = Integer.parseInt(etAdult.getText().toString()),
                                 child = Integer.parseInt(etChild.getText().toString()),
                                 quantity = Integer.parseInt(etQuantity.getText().toString()),

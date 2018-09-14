@@ -39,7 +39,7 @@ import java.sql.Date;
 
 public class AddEventActivity extends AppCompatActivity {
     private final static String TAG = "AddEventActivity";
-    private EditText etAddEventName, etAddEventDescription;
+    private EditText etAddEventName, etAddEventDescription, etAddEventDiscount;
     private DatePicker etAddEventStartTime, etAddEventEndTime;
     private Button btnAddEvent;
     private ImageView ivEvent;
@@ -90,6 +90,7 @@ public class AddEventActivity extends AppCompatActivity {
         etAddEventDescription = findViewById(R.id.etAddEventDescription);
         etAddEventStartTime = findViewById(R.id.etAddEventStartTime);
         etAddEventEndTime = findViewById(R.id.etAddEventEndTime);
+        etAddEventDiscount = findViewById(R.id.etAddEventDiscount);
 
         btnAddEvent = findViewById(R.id.btnAddEvent);
         btnAddEvent.setOnClickListener(new View.OnClickListener() {
@@ -126,11 +127,16 @@ public class AddEventActivity extends AppCompatActivity {
     private void insertAction() {
         String name = etAddEventName.getText().toString().trim(),
                 description = etAddEventDescription.getText().toString().trim();
+        float discount = Float.parseFloat(etAddEventDiscount.getText().toString());
         String start = (etAddEventStartTime.getYear()) + "-" + ((etAddEventStartTime.getMonth()) + 1 > 9 ? etAddEventStartTime.getMonth() + 1 : "0" + (etAddEventStartTime.getMonth() + 1)) + "-" + etAddEventStartTime.getDayOfMonth(),
                 end = (etAddEventEndTime.getYear()) + "-" + ((etAddEventEndTime.getMonth() + 1) > 9 ? etAddEventEndTime.getMonth() + 1 : "0" + (etAddEventEndTime.getMonth() + 1)) + "-" + etAddEventEndTime.getDayOfMonth();
+        if (name.length() == 0 || description.length() == 0 || etAddEventDiscount.getText().toString().length() == 0 || start.length() == 0|| end.length() == 0) {
+            Common.showToast(AddEventActivity.this, "請勿留空值");
+            return;
+        }
         if (Common.networkConnected(this)) {
             String url = Common.URL + "/EventServlet";
-            Events event = new Events(0, name, description, start, end);
+            Events event = new Events(0, name, description, start, end, discount);
             String imageBase64 = "";
             if (image != null) imageBase64 = Base64.encodeToString(image, Base64.DEFAULT);
             Log.e(TAG, new Gson().toJson(event));
