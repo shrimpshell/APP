@@ -21,30 +21,30 @@
             android:textSize="32sp" />
 
         <TextView
-            android:id="@+id/tvFirstDate"
+            android:id="@+id/tvCheckInDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tvRoomTypeName"
             android:layout_margin="10dp"
             android:text="@string/first_day_selected"
-            android:textSize="24sp" />
+            android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/tvLastDay"
+            android:id="@+id/tvCheckOutDay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvRoomTypeName"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:layout_toEndOf="@+id/tvFirstDate"
+            android:layout_toEndOf="@+id/tvCheckInDate"
             android:text="@string/last_day_selected"
-            android:textSize="24sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tvRoomQuantityName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvLastDay"
+            android:layout_below="@+id/tvCheckOutDay"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:text="@string/roomQuantityName"
@@ -54,7 +54,7 @@
             android:id="@+id/tvRoomQuantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvLastDay"
+            android:layout_below="@+id/tvCheckOutDay"
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
             android:layout_toEndOf="@+id/tvRoomQuantityName"
@@ -65,7 +65,7 @@
             android:id="@+id/tvRoomQuantityName2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvLastDay"
+            android:layout_below="@+id/tvCheckOutDay"
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
             android:layout_toEndOf="@+id/tvRoomQuantity"
@@ -76,7 +76,7 @@
             android:id="@+id/btChangeQuantity"
             android:layout_width="90dp"
             android:layout_height="50dp"
-            android:layout_below="@+id/tvLastDay"
+            android:layout_below="@+id/tvCheckOutDay"
             android:layout_marginStart="40dp"
             android:layout_marginTop="10dp"
             android:layout_toEndOf="@+id/tvRoomQuantityName2"
@@ -87,7 +87,7 @@
             android:id="@+id/btDeletRoom"
             android:layout_width="90dp"
             android:layout_height="50dp"
-            android:layout_below="@+id/tvLastDay"
+            android:layout_below="@+id/tvCheckOutDay"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_toEndOf="@+id/btChangeQuantity"

@@ -1,6 +1,8 @@
 package com.example.hsinhwang.shrimpshell.Classes;
 
-public class Reservation {
+import java.io.Serializable;
+
+public class Reservation implements Serializable{
     private String roomTypeName, checkInDate, checkOutDate, quantity;
 
     public Reservation(String roomTypeName, String checkInDate, String checkOutDate,

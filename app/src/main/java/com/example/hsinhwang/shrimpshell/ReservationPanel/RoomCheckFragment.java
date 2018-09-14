@@ -16,7 +16,6 @@ import android.widget.TextView;
 import com.example.hsinhwang.shrimpshell.Classes.Reservation;
 import com.example.hsinhwang.shrimpshell.R;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -27,8 +26,9 @@ import java.util.Set;
 public class RoomCheckFragment extends Fragment {
     private RecyclerView rvCheckReservation;
     private List<Reservation> reservationList;
-    private int quantity;
-    private String key, checkInDate, checkOutDate;
+    private HashMap<String, Integer> reservationRoom;
+    private String key, checkInDate, checkOutDate, quantity;
+    private Button btSentReservation;
     private String TAG = "Debug";
 
     @Override
@@ -45,20 +45,27 @@ public class RoomCheckFragment extends Fragment {
 
     private void handleViews(View view) {
         Bundle bundle = getArguments();
-        HashMap<String, Integer> reservation = (HashMap<String, Integer>) bundle.getSerializable("paramap");
+        reservationRoom = new HashMap<>();
+        reservationRoom = (HashMap<String, Integer>) bundle.getSerializable("reservationMap");
+        Log.d(TAG, String.valueOf(reservationRoom.size()));
         checkInDate = bundle.getString("checkInDate");
         checkOutDate = bundle.getString("checkOutDate");
-        rvCheckReservation = view.findViewById(R.id.rvRoomChoose);
+        Log.d(TAG, checkInDate);
+        Log.d(TAG, checkOutDate);
+        btSentReservation = view.findViewById(R.id.btSentReservation);
+        rvCheckReservation = view.findViewById(R.id.rvCheckReservation);
         rvCheckReservation.setLayoutManager(
                 new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        Set<String> setKey = reservation.keySet();
+        reservationList = new ArrayList<>();
+
+        Set<String> setKey = reservationRoom.keySet();
         Iterator<String> iterator = setKey.iterator();
         // 從while迴圈中取key
         while (iterator.hasNext()) {
             key = iterator.next();
-            quantity = reservation.get(key);
-            Log.d(TAG, key + String.valueOf(quantity));
-            reservationList = getReservationList(key, checkInDate, checkOutDate, quantity);
+            quantity = String.valueOf(reservationRoom.get(key));
+            Log.d(TAG, key + quantity);
+            reservationList.add(new Reservation(key, checkInDate, checkOutDate, quantity));
         }
         rvCheckReservation.setAdapter(new ReservationListAdapter(getActivity(), reservationList));
     }
@@ -74,14 +81,14 @@ public class RoomCheckFragment extends Fragment {
         }
 
         class MyViewHolder extends RecyclerView.ViewHolder {
-            TextView tvRoomTypeName, tvFirstDate, tvLastDate, tvRoomQuantity;
+            TextView tvRoomTypeName, tvCheckInDate, tvCheckOutDate, tvRoomQuantity;
             Button btChangeQuantity, btDeletRoom;
 
             public MyViewHolder(@NonNull View itemView) {
                 super(itemView);
                 tvRoomTypeName = itemView.findViewById(R.id.tvRoomTypeName);
-                tvFirstDate = itemView.findViewById(R.id.tvFirstDay);
-                tvLastDate = itemView.findViewById(R.id.tvLastDay);
+                tvCheckInDate = itemView.findViewById(R.id.tvCheckInDate);
+                tvCheckOutDate = itemView.findViewById(R.id.tvCheckOutDay);
                 tvRoomQuantity = itemView.findViewById(R.id.tvRoomQuantity);
                 btChangeQuantity = itemView.findViewById(R.id.btChangeQuantity);
                 btDeletRoom = itemView.findViewById(R.id.btDeletRoom);
@@ -105,15 +112,15 @@ public class RoomCheckFragment extends Fragment {
         public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
             final Reservation reservation = reservationList.get(i);
             myViewHolder.tvRoomTypeName.setText(reservation.getRoomTypeName());
-            myViewHolder.tvFirstDate.setText(reservation.getCheckInDate());
-            myViewHolder.tvLastDate.setText(reservation.getCheckOutDate());
+            myViewHolder.tvCheckInDate.setText(reservation.getCheckInDate());
+            myViewHolder.tvCheckOutDate.setText(reservation.getCheckOutDate());
             myViewHolder.tvRoomQuantity.setText(reservation.getQuantity());
-        }
-    }
+            myViewHolder.btChangeQuantity.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
-    public List<Reservation> getReservationList(String key, String checkInDate, String checkOutDate, int quantity) {
-        List<Reservation> reservationList = new ArrayList<>();
-        reservationList.add(new Reservation(key, checkInDate, checkOutDate, String.valueOf(quantity)));
-        return reservationList;
+                }
+            });
+        }
     }
 }

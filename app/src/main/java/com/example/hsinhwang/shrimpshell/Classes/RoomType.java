@@ -1,6 +1,8 @@
 package com.example.hsinhwang.shrimpshell.Classes;
 
-public class RoomType {
+import java.io.Serializable;
+
+public class RoomType implements Serializable{
     int roomTypeImageId, roomQuantity;
     String roomTypeLastQuantity, roomTypePrice, roomTypeName, roomTypeSize, roomTypeBed, roomTypeAdult;
 

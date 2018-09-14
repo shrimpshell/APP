@@ -25,7 +25,7 @@ public class BookingFragment extends Fragment {
             tvLastYearSelected, tvLastDaySelected, tvLastMonSelected, tvLastWeekSelected,
             tvAdultQuantity, tvChildQuantity;
     private ImageButton ibtAdultMinus, ibtAdultplus, ibtChildMinus, ibtChildplus;
-    private String weekName;
+    private String weekName,lastDate;
     private Calendar calendar = Calendar.getInstance();
     private FragmentManager manager;
     private FragmentTransaction transaction;
@@ -89,10 +89,6 @@ public class BookingFragment extends Fragment {
                 ReservationDate date = new ReservationDate(tvFirstYearSelected.getText().toString(), tvFirstMonSelected.getText().toString(),
                         tvFirstDaySelected.getText().toString(), tvFirstWeekSelected.getText().toString(), tvLastYearSelected.getText().toString(), tvLastMonSelected.getText().toString(),
                         tvLastDaySelected.getText().toString(), tvLastWeekSelected.getText().toString(), tvAdultQuantity.getText().toString(), tvChildQuantity.getText().toString());
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("reservationDate", date);
-                intent.putExtras(bundle);
-                startActivity(intent);
             }
         });
 

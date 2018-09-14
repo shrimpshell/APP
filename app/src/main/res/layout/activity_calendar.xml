@@ -84,14 +84,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:firstDayOfWeek="2"
-        android:focusedMonthDateColor="#ff0"
-        android:maxDate="01/01/2019"
+        android:maxDate="01/01/2100"
         android:minDate="09/11/2018"
-        android:selectedDateVerticalBar="@color/whiteBlue"
-        android:selectedWeekBackgroundColor="#f00"
+        android:selectedDateVerticalBar="@color/white"
+        android:selectedWeekBackgroundColor="@color/whiteBlue"
         android:showWeekNumber="false"
-        android:unfocusedMonthDateColor="#f00"
-        android:weekNumberColor="#f00"
+        android:unfocusedMonthDateColor="@color/red"
+        android:weekNumberColor="@color/red"
         android:weekSeparatorLineColor="#0f0" />
 
     <RelativeLayout

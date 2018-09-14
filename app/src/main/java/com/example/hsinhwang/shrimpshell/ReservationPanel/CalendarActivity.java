@@ -2,7 +2,6 @@ package com.example.hsinhwang.shrimpshell.ReservationPanel;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -19,12 +18,15 @@ import com.example.hsinhwang.shrimpshell.BookingFragment;
 import com.example.hsinhwang.shrimpshell.Classes.ReservationDate;
 import com.example.hsinhwang.shrimpshell.R;
 
+import java.text.SimpleDateFormat;
 import java.time.Year;
+import java.util.Calendar;
 
 
 public class CalendarActivity extends AppCompatActivity implements DatePickerController {
     private TextView tvFirstDay, tvLastDay;
     private CalendarView calendarView;
+    private Calendar calendar = Calendar.getInstance();
     private FloatingActionButton fabBackBooking;
     ReservationDate reservationDate;
     private Window window;
@@ -45,30 +47,34 @@ public class CalendarActivity extends AppCompatActivity implements DatePickerCon
         tvFirstDay = findViewById(R.id.tvFirstDay);
         tvLastDay = findViewById(R.id.tvLastDay);
         calendarView = findViewById(R.id.calendarView);
-        calendarView.setFocusedMonthDateColor(Color.RED); // set the red color for the dates of  focused month
-        calendarView.setUnfocusedMonthDateColor(Color.BLUE); // set the yellow color for the dates of an unfocused month
-        calendarView.setSelectedWeekBackgroundColor(Color.RED); // red color for the selected week's background
-        calendarView.setWeekSeparatorLineColor(Color.GREEN); // green color for the week separator line
-        long selectedDate = calendarView.getDate(); // get selected date in milliseconds
-        calendarView.setFirstDayOfWeek(2); // set Monday as the first day of the week
-        tvFirstDay.setText(calendarView.getFirstDayOfWeek()); // get first day of the week
-        calendarView.setDate(1463918226920L); // set selected date 22 May 2016 in milliseconds
-        calendarView.setMaxDate(1463918226920L); // set max date supported by this CalendarViewlong maxDate= simpleCalendarView.getMaxDate(); // get max date supported by this CalendarView
-        calendarView.setMinDate(1463918226920L); // set min date supported by this CalendarView
-        calendarView.setMinDate(1463918226920L); // set min date supported by this CalendarViewlong minDate= simpleCalendarView.getMinDate(); // get min date supported by this CalendarView
-        calendarView.setShowWeekNumber(true); // set true value for showing the week numbers.
-        calendarView.getShowWeekNumber();
-        Drawable verticalBar=calendarView.getSelectedDateVerticalBar();
-        calendarView.setSelectedDateVerticalBar(getResources().getDrawable(R.drawable.ic_launcher)); // set the drawable for the vertical bar
+
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int week = calendar.get(Calendar.DAY_OF_WEEK);
+        calendar.add(Calendar.DAY_OF_MONTH, 180);
+        int maxYear = calendar.get(Calendar.YEAR);
+        int maxMonth = calendar.get(Calendar.MONTH);
+        final int maxDay = calendar.get(Calendar.DAY_OF_MONTH);
+        int maxWeek = calendar.get(Calendar.DAY_OF_WEEK);
+        calendar.set(year, month, day);
+        calendarView.setMinDate(calendar.getTimeInMillis());
+        calendar.set(maxYear, maxMonth, maxDay);
+        calendarView.setMaxDate(calendar.getTimeInMillis());
+
         // perform setOnDateChangeListener event on CalendarView
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
                 // display the selected date by using a toast
-                month = month + 1;
-                Toast.makeText(getApplicationContext(), year + "/" + month + "/" + dayOfMonth, Toast.LENGTH_LONG).show();
+                calendar.set(year, month, dayOfMonth);
+                calendarView.setDate(calendar.getTimeInMillis());
+                tvLastDay.setText(String.valueOf(year) + "年" + String.valueOf(month + 1) + "月" + String.valueOf(dayOfMonth) + "日");
+                Toast.makeText(getApplicationContext(), year + "-" + (month + 1) + "-" + dayOfMonth, Toast.LENGTH_LONG).show();
             }
         });
+        long selectedDate = calendarView.getDate();
+
         fabBackBooking = findViewById(R.id.fabBackBooking);
         fabBackBooking.setOnClickListener(CalendarActivityChange_Listener);
     }
@@ -99,8 +105,15 @@ public class CalendarActivity extends AppCompatActivity implements DatePickerCon
 
     @Override
     public int getMaxYear() {
-        int year = Integer.valueOf(reservationDate.getYear());
-        return year;
+        Calendar today = Calendar.getInstance();
+        int month = today.get(Calendar.MONTH) + 1;
+        if (month < 7) {
+            int year = today.get(Calendar.YEAR);
+            return year;
+        } else {
+            int year = today.get(Calendar.YEAR) + 1;
+            return year;
+        }
     }
 
     @Override

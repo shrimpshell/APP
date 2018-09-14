@@ -23,12 +23,9 @@ import android.widget.Toast;
 import com.example.hsinhwang.shrimpshell.Classes.RoomType;
 import com.example.hsinhwang.shrimpshell.R;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 public class RoomChooseFragment extends Fragment {
     private HashMap<String, Integer> reservationMap;
@@ -88,6 +85,7 @@ public class RoomChooseFragment extends Fragment {
                 } else {
                     bundle.putString("checkInDate", checkInDate);
                     bundle.putString("checkOutDate", checkOutDate);
+                    Log.d(TAG,String.valueOf(reservationMap.size()));
                     bundle.putSerializable("reservationMap", reservationMap);
                     roomCheckFragment.setArguments(bundle);
                     manager = getActivity().getSupportFragmentManager();
@@ -99,34 +97,6 @@ public class RoomChooseFragment extends Fragment {
             }
         });
     }
-
-//    public class SerializableMap implements Serializable {
-//
-//        private HashMap<String, Integer> para;
-//
-//        public SerializableMap(HashMap para) {
-//            this.para = para;
-//        }
-//
-//        public HashMap<String, Integer> getMap() {
-//            return para;
-//        }
-//
-//        public void setMap(HashMap<String, Integer> para) {
-//            this.para = para;
-//        }
-//    }
-
-//    public RoomChooseFragment newInstance(HashMap para) {
-//        RoomChooseFragment fragment = new RoomChooseFragment();
-//        SerializableMap serializableMap = new SerializableMap(para);
-//        Bundle bundle = new Bundle();
-//        bundle.putString("checkInDate", checkInDate);
-//        bundle.putString("checkOutDate", checkOutDate);
-//        bundle.putSerializable("paramap", serializableMap);
-//        fragment.setArguments(bundle);
-//        return fragment;
-//    }
 
     private class RoomTypeAdapter extends
             RecyclerView.Adapter<RoomTypeAdapter.MyViewHolder> {
