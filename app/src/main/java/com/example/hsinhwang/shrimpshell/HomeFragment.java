@@ -3,6 +3,7 @@ package com.example.hsinhwang.shrimpshell;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -39,7 +40,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-
+import android.content.Context;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +49,8 @@ import com.example.hsinhwang.shrimpshell.Classes.LogIn;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+
+import static android.content.Context.MODE_PRIVATE;
 
 
 public class HomeFragment extends Fragment implements OnMapReadyCallback {
@@ -58,6 +61,9 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
     private LatLng hotel_latlng;
     private FragmentActivity activity;
     private CommonTask roomGetAllTask, eventGetAllTask;
+
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -76,8 +82,10 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         initialization();
+        SharedPreferences pref = getActivity().getSharedPreferences(Common.PREF_Customer,
+                MODE_PRIVATE);
         List<MainOptions> optionList = new ArrayList<>();
-        if (!LogIn.CustomerLogIn() && !LogIn.EmployeeLogIn()) {
+        if (!LogIn.CustomerLogIn(pref) && !LogIn.EmployeeLogIn(pref)) {
             optionList.add(new MainOptions(R.string.login_title, (String)getText(R.string.login), R.drawable.login));
         }
         optionList.add(new MainOptions(R.string.intro_title, (String)getText(R.string.about), R.drawable.introduction));

@@ -162,6 +162,9 @@
     <string name="msg_DeleteSuccess">Successfully Deleted</string>
     <string name="msg_LoadImageFail">Failed to load Image</string>
     <string name="msg_LoadImageSuccess">Successfully load Image</string>
+    <string name="msg_NoProfileFound">No Profile Found</string>
+    <string name="MyProfileSetting">My Profile Setting</string>
+    <string name="msa_PasswordNoRight">Password Is Not Right</string>
     <string name="msg_NoEventsFound">No Events found</string>
     <string name="date_format">\"Please insert number in the follow order yyyy-MM-dd\"</string>
     <string name="department">Department</string>
@@ -170,6 +173,8 @@
     <string name="bedQuantity">How many beds?</string>
     <string name="discount_label">Discount</string>
     <string name="date_format_short">Format: yyyy-MM-dd</string>
+    <string name="customer">Customer</string>
+    <string name="employee">Employee</string>
 
     <string-array name="department_options">
         <item id="1">Clean Service</item>

@@ -1,56 +1,109 @@
 package com.example.hsinhwang.shrimpshell.Authentication;
 
+import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.example.hsinhwang.shrimpshell.Classes.Common;
+import com.example.hsinhwang.shrimpshell.Classes.CommonTask;
+import com.example.hsinhwang.shrimpshell.Classes.Customer;
 import com.example.hsinhwang.shrimpshell.MainActivity;
 import com.example.hsinhwang.shrimpshell.R;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
-public class JoinActivity extends AppCompatActivity implements View.OnClickListener, DatePicker.OnDateChangedListener {
-    private int year, month, day;
+public class JoinActivity extends AppCompatActivity {
+    private static final String TAG = "JoinActivity";
     private LinearLayout llDate;
-    private TextView tvDate;
     private StringBuffer date;
     private Context context;
-    private Button btJoinCecked, btJoinCancel;
+    private Button btJoinChecked, btJoinCancel, btDate;
+    private EditText etJoinName, etJoinEmail, etJoinPassword, etJoinReenterPassword, etJoinPhone, etJoinAddress;
+    private RadioButton rbgender;
+    private RadioGroup rgGroup;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_join);
+
 
         context = this;
         date = new StringBuffer();
         handleView();
-        initDateTime();
 
-    }
-
-    private void handleView() {
-        llDate = (LinearLayout) findViewById(R.id.llDate);
-        tvDate = (TextView) findViewById(R.id.tvDate);
-        btJoinCancel = (Button) findViewById(R.id.btJoinCancel);
-        btJoinCecked = (Button) findViewById(R.id.btJoinCecked);
-        llDate.setOnClickListener(this);
-
-        btJoinCecked.setOnClickListener(new View.OnClickListener() {
+        btJoinChecked.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                String name = etJoinName.getText().toString().trim();
+                if (name.length() <= 0) {
+                    Common.showToast(context, R.string.msg_NameIsInvalid);
+                    return;
+                }
+                String email = etJoinEmail.getText().toString().trim();
+                String password = etJoinPassword.getText().toString();
+//                String rePassword = etJoinReenterPassword.getText().toString();
+//                if (password.equals(rePassword)){
+//                    return;
+//                }else {
+//                    Common.showToast(context, R.string.msa_PasswordNoRight);
+//                }
+                rbgender = (RadioButton) findViewById(rgGroup.getCheckedRadioButtonId());
+                String gender = rbgender.getText().toString();
+                String birthDay = btDate.getText().toString();
+                String phoneNo = etJoinPhone.getText().toString().trim();
+                String address = etJoinAddress.getText().toString().trim();
+                Log.e(TAG, name + email + password + gender +
+                        birthDay + phoneNo + address);
+                if (Common.networkConnected(JoinActivity.this)) {
+                    String url = Common.URL + "/CustomerServlet";
+                    Customer customer = new Customer(0, email, name, email, password, gender, birthDay, phoneNo, address);
+                    JsonObject jsonObject = new JsonObject();
+                    jsonObject.addProperty("action", "customerInsert");
+                    jsonObject.addProperty("customer", new Gson().toJson(customer));
+                    int count = 0;
+                    String result = null;
+                    try {
+                        result = new CommonTask(url, jsonObject.toString()).execute().get();
+                        count = Integer.valueOf(result);
+                    } catch (Exception e) {
+                        Log.e(TAG, e.toString());
+                    }
+                    if (result == null) {
+                        Common.showToast(context, R.string.msg_InsertFail);
+                    } else {
+                        Common.showToast(context, R.string.msg_InsertSuccess);
+                    }
+                } else {
+                    Common.showToast(context, R.string.msg_NoNetwork);
+                }
                 finish();
-
             }
         });
 
@@ -63,9 +116,8 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
                         .setPositiveButton("確定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int i) {
-                                Intent intent = new Intent(context,MainActivity.class);
+                                Intent intent = new Intent(context, MainActivity.class);
                                 startActivity(intent);
-                                finish();
                             }
                         })
                         .setNegativeButton("我後悔了", new DialogInterface.OnClickListener() {
@@ -77,57 +129,95 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
                         .show();
             }
         });
+
+        btDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerFragment datePickerFragment = new DatePickerFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt("resId", view.getId());
+                datePickerFragment.setArguments(bundle);
+                FragmentManager fm = getSupportFragmentManager();
+                datePickerFragment.show(fm, "datePicker");
+            }
+        });
+
+
     }
 
-    //以下為日期選擇功能
-    private void initDateTime() {
-        Calendar calendar = Calendar.getInstance();
-        year = calendar.get(Calendar.YEAR);
-        month = calendar.get(Calendar.MONTH) + 1;
-        day = calendar.get(Calendar.DAY_OF_MONTH);
+    private void handleView() {
+        llDate = (LinearLayout) findViewById(R.id.llDate);
+        btDate = (Button) findViewById(R.id.btDate);
+        btJoinCancel = (Button) findViewById(R.id.btJoinCancel);
+        btJoinChecked = (Button) findViewById(R.id.btJoinChecked);
+        etJoinName = (EditText) findViewById(R.id.etJoinName);
+        etJoinEmail = (EditText) findViewById(R.id.etJoinEmail);
+        etJoinPassword = (EditText) findViewById(R.id.etJoinPassword);
+        etJoinReenterPassword = (EditText) findViewById(R.id.etJoinReenterPassword);
+        etJoinPhone = (EditText) findViewById(R.id.etJoinPhone);
+        etJoinAddress = (EditText) findViewById(R.id.etJoinAddress);
+        rgGroup = (RadioGroup) findViewById(R.id.rgGender);
+
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.llDate:
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setPositiveButton("設置", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (date.length() > 0) {
-                            date.delete(0, date.length());
-                        }
-                        tvDate.setText(date.append(String.valueOf(year)).append("年").append(String.valueOf(month)).append("月").append(day).append("日"));
-                        dialog.dismiss();
-                    }
-                });
-                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                final AlertDialog dialog = builder.create();
-                View dialogView = View.inflate(context, R.layout.dialog_date, null);
-                final DatePicker datePicker = dialogView.findViewById(R.id.datePicker);
 
-                dialog.setTitle("設置日期");
-                dialog.setView(dialogView);
-                dialog.show();
-                datePicker.init(year, month - 1, day, this);
+    public static class DatePickerFragment extends DialogFragment implements
+            DatePickerDialog.OnDateSetListener {
+        FragmentActivity activity;
+        Bundle bundle;
+
+        @Override
+        public void onCreate(@Nullable Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            activity = getActivity();
+            bundle = getArguments();
+            if (activity == null || bundle == null) {
+                Log.e(TAG, "activity or bundle is null");
+            }
         }
-    }
 
-    @Override
-    public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        this.year = year;
-        this.month = monthOfYear;
-        this.day = dayOfMonth;
-    }
+        @NonNull
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            int resId = bundle.getInt("resId");
+            Button button = activity.findViewById(resId);
 
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-        
+            // DatePickerDialog will show the date on the clicked button without parse exception
+            int year, month, day;
+            Calendar calendar = Calendar.getInstance();
+            try {
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                Date date = simpleDateFormat.parse(button.getText().toString());
+                calendar.setTime(date);
+            } catch (ParseException e) {
+                Log.e(TAG, e.toString());
+            } finally {
+                year = calendar.get(Calendar.YEAR);
+                month = calendar.get(Calendar.MONTH);
+                day = calendar.get(Calendar.DAY_OF_MONTH);
+            }
+            return new DatePickerDialog(
+                    activity, this, year, month, day);
+        }
+
+        @Override
+        // display the date on the clicked button
+        public void onDateSet(DatePicker view, int year, int month, int day) {
+            int resId = bundle.getInt("resId");
+            updateDisplay(activity, resId, year, month, day);
+        }
+
+        private static void updateDisplay(Activity activity, int resId, int year, int month, int day) {
+            Button button = activity.findViewById(resId);
+            button.setText(new StringBuilder().append(year).append("-")
+                    .append(pad(month + 1)).append("-").append(pad(day)));
+        }
+
+        private static String pad(int number) {
+            if (number >= 10)
+                return String.valueOf(number);
+            else
+                return "0" + String.valueOf(number);
+        }
     }
 }

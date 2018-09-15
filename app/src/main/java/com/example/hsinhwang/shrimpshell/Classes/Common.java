@@ -17,8 +17,10 @@ import java.util.Set;
 public class Common {
     public static final int REQ_EXTERNAL_STORAGE = 0;
     private static final String TAG = "Common";
-//    public static String URL = "http://192.168.50.46:8080/ShellService/"; // 手機用
-    public static String URL = "http://10.0.2.2:8080/ShellService"; // 模擬機用
+    public static final String PREF_Customer = "";
+    public static final String PREF_Employee = "";
+    //    public static String URL = "http://192.168.50.46:8080/ShellService/"; // 手機用
+    public final static String URL = "http://10.0.2.2:8080/ShellService"; // 模擬機用
 
     public static boolean networkConnected(Activity activity) {
         ConnectivityManager conManager =
