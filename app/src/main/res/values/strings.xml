@@ -33,6 +33,7 @@
     <string name="startTime">Start Time</string>
     <string name="endTime">End Time</string>
     <string name="submit">Submit</string>
+    <string name="textEmployeeProfile">Employee Profile</string>
 
     <!--測試用字串-->
     <string name="hello_employee_fragment">Hello employee fragment</string>

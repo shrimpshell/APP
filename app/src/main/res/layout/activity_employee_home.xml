@@ -9,57 +9,61 @@
     tools:context=".EmployeePanel.EmployeeHomeActivity"
     android:background="@drawable/employee_home">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="30dp">
-        <LinearLayout
-            android:layout_width="220dp"
+        android:layout_gravity=""
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:text="@string/textEmployeeProfile"
+        android:textSize="25sp" />
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:id="@+id/ivProfilePicture"
+            android:layout_width="200dp"
             android:layout_height="200dp"
-            android:orientation="vertical"
-            android:paddingTop="50dp"
-            android:paddingLeft="20sp">
+            android:layout_gravity="center"
+            android:src="@drawable/employee_pic"/>
 
-            <TextView
-                android:layout_width="155dp"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                android:text="姓名："
-                android:textSize="16dp"
-                android:textStyle="bold" />
+    </FrameLayout>
 
-            <TextView
-                android:layout_width="155dp"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                android:text="部門："
-                android:textSize="16dp"
-                android:textStyle="bold" />
+    <TextView
+        android:id="@+id/txMyName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:textColor="@android:color/white"
+        android:text="黃先生"
+        android:textSize="25sp" />
 
-            <TextView
-                android:layout_width="155dp"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                android:text="員工編號："
-                android:textSize="16dp"
-                android:textStyle="bold" />
+    <TextView
+        android:id="@+id/txMemberEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="xxx@gmail.com"
+        android:layout_marginTop="10dp"
+        android:textColor="@android:color/white"
+        android:textSize="20sp" />
 
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="200dp"
-            android:orientation="vertical"
-            android:paddingTop="40dp">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/employee_pic"/>
-
-        </LinearLayout>
-    </LinearLayout>
+    <TextView
+        android:id="@+id/txPhoneNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="3345678"
+        android:layout_marginTop="10dp"
+        android:textColor="@android:color/white"
+        android:textSize="20sp" />
 
     <LinearLayout
         android:id="@+id/employHomeBottom"
