@@ -9,7 +9,7 @@
     <string name="booking">Booking a room</string>
     <string name="profile">Customer Profile</string>
     <string name="home">Home</string>
-    <string name="reserved">Reserved booking</string>
+    <string name="instant">Instant Service</string>
     <string name="login_title">Login</string>
     <string name="txLogInWelcome">Welcome</string>
     <string name="textLogEmail">Email or Account</string>

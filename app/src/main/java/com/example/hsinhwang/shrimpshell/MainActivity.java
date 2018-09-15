@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.item_reserved:
                     fragment = new ReservedFragment();
                     changeFragment(fragment);
-                    setTitle(R.string.reserved);
+                    setTitle(R.string.instant);
                     return true;
                 case R.id.item_profile:
                     if (LogIn.EmployeeLogIn()) {

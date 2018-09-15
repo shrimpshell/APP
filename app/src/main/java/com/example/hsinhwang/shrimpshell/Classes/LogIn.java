@@ -1,8 +1,8 @@
 package com.example.hsinhwang.shrimpshell.Classes;
 
 public class LogIn {
-    private static boolean isLogInCustomer = false;
-    private static boolean isLogInEmployee = true;
+    private static boolean isLogInCustomer = true;
+    private static boolean isLogInEmployee = false;
 
     public static boolean CustomerLogIn(){
         return isLogInCustomer;
