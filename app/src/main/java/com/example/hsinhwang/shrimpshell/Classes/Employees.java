@@ -1,47 +1,44 @@
 package com.example.hsinhwang.shrimpshell.Classes;
 
 import java.io.Serializable;
+import java.sql.Blob;
 
 public class Employees implements Serializable {
-    private int employeeId;
-    private String name, employeeCode, email, gender, phone, address, password;
+    private int id, departmentId, isDeleted;
+    private String code, name, password, email, gender, phone, address;
+    private Blob image;
 
-    public Employees(String name, String employeeCode, String email, String password, String gender, String phone, String address) {
+    public Employees(int id, String code, String name, String password, String email, String gender, String phone,
+                     String address, int departmentId) {
+        this.id = id;
+        this.code = code;
         this.name = name;
-        this.employeeCode = employeeCode;
-        this.email = email;
         this.password = password;
+        this.email = email;
         this.gender = gender;
         this.phone = phone;
         this.address = address;
+        this.departmentId = departmentId;
     }
 
-    public String getPassword() {
-        return password;
+    public int getId() {
+        return id;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public int getEmployeeId() {
-        return employeeId;
-    }
-
-    public String getEmployeeCode() {
-        return employeeCode;
+    public String getCode() {
+        return code;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getEmail() {
-        return email;
+    public String getPassword() {
+        return password;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public String getEmail() {
+        return email;
     }
 
     public String getGender() {
@@ -52,15 +49,24 @@ public class Employees implements Serializable {
         return phone;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
     public String getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public int getDepartmentId() {
+        return departmentId;
     }
+
+    public Blob getImage() {
+        return image;
+    }
+
+    public void setImage(Blob image) {
+        this.image = image;
+    }
+
+    public int getIsDeleted() {
+        return isDeleted;
+    }
+
 }

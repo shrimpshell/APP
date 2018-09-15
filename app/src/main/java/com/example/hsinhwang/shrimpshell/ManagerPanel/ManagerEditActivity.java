@@ -20,7 +20,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.example.hsinhwang.shrimpshell.Classes.CommonTask;
 import com.example.hsinhwang.shrimpshell.Classes.Events;
@@ -35,10 +34,10 @@ import java.io.ByteArrayOutputStream;
 
 public class ManagerEditActivity extends AppCompatActivity {
     private final static String TAG = "EditActivity";
-    private EditText etName, etDescription, etStartTime, etEndTime, etRoomSize, etBed, etAdult, etChild, etQuantity, etPrice;
+    private EditText etName, etDescription, etStartTime, etEndTime, etRoomSize, etBed, etAdult, etChild, etQuantity, etPrice, etDiscount;
     private LinearLayout eventElement, roomElement;
     private Button btnSubmit;
-    private ImageView ivRoom;
+    private ImageView imageView;
     private byte[] image;
     private static final int REQUEST_PICK_PICTURE = 1;
 
@@ -63,9 +62,9 @@ public class ManagerEditActivity extends AppCompatActivity {
             case Common.REQ_EXTERNAL_STORAGE:
                 if (grantResults.length > 0 &&
                         grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    ivRoom.setEnabled(true);
+                    imageView.setEnabled(true);
                 } else {
-                    ivRoom.setEnabled(false);
+                    imageView.setEnabled(false);
                 }
                 break;
         }
@@ -85,7 +84,7 @@ public class ManagerEditActivity extends AppCompatActivity {
                     cursor.close();
                     Bitmap srcImage = BitmapFactory.decodeFile(imagePath);
                     Bitmap downsizedImage = Common.downSize(srcImage, newSize);
-                    ivRoom.setImageBitmap(downsizedImage);
+                    imageView.setImageBitmap(downsizedImage);
                     ByteArrayOutputStream out = new ByteArrayOutputStream();
                     srcImage.compress(Bitmap.CompressFormat.JPEG, 100, out);
                     image = out.toByteArray();
@@ -95,7 +94,7 @@ public class ManagerEditActivity extends AppCompatActivity {
     }
 
     private void initialization() {
-        ivRoom = findViewById(R.id.ivRoom);
+        imageView = findViewById(R.id.imageView);
         etName = findViewById(R.id.etName);
         etDescription = findViewById(R.id.etDescription);
         etStartTime = findViewById(R.id.etStartTime);
@@ -110,6 +109,16 @@ public class ManagerEditActivity extends AppCompatActivity {
         etChild = findViewById(R.id.etChild);
         etQuantity = findViewById(R.id.etQuantity);
         etPrice = findViewById(R.id.etPrice);
+        etDiscount = findViewById(R.id.etDiscount);
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_PICK,
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, REQUEST_PICK_PICTURE);
+            }
+        });
     }
 
     private void loadData() {
@@ -119,33 +128,73 @@ public class ManagerEditActivity extends AppCompatActivity {
             Object room = bundle.getSerializable("room");
             if (event != null) {
                 final Events obj = (Events) event;
-                int startYear = 1900 + obj.getStartDate().getYear();
-                String startMonth = (obj.getStartDate().getMonth() + 1) > 10 ? "" + obj.getStartDate().getMonth() : "0" + obj.getStartDate().getMonth();
-                String startDate = (obj.getStartDate().getDate()) > 10 ? "" + obj.getStartDate().getDate() : "0" + obj.getStartDate().getDate();
-                int endYear = 1900 + obj.getEndDate().getYear();
-                String endMonth = (obj.getEndDate().getMonth() + 1) > 10 ? "" + obj.getEndDate().getMonth() : "0" + obj.getEndDate().getMonth();
-                String endDate = (obj.getEndDate().getDate()) > 10 ? "" + obj.getEndDate().getDate() : "0" + obj.getEndDate().getDate();
+                String start = obj.getStart(), end = obj.getEnd();
 
+                eventElement.setVisibility(View.VISIBLE);
+                loadEventImage(obj.getEventId());
                 etName.setText(obj.getName());
                 etDescription.setText(obj.getDescription());
-                etStartTime.setText(startYear + "-" + startMonth + "-" + startDate);
-                etEndTime.setText(endYear + "-" + endMonth + "-" + endDate);
-                eventElement.setVisibility(View.VISIBLE);
+                etDiscount.setText(String.valueOf(obj.getDiscount()));
+                etStartTime.setText(start);
+                etEndTime.setText(end);
+
                 btnSubmit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        // 儲存到資料庫Event
+                        float discount = 0.0f;
+                        String name = etName.getText().toString();
+                        if (name.length() <= 0) {
+                            Common.showToast(ManagerEditActivity.this, R.string.msg_NameIsInvalid);
+                            return;
+                        }
+                        try {
+                            discount = Float.parseFloat(etDiscount.getText().toString());
+                        } catch (NumberFormatException e) {
+                            Common.showToast(ManagerEditActivity.this, "格式錯誤");
+                        }
+
+                        String description = etDescription.getText().toString();
+                        String start = etStartTime.getText().toString(), end = etEndTime.getText().toString();
+
+                        if (Common.networkConnected(ManagerEditActivity.this)) {
+                            String url = Common.URL + "/EventServlet";
+                            Events event = new Events(obj.getEventId(), name, description, start, end, discount);
+                            String imageBase64 = "";
+                            if (image != null) imageBase64 = Base64.encodeToString(image, Base64.DEFAULT);
+                            JsonObject jsonObject = new JsonObject();
+                            jsonObject.addProperty("action", "eventUpdate");
+                            jsonObject.addProperty("event", new Gson().toJson(event));
+                            jsonObject.addProperty("imageBase64", imageBase64);
+                            int count = 0;
+                            try {
+                                String result = new CommonTask(url, jsonObject.toString()).execute().get();
+                                count = Integer.valueOf(result);
+                            } catch (Exception e) {
+                                Log.e(TAG, e.toString());
+                            }
+                            if (count == 0) {
+                                Common.showToast(ManagerEditActivity.this, R.string.msg_UpdateFail);
+                            } else {
+                                Common.showToast(ManagerEditActivity.this, R.string.msg_UpdateSuccess);
+                            }
+                        } else {
+                            Common.showToast(ManagerEditActivity.this, R.string.msg_NoNetwork);
+                        }
                         finish();
                     }
                 });
+
             } else {
                 roomElement.setVisibility(View.VISIBLE);
                 final Rooms obj = (Rooms) room;
-                Toast.makeText(this, String.valueOf(obj.getId()), Toast.LENGTH_SHORT).show();
-                loadImage(obj.getId());
+
+                String roomSize = obj.getRoomSize().substring(0, obj.getRoomSize().indexOf("平")),
+                bed = obj.getBed().substring(0, obj.getBed().indexOf("張"));
+
+                loadRoomImage(obj.getId());
                 etName.setText(obj.getName());
-                etRoomSize.setText(obj.getRoomSize());
-                etBed.setText(obj.getBed());
+                etRoomSize.setText(roomSize);
+                etBed.setText(bed);
                 etAdult.setText(String.valueOf(obj.getAdultQuantity()));
                 etChild.setText(String.valueOf(obj.getChildQuantity()));
                 etQuantity.setText(String.valueOf(obj.getRoomQuantity()));
@@ -154,14 +203,13 @@ public class ManagerEditActivity extends AppCompatActivity {
                 btnSubmit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        // 儲存到資料庫Room
                         String name = etName.getText().toString();
                         if (name.length() <= 0) {
                             Common.showToast(ManagerEditActivity.this, R.string.msg_NameIsInvalid);
                             return;
                         }
-                        String roomSize = etRoomSize.getText().toString(),
-                                bed = etBed.getText().toString();
+                        String roomSize = etRoomSize.getText().toString() + "平方公尺",
+                                bed = etBed.getText().toString() + "張雙人床";
                         int adult = Integer.parseInt(etAdult.getText().toString()),
                                 child = Integer.parseInt(etChild.getText().toString()),
                                 quantity = Integer.parseInt(etQuantity.getText().toString()),
@@ -180,7 +228,7 @@ public class ManagerEditActivity extends AppCompatActivity {
                                 String result = new CommonTask(url, jsonObject.toString()).execute().get();
                                 count = Integer.valueOf(result);
                             } catch (Exception e) {
-//                                Log.e(TAG, e.toString());
+                                Log.e(TAG, e.toString());
                             }
                             if (count == 0) {
                                 Common.showToast(ManagerEditActivity.this, R.string.msg_UpdateFail);
@@ -193,20 +241,11 @@ public class ManagerEditActivity extends AppCompatActivity {
                         finish();
                     }
                 });
-
-                ivRoom.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(Intent.ACTION_PICK,
-                                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                        startActivityForResult(intent, REQUEST_PICK_PICTURE);
-                    }
-                });
             }
         }
     }
 
-    private void loadImage(int id) {
+    private void loadRoomImage(int id) {
         String url = Common.URL + "/RoomServlet";
         int imageSize = getResources().getDisplayMetrics().widthPixels / 3;
         Bitmap bitmap = null;
@@ -217,13 +256,32 @@ public class ManagerEditActivity extends AppCompatActivity {
             Log.e(TAG, e.toString());
         }
         if (bitmap != null) {
-            ivRoom.setImageBitmap(bitmap);
+            imageView.setImageBitmap(bitmap);
             ByteArrayOutputStream out = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
             image = out.toByteArray();
         } else {
-            ivRoom.setImageResource(R.drawable.room_review);
+            imageView.setImageResource(R.drawable.room_review);
         }
     }
 
+    private void loadEventImage(int id) {
+        String url = Common.URL + "/EventServlet";
+        int imageSize = getResources().getDisplayMetrics().widthPixels / 3;
+        Bitmap bitmap = null;
+
+        try {
+            bitmap = new ImageTask(url, id, imageSize).execute().get();
+        } catch (Exception e) {
+            Log.e(TAG, e.toString());
+        }
+        if (bitmap != null) {
+            imageView.setImageBitmap(bitmap);
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+            image = out.toByteArray();
+        } else {
+            imageView.setImageResource(R.drawable.events);
+        }
+    }
 }

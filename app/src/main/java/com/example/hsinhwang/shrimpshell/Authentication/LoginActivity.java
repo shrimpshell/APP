@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.hsinhwang.shrimpshell.Classes.Common;
@@ -32,7 +33,9 @@ public class LoginActivity extends AppCompatActivity {
     private Context context;
     private Button btLogIn, btJoin;
     private CommonTask loginTask;
+    private RadioGroup rgLogin;
     String idCustomer = null;
+    String idEmployee = null;
 
 
 
@@ -50,12 +53,23 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStart () {
         super.onStart();
-        SharedPreferences pref = getSharedPreferences(Common.PREF_Customer, MODE_PRIVATE);
-        boolean login = pref.getBoolean("login", false);
+        SharedPreferences prefC = getSharedPreferences(Common.PREF_Customer, MODE_PRIVATE);
+        boolean login = prefC.getBoolean("login", false);
         if (login) {
-            String user = pref.getString("user", "");
-            String password = pref.getString("password", "");
-            if (LogIn.isLogIn(LoginActivity.this, user, password)) {
+            String user = prefC.getString("user", "");
+            String password = prefC.getString("password", "");
+            if (LogIn.isCustomerLogIn(LoginActivity.this, user, password)) {
+                setResult(RESULT_OK);
+                finish();
+            }
+        }
+
+        SharedPreferences prefE = getSharedPreferences(Common.PREF_Employee, MODE_PRIVATE);
+        boolean logIn = prefE.getBoolean("login", false);
+        if (logIn) {
+            String user = prefE.getString("employeeCode", "");
+            String password = prefE.getString("password", "");
+            if (LogIn.isCustomerLogIn(LoginActivity.this, user, password)) {
                 setResult(RESULT_OK);
                 finish();
             }
@@ -75,26 +89,51 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
 
-            if (LogIn.isLogIn(LoginActivity.this, user, password)) {
-                SharedPreferences pref = getSharedPreferences(Common.PREF_Customer,
-                        MODE_PRIVATE);
-                pref.edit()
-                        .putBoolean("login", true)
-                       .putInt("idCustomer", Integer.parseInt(idCustomer))
-                        .putString("user", user)
-                        .putString("password", password)
+            switch (rgLogin.getCheckedRadioButtonId()) {
+                case R.id.rbCustomer:
+                    if (LogIn.isCustomerLogIn(LoginActivity.this, user, password)) {
+                        SharedPreferences pref = getSharedPreferences(Common.PREF_Customer,
+                                MODE_PRIVATE);
+                        pref.edit()
+                                .putBoolean("login", true)
+//                                .putInt("idCustomer", Integer.parseInt(idCustomer))
+                                .putString("user", user)
+                                .putString("password", password)
 //                        .putString("gender", gender)
 //                        .putString("birthday", birthday)
 //                        .putString("phoneNo", phoneNo)
 //                        .putString("address", address)
-                        .apply();
-                setResult(RESULT_OK);
-                finish();
-            } else {
-                showMessage();
+                                .apply();
+                        setResult(RESULT_OK);
+                        finish();
+                    } else {
+                        showMessage();
+                    }
+                    break;
+                case R.id.rbEmployee:
+                    if (LogIn.isEmployeeLogIn(LoginActivity.this, user, password)) {
+                        SharedPreferences pref = getSharedPreferences(Common.PREF_Employee,
+                                MODE_PRIVATE);
+                        pref.edit()
+                                .putBoolean("login", true)
+                                .putInt("idEmployee", Integer.parseInt(idEmployee))
+                                .putString("employeeCode", user)
+                                .putString("password", password)
+//                        .putString("gender", gender)
+//                        .putString("birthday", birthday)
+//                        .putString("phoneNo", phoneNo)
+//                        .putString("address", address)
+                                .apply();
+                        setResult(RESULT_OK);
+                        finish();
+                    } else {
+                        showMessage();
+                    }
+                    break;
             }
         }
     };
+
 
     private void showMessage () {
         new AlertDialog.Builder(context)
@@ -103,6 +142,46 @@ public class LoginActivity extends AppCompatActivity {
                 .setPositiveButton("OK", null)
                 .show();
     }
+
+
+
+    private Button.OnClickListener btJoinListener = new Button.OnClickListener() {
+
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(context, JoinActivity.class);
+            startActivity(intent);
+
+        }
+    };
+
+    private void initialization () {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window = getWindow();
+            window.setStatusBarColor(Color.parseColor("#01728B"));
+        }
+    }
+
+    private void findViews() {
+        btLogIn = (Button) findViewById(R.id.btLogIn);
+        btJoin = (Button) findViewById(R.id.btJoin);
+        etEmail = (EditText) findViewById(R.id.etEmail);
+        etPassword = (EditText) findViewById(R.id.etPassword);
+        btLogIn.setOnClickListener(btLogInListener);
+        btJoin.setOnClickListener(btJoinListener);
+        rgLogin = (RadioGroup) findViewById(R.id.rgLogin);
+        context = LoginActivity.this;
+    }
+
+
+    @Override
+    public void onStop () {
+        super.onStop();
+        if (loginTask != null) {
+            loginTask.cancel(true);
+        }
+    }
+}
 
 //    private boolean isLogIn (String user, String password){
 //        boolean isLogin = false;
@@ -132,41 +211,4 @@ public class LoginActivity extends AppCompatActivity {
 //        return isLogin;
 //
 //    }
-
-    private Button.OnClickListener btJoinListener = new Button.OnClickListener() {
-
-        @Override
-        public void onClick(View view) {
-            Intent intent = new Intent(context, JoinActivity.class);
-            startActivity(intent);
-
-        }
-    };
-
-    private void initialization () {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window = getWindow();
-            window.setStatusBarColor(Color.parseColor("#01728B"));
-        }
-    }
-
-    private void findViews() {
-        btLogIn = (Button) findViewById(R.id.btLogIn);
-        btJoin = (Button) findViewById(R.id.btJoin);
-        etEmail = (EditText) findViewById(R.id.etEmail);
-        etPassword = (EditText) findViewById(R.id.etPassword);
-        btLogIn.setOnClickListener(btLogInListener);
-        btJoin.setOnClickListener(btJoinListener);
-        context = LoginActivity.this;
-    }
-
-
-    @Override
-    public void onStop () {
-        super.onStop();
-        if (loginTask != null) {
-            loginTask.cancel(true);
-        }
-    }
-}
 

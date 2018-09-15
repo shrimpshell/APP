@@ -30,8 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private Window window;
     boolean login = false;
     BottomNavigationView navigation;
-    SharedPreferences pref = getSharedPreferences(Common.PREF_Customer,
-            MODE_PRIVATE);
+
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -60,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
                     setTitle(R.string.reserved);
                     return true;
                 case R.id.item_profile:
+                    SharedPreferences pref = getSharedPreferences(Common.PREF_Customer,
+                            MODE_PRIVATE);
                     if (!LogIn.CustomerLogIn(pref)) {
                         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                         startActivity(intent);
@@ -90,10 +91,20 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        SharedPreferences pref = getSharedPreferences(Common.PREF_Customer,
+                MODE_PRIVATE);
         if (!LogIn.CustomerLogIn(pref)){
             initContent();
             navigation.setSelectedItemId(R.id.item_home);
         }
+
+        SharedPreferences prefC = getSharedPreferences(Common.PREF_Employee,
+                MODE_PRIVATE);
+        if (!LogIn.EmployeeLogIn(prefC)){
+            initContent();
+            navigation.setSelectedItemId(R.id.item_home);
+        }
+
 
     }
 

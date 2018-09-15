@@ -28,8 +28,8 @@
     <string name="textProfileAddress">Address</string>
     <string name="title_activity_manager_home">ManagerHomeActivity</string>
     <string name="name">Name</string>
-    <string name="roomSize">Room Size</string>
-    <string name="bed">Bed</string>
+    <string name="roomSize">Room Size(Square Meter)</string>
+    <string name="bed">Bed(Quantity)</string>
     <string name="startTime">Start Time</string>
     <string name="endTime">End Time</string>
     <string name="submit">Submit</string>
@@ -165,6 +165,48 @@
     <string name="msg_NoProfileFound">No Profile Found</string>
     <string name="MyProfileSetting">My Profile Setting</string>
     <string name="msa_PasswordNoRight">Password Is Not Right</string>
+    <string name="msg_NoEventsFound">No Events found</string>
+    <string name="date_format">\"Please insert number in the follow order yyyy-MM-dd\"</string>
+    <string name="department">Department</string>
+    <string name="msg_NoEmployeesFound">No employees found</string>
+    <string name="sqrtmeter">How many Square meter?</string>
+    <string name="bedQuantity">How many beds?</string>
+    <string name="discount_label">Discount</string>
+    <string name="date_format_short">Format: yyyy-MM-dd</string>
+    <string name="customer">Customer</string>
+    <string name="employee">Employee</string>
+
+    <string-array name="department_options">
+        <item id="1">Clean Service</item>
+        <item id="2">Room Service</item>
+        <item id="3">Meal Service</item>
+    </string-array>
+
+    <string-array name="room_name">
+        <item>海景標準雙人房</item>
+        <item>山景標準雙人房</item>
+        <item>海景標準四人房</item>
+        <item>山景標準四人房</item>
+        <item>海景精緻雙人房</item>
+        <item>山景精緻雙人房</item>
+        <item>海景精緻四人房</item>
+        <item>山景精緻四人房</item>
+        <item>海景豪華雙人房</item>
+        <item>山景豪華雙人房</item>
+    </string-array>
+
+    <string-array name="room_size">
+        <item>35平方公尺</item>
+        <item>42平方公尺</item>
+        <item>45平方公尺</item>
+        <item>52平方公尺</item>
+        <item>60平方公尺</item>
+    </string-array>
+
+    <string-array name="room_bed">
+        <item>1張雙人床</item>
+        <item>2張雙人床</item>
+    </string-array>
 
 </resources>
 

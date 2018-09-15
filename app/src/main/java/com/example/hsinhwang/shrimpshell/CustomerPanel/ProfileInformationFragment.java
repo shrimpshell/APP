@@ -13,7 +13,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -29,6 +28,7 @@ import com.example.hsinhwang.shrimpshell.Classes.CommonTask;
 import com.example.hsinhwang.shrimpshell.Classes.Customer;
 import com.example.hsinhwang.shrimpshell.MainActivity;
 import com.example.hsinhwang.shrimpshell.R;
+import com.github.clans.fab.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -163,6 +163,8 @@ public class ProfileInformationFragment extends Fragment{
     private void fillprofile() {
         SharedPreferences preferences = activity.getSharedPreferences
                 (Common.PREF_Customer, MODE_PRIVATE);
+        preferences.edit()
+                .putInt("idCustomer", 0);
         int idCustomer = preferences.getInt("idCustomer", 0);
 
         if (idCustomer == 0){
