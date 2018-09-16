@@ -23,6 +23,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.hsinhwang.shrimpshell.Authentication.ProfileSettingActivity;
 import com.example.hsinhwang.shrimpshell.Classes.Common;
 import com.example.hsinhwang.shrimpshell.Classes.CommonTask;
 import com.example.hsinhwang.shrimpshell.Classes.Customer;
@@ -43,6 +44,7 @@ public class ProfileInformationFragment extends Fragment{
     private FragmentActivity activity;
     private static final int REQUEST_TAKE_PICTURE_SMALL = 0;
     private static final int REQUEST_PICK_PICTURE = 1;
+    SharedPreferences preferences;
     private CommonTask userFindTask;
     private TextView txMyMemberNumber, txMyName, txMemberEmail, txPhoneNumber;
 
@@ -54,6 +56,7 @@ public class ProfileInformationFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        activity = getActivity();
         return inflater.inflate(R.layout.fragment_profile_information, container, false);
     }
 
@@ -62,21 +65,14 @@ public class ProfileInformationFragment extends Fragment{
         super.onStart();
         String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
         Common.askPermissions(getActivity(), permissions, Common.REQ_EXTERNAL_STORAGE);
-        fillprofile();
+//        fillprofile();
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        imageView = getActivity().findViewById(R.id.ivProfilePicture);
-        ibChange = getActivity().findViewById(R.id.ibChange);
-        fabLogOut = getActivity().findViewById(R.id.fabLogOut);
-        fabSetting = getActivity().findViewById(R.id.fabSetting);
-        txMyMemberNumber = getActivity().findViewById(R.id.txMyMemberNumber);
-        txMyName = getActivity().findViewById(R.id.txMyName);
-        txMemberEmail = getActivity().findViewById(R.id.txMemberEmail);
-        txPhoneNumber = getActivity().findViewById(R.id.txPhoneNumber);
+        findview();
 
         ibChange.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,7 +88,7 @@ public class ProfileInformationFragment extends Fragment{
         fabLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences pref = getActivity().getSharedPreferences(Common.PREF_Customer,
+                SharedPreferences pref = getActivity().getSharedPreferences(Common.PREF_CUSTOMER,
                         Context.MODE_PRIVATE);
                 pref.edit().putBoolean("login", false).apply();
                 Intent intent = new Intent(getContext(), MainActivity.class);
@@ -109,6 +105,8 @@ public class ProfileInformationFragment extends Fragment{
         });
 
     }
+
+
 
 
     @Override
@@ -158,14 +156,22 @@ public class ProfileInformationFragment extends Fragment{
                 break;
         }
     }
+    private void findview() {
+        imageView = getActivity().findViewById(R.id.ivProfilePicture);
+        ibChange = getActivity().findViewById(R.id.ibChange);
+        fabLogOut = getActivity().findViewById(R.id.fabLogOut);
+        fabSetting = getActivity().findViewById(R.id.fabSetting);
+        txMyMemberNumber = getActivity().findViewById(R.id.txMyMemberNumber);
+        txMyName = getActivity().findViewById(R.id.txMyName);
+        txMemberEmail = getActivity().findViewById(R.id.txMemberEmail);
+        txPhoneNumber = getActivity().findViewById(R.id.txPhoneNumber);
+    }
 
     @SuppressLint("LongLogTag")
     private void fillprofile() {
-        SharedPreferences preferences = activity.getSharedPreferences
-                (Common.PREF_Customer, MODE_PRIVATE);
-        preferences.edit()
-                .putInt("idCustomer", 0);
-        int idCustomer = preferences.getInt("idCustomer", 0);
+        preferences = activity.getSharedPreferences
+                (Common.PREF_CUSTOMER, MODE_PRIVATE);
+        int idCustomer = preferences.getInt("IdCustomer", 0);
 
         if (idCustomer == 0){
             Common.showToast(activity, R.string.msg_NoProfileFound);
@@ -176,7 +182,7 @@ public class ProfileInformationFragment extends Fragment{
             String url = Common.URL + "/CustomerServlet";
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("action", "findById");
-            jsonObject.addProperty("idCustomer", idCustomer);
+            jsonObject.addProperty("IdCustomer", idCustomer);
 
             String jsonOut = jsonObject.toString();
             userFindTask = new CommonTask(url, jsonOut);
@@ -203,5 +209,7 @@ public class ProfileInformationFragment extends Fragment{
             Common.showToast(activity, R.string.msg_NoNetwork);
         }
     }
+
+
 }
 

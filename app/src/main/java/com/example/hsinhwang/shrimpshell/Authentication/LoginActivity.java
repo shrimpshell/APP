@@ -21,6 +21,7 @@ import com.example.hsinhwang.shrimpshell.Classes.CommonTask;
 import com.example.hsinhwang.shrimpshell.Classes.LogIn;
 import com.example.hsinhwang.shrimpshell.Classes.MyTask;
 import com.example.hsinhwang.shrimpshell.MainActivity;
+import com.example.hsinhwang.shrimpshell.ManagerPanel.AddEmployeeActivity;
 import com.example.hsinhwang.shrimpshell.R;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -34,9 +35,8 @@ public class LoginActivity extends AppCompatActivity {
     private Button btLogIn, btJoin;
     private CommonTask loginTask;
     private RadioGroup rgLogin;
-    String idCustomer = null;
+    int IdCustomer = 0;
     String idEmployee = null;
-
 
 
     @Override
@@ -51,9 +51,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart () {
+    protected void onStart() {
         super.onStart();
-        SharedPreferences prefC = getSharedPreferences(Common.PREF_Customer, MODE_PRIVATE);
+        //判斷Customer是否已登入
+        SharedPreferences prefC = getSharedPreferences(Common.PREF_CUSTOMER, MODE_PRIVATE);
         boolean login = prefC.getBoolean("login", false);
         if (login) {
             String user = prefC.getString("user", "");
@@ -64,19 +65,21 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
 
+        //判斷Employee是否已登入
         SharedPreferences prefE = getSharedPreferences(Common.PREF_Employee, MODE_PRIVATE);
         boolean logIn = prefE.getBoolean("login", false);
         if (logIn) {
             String user = prefE.getString("employeeCode", "");
             String password = prefE.getString("password", "");
-            if (LogIn.isCustomerLogIn(LoginActivity.this, user, password)) {
-                setResult(RESULT_OK);
+            if (LogIn.isEmployeeLogIn(LoginActivity.this, user, password)) {
+                setResult(3);
                 finish();
             }
         }
 
     }
 
+    //LogIn Button
     private Button.OnClickListener btLogInListener = new Button.OnClickListener() {
 
         @Override
@@ -84,19 +87,22 @@ public class LoginActivity extends AppCompatActivity {
             String user = etEmail.getText().toString().trim();
             String password = etPassword.getText().toString().trim();
 
+            //當帳號或密碼長度小於0，跳出警示訊息
             if (user.length() <= 0 || password.length() <= 0) {
                 showMessage();
                 return;
             }
 
             switch (rgLogin.getCheckedRadioButtonId()) {
+
+                //選擇Customer登入時
                 case R.id.rbCustomer:
                     if (LogIn.isCustomerLogIn(LoginActivity.this, user, password)) {
-                        SharedPreferences pref = getSharedPreferences(Common.PREF_Customer,
+                        SharedPreferences pref = getSharedPreferences(Common.PREF_CUSTOMER,
                                 MODE_PRIVATE);
                         pref.edit()
                                 .putBoolean("login", true)
-//                                .putInt("idCustomer", Integer.parseInt(idCustomer))
+                                .putInt("IdCustomer",Integer.valueOf(IdCustomer))
                                 .putString("user", user)
                                 .putString("password", password)
 //                        .putString("gender", gender)
@@ -105,11 +111,14 @@ public class LoginActivity extends AppCompatActivity {
 //                        .putString("address", address)
                                 .apply();
                         setResult(RESULT_OK);
+                        Log.e(TAG, String.valueOf(IdCustomer));
                         finish();
                     } else {
                         showMessage();
                     }
                     break;
+
+                //選擇Employee登入時
                 case R.id.rbEmployee:
                     if (LogIn.isEmployeeLogIn(LoginActivity.this, user, password)) {
                         SharedPreferences pref = getSharedPreferences(Common.PREF_Employee,
@@ -124,7 +133,7 @@ public class LoginActivity extends AppCompatActivity {
 //                        .putString("phoneNo", phoneNo)
 //                        .putString("address", address)
                                 .apply();
-                        setResult(RESULT_OK);
+                        setResult(3);
                         finish();
                     } else {
                         showMessage();
@@ -134,28 +143,30 @@ public class LoginActivity extends AppCompatActivity {
         }
     };
 
-
-    private void showMessage () {
-        new AlertDialog.Builder(context)
-                .setTitle("SS Hotel")
-                .setMessage("登入失敗")
-                .setPositiveButton("OK", null)
-                .show();
-    }
-
-
-
+    // Join Button
     private Button.OnClickListener btJoinListener = new Button.OnClickListener() {
 
         @Override
         public void onClick(View view) {
-            Intent intent = new Intent(context, JoinActivity.class);
-            startActivity(intent);
+
+            switch (rgLogin.getCheckedRadioButtonId()) {
+                //轉換頁面至Customer註冊頁面
+                case R.id.rbCustomer:
+                    Intent intentC = new Intent(context, JoinActivity.class);
+                    startActivity(intentC);
+                    break;
+
+                //轉換頁面至Employee註冊頁面
+                case R.id.rbEmployee:
+                    Intent intentE = new Intent(context, AddEmployeeActivity.class);
+                    startActivity(intentE);
+                    break;
+            }
 
         }
     };
 
-    private void initialization () {
+    private void initialization() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window = getWindow();
             window.setStatusBarColor(Color.parseColor("#01728B"));
@@ -175,13 +186,24 @@ public class LoginActivity extends AppCompatActivity {
 
 
     @Override
-    public void onStop () {
+    public void onStop() {
         super.onStop();
         if (loginTask != null) {
             loginTask.cancel(true);
         }
     }
-}
+
+    //登入失敗警示訊息
+    private void showMessage() {
+        new AlertDialog.Builder(context)
+                .setTitle("SS Hotel")
+                .setMessage("登入失敗")
+                .setPositiveButton("OK", null)
+                .show();
+    }
+
+
+    //以下無使用，method於Class資料夾中的LogIn
 
 //    private boolean isLogIn (String user, String password){
 //        boolean isLogin = false;
@@ -211,4 +233,5 @@ public class LoginActivity extends AppCompatActivity {
 //        return isLogin;
 //
 //    }
+}
 

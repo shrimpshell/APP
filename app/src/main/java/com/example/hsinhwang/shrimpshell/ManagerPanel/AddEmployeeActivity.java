@@ -167,7 +167,7 @@ public class AddEmployeeActivity extends AppCompatActivity {
             if (image != null) imageBase64 = Base64.encodeToString(image, Base64.DEFAULT);
             Log.e(TAG, new Gson().toJson(employee));
             JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("action", "employeeInsert");
+            jsonObject.addProperty("action", "insert");
             jsonObject.addProperty("employee", new Gson().toJson(employee));
             jsonObject.addProperty("imageBase64", imageBase64);
             int count = 0;

@@ -1,7 +1,9 @@
 package com.example.hsinhwang.shrimpshell;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -21,6 +23,7 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.Window;
 
+import com.example.hsinhwang.shrimpshell.Authentication.JoinActivity;
 import com.example.hsinhwang.shrimpshell.Authentication.LoginActivity;
 import com.example.hsinhwang.shrimpshell.Classes.Common;
 import com.example.hsinhwang.shrimpshell.Classes.LogIn;
@@ -59,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                     setTitle(R.string.reserved);
                     return true;
                 case R.id.item_profile:
-                    SharedPreferences pref = getSharedPreferences(Common.PREF_Customer,
+                    SharedPreferences pref = getSharedPreferences(Common.PREF_CUSTOMER,
                             MODE_PRIVATE);
                     if (!LogIn.CustomerLogIn(pref)) {
                         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
@@ -91,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        SharedPreferences pref = getSharedPreferences(Common.PREF_Customer,
+        SharedPreferences pref = getSharedPreferences(Common.PREF_CUSTOMER,
                 MODE_PRIVATE);
         if (!LogIn.CustomerLogIn(pref)){
             initContent();
@@ -173,6 +176,11 @@ public class MainActivity extends AppCompatActivity {
             if (requestCode == 2){
                 ProfileFragment profileFragment = new ProfileFragment();
                 changeFragment(profileFragment);
+            }
+
+            if (requestCode == 3){
+                Intent intent = new Intent(MainActivity.this, EmployeeHomeActivity.class);
+                startActivity(intent);
             }
         }
     }
