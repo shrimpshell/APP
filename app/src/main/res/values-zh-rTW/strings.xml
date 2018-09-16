@@ -93,6 +93,7 @@
         <item id="1">清潔部門</item>
         <item id="2">房務部門</item>
         <item id="3">餐飲部門</item>
+        <item id="4">櫃檯部門</item>
     </string-array>
 
 </resources>
