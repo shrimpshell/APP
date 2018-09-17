@@ -3,6 +3,7 @@ package com.example.hsinhwang.shrimpshell.ManagerPanel;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;

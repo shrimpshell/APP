@@ -1,5 +1,6 @@
 package com.example.hsinhwang.shrimpshell.GeneralPages;
 
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
