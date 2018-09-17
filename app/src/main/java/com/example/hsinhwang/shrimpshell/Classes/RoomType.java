@@ -2,6 +2,7 @@ package com.example.hsinhwang.shrimpshell.Classes;
 
 import java.io.Serializable;
 
+@SuppressWarnings("serial")
 public class RoomType implements Serializable{
     int roomTypeImageId, roomQuantity;
     String roomTypeLastQuantity, roomTypePrice, roomTypeName, roomTypeSize, roomTypeBed, roomTypeAdult;
@@ -14,16 +15,10 @@ public class RoomType implements Serializable{
         this.roomQuantity = roomQuantity;
     }
 
-    public RoomType(String roomTypeName, int roomQuantity) {
-
-        this.roomTypeName = roomTypeName;
-        this.roomQuantity = roomQuantity;
-    }
-
-    public RoomType(int roomTypeImageId, String roomTypeLastQuantity,
+    public RoomType(String roomTypeLastQuantity,
                     String roomTypePrice, String roomTypeName, String roomTypeSize,
                     String roomTypeBed, String roomTypeAdult) {
-        this.roomTypeImageId = roomTypeImageId;
+        super();
         this.roomTypeLastQuantity = roomTypeLastQuantity;
         this.roomTypePrice = roomTypePrice;
         this.roomTypeName = roomTypeName;

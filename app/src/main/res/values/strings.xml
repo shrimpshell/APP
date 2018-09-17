@@ -122,6 +122,7 @@
     <string name="deletRoom">刪除房間</string>
     <string name="sentReservation">送 出 訂 單</string>
     <string name="roomTypePeopleB">位大人</string>
+    <string name="msg_NoNetwork">No network connection available</string>
 </resources>
 
 

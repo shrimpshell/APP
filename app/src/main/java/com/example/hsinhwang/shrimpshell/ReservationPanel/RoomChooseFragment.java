@@ -1,6 +1,9 @@
 package com.example.hsinhwang.shrimpshell.ReservationPanel;
 
+import android.app.Activity;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -16,13 +19,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hsinhwang.shrimpshell.Classes.RoomType;
 import com.example.hsinhwang.shrimpshell.R;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,8 +44,9 @@ public class RoomChooseFragment extends Fragment {
     private FragmentTransaction transaction;
     private int adultQuantity, childQuantity;
     private String checkInDate, checkOutDate;
-    private RoomType roomType;
     private String TAG = "Debug";
+    private ReservationPanelTask roomTypeGetAllTask;
+    public static String URL = "http://10.0.2.2:8080/ShellService";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,6 +59,22 @@ public class RoomChooseFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_room_choose, container, false);
         handleViews(view);
         return view;
+    }
+
+    // check if the device connect to the network
+    public static boolean networkConnected(Activity activity) {
+        ConnectivityManager conManager =
+                (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = conManager != null ? conManager.getActiveNetworkInfo() : null;
+        return networkInfo != null && networkInfo.isConnected();
+    }
+
+    public static void showToast(Context context, int messageResId) {
+        Toast.makeText(context, messageResId, Toast.LENGTH_SHORT).show();
+    }
+
+    public static void showToast(Context context, String message) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 
     private void handleViews(View view) {
@@ -66,6 +91,30 @@ public class RoomChooseFragment extends Fragment {
         rvRoomChoose.setLayoutManager(
                 new LinearLayoutManager(getActivity(),
                         LinearLayoutManager.HORIZONTAL, false));
+
+//        if (networkConnected(getActivity())) {
+//            String url = URL + "/RoomTypeServlet";
+//            roomTypeList = null;
+//            JsonObject jsonObject = new JsonObject();
+//            jsonObject.addProperty("action", "getAll");
+//            String jsonOut = jsonObject.toString();
+//            roomTypeGetAllTask = new ReservationPanelTask(url, jsonOut);
+//            try {
+//                String jsonIn = roomTypeGetAllTask.execute().get();
+//                Type listType = new TypeToken<List<RoomType>>() {
+//                }.getType();
+//                roomTypeList = new Gson().fromJson(jsonIn, listType);
+//            } catch (Exception e) {
+//                Log.e(TAG, e.toString());
+//            }
+//            if (roomTypeList == null || roomTypeList.isEmpty()) {
+//                showToast(getActivity(),"沒有找到房間");
+//            } else {
+//                rvRoomChoose.setAdapter(new RoomTypeAdapter(getActivity(), roomTypeList));
+//            }
+//        } else {
+//            showToast(getActivity(), R.string.msg_NoNetwork);
+//        }
         roomTypeList = getRoomTypeList();
         rvRoomChoose.setAdapter(new RoomTypeAdapter(getActivity(), roomTypeList));
         /* 不處理捲動事件所以監聽器設為null */
@@ -81,7 +130,7 @@ public class RoomChooseFragment extends Fragment {
                 RoomCheckFragment roomCheckFragment = new RoomCheckFragment();
 
                 if (reservationMap.size() == 0) {
-                    Toast.makeText(getActivity(), "您尚未選取房間！", Toast.LENGTH_SHORT).show();
+                    showToast(getActivity(),"您尚未選取房間！");
                 } else {
                     bundle.putString("checkInDate", checkInDate);
                     bundle.putString("checkOutDate", checkOutDate);
@@ -112,7 +161,7 @@ public class RoomChooseFragment extends Fragment {
             ImageView ivRoomType;
             TextView tvRoomTypeName, tvRoomTypeSize, tvRoomTypeBed, tvRoomTypeAdult,
                     tvRoomTypeLastQuantity, tvRoomTypePrice;
-            FloatingActionButton fabRoomChoose;
+            ImageButton ibAddRoom;
             CardView cvRoomTypeChoose;
 
             public MyViewHolder(@NonNull View itemView) {
@@ -125,7 +174,7 @@ public class RoomChooseFragment extends Fragment {
                 tvRoomTypeLastQuantity = itemView.findViewById(R.id.tvRoomTypeLastQuantity);
                 tvRoomTypePrice = itemView.findViewById(R.id.tvRoomTypePrice);
                 cvRoomTypeChoose = itemView.findViewById(R.id.cvRoomTypeChoose);
-                fabRoomChoose = itemView.findViewById(R.id.fabRoomChoose);
+                ibAddRoom = itemView.findViewById(R.id.ibAddRoom);
             }
         }
 
@@ -145,14 +194,15 @@ public class RoomChooseFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, int i) {
             final RoomType roomType = roomTypeList.get(i);
-            myViewHolder.ivRoomType.setImageResource(roomType.getRoomTypeImageId());
+            String url = URL + "/RoomServlet";
+            myViewHolder.ivRoomType.setImageResource(R.drawable.pic_roomtype_2seaview);
             myViewHolder.tvRoomTypeName.setText(roomType.getRoomTypeName());
             myViewHolder.tvRoomTypeSize.setText(roomType.getRoomTypeSize());
             myViewHolder.tvRoomTypeBed.setText(roomType.getRoomTypeBed());
             myViewHolder.tvRoomTypeAdult.setText(roomType.getRoomTypeAdult());
             myViewHolder.tvRoomTypeLastQuantity.setText(roomType.getRoomTypeLastQuantity());
             myViewHolder.tvRoomTypePrice.setText(roomType.getRoomTypePrice());
-            myViewHolder.fabRoomChoose.setOnClickListener(new View.OnClickListener() {
+            myViewHolder.ibAddRoom.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     int roomQuantity = Integer.valueOf(myViewHolder.tvRoomTypeLastQuantity.getText().toString());
@@ -168,74 +218,59 @@ public class RoomChooseFragment extends Fragment {
                             reservationMap.put(roomName, quantity);
                             Log.d(TAG, roomName + String.valueOf(quantity));
                         }
-                        Toast.makeText(getActivity(), "已將房間加入訂單", Toast.LENGTH_SHORT).show();
+                        showToast(getActivity(),"已將房間加入訂單");
                     } else {
-                        Toast.makeText(getActivity(), "您選的房間已被訂完", Toast.LENGTH_SHORT).show();
-                        ;
+                        showToast(getActivity(),"您選的房間已被訂完");
                     }
                 }
             });
         }
-
     }
+
+    
 
     public List<RoomType> getRoomTypeList() {
         List<RoomType> roomTypeList = new ArrayList<>();
-        roomTypeList.add(new RoomType(R.drawable.pic_roomtype_2seaview,
-                "3",
+        roomTypeList.add(new RoomType("3",
                 "4100", "海景標準雙人房",
                 "35平方公尺", "1張雙人床",
                 "2"));
-        roomTypeList.add(new RoomType(R.drawable.pic_roomtype_2seaview,
-                "2",
+        roomTypeList.add(new RoomType("2",
                 "3800", "山景標準雙人房",
                 "35平方公尺", "1張雙人床",
                 "2"));
-        roomTypeList.add(new RoomType(R.drawable.pic_roomtype_2seaview,
-                "1",
+        roomTypeList.add(new RoomType("1",
                 "5300", "海景標準四人房",
                 "45平方公尺", "2張雙人床",
                 "4"));
-        roomTypeList.add(new RoomType(R.drawable.pic_roomtype_2seaview,
-                "3",
+        roomTypeList.add(new RoomType("3",
                 "4900", "山景標準四人房",
                 "45平方公尺", "1張雙人床",
                 "4"));
-        roomTypeList.add(new RoomType(R.drawable.pic_roomtype_2seaview,
-                "1",
+        roomTypeList.add(new RoomType("1",
                 "5800", "海景精緻雙人房",
                 "42平方公尺", "1張雙人床",
                 "2"));
-        roomTypeList.add(new RoomType(R.drawable.pic_roomtype_2seaview,
-                "2",
+        roomTypeList.add(new RoomType("2",
                 "5400", "山景精緻雙人房",
                 "42平方公尺", "1張雙人床",
                 "2"));
-        roomTypeList.add(new RoomType(R.drawable.pic_roomtype_2seaview,
-                "1",
+        roomTypeList.add(new RoomType("1",
                 "7000", "海景精緻四人房",
                 "52平方公尺", "1張雙人床",
                 "4"));
-        roomTypeList.add(new RoomType(R.drawable.pic_roomtype_2seaview,
-                "1",
+        roomTypeList.add(new RoomType("1",
                 "6800", "山景精緻四人房",
                 "52平方公尺", "1張雙人床",
                 "4"));
-        roomTypeList.add(new RoomType(R.drawable.pic_roomtype_2seaview,
-                "1",
+        roomTypeList.add(new RoomType("1",
                 "8000", "海景豪華雙人房",
                 "60平方公尺", "1張雙人床",
                 "2"));
-        roomTypeList.add(new RoomType(R.drawable.pic_roomtype_2seaview,
-                "1",
+        roomTypeList.add(new RoomType("1",
                 "7600", "山景豪華雙人房",
                 "60平方公尺", "1張雙人床",
                 "2"));
-//        roomTypeList.add(new RoomType(R.drawable.pic_roomtype_2seaview,
-//                String.valueOf(R.string.roomTypeLastQuantity),
-//                String.valueOf(R.string.roomTypePrice), String.valueOf(R.string.roomTypeName),
-//                String.valueOf(R.string.roomTypeSize), String.valueOf(R.string.roomTypeBed),
-//                String.valueOf(R.string.roomTypePeopleAdult)));
         return roomTypeList;
     }
 }

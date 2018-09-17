@@ -143,7 +143,7 @@
             android:background="@drawable/ic_roomtype_people" />
 
         <TextView
-            android:id="@+id/tvRoomTypePeople"
+            android:id="@+id/tvRoomTypePeopleA"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvRoomTypeName"
@@ -160,7 +160,7 @@
             android:layout_below="@+id/tvRoomTypeName"
             android:layout_marginStart="5dp"
             android:layout_marginTop="10dp"
-            android:layout_toEndOf="@+id/tvRoomTypePeople"
+            android:layout_toEndOf="@+id/tvRoomTypePeopleA"
             android:text="@string/roomTypePeopleAdult"
             android:textSize="18sp" />
 
@@ -231,23 +231,17 @@
             android:textColor="@color/red"
             android:textSize="28sp" />
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fabRoomChoose"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageButton
+            android:id="@+id/ibAddRoom"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
             android:layout_below="@+id/tvRoomTypePrice"
-            android:layout_gravity="end|bottom"
             android:layout_margin="16dp"
-            android:backgroundTint="@color/greenBlue"
-            android:elevation="5dp"
+            android:background="@drawable/circle"
+            android:elevation="6dp"
             android:tint="@android:color/white"
-            app:borderWidth="0dp"
-            app:pressedTranslationZ="10dp"
-            app:rippleColor="@color/white"
-            app:srcCompat="@android:drawable/ic_input_add"
-            tools:ignore="RtlHardcoded"
-            tools:targetApi="lollipop" />
+            app:srcCompat="@android:drawable/ic_input_add" />
+
     </RelativeLayout>
 </android.support.v7.widget.CardView>

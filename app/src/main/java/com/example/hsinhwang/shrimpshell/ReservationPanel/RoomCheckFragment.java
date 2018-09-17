@@ -1,9 +1,12 @@
 package com.example.hsinhwang.shrimpshell.ReservationPanel;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,8 +15,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hsinhwang.shrimpshell.Classes.Reservation;
+import com.example.hsinhwang.shrimpshell.Classes.RoomType;
 import com.example.hsinhwang.shrimpshell.R;
 
 import java.util.ArrayList;
@@ -28,7 +33,7 @@ public class RoomCheckFragment extends Fragment {
     private List<Reservation> reservationList;
     private HashMap<String, Integer> reservationRoom;
     private String key, checkInDate, checkOutDate, quantity;
-    private Button btSentReservation;
+    private FloatingActionButton fabRoomCheck;
     private String TAG = "Debug";
 
     @Override
@@ -52,7 +57,29 @@ public class RoomCheckFragment extends Fragment {
         checkOutDate = bundle.getString("checkOutDate");
         Log.d(TAG, checkInDate);
         Log.d(TAG, checkOutDate);
-        btSentReservation = view.findViewById(R.id.btSentReservation);
+        fabRoomCheck = view.findViewById(R.id.fabRoomCheck);
+        fabRoomCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+                dialog.setTitle("確認訂房");
+                dialog.setMessage("確定要送出訂單嗎？");
+                dialog.setNegativeButton("NO",new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                    }
+                });
+                dialog.setPositiveButton("YES",new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        Toast.makeText(getActivity(), "已幫您訂房，期待您的入住！",Toast.LENGTH_SHORT).show();
+                    }
+
+                });
+                dialog.show();
+            }
+        });
+
         rvCheckReservation = view.findViewById(R.id.rvCheckReservation);
         rvCheckReservation.setLayoutManager(
                 new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
@@ -109,8 +136,10 @@ public class RoomCheckFragment extends Fragment {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
+        public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, int i) {
             final Reservation reservation = reservationList.get(i);
+            final int roomQuantity = Integer.parseInt(reservation.getQuantity());
+            final String[] peopleQuantity = new String[roomQuantity];
             myViewHolder.tvRoomTypeName.setText(reservation.getRoomTypeName());
             myViewHolder.tvCheckInDate.setText(reservation.getCheckInDate());
             myViewHolder.tvCheckOutDate.setText(reservation.getCheckOutDate());
@@ -118,7 +147,32 @@ public class RoomCheckFragment extends Fragment {
             myViewHolder.btChangeQuantity.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    if (roomQuantity <= 1) {
+                        Toast.makeText(getActivity(), "房間的數量不能少於一間喔！", Toast.LENGTH_SHORT).show();
+                    } else {
+                        for (int i = 0; i < roomQuantity; i++) {
+                            peopleQuantity[i] = String.valueOf(i + 1);
+                            Log.d(TAG, peopleQuantity[i]);
+                        }
+                        final AlertDialog.Builder dialog_list = new AlertDialog.Builder(getActivity());
+                        dialog_list.setTitle("房間數量");
+                        dialog_list.setItems(peopleQuantity, new DialogInterface.OnClickListener() {
+                            //只要你在onClick處理事件內，使用which參數，就可以知道按下陣列裡的哪一個了
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                myViewHolder.tvRoomQuantity.setText(peopleQuantity[which]);
+                                Toast.makeText(getActivity(), "已更改數量", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        dialog_list.show();
+                    }
+                }
+            });
+            myViewHolder.btDeletRoom.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    reservationList.remove(reservation);
+                    ReservationListAdapter.this.notifyDataSetChanged();
                 }
             });
         }

@@ -29,15 +29,23 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvRoomChecknTitle" />
 
-        <Button
-            android:id="@+id/btSentReservation"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_below="@+id/rvCheckReservation"
-            android:layout_marginTop="15dp"
-            android:background="@color/lightBlue"
-            android:text="@string/sentReservation"
-            android:textColor="@color/white"
-            android:textSize="24sp" />
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabRoomCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="16dp"
+            android:backgroundTint="@color/greenBlue"
+            android:elevation="5dp"
+            android:tint="@android:color/white"
+            app:borderWidth="0dp"
+            app:pressedTranslationZ="10dp"
+            app:rippleColor="@color/white"
+            app:srcCompat="@drawable/ic_chevron_right"
+            tools:ignore="RtlHardcoded"
+            tools:targetApi="lollipop" />
     </RelativeLayout>
 </LinearLayout>
