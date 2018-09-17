@@ -11,14 +11,15 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
 public class Common {
+    //    public static String URL = "http://192.168.196.189:8080/Spot_MySQL_Web/";
+    public static String URL = "http://10.0.2.2:8080/ShellService";
     public static final int REQ_EXTERNAL_STORAGE = 0;
     private static final String TAG = "Common";
-//    public static String URL = "http://192.168.50.46:8080/ShellService/"; // 手機用
-    public static String URL = "http://10.0.2.2:8080/ShellService"; // 模擬機用
 
     public static boolean networkConnected(Activity activity) {
         ConnectivityManager conManager =
@@ -75,4 +76,11 @@ public class Common {
     public static void showToast(Context context, String message) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
+
+    //double to int四捨五入
+    public static int getInt(double number) {
+        BigDecimal bd = new BigDecimal(number).setScale(0, BigDecimal.ROUND_HALF_UP);
+        return Integer.parseInt(bd.toString());
+    }
+
 }

@@ -57,6 +57,7 @@ public class ProfileFragment extends Fragment {
             return mFragmentList.get(position);
         }
 
+
         public void addFragment(Fragment fragment, String title) {
             mFragmentList.add(fragment);
             mFragmentTitleList.add(title);
