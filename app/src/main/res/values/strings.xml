@@ -9,7 +9,7 @@
     <string name="booking">Booking a room</string>
     <string name="profile">Customer Profile</string>
     <string name="home">Home</string>
-    <string name="reserved">Reserved booking</string>
+    <string name="instant">Instant Service</string>
     <string name="login_title">Login</string>
     <string name="txLogInWelcome">Welcome</string>
     <string name="textLogEmail">Email or Account</string>
@@ -33,6 +33,7 @@
     <string name="startTime">Start Time</string>
     <string name="endTime">End Time</string>
     <string name="submit">Submit</string>
+    <string name="textEmployeeProfile">Employee Profile</string>
 
     <!--測試用字串-->
     <string name="hello_employee_fragment">Hello employee fragment</string>
@@ -175,32 +176,7 @@
         <item id="1">Clean Service</item>
         <item id="2">Room Service</item>
         <item id="3">Meal Service</item>
-    </string-array>
-
-    <string-array name="room_name">
-        <item>海景標準雙人房</item>
-        <item>山景標準雙人房</item>
-        <item>海景標準四人房</item>
-        <item>山景標準四人房</item>
-        <item>海景精緻雙人房</item>
-        <item>山景精緻雙人房</item>
-        <item>海景精緻四人房</item>
-        <item>山景精緻四人房</item>
-        <item>海景豪華雙人房</item>
-        <item>山景豪華雙人房</item>
-    </string-array>
-
-    <string-array name="room_size">
-        <item>35平方公尺</item>
-        <item>42平方公尺</item>
-        <item>45平方公尺</item>
-        <item>52平方公尺</item>
-        <item>60平方公尺</item>
-    </string-array>
-
-    <string-array name="room_bed">
-        <item>1張雙人床</item>
-        <item>2張雙人床</item>
+        <item id="4">Concierge Service</item>
     </string-array>
 
 </resources>

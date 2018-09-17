@@ -14,8 +14,8 @@
 
     <item
         android:id="@+id/item_reserved"
-        android:icon="@drawable/reserved"
-        android:title="@string/reserved"/>
+        android:icon="@drawable/concierge"
+        android:title="@string/instant"/>
 
     <item
         android:id="@+id/item_profile"
