@@ -1,8 +1,6 @@
 package com.example.hsinhwang.shrimpshell;
 
-import android.content.Intent;
 import android.os.Bundle;
-
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -11,8 +9,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
+import com.example.hsinhwang.shrimpshell.Classes.Common;
 import com.example.hsinhwang.shrimpshell.InstantCustomerPanel.InstantServiceFragment;
-import com.example.hsinhwang.shrimpshell.InstantCustomerPanel.StatusServiceActivity;
+import com.example.hsinhwang.shrimpshell.InstantCustomerPanel.StatusServiceFragment;
+
 
 
 public class InstantActivity extends AppCompatActivity {
@@ -27,8 +27,8 @@ public class InstantActivity extends AppCompatActivity {
                     changeFragment(fragment);
                     return true;
                 case R.id.item_statusService:
-                    Intent intent = new Intent(InstantActivity.this, StatusServiceActivity.class);
-                    startActivity(intent);
+                    fragment = new StatusServiceFragment();
+                    changeFragment(fragment);
                     return true;
                 default:
                     initContent();
@@ -48,6 +48,9 @@ public class InstantActivity extends AppCompatActivity {
 
         BottomNavigationView navigation = findViewById(R.id.navigationInstant);
         navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
+
+
+
 
         initContent();
 
@@ -69,5 +72,7 @@ public class InstantActivity extends AppCompatActivity {
         fragmentTransaction.commit();
 
     }
+
+
 
 }

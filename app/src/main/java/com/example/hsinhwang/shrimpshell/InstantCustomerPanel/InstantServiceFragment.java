@@ -6,18 +6,28 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.hsinhwang.shrimpshell.Classes.ChatMessage;
+import com.example.hsinhwang.shrimpshell.Classes.Common;
+
+import com.example.hsinhwang.shrimpshell.InstantActivity;
 import com.example.hsinhwang.shrimpshell.R;
+import com.google.gson.Gson;
 
 import terranovaproductions.newcomicreader.FloatingActionMenu;
 
+//import static com.example.hsinhwang.shrimpshell.Classes.Common.shellServiceSocketClient;
+import static android.support.constraint.Constraints.TAG;
+
 
 public class InstantServiceFragment extends Fragment {
-    Toast toast;
+
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -47,24 +57,15 @@ public class InstantServiceFragment extends Fragment {
                     case 0:
                         fragment = new RoomServiceCleanFragment();
                         changFragment(fragment);
-                        //getActivity().setTitle(R.string.textRoomService);
                         break;
                     case 1:
                         fragment = new DinlingServiceFragment();
                         changFragment(fragment);
-                        //getActivity().setTitle(R.string.textDinlingService);
                         break;
                     case 2:
                         fragment = new TrafficServiceFragment();
                         changFragment(fragment);
-                        //getActivity().setTitle(R.string.textTrafficService);
                         break;
-                    case 3:
-                        Toast.makeText(getContext(),"已聯絡櫃檯為您服務，請稍候！",
-                                Toast.LENGTH_SHORT).show();
-//                        toast.setGravity(Gravity.CENTER,0,0);
-//                        toast.show();
-
                     default:
                         initContent();
                         break;
@@ -88,7 +89,6 @@ public class InstantServiceFragment extends Fragment {
     private void initContent() {
         Fragment fragment = new RoomServiceCleanFragment();
         changFragment(fragment);
-        getActivity().setTitle(R.string.textRoomService);
     }
 
 

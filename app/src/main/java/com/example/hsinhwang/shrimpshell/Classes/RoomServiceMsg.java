@@ -1,11 +1,5 @@
 package com.example.hsinhwang.shrimpshell.Classes;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-
-import com.example.hsinhwang.shrimpshell.R;
-
 import java.io.Serializable;
 
 public class RoomServiceMsg implements Serializable {
@@ -43,11 +37,5 @@ public class RoomServiceMsg implements Serializable {
         this.number = number;
     }
 
-    public static class EmployeeInstantClean extends AppCompatActivity {
-        @Override
-        protected void onCreate(@Nullable Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_employee_instant_service_clean);
-        }
-    }
+
 }

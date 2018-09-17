@@ -20,7 +20,8 @@ import android.view.MenuItem;
 import android.view.Window;
 
 import com.example.hsinhwang.shrimpshell.Classes.LogIn;
-import com.example.hsinhwang.shrimpshell.EmployeePanel.EmployeeHomeActivity;
+import com.example.hsinhwang.shrimpshell.InstantEmployeePanel.EmployeeCallService;
+import com.example.hsinhwang.shrimpshell.InstantEmployeePanel.EmployeeCleanService;
 
 public class MainActivity extends AppCompatActivity {
     private Window window;
@@ -54,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.item_profile:
                     if (LogIn.EmployeeLogIn()) {
-                            Intent intent = new Intent(MainActivity.this, EmployeeHomeActivity.class);
+                            Intent intent = new Intent(MainActivity.this, EmployeeCleanService.class);
                             startActivity(intent);
                         } else {
                             fragment = new ProfileFragment();

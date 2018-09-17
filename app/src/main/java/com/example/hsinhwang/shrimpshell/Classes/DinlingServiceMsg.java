@@ -3,21 +3,18 @@ package com.example.hsinhwang.shrimpshell.Classes;
 import java.io.Serializable;
 
 public class DinlingServiceMsg implements Serializable {
-    public final static int TYPE_UNFINISH = 0;
-    public final static int TYPE_DOING = 1;
-    public final static int TYPE_FINISH = 2;
     private String tvDinling1, tvDinglin2; // 代表訊息內容
     private int image;
     private int number;
-    private int type;// 點擊事件代碼
+
 
     public DinlingServiceMsg(String tvDinling1, String tvDinglin2, int image,
-                             int number, int type) {
+                             int number) {
         this.tvDinling1 = tvDinling1;
         this.tvDinglin2 = tvDinglin2;
         this.image = image;
         this.number = number;
-        this.type = type;
+
     }
 
     public String getTvDinling1() {
@@ -52,11 +49,5 @@ public class DinlingServiceMsg implements Serializable {
         this.number = number;
     }
 
-    public int getType() {
-        return type;
-    }
 
-    public void setType(int type) {
-        this.type = type;
-    }
 }

@@ -53,13 +53,6 @@
             fab:backgroundTint="@color/orange"
             fab:fabSize="mini" />
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_call_service_circle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/icon_call_service_24"
-            fab:backgroundTint="@color/orange"
-            fab:fabSize="mini" />
     </terranovaproductions.newcomicreader.FloatingActionMenu>
 
 

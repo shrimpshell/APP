@@ -1,12 +1,12 @@
 package com.example.hsinhwang.shrimpshell.InstantCustomerPanel;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +17,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
+import com.example.hsinhwang.shrimpshell.Classes.ChatMessage;
+import com.example.hsinhwang.shrimpshell.Classes.Common;
 import com.example.hsinhwang.shrimpshell.Classes.DinlingServiceMsg;
 import com.example.hsinhwang.shrimpshell.R;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.support.constraint.Constraints.TAG;
 
 
 public class DinlingServiceFragment extends Fragment {
@@ -40,6 +44,7 @@ public class DinlingServiceFragment extends Fragment {
 
         return view;
     }
+
 
     private void handleViews(View view) {
         rvDinlingService = view.findViewById(R.id.rvDinlingService);
@@ -122,13 +127,13 @@ public class DinlingServiceFragment extends Fragment {
                         case 0:
                             dinlingServiceMsgs.add(new DinlingServiceMsg
                                     ("商品：A餐", "價格：300 元",
-                                            R.drawable.icon_dinling_a, 1 ,0));
+                                            R.drawable.icon_dinling_a, 1));
                             dinlingServiceMsgs.add(new DinlingServiceMsg
                                     ("商品：B餐", "價格：250 元",
-                                            R.drawable.icon_dinling_b, 2,0));
+                                            R.drawable.icon_dinling_b, 2));
                             dinlingServiceMsgs.add(new DinlingServiceMsg
                                     ("商品：C餐", "價格：200 元",
-                                            R.drawable.icon_dinling_c, 3,0));
+                                            R.drawable.icon_dinling_c, 3));
 
                             notifyItemInserted(dinlingServiceMsgs.size());
 
@@ -197,8 +202,8 @@ public class DinlingServiceFragment extends Fragment {
             myViewHolder.btDinling.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-
+                    ChatMessage chatMessage;
+                    String chatMessageJson;
 
                     String UserEnter = myViewHolder.etDinling.getText().toString();
 
@@ -213,17 +218,20 @@ public class DinlingServiceFragment extends Fragment {
 
                             } else {
 
-                                Intent intent = new Intent(getActivity(),StatusServiceActivity.class);
-                                Bundle bundle = new Bundle();
-                                bundle.putString("123",dinlingServiceMsg.getTvDinling1());
-                                intent.putExtras(bundle);
-                                startActivity(intent);
-
 
                                 Toast.makeText(context, "你點的 A餐 數量為" + UserEnter + "份",
                                         Toast.LENGTH_SHORT).show();
 
-                                
+
+                                Common.connectServer(context, "U888", "3");
+
+                                chatMessage = new ChatMessage("3", "U888", "E007",
+                                        "未處理", "A餐", "0" + UserEnter);
+                                chatMessageJson = new Gson().toJson(chatMessage);
+                                Common.wsInstantClient.send(chatMessageJson);
+                                Log.d(TAG, "output: " + chatMessageJson);
+
+
                             }
 
                             break;
@@ -236,8 +244,17 @@ public class DinlingServiceFragment extends Fragment {
 
                             } else {
 
+
                                 Toast.makeText(context, "你點的 B餐 數量為" + UserEnter + "份",
                                         Toast.LENGTH_SHORT).show();
+
+                                Common.connectServer(context, "U888", "3");
+
+                                chatMessage = new ChatMessage("3", "U888", "E007",
+                                        "未處理", "B餐", "0" + UserEnter);
+                                chatMessageJson = new Gson().toJson(chatMessage);
+                                Common.wsInstantClient.send(chatMessageJson);
+                                Log.d(TAG, "output: " + chatMessageJson);
                             }
                             break;
 
@@ -249,8 +266,18 @@ public class DinlingServiceFragment extends Fragment {
 
                             } else {
 
+
                                 Toast.makeText(context, "你點的 C餐 數量為" + UserEnter + "份",
                                         Toast.LENGTH_SHORT).show();
+
+                                Common.connectServer(context, "U888", "3");
+
+                                chatMessage = new ChatMessage("3", "U888", "E007",
+                                        "未處理", "C餐", "0" + UserEnter);
+                                chatMessageJson = new Gson().toJson(chatMessage);
+                                Common.wsInstantClient.send(chatMessageJson);
+                                Log.d(TAG, "output: " + chatMessageJson);
+
                             }
                             break;
 
@@ -272,12 +299,11 @@ public class DinlingServiceFragment extends Fragment {
         List<DinlingServiceMsg> dinlingServiceMsgs = new ArrayList<>();
         dinlingServiceMsgs.add(new DinlingServiceMsg
                 ("您好!需要什麼餐點?", "點我菜單",
-                        R.drawable.icon_dinling, 0, 0));
+                        R.drawable.icon_dinling, 0));
 
 
         return dinlingServiceMsgs;
     }
-
 
 
 }

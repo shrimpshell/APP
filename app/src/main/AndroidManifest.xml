@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -66,26 +67,14 @@
             android:name=".InstantActivity"
             android:label="@string/title_activity_instant"
             android:theme="@style/AppTheme" />
-        <activity
-            android:name=".InstantCustomerPanel.StatusServiceActivity"
-            android:label="@string/title_activity_status_service"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".InstantEmpolyeePanel.EmployeeCallServiceActivity"
-            android:label="@string/title_activity_employee_call_service"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".InstantEmpolyeePanel.EmployeeDinlingServiceActivity"
-            android:label="@string/title_activity_employee_dinling_service"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".InstantEmpolyeePanel.EmployeeCleanServiceActivity"
-            android:label="@string/title_activity_employee_clean_service"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".InstantEmpolyeePanel.EmpolyeeRoomServiceActivity"
-            android:label="@string/title_activity_empolyee_room_service"
-            android:theme="@style/AppTheme"></activity>
+        <!-- <activity -->
+        <!-- android:name=".InstantCustomerPanel.StatusServiceActivity" -->
+        <!-- android:label="@string/title_activity_status_service" -->
+        <!-- android:theme="@style/AppTheme" /> -->
+        <activity android:name=".InstantEmployeePanel.EmployeeCallService" />
+        <activity android:name=".InstantEmployeePanel.EmployeeDinlingService" />
+        <activity android:name=".InstantEmployeePanel.EmployeeCleanService" />
+        <activity android:name=".InstantEmployeePanel.EmployeeRoomService"></activity>
     </application>
 
 </manifest>

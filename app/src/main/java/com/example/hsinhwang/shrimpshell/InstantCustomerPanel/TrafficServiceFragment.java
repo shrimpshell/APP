@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +20,16 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 
+import com.example.hsinhwang.shrimpshell.Classes.ChatMessage;
+import com.example.hsinhwang.shrimpshell.Classes.Common;
 import com.example.hsinhwang.shrimpshell.Classes.TrafficServiceMsg;
 import com.example.hsinhwang.shrimpshell.R;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.support.constraint.Constraints.TAG;
 
 public class TrafficServiceFragment extends Fragment {
     RecyclerView rvTrafficService;
@@ -213,26 +219,144 @@ public class TrafficServiceFragment extends Fragment {
 
                 @Override
                 public void onClick(View v) {
-                    int UserEnterHour = 0;
-                    int UserEnterMin = 0;
+                    int UserEnterHour;
+                    int UserEnterMin;
+                    ChatMessage chatMessage;
+                    String chatMessageJson;
                     String UserEnterPerson = myViewHolder.etTraffic.getText().toString();
 
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        UserEnterHour = myViewHolder.tpTraffic.getHour();
-                        UserEnterMin = myViewHolder.tpTraffic.getMinute();
+                    switch (trafficServiceMsg.getNumber()) {
+                        case 1:
+
+//                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                                UserEnterHour = myViewHolder.tpTraffic.getHour();
+//                                UserEnterMin = myViewHolder.tpTraffic.getMinute();
+//
+//
+//                                if (UserEnterPerson.equals("")) {
+//
+//                                    Toast.makeText(context, "請輸入欲接送人數！", Toast.LENGTH_SHORT).show();
+//
+//                                } else {
+//
+//                                    Toast.makeText(context, "接送人數為" + UserEnterPerson + "人" +
+//                                                    "時間為" + UserEnterHour + "點" + UserEnterMin + "分",
+//                                            Toast.LENGTH_SHORT).show();
+//
+//                                }
+
+                            if (UserEnterPerson.equals("")) {
+
+                                Toast.makeText(context, "請輸入欲接送人數！", Toast.LENGTH_SHORT).show();
+
+                            } else {
+
+                                Toast.makeText(context, "接送人數為" + UserEnterPerson +
+                                        "人，請稍候！", Toast.LENGTH_SHORT).show();
+
+                                Common.connectServer(context, "U888", "4");
+
+                                chatMessage = new ChatMessage("4", "U888", "E007",
+                                        "未處理", "高鐵接送", "0" + UserEnterPerson);
+                                chatMessageJson = new Gson().toJson(chatMessage);
+                                Common.wsInstantClient.send(chatMessageJson);
+                                Log.d(TAG, "output: " + chatMessageJson);
+
+                            }
 
 
-                        if (UserEnterPerson.equals("")) {
+                            break;
 
-                            Toast.makeText(context, "請輸入欲接送人數！", Toast.LENGTH_SHORT).show();
+                        case 2:
 
-                        } else {
+//                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                                UserEnterHour = myViewHolder.tpTraffic.getHour();
+//                                UserEnterMin = myViewHolder.tpTraffic.getMinute();
+//
+//
+//                                if (UserEnterPerson.equals("")) {
+//
+//                                    Toast.makeText(context, "請輸入欲接送人數！", Toast.LENGTH_SHORT).show();
+//
+//                                } else {
+//
+//                                    Toast.makeText(context, "接送人數為" + UserEnterPerson + "人" +
+//                                                    "時間為" + UserEnterHour + "點" + UserEnterMin + "分",
+//                                            Toast.LENGTH_SHORT).show();
+//
+//                                }
+//
+//
+//                            }
 
-                            Toast.makeText(context, "接送人數為" + UserEnterPerson + "人" +
-                                            "時間為" + UserEnterHour + "點" + UserEnterMin + "分",
-                                    Toast.LENGTH_SHORT).show();
+                            if (UserEnterPerson.equals("")) {
 
-                        }
+                                Toast.makeText(context, "請輸入欲接送人數！", Toast.LENGTH_SHORT).show();
+
+                            } else {
+
+                                Toast.makeText(context, "接送人數為" + UserEnterPerson +
+                                        "人，請稍候！", Toast.LENGTH_SHORT).show();
+
+                                Common.connectServer(context, "U888", "4");
+
+                                chatMessage = new ChatMessage("4", "U888", "E007",
+                                        "未處理", "火車站接送", "0" + UserEnterPerson);
+                                chatMessageJson = new Gson().toJson(chatMessage);
+                                Common.wsInstantClient.send(chatMessageJson);
+                                Log.d(TAG, "output: " + chatMessageJson);
+
+                            }
+
+                            break;
+
+                        case 3:
+//
+//                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                                UserEnterHour = myViewHolder.tpTraffic.getHour();
+//                                UserEnterMin = myViewHolder.tpTraffic.getMinute();
+//
+//
+//                                if (UserEnterPerson.equals("")) {
+//
+//                                    Toast.makeText(context, "請輸入欲接送人數！", Toast.LENGTH_SHORT).show();
+//
+//                                } else {
+//
+//                                    Toast.makeText(context, "接送人數為" + UserEnterPerson + "人" +
+//                                                    "時間為" + UserEnterHour + "點" + UserEnterMin + "分",
+//                                            Toast.LENGTH_SHORT).show();
+//
+//                                }
+//
+//
+//                            }
+
+                            if (UserEnterPerson.equals("")) {
+
+                                Toast.makeText(context, "請輸入欲接送人數！", Toast.LENGTH_SHORT).show();
+
+                            } else {
+
+                                Toast.makeText(context, "接送人數為" + UserEnterPerson +
+                                        "人，請稍候！", Toast.LENGTH_SHORT).show();
+
+
+                                Common.connectServer(context, "U888", "4");
+
+                                chatMessage = new ChatMessage("4", "U888", "E007",
+                                        "未處理", "機場接送", "0" + UserEnterPerson);
+                                chatMessageJson = new Gson().toJson(chatMessage);
+                                Common.wsInstantClient.send(chatMessageJson);
+                                Log.d(TAG, "output: " + chatMessageJson);
+
+                            }
+
+                            break;
+
+
+                        default:
+                            break;
 
 
                     }

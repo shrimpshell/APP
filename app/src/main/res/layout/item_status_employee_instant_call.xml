@@ -18,7 +18,7 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/ivStatusCall"
+            android:id="@+id/ivEmployeeCall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -30,21 +30,14 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tvRoomIdCall"
+                android:id="@+id/tvEmployeeCallRoomId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:layout_marginStart="20dp"
                 android:text="房號"
                 android:textSize="25sp" />
 
-            <TextView
-                android:id="@+id/tvStatusCall"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="5dp"
-                android:text="狀態"
-                android:textSize="25sp" />
 
 
         </LinearLayout>
