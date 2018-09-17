@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,7 +20,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hsinhwang.shrimpshell.Classes.Reservation;
-import com.example.hsinhwang.shrimpshell.Classes.RoomType;
 import com.example.hsinhwang.shrimpshell.R;
 
 import java.util.ArrayList;
@@ -64,15 +65,15 @@ public class RoomCheckFragment extends Fragment {
                 AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
                 dialog.setTitle("確認訂房");
                 dialog.setMessage("確定要送出訂單嗎？");
-                dialog.setNegativeButton("NO",new DialogInterface.OnClickListener() {
+                dialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface arg0, int arg1) {
                     }
                 });
-                dialog.setPositiveButton("YES",new DialogInterface.OnClickListener() {
+                dialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface arg0, int arg1) {
-                        Toast.makeText(getActivity(), "已幫您訂房，期待您的入住！",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "已幫您訂房，期待您的入住！", Toast.LENGTH_SHORT).show();
                     }
 
                 });
@@ -124,6 +125,9 @@ public class RoomCheckFragment extends Fragment {
 
         @Override
         public int getItemCount() {
+            if (reservationList.size() == 0) {
+                getFragmentManager().popBackStack("roomChooseFragment",FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            }
             return reservationList.size();
         }
 

@@ -139,8 +139,8 @@ public class RoomChooseFragment extends Fragment {
                     roomCheckFragment.setArguments(bundle);
                     manager = getActivity().getSupportFragmentManager();
                     transaction = manager.beginTransaction();
-                    transaction.replace(R.id.content, roomCheckFragment, "fragment");
-                    transaction.addToBackStack("fragment");
+                    transaction.replace(R.id.content, roomCheckFragment, "roomChooseFragment");
+                    transaction.addToBackStack("roomChooseFragment");
                     transaction.commit();
                 }
             }
