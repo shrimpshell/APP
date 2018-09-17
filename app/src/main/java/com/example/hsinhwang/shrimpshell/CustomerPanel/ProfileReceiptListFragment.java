@@ -16,22 +16,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.example.hsinhwang.shrimpshell.Classes.OrderDetail;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
 import com.example.hsinhwang.shrimpshell.Classes.Common;
 import com.example.hsinhwang.shrimpshell.Classes.Order;
+import com.example.hsinhwang.shrimpshell.Classes.OrderDetail;
 import com.example.hsinhwang.shrimpshell.ProfileReceiptDetailResultActivity;
 import com.example.hsinhwang.shrimpshell.R;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class ProfileReceiptListFragment extends Fragment {
@@ -120,12 +116,12 @@ public class ProfileReceiptListFragment extends Fragment {
             viewHolder.orderNumber.setText("訂單編號:" + order_id);//訂單編號
             viewHolder.roomQuantity.setText(String.valueOf(roomoQuantity) + "間");//房間數量
             viewHolder.roomType.setText(orderDetail.getRoomType());//房型名稱
-            viewHolder.mealsQuantity.setText(orderDetail.getQuantity().equals("") ? "" : orderDetail.getQuantity() + "份");//餐點數量
-            viewHolder.meals.setText(orderDetail.getDiningTypeName().equals("") ? "" : orderDetail.getDiningTypeName());
+            viewHolder.mealsQuantity.setText(orderDetail.getQuantity() == null ? "" : orderDetail.getQuantity() + "份");//餐點數量
+            viewHolder.meals.setText(orderDetail.getDiningTypeName() == null ? "" : orderDetail.getDiningTypeName());
             viewHolder.discounted.setText(orderDetail.getDiscount() == null ? "" : orderDetail.getDiscount());
             viewHolder.result.setText(getRoomReservationStatus(order.getRoomReservationStatus()));
             double roomPrice, dtPrice, quantity, discount, totalPrice, originalPrice;
-            roomPrice = Double.parseDouble(orderDetail.getPrice());
+            roomPrice = orderDetail.getPrice() == null ? 0 : Double.parseDouble(orderDetail.getPrice());
             dtPrice = orderDetail.getDtPrice() == null ? 0 : Double.parseDouble(orderDetail.getDtPrice());
             quantity = orderDetail.getQuantity() == null ? 0 : Double.parseDouble(orderDetail.getQuantity());
             discount = orderDetail.getDiscount() == null ? 1 : Double.parseDouble(orderDetail.getDiscount()) / 10;
@@ -176,10 +172,9 @@ public class ProfileReceiptListFragment extends Fragment {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if ((requestCode == REQ_ORDERDETAIL) && (resultCode == Activity.RESULT_OK)){
+        if ((requestCode == REQ_ORDERDETAIL) && (resultCode == Activity.RESULT_OK)) {
             recyclerView.setLayoutManager(new LinearLayoutManager(activity));
             recyclerView.setAdapter(new ProfileReceiptDetailAdapter(activity, getPayDetailById("1")));//設定Adapter
         }

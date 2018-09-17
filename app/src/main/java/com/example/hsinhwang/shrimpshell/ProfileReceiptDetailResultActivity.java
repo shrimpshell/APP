@@ -95,10 +95,10 @@ public class ProfileReceiptDetailResultActivity extends Activity {
             orderNumber.setText("訂單編號:" + order_id);
             roomType.setText(orderDetail.getRoomType());
             tvRoomQuantity.setText(String.valueOf(roomoQuantity) + "間");
-            meals.setText(orderDetail.getDiningTypeName().equals("") ? "" : orderDetail.getDiningTypeName());
-            mealsQuantity.setText(orderDetail.getQuantity().equals("") ? "" : orderDetail.getQuantity() + "份");
+            meals.setText(orderDetail.getDiningTypeName() == null ? "" : orderDetail.getDiningTypeName());
+            mealsQuantity.setText(orderDetail.getQuantity()== null ? "" : orderDetail.getQuantity() + "份");
             double roomPrice, dtPrice, quantity, discount, totalPrice, originalPrice;
-            roomPrice = Double.parseDouble(orderDetail.getPrice());
+            roomPrice = orderDetail.getPrice() == null ? 0 : Double.parseDouble(orderDetail.getPrice());
             dtPrice = orderDetail.getDtPrice() == null ? 0 : Double.parseDouble(orderDetail.getDtPrice());
             quantity = orderDetail.getQuantity() == null ? 0 : Double.parseDouble(orderDetail.getQuantity());
             discount = orderDetail.getDiscount() == null ? 1 : Double.parseDouble(orderDetail.getDiscount()) / 10;
