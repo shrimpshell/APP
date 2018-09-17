@@ -118,7 +118,8 @@ public class ProfileReceiptListFragment extends Fragment {
             viewHolder.roomType.setText(orderDetail.getRoomType());//房型名稱
             viewHolder.mealsQuantity.setText(orderDetail.getQuantity() == null ? "" : orderDetail.getQuantity() + "份");//餐點數量
             viewHolder.meals.setText(orderDetail.getDiningTypeName() == null ? "" : orderDetail.getDiningTypeName());
-            viewHolder.discounted.setText(orderDetail.getDiscount() == null ? "" : orderDetail.getDiscount());
+            viewHolder.discounted.setText(orderDetail.getDiscount() == null ? "" : "優惠折扣" + " " + Common.getInt(Double.parseDouble(orderDetail.getDiscount()))+ "折");
+            viewHolder.discounted.setVisibility(View.INVISIBLE);
             viewHolder.result.setText(getRoomReservationStatus(order.getRoomReservationStatus()));
             double roomPrice, dtPrice, quantity, discount, totalPrice, originalPrice;
             roomPrice = orderDetail.getPrice() == null ? 0 : Double.parseDouble(orderDetail.getPrice());

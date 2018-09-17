@@ -105,7 +105,7 @@ public class ProfileReceiptDetailResultActivity extends Activity {
             originalPrice = roomPrice + dtPrice * quantity;
             totalPrice = (originalPrice) * discount;
             total_price.setText("總額NT$" + Common.getInt(totalPrice));
-            last_prices.setText(String.valueOf(Common.getInt(totalPrice)));
+            last_prices.setText("NT$" + String.valueOf(Common.getInt(totalPrice)) + "元");
             price = findViewById(R.id.price);
             price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             price.setText("原價NT$" + Common.getInt(originalPrice));
