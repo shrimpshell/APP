@@ -50,13 +50,13 @@ public class LogIn {
         return doesExist;
     }
 
-    private static int isValid(Activity activity, String email, String password) {
+    private static int isValid(Activity activity, String user, String password) {
         int idCustomer = 0;
         if (Common.networkConnected(activity)) {
             String url = Common.URL + "/CustomerServlet";
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("action", "userValid");
-            jsonObject.addProperty("email", email);
+            jsonObject.addProperty("email", user);
             jsonObject.addProperty("password", password);
             String jsonOut = jsonObject.toString();
             loginGetAllTask = new CommonTask(url, jsonOut);

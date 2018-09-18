@@ -19,6 +19,7 @@ public class Customer {
         this.Birthday = birthday;
         this.Phone = phone;
         this.Address = address;
+        this.Password = password;
 
     }
 

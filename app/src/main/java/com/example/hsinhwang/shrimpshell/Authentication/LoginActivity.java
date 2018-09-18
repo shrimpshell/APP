@@ -74,23 +74,31 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View view) {
-            String uid = etEmail.getText().toString();
-            String pw = etPassword.getText().toString();
-            if (LogIn.CustomerLogIn(LoginActivity.this, uid, pw)) {
-                SharedPreferences preferences = getSharedPreferences(
-                        Common.LOGIN, MODE_PRIVATE);
-                preferences.edit().putBoolean("login", true)
-                        .putString("email", uid)
-                        .putString("password", pw).apply();
-                setResult(RESULT_OK);
-                finish();
-            } else {
-                new AlertDialog.Builder(context)
-                        .setTitle("SS Hotel")
-                        .setMessage("登入失敗")
-                        .setPositiveButton("OK", null)
-                        .show();
+            String user = etEmail.getText().toString();
+            String password = etPassword.getText().toString();
+
+            switch (rgLogin.getCheckedRadioButtonId()) {
+                //轉換頁面至Customer登入頁面
+                case R.id.rbCustomer:
+                    if (LogIn.CustomerLogIn(LoginActivity.this, user, password)) {
+                        SharedPreferences preferences = getSharedPreferences(
+                                Common.LOGIN, MODE_PRIVATE);
+                        preferences.edit().putBoolean("login", true)
+                                .putString("email", user)
+                                .putString("password", password)
+                                .apply();
+                        setResult(1);
+                        finish();
+                    } else {
+                        showMessage();
+                    }
+                    break;
+
+//                case R.id.rbEmployee:
+//                    if (LogIn.EmployeeLogIn(LoginActivity.this, uid, pw))
+//                    break;
             }
+
         }
     };
 
