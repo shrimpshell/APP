@@ -92,7 +92,7 @@ public class RoomCheckFragment extends Fragment {
         while (iterator.hasNext()) {
             key = iterator.next();
             quantity = String.valueOf(reservationRoom.get(key));
-            Log.d(TAG, key + quantity);
+            Log.d(TAG, "房間名稱 " + key + "數量 " + quantity);
             reservationList.add(new Reservation(key, checkInDate, checkOutDate, quantity));
         }
         rvCheckReservation.setAdapter(new ReservationListAdapter(getActivity(), reservationList));
@@ -126,7 +126,7 @@ public class RoomCheckFragment extends Fragment {
         @Override
         public int getItemCount() {
             if (reservationList.size() == 0) {
-                getFragmentManager().popBackStack("roomChooseFragment",FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                getFragmentManager().popBackStack("roomChooseFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
             return reservationList.size();
         }
@@ -143,7 +143,7 @@ public class RoomCheckFragment extends Fragment {
         public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, int i) {
             final Reservation reservation = reservationList.get(i);
             final int roomQuantity = Integer.parseInt(reservation.getQuantity());
-            final String[] peopleQuantity = new String[roomQuantity];
+            final String[] total = new String[roomQuantity];
             myViewHolder.tvRoomTypeName.setText(reservation.getRoomTypeName());
             myViewHolder.tvCheckInDate.setText(reservation.getCheckInDate());
             myViewHolder.tvCheckOutDate.setText(reservation.getCheckOutDate());
@@ -155,16 +155,16 @@ public class RoomCheckFragment extends Fragment {
                         Toast.makeText(getActivity(), "房間的數量不能少於一間喔！", Toast.LENGTH_SHORT).show();
                     } else {
                         for (int i = 0; i < roomQuantity; i++) {
-                            peopleQuantity[i] = String.valueOf(i + 1);
-                            Log.d(TAG, peopleQuantity[i]);
+                            total[i] = String.valueOf(i + 1);
+                            Log.d(TAG, "數量 " + total[i]);
                         }
                         final AlertDialog.Builder dialog_list = new AlertDialog.Builder(getActivity());
                         dialog_list.setTitle("房間數量");
-                        dialog_list.setItems(peopleQuantity, new DialogInterface.OnClickListener() {
+                        dialog_list.setItems(total, new DialogInterface.OnClickListener() {
                             //只要你在onClick處理事件內，使用which參數，就可以知道按下陣列裡的哪一個了
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                myViewHolder.tvRoomQuantity.setText(peopleQuantity[which]);
+                                myViewHolder.tvRoomQuantity.setText(total[which]);
                                 Toast.makeText(getActivity(), "已更改數量", Toast.LENGTH_SHORT).show();
                             }
                         });
@@ -177,7 +177,7 @@ public class RoomCheckFragment extends Fragment {
                 public void onClick(View view) {
                     reservationList.remove(reservation);
                     ReservationListAdapter.this.notifyDataSetChanged();
-                    Toast.makeText(getActivity(),"請重新選擇房間",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "請重新選擇房間", Toast.LENGTH_SHORT).show();
                 }
             });
         }

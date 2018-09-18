@@ -34,8 +34,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvRoomTypeName"
-            android:layout_marginStart="10dp"
+            android:layout_alignParentEnd="true"
+            android:gravity="end"
             android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_toEndOf="@+id/tvCheckInDate"
             android:text="@string/last_day_selected"
             android:textSize="16sp" />

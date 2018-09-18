@@ -3,9 +3,54 @@ package com.example.hsinhwang.shrimpshell.Classes;
 import java.io.Serializable;
 
 @SuppressWarnings("serial")
-public class RoomType implements Serializable{
-    int roomTypeImageId, roomQuantity;
-    String roomTypeLastQuantity, roomTypePrice, roomTypeName, roomTypeSize, roomTypeBed, roomTypeAdult;
+public class RoomType implements Serializable {
+
+    private int id, price, roomQuantity, adultQuantity, childQuantity;
+    private String name, roomSize, bed;
+
+    public RoomType(int id, String name, String roomSize, String bed, int adultQuantity, int childQuantity, int roomQuantity, int price) {
+        super();
+        this.price = price;
+        this.roomQuantity = roomQuantity;
+        this.adultQuantity = adultQuantity;
+        this.childQuantity = childQuantity;
+        this.name = name;
+        this.roomSize = roomSize;
+        this.bed = bed;
+        this.id = id;
+    }
+
+    public String getRoomSize() {
+        return roomSize;
+    }
+
+    public void setRoomSize(String roomSize) {
+        this.roomSize = roomSize;
+    }
+
+    public String getBed() {
+        return bed;
+    }
+
+    public void setBed(String bed) {
+        this.bed = bed;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
 
     public int getRoomQuantity() {
         return roomQuantity;
@@ -15,71 +60,27 @@ public class RoomType implements Serializable{
         this.roomQuantity = roomQuantity;
     }
 
-    public RoomType(String roomTypeLastQuantity,
-                    String roomTypePrice, String roomTypeName, String roomTypeSize,
-                    String roomTypeBed, String roomTypeAdult) {
-        super();
-        this.roomTypeLastQuantity = roomTypeLastQuantity;
-        this.roomTypePrice = roomTypePrice;
-        this.roomTypeName = roomTypeName;
-        this.roomTypeSize = roomTypeSize;
-        this.roomTypeBed = roomTypeBed;
-        this.roomTypeAdult = roomTypeAdult;
+    public int getAdultQuantity() {
+        return adultQuantity;
     }
 
-    public int getRoomTypeImageId() {
-        return roomTypeImageId;
+    public void setAdultQuantity(int adultQuantity) {
+        this.adultQuantity = adultQuantity;
     }
 
-    public void setRoomTypeImageId(int roomTypeImageId) {
-        this.roomTypeImageId = roomTypeImageId;
+    public int getChildQuantity() {
+        return childQuantity;
     }
 
-    public String getRoomTypeLastQuantity() {
-        return roomTypeLastQuantity;
+    public void setChildQuantity(int childQuantity) {
+        this.childQuantity = childQuantity;
     }
 
-    public void setRoomTypeLastQuantity(String roomTypeLastQuantity) {
-        this.roomTypeLastQuantity = roomTypeLastQuantity;
+    public String getName() {
+        return name;
     }
 
-    public String getRoomTypePrice() {
-        return roomTypePrice;
-    }
-
-    public void setRoomTypePrice(String roomTypePrice) {
-        this.roomTypePrice = roomTypePrice;
-    }
-
-    public String getRoomTypeName() {
-        return roomTypeName;
-    }
-
-    public void setRoomTypeName(String roomTypeName) {
-        this.roomTypeName = roomTypeName;
-    }
-
-    public String getRoomTypeSize() {
-        return roomTypeSize;
-    }
-
-    public void setRoomTypeSize(String roomTypeSize) {
-        this.roomTypeSize = roomTypeSize;
-    }
-
-    public String getRoomTypeBed() {
-        return roomTypeBed;
-    }
-
-    public void setRoomTypeBed(String roomTypeBed) {
-        this.roomTypeBed = roomTypeBed;
-    }
-
-    public String getRoomTypeAdult() {
-        return roomTypeAdult;
-    }
-
-    public void setRoomTypeAdult(String roomTypeAdult) {
-        this.roomTypeAdult = roomTypeAdult;
+    public void setName(String name) {
+        this.name = name;
     }
 }

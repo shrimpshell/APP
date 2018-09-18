@@ -6,9 +6,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.widget.CalendarView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,16 +17,25 @@ import com.andexert.calendarlistview.library.SimpleMonthAdapter;
 import com.example.hsinhwang.shrimpshell.BookingFragment;
 import com.example.hsinhwang.shrimpshell.Classes.ReservationDate;
 import com.example.hsinhwang.shrimpshell.R;
+import com.savvi.rangedatepicker.CalendarPickerView;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Year;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 
-public class CalendarActivity extends AppCompatActivity implements DatePickerController {
+public class CalendarActivity extends AppCompatActivity {
     private TextView tvFirstDay, tvLastDay;
-    private CalendarView calendarView;
     private Calendar calendar = Calendar.getInstance();
+    private CalendarPickerView calendarPickerView;
+    private Date first, last;
+    private String firstDay, lastDay;
     private FloatingActionButton fabBackBooking;
     ReservationDate reservationDate;
     private Window window;
@@ -46,34 +55,70 @@ public class CalendarActivity extends AppCompatActivity implements DatePickerCon
     private void handleViews() {
         tvFirstDay = findViewById(R.id.tvFirstDay);
         tvLastDay = findViewById(R.id.tvLastDay);
-        calendarView = findViewById(R.id.calendarView);
+//        calendarView = findViewById(R.id.calendarView);
 
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-        int week = calendar.get(Calendar.DAY_OF_WEEK);
-        calendar.add(Calendar.DAY_OF_MONTH, 180);
-        int maxYear = calendar.get(Calendar.YEAR);
-        int maxMonth = calendar.get(Calendar.MONTH);
-        final int maxDay = calendar.get(Calendar.DAY_OF_MONTH);
-        int maxWeek = calendar.get(Calendar.DAY_OF_WEEK);
-        calendar.set(year, month, day);
-        calendarView.setMinDate(calendar.getTimeInMillis());
-        calendar.set(maxYear, maxMonth, maxDay);
-        calendarView.setMaxDate(calendar.getTimeInMillis());
-
-        // perform setOnDateChangeListener event on CalendarView
-        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+//        int year = calendar.get(Calendar.YEAR);
+//        int month = calendar.get(Calendar.MONTH);
+//        int day = calendar.get(Calendar.DAY_OF_MONTH);
+//        int week = calendar.get(Calendar.DAY_OF_WEEK);
+//        calendar.add(Calendar.DAY_OF_MONTH, 180);
+//        int maxYear = calendar.get(Calendar.YEAR);
+//        int maxMonth = calendar.get(Calendar.MONTH);
+//        final int maxDay = calendar.get(Calendar.DAY_OF_MONTH);
+//        int maxWeek = calendar.get(Calendar.DAY_OF_WEEK);
+//        calendar.set(year, month, day);
+//        calendarView.setMinDate(calendar.getTimeInMillis());
+//        calendar.set(maxYear, maxMonth, maxDay);
+//        calendarView.setMaxDate(calendar.getTimeInMillis());
+//
+//        // perform setOnDateChangeListener event on CalendarView
+//        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+//            @Override
+//            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
+//                // display the selected date by using a toast
+//                calendar.set(year, month, dayOfMonth);
+//                calendarView.setDate(calendar.getTimeInMillis());
+//                tvLastDay.setText(String.valueOf(year) + "年" + String.valueOf(month + 1) + "月" + String.valueOf(dayOfMonth) + "日");
+//                Toast.makeText(getApplicationContext(), year + "-" + (month + 1) + "-" + dayOfMonth, Toast.LENGTH_LONG).show();
+//            }
+//        });
+//        long selectedDate = calendarView.getDate();
+        calendarPickerView = findViewById(R.id.calendar_view);
+        Date today = calendar.getTime();
+        Calendar calendar1 = calendar;
+        calendar1.add(Calendar.DAY_OF_MONTH, 180);
+        Date maxDay = calendar1.getTime();
+        ArrayList<Integer> list = new ArrayList<>();
+        list.add(1);
+        calendarPickerView.deactivateDates(list);
+        calendarPickerView.init(today, maxDay, new SimpleDateFormat("MMMM, YYYY", Locale.getDefault())) //
+                .inMode(CalendarPickerView.SelectionMode.RANGE)
+                .withSelectedDate(new Date())
+                .withDeactivateDates(list);
+        Log.d("list", calendarPickerView.getSelectedDates().toString());
+        calendarPickerView.setOnDateSelectedListener(new CalendarPickerView.OnDateSelectedListener() {
             @Override
-            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
-                // display the selected date by using a toast
-                calendar.set(year, month, dayOfMonth);
-                calendarView.setDate(calendar.getTimeInMillis());
-                tvLastDay.setText(String.valueOf(year) + "年" + String.valueOf(month + 1) + "月" + String.valueOf(dayOfMonth) + "日");
-                Toast.makeText(getApplicationContext(), year + "-" + (month + 1) + "-" + dayOfMonth, Toast.LENGTH_LONG).show();
+            public void onDateSelected(Date date) {
+                List<Date> selectedDates = calendarPickerView.getSelectedDates();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-E");
+                if (selectedDates.size() < 2) {
+                    first = selectedDates.get(0);
+                    firstDay = sdf.format(first);
+                    Log.d("Day", firstDay);
+                } else {
+                    first = selectedDates.get(0);
+                    firstDay = sdf.format(first);
+                    Log.d("Day", firstDay);
+                    last = selectedDates.get(1);
+                    lastDay = sdf.format(last);
+                    Log.d("Day", lastDay);
+                }
+            }
+
+            @Override
+            public void onDateUnselected(Date date) {
             }
         });
-        long selectedDate = calendarView.getDate();
 
         fabBackBooking = findViewById(R.id.fabBackBooking);
         fabBackBooking.setOnClickListener(CalendarActivityChange_Listener);
@@ -99,30 +144,11 @@ public class CalendarActivity extends AppCompatActivity implements DatePickerCon
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(CalendarActivity.this, BookingFragment.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("firstday",firstDay);
+            bundle.putString("lastday",lastDay);
+            intent.putExtras(bundle);
             finish();
         }
     };
-
-    @Override
-    public int getMaxYear() {
-        Calendar today = Calendar.getInstance();
-        int month = today.get(Calendar.MONTH) + 1;
-        if (month < 7) {
-            int year = today.get(Calendar.YEAR);
-            return year;
-        } else {
-            int year = today.get(Calendar.YEAR) + 1;
-            return year;
-        }
-    }
-
-    @Override
-    public void onDayOfMonthSelected(int year, int month, int day) {
-
-    }
-
-    @Override
-    public void onDateRangeSelected(SimpleMonthAdapter.SelectedDays<SimpleMonthAdapter.CalendarDay> selectedDays) {
-
-    }
 }

@@ -240,6 +240,7 @@
             android:layout_margin="16dp"
             android:background="@drawable/circle"
             android:elevation="6dp"
+            android:backgroundTint="@color/whiteBlue"
             android:tint="@android:color/white"
             app:srcCompat="@android:drawable/ic_input_add" />
 

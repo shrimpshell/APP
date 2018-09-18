@@ -51,7 +51,6 @@ public class RoomChooseFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -84,8 +83,8 @@ public class RoomChooseFragment extends Fragment {
             childQuantity = bundle.getInt("ChildQuantity");
             checkInDate = bundle.getString("checkInDate");
             checkOutDate = bundle.getString("checkOutDate");
-            Log.d(TAG, String.valueOf(adultQuantity));
-            Log.d(TAG, String.valueOf(childQuantity));
+            Log.d(TAG, "大人 " + String.valueOf(adultQuantity));
+            Log.d(TAG, "孩童 " + String.valueOf(childQuantity));
         }
         rvRoomChoose = view.findViewById(R.id.rvRoomChoose);
         rvRoomChoose.setLayoutManager(
@@ -108,10 +107,20 @@ public class RoomChooseFragment extends Fragment {
                 Log.e(TAG, e.toString());
             }
             if (roomTypeList == null || roomTypeList.isEmpty()) {
-                showToast(getActivity(),"沒有找到房間");
+                showToast(getActivity(), "沒有找到房間");
             } else {
+                for (RoomType rt : roomTypeList) {
+                    Log.d(TAG, "RoomType " + rt.getId());
+                    Log.d(TAG, "RoomType " + rt.getName());
+                    Log.d(TAG, "RoomType " + rt.getRoomSize());
+                    Log.d(TAG, "RoomType " + rt.getBed());
+                    Log.d(TAG, "RoomType " + rt.getAdultQuantity());
+                    Log.d(TAG, "RoomType " + rt.getRoomQuantity());
+                    Log.d(TAG, "RoomType " + rt.getPrice());
+                }
                 rvRoomChoose.setAdapter(new RoomTypeAdapter(getActivity(), roomTypeList));
-                Log.d(TAG,""+roomTypeList.get(1));
+
+
             }
         } else {
             showToast(getActivity(), R.string.msg_NoNetwork);
@@ -131,11 +140,11 @@ public class RoomChooseFragment extends Fragment {
                 RoomCheckFragment roomCheckFragment = new RoomCheckFragment();
 
                 if (reservationMap.size() == 0) {
-                    showToast(getActivity(),"您尚未選取房間！");
+                    showToast(getActivity(), "您尚未選取房間！");
                 } else {
                     bundle.putString("checkInDate", checkInDate);
                     bundle.putString("checkOutDate", checkOutDate);
-                    Log.d(TAG,String.valueOf(reservationMap.size()));
+                    Log.d(TAG, String.valueOf(reservationMap.size()));
                     bundle.putSerializable("reservationMap", reservationMap);
                     roomCheckFragment.setArguments(bundle);
                     manager = getActivity().getSupportFragmentManager();
@@ -197,16 +206,16 @@ public class RoomChooseFragment extends Fragment {
             final RoomType roomType = roomTypeList.get(i);
             String url = URL + "/RoomServlet";
             myViewHolder.ivRoomType.setImageResource(R.drawable.pic_roomtype_2seaview);
-            myViewHolder.tvRoomTypeName.setText(roomType.getRoomTypeName());
-            myViewHolder.tvRoomTypeSize.setText(roomType.getRoomTypeSize());
-            myViewHolder.tvRoomTypeBed.setText(roomType.getRoomTypeBed());
-            myViewHolder.tvRoomTypeAdult.setText(roomType.getRoomTypeAdult());
-            myViewHolder.tvRoomTypeLastQuantity.setText(roomType.getRoomTypeLastQuantity());
-            myViewHolder.tvRoomTypePrice.setText(roomType.getRoomTypePrice());
+            myViewHolder.tvRoomTypeName.setText(roomType.getName());
+            myViewHolder.tvRoomTypeSize.setText(roomType.getRoomSize());
+            myViewHolder.tvRoomTypeBed.setText(roomType.getBed());
+            myViewHolder.tvRoomTypeAdult.setText(String.valueOf(roomType.getAdultQuantity()));
+            myViewHolder.tvRoomTypeLastQuantity.setText(String.valueOf(roomType.getRoomQuantity()));
+            myViewHolder.tvRoomTypePrice.setText(String.valueOf(roomType.getPrice()));
             myViewHolder.ibAddRoom.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Log.d(TAG,roomType.getRoomTypeName()+roomType.getRoomTypeSize()+roomType.getRoomTypeBed()+roomType.getRoomTypeAdult()+roomType.getRoomTypeLastQuantity()+roomType.getRoomTypePrice());
+                    Log.d(TAG, roomType.getName() + roomType.getRoomSize() + roomType.getBed() + roomType.getAdultQuantity() + roomType.getRoomQuantity() + roomType.getPrice());
                     int roomQuantity = Integer.valueOf(myViewHolder.tvRoomTypeLastQuantity.getText().toString());
                     if (roomQuantity > 0) {
                         roomQuantity = roomQuantity - 1;
@@ -220,16 +229,15 @@ public class RoomChooseFragment extends Fragment {
                             reservationMap.put(roomName, quantity);
                             Log.d(TAG, roomName + String.valueOf(quantity));
                         }
-                        showToast(getActivity(),"已將房間加入訂單");
+                        showToast(getActivity(), "已將房間加入訂單");
                     } else {
-                        showToast(getActivity(),"您選的房間已被訂完");
+                        showToast(getActivity(), "您選的房間已被訂完");
                     }
                 }
             });
         }
     }
 
-    
 
 //    public List<RoomType> getRoomTypeList() {
 //        List<RoomType> roomTypeList = new ArrayList<>();

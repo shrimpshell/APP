@@ -9,89 +9,34 @@
     android:orientation="vertical"
     tools:context=".ReservationPanel.CalendarActivity">
 
-    <RelativeLayout
+    <!--<CalendarView-->
+        <!--android:id="@+id/calendarView"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:firstDayOfWeek="2"-->
+        <!--android:maxDate="01/01/2100"-->
+        <!--android:minDate="09/11/2018"-->
+        <!--android:selectedDateVerticalBar="@color/white"-->
+        <!--android:selectedWeekBackgroundColor="@color/whiteBlue"-->
+        <!--android:showWeekNumber="false"-->
+        <!--android:unfocusedMonthDateColor="@color/red"-->
+        <!--android:weekNumberColor="@color/red"-->
+        <!--android:weekSeparatorLineColor="#0f0" />-->
+
+    <com.savvi.rangedatepicker.CalendarPickerView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/calendar_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/firstDay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="6dp"
-                android:gravity="center"
-                android:text="@string/first_day_selected"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/tvFirstDay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:ellipsize="end"
-                android:gravity="center"
-                android:maxLines="1"
-                android:maxWidth="250dp"
-                android:singleLine="true"
-                android:text="@string/day_month_year"
-                android:textSize="20sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="6dp"
-                android:gravity="center"
-                android:singleLine="true"
-                android:text="@string/last_day_selected"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/tvLastDay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:ellipsize="end"
-                android:gravity="center"
-                android:maxLines="1"
-                android:maxWidth="250dp"
-                android:singleLine="true"
-                android:text="@string/day_month_year"
-                android:textSize="20sp" />
-        </LinearLayout>
-    </RelativeLayout>
-
-    <CalendarView
-        android:id="@+id/calendarView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:firstDayOfWeek="2"
-        android:maxDate="01/01/2100"
-        android:minDate="09/11/2018"
-        android:selectedDateVerticalBar="@color/white"
-        android:selectedWeekBackgroundColor="@color/whiteBlue"
-        android:showWeekNumber="false"
-        android:unfocusedMonthDateColor="@color/red"
-        android:weekNumberColor="@color/red"
-        android:weekSeparatorLineColor="#0f0" />
+        android:layout_height="320dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="16dp"
+        android:scrollbarStyle="outsideOverlay"
+        android:clipToPadding="false"
+        app:tsquare_dividerColor="@color/white"
+        app:tsquare_headerTextColor="@color/lightBlue"
+        />
 
     <RelativeLayout
         android:layout_width="match_parent"
