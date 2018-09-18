@@ -71,6 +71,13 @@ public class Customer {
         this.Address = address;
     }
 
+    public Customer(int IdCustomer, String Password, String Phone, String Address) {
+        this.IdCustomer = IdCustomer;
+        this.Password = Password;
+        this.Phone = Phone;
+        this.Address = Address;
+    }
+
     public String getCustomerID() {
         return CustomerID;
     }

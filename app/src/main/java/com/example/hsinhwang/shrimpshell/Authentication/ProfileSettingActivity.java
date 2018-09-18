@@ -38,7 +38,7 @@ public class ProfileSettingActivity extends AppCompatActivity {
         Common.askPermissions(activity, permissions, Common.REQ_EXTERNAL_STORAGE);
         fillprofile();
 
-         preferences = activity.getSharedPreferences(Common.PREF_CUSTOMER, MODE_PRIVATE);
+         preferences = activity.getSharedPreferences(Common.LOGIN, MODE_PRIVATE);
     }
 
     @Override
@@ -126,7 +126,7 @@ public class ProfileSettingActivity extends AppCompatActivity {
     }
 
     private void fillprofile() {
-        preferences = activity.getSharedPreferences(Common.PREF_CUSTOMER, MODE_PRIVATE);
+        preferences = activity.getSharedPreferences(Common.LOGIN, MODE_PRIVATE);
             int idCustomer = preferences.getInt("IdCustomer", 0);
 
             if (Common.networkConnected(activity)) {

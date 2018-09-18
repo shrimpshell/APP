@@ -53,28 +53,28 @@ public class LoginActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         //判斷Customer是否已登入
-        SharedPreferences prefC = getSharedPreferences(Common.PREF_CUSTOMER, MODE_PRIVATE);
-        boolean login = prefC.getBoolean("login", false);
-        if (login) {
-            String user = prefC.getString("user", "");
-            String password = prefC.getString("password", "");
-            if (LogIn.isCustomerLogIn(LoginActivity.this, user, password)) {
-                setResult(RESULT_OK);
-                finish();
-            }
-        }
-
-        //判斷Employee是否已登入
-        SharedPreferences prefE = getSharedPreferences(Common.PREF_Employee, MODE_PRIVATE);
-        boolean logIn = prefE.getBoolean("login", false);
-        if (logIn) {
-            String user = prefE.getString("employeeCode", "");
-            String password = prefE.getString("password", "");
-            if (LogIn.isEmployeeLogIn(LoginActivity.this, user, password)) {
-                setResult(3);
-                finish();
-            }
-        }
+//        SharedPreferences prefC = getSharedPreferences(Common.LOGIN, MODE_PRIVATE);
+//        boolean login = prefC.getBoolean("login", false);
+//        if (login) {
+//            String user = prefC.getString("user", "");
+//            String password = prefC.getString("password", "");
+//            if (LogIn.isCustomerLogIn(LoginActivity.this, user, password)) {
+//                setResult(RESULT_OK);
+//                finish();
+//            }
+//        }
+//
+//        //判斷Employee是否已登入
+//        SharedPreferences prefE = getSharedPreferences(Common.LOGIN, MODE_PRIVATE);
+//        boolean logIn = prefE.getBoolean("login", false);
+//        if (logIn) {
+//            String user = prefE.getString("employeeCode", "");
+//            String password = prefE.getString("password", "");
+//            if (LogIn.isEmployeeLogIn(LoginActivity.this, user, password)) {
+//                setResult(3);
+//                finish();
+//            }
+//        }
 
     }
 

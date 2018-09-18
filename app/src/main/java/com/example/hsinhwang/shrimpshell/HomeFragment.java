@@ -84,7 +84,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         initialization();
-        SharedPreferences pref = getActivity().getSharedPreferences(Common.PREF_CUSTOMER,
+        SharedPreferences pref = getActivity().getSharedPreferences(Common.LOGIN,
                 MODE_PRIVATE);
         List<MainOptions> optionList = new ArrayList<>();
         SharedPreferences preferences = getActivity().getSharedPreferences(Common.LOGIN, MODE_PRIVATE);
