@@ -63,12 +63,6 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-    }
-
     //LogIn Button
     private Button.OnClickListener btLogInListener = new Button.OnClickListener() {
 
@@ -76,21 +70,45 @@ public class LoginActivity extends AppCompatActivity {
         public void onClick(View view) {
             String uid = etEmail.getText().toString();
             String pw = etPassword.getText().toString();
-            if (LogIn.CustomerLogIn(LoginActivity.this, uid, pw)) {
-                SharedPreferences preferences = getSharedPreferences(
-                        Common.LOGIN, MODE_PRIVATE);
-                preferences.edit().putBoolean("login", true)
-                        .putString("email", uid)
-                        .putString("password", pw).apply();
-                setResult(RESULT_OK);
-                finish();
-            } else {
-                new AlertDialog.Builder(context)
-                        .setTitle("SS Hotel")
-                        .setMessage("登入失敗")
-                        .setPositiveButton("OK", null)
-                        .show();
+            int selectedRole = rgLogin.getCheckedRadioButtonId();
+            switch (selectedRole) {
+                case R.id.rbCustomer:
+                    if (LogIn.CustomerLogIn(LoginActivity.this, uid, pw)) {
+                        SharedPreferences preferences = getSharedPreferences(
+                                Common.LOGIN, MODE_PRIVATE);
+                        preferences.edit().putBoolean("login", true)
+                                .putString("email", uid)
+                                .putString("password", pw).apply();
+                        setResult(RESULT_OK);
+                        setResult(1);
+                        finish();
+                    } else {
+                        new AlertDialog.Builder(context)
+                                .setTitle("SS Hotel")
+                                .setMessage("登入失敗")
+                                .setPositiveButton("OK", null)
+                                .show();
+                    }
+                    break;
+                case R.id.rbEmployee:
+                    if (LogIn.EmployeeLogIn(LoginActivity.this, uid, pw)) {
+                        SharedPreferences preferences = getSharedPreferences(
+                                Common.EMPLOYEE_LOGIN, MODE_PRIVATE);
+                        preferences.edit().putBoolean("login", true)
+                                .putString("email", uid)
+                                .putString("password", pw).apply();
+                        setResult(RESULT_OK);
+                        finish();
+                    } else {
+                        new AlertDialog.Builder(context)
+                                .setTitle("SS Hotel")
+                                .setMessage("登入失敗")
+                                .setPositiveButton("OK", null)
+                                .show();
+                    }
+                    break;
             }
+
         }
     };
 

@@ -36,7 +36,7 @@ import com.github.clans.fab.FloatingActionButton;
 import static android.content.Context.MODE_PRIVATE;
 
 public class ProfileInformationFragment extends Fragment{
-    public static final String  TAG = "ProfileInformationFragment";
+    public static final String TAG = "ProfileInformationFragment";
     private static final int RESULT_OK = -1;
     private ImageView imageView;
     private ImageButton ibChange;
@@ -60,11 +60,15 @@ public class ProfileInformationFragment extends Fragment{
         return inflater.inflate(R.layout.fragment_profile_information, container, false);
     }
 
+    @SuppressLint("LongLogTag")
     @Override
     public void onStart() {
         super.onStart();
         String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
         Common.askPermissions(getActivity(), permissions, Common.REQ_EXTERNAL_STORAGE);
+        SharedPreferences pref = activity.getSharedPreferences(Common.LOGIN, MODE_PRIVATE);
+        int idCustomer = pref.getInt("IdCustomer", 0);
+        Log.d(TAG, "" + idCustomer);
     }
 
     @Override

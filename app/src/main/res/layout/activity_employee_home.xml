@@ -9,6 +9,7 @@
     tools:context=".EmployeePanel.EmployeeHomeActivity"
     android:background="@drawable/employee_home">
 
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -20,10 +21,18 @@
         android:text="@string/textEmployeeProfile"
         android:textSize="25sp" />
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/employeeLogout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|top"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/ic_input_add"
+        android:tint="@android:color/white"/>
+
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
         android:layout_gravity="center">
 
         <ImageView
@@ -71,5 +80,7 @@
         android:layout_height="100dp"
         android:paddingHorizontal="16dp"
         android:orientation="horizontal"/>
+
+
 
 </LinearLayout>
