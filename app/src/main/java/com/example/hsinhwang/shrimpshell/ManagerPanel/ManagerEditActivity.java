@@ -48,6 +48,7 @@ public class ManagerEditActivity extends AppCompatActivity {
         setContentView(R.layout.activity_manager_edit);
         initialization();
         loadData();
+
     }
 
     @Override

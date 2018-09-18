@@ -73,12 +73,14 @@ public class LoginActivity extends AppCompatActivity {
             int selectedRole = rgLogin.getCheckedRadioButtonId();
             switch (selectedRole) {
                 case R.id.rbCustomer:
-                    if (LogIn.CustomerLogIn(LoginActivity.this, email, password)) {
+                    if ((IdCustomer = LogIn.isValid(LoginActivity.this, email, password)) != 0) {
                         SharedPreferences preferences = getSharedPreferences(Common.LOGIN, MODE_PRIVATE);
                         SharedPreferences page = getSharedPreferences(Common.PAGE, MODE_PRIVATE);
                         preferences.edit().putBoolean("login", true)
                                 .putString("email", email)
-                                .putString("password", password).apply();
+                                .putString("password", password)
+                                .putInt("IdCustomer", IdCustomer)
+                                .apply();
                         page.edit().putInt("page", 2).apply();
                         finish();
                     } else {
