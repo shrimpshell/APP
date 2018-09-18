@@ -61,22 +61,23 @@ public class MainActivity extends AppCompatActivity {
                     setTitle(R.string.instant);
                     return true;
                 case R.id.item_profile:
-                    SharedPreferences customer_pref = getSharedPreferences(Common.LOGIN, MODE_PRIVATE);
-                    SharedPreferences employee_pref = getSharedPreferences(Common.EMPLOYEE_LOGIN, MODE_PRIVATE);
-                    boolean employIsLogin = employee_pref.getBoolean("login", false);
-                    boolean customerIsLogin = customer_pref.getBoolean("login", false);
+                    SharedPreferences page = getSharedPreferences(Common.PAGE, MODE_PRIVATE);
+                    int pageId = page.getInt("page", 0);
 
-//                    if (employIsLogin && !customerIsLogin) {
-//                        Intent intent = new Intent(MainActivity.this, EmployeeHomeActivity.class);
-//                        startActivityForResult(intent, 1);
-//                    } else if (customerIsLogin && !employIsLogin) {
-//                        fragment = new ProfileFragment();
-//                        changeFragment(fragment);
-//                        setTitle(R.string.profile);
-//                    } else if (!customerIsLogin) {
-//                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-//                        startActivityForResult(intent, 2);
-//                    }
+                    switch (pageId) {
+                        case 3:
+                            Intent intent3 = new Intent(MainActivity.this, EmployeeHomeActivity.class);
+                            startActivityForResult(intent3, 3);
+                            break;
+                        case 2:
+                            fragment = new ProfileFragment();
+                            changeFragment(fragment);
+                            setTitle(R.string.profile);
+                            break;
+                        default:
+                            Intent intent1 = new Intent(MainActivity.this, LoginActivity.class);
+                            startActivityForResult(intent1, 1);
+                    }
 
                     return true;
                 default:
@@ -99,12 +100,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-//        SharedPreferences pref = getSharedPreferences(Common.EMPLOYEE_LOGIN, MODE_PRIVATE);
-//        boolean isLoggedIn = pref.getBoolean("login", false);
-//        if (isLoggedIn) {
-//            initContent();
-//            navigation.setSelectedItemId(R.id.item_home);
-//        }
+        SharedPreferences page = getSharedPreferences(Common.PAGE, MODE_PRIVATE);
+        int pageId = page.getInt("page", 0);
+
+        switch (pageId) {
+            case 2:
+                Fragment profileFragment = new ProfileFragment();
+                changeFragment(profileFragment);
+                setTitle(R.string.profile);
+                navigation.setSelectedItemId(R.id.item_profile);
+                break;
+            default:
+                Fragment homeFragment = new HomeFragment();
+                changeFragment(homeFragment);
+                setTitle(R.string.profile);
+                navigation.setSelectedItemId(R.id.item_home);
+        }
     }
 
     private void initialization() {
@@ -146,8 +157,6 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(DialogInterface dialogInterface, int i) {
             switch (i) {
                 case DialogInterface.BUTTON_POSITIVE:
-                    SharedPreferences preferences = getActivity().getSharedPreferences(Common.LOGIN, MODE_PRIVATE);
-                    preferences.edit().clear().commit();
                     if (getActivity() != null) {
                         getActivity().finish();
                     }

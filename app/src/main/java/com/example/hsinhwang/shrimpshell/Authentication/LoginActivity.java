@@ -74,12 +74,12 @@ public class LoginActivity extends AppCompatActivity {
             switch (selectedRole) {
                 case R.id.rbCustomer:
                     if (LogIn.CustomerLogIn(LoginActivity.this, email, password)) {
-                        SharedPreferences preferences = getSharedPreferences(
-                                Common.LOGIN, MODE_PRIVATE);
+                        SharedPreferences preferences = getSharedPreferences(Common.LOGIN, MODE_PRIVATE);
+                        SharedPreferences page = getSharedPreferences(Common.PAGE, MODE_PRIVATE);
                         preferences.edit().putBoolean("login", true)
                                 .putString("email", email)
                                 .putString("password", password).apply();
-                        setResult(RESULT_OK);
+                        page.edit().putInt("page", 2).apply();
                         finish();
                     } else {
                         new AlertDialog.Builder(context)
@@ -91,12 +91,12 @@ public class LoginActivity extends AppCompatActivity {
                     break;
                 case R.id.rbEmployee:
                     if (LogIn.EmployeeLogIn(LoginActivity.this, email, password)) {
-                        SharedPreferences preferences = getSharedPreferences(
-                                Common.EMPLOYEE_LOGIN, MODE_PRIVATE);
+                        SharedPreferences preferences = getSharedPreferences(Common.EMPLOYEE_LOGIN, MODE_PRIVATE);
+                        SharedPreferences page = getSharedPreferences(Common.PAGE, MODE_PRIVATE);
                         preferences.edit().putBoolean("login", true)
                                 .putString("email", email)
                                 .putString("password", password).apply();
-                        setResult(RESULT_OK);
+                        page.edit().putInt("page", 3).apply();
                         finish();
                     } else {
                         new AlertDialog.Builder(context)
