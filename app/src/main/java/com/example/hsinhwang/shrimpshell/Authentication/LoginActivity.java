@@ -68,17 +68,17 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View view) {
-            String uid = etEmail.getText().toString();
-            String pw = etPassword.getText().toString();
+            String email = etEmail.getText().toString();
+            String password = etPassword.getText().toString();
             int selectedRole = rgLogin.getCheckedRadioButtonId();
             switch (selectedRole) {
                 case R.id.rbCustomer:
-                    if (LogIn.CustomerLogIn(LoginActivity.this, uid, pw)) {
+                    if (LogIn.CustomerLogIn(LoginActivity.this, email, password)) {
                         SharedPreferences preferences = getSharedPreferences(
                                 Common.LOGIN, MODE_PRIVATE);
                         preferences.edit().putBoolean("login", true)
-                                .putString("email", uid)
-                                .putString("password", pw).apply();
+                                .putString("email", email)
+                                .putString("password", password).apply();
                         setResult(RESULT_OK);
                         setResult(2);
                         finish();
@@ -91,12 +91,12 @@ public class LoginActivity extends AppCompatActivity {
                     }
                     break;
                 case R.id.rbEmployee:
-                    if (LogIn.EmployeeLogIn(LoginActivity.this, uid, pw)) {
+                    if (LogIn.EmployeeLogIn(LoginActivity.this, email, password)) {
                         SharedPreferences preferences = getSharedPreferences(
                                 Common.EMPLOYEE_LOGIN, MODE_PRIVATE);
                         preferences.edit().putBoolean("login", true)
-                                .putString("email", uid)
-                                .putString("password", pw).apply();
+                                .putString("email", email)
+                                .putString("password", password).apply();
                         setResult(RESULT_OK);
                         finish();
                     } else {

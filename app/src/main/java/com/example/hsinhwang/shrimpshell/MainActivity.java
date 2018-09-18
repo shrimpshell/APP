@@ -161,25 +161,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK ){
-            if (requestCode == 1){
+        switch (resultCode){
+            case 1:
                 ProfileFragment profileFragment = new ProfileFragment();
                 changeFragment(profileFragment);
-                // 建立並切換到profile fragment
-            }else {
-                finish();
-            }
+                break;
 
-            if (requestCode == 2){
-                ProfileFragment profileFragment = new ProfileFragment();
-                changeFragment(profileFragment);
-            }
-
-            if (requestCode == 3){
+            case 2:
                 Intent intent = new Intent(MainActivity.this, EmployeeHomeActivity.class);
                 startActivity(intent);
-            }
+                break;
+
+
+
         }
+
     }
 
 }
