@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.example.hsinhwang.shrimpshell.Classes.Common;
+import com.example.hsinhwang.shrimpshell.Classes.LogIn;
 import com.example.hsinhwang.shrimpshell.MainActivity;
 import com.example.hsinhwang.shrimpshell.ManagerPanel.ManagerHomeActivity;
 import com.example.hsinhwang.shrimpshell.R;
@@ -36,8 +37,10 @@ public class EmployeeHomeActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         SharedPreferences pref = getSharedPreferences(Common.EMPLOYEE_LOGIN, MODE_PRIVATE);
-        int idEmployee = pref.getInt("IdEmployee", 0);
-        Log.d(TAG, "" + idEmployee);
+        String email = pref.getString("email", "");
+        String password = pref.getString("password", "");
+        int idEmployee = LogIn.employeeIsValid(EmployeeHomeActivity.this, email, password);
+        Log.d(TAG, String.valueOf(idEmployee));
     }
 
     private void initialization() {
@@ -48,7 +51,7 @@ public class EmployeeHomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 SharedPreferences pref = getSharedPreferences(Common.EMPLOYEE_LOGIN, MODE_PRIVATE);
-                pref.edit().putBoolean("login", false).putString("email", "").putString("password", "").apply();
+                pref.edit().putBoolean("login", false).putString("email", "").putString("password", "").putInt("IdEmployee", 0).apply();
                 finish();
             }
         });

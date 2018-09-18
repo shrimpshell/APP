@@ -17,8 +17,6 @@ public class LogIn {
 
     public static boolean CustomerLogIn(Activity activity, String email, String password) {
         if (userExist(activity, email) && isValid(activity, email, password) > 0) {
-            SharedPreferences preferences = activity.getSharedPreferences(Common.LOGIN, MODE_PRIVATE);
-            preferences.edit().putInt("IdCustomer", isValid(activity, email, password));
             isLogInCustomer = true;
         } else if (!userExist(activity, email)) {
         } else if (isValid(activity, email, password) <= 0) {
@@ -28,8 +26,6 @@ public class LogIn {
 
     public static boolean EmployeeLogIn(Activity activity, String email, String password) {
         if (employeeExist(activity, email) && employeeIsValid(activity, email, password) > 0) {
-            SharedPreferences preferences = activity.getSharedPreferences(Common.EMPLOYEE_LOGIN, MODE_PRIVATE);
-            preferences.edit().putInt("IdEmployee", employeeIsValid(activity, email, password));
             isLogInEmployee = true;
         } else if (!employeeExist(activity, email)){
         } else if (!(employeeIsValid(activity, email, password) > 0)) {
@@ -60,7 +56,7 @@ public class LogIn {
         return doesExist;
     }
 
-    private static int employeeIsValid(Activity activity, String email, String password) {
+    public static int employeeIsValid(Activity activity, String email, String password) {
         int idEmployee = 0;
         if (Common.networkConnected(activity)) {
             String url = Common.URL + "/EmployeeServlet";
@@ -106,7 +102,7 @@ public class LogIn {
         return doesExist;
     }
 
-    private static int isValid(Activity activity, String email, String password) {
+    public static int isValid(Activity activity, String email, String password) {
         int idCustomer = 0;
         if (Common.networkConnected(activity)) {
             String url = Common.URL + "/CustomerServlet";

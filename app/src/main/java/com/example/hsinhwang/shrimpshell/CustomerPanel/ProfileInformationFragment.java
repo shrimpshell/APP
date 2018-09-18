@@ -27,6 +27,7 @@ import com.example.hsinhwang.shrimpshell.Authentication.ProfileSettingActivity;
 import com.example.hsinhwang.shrimpshell.Classes.Common;
 import com.example.hsinhwang.shrimpshell.Classes.CommonTask;
 import com.example.hsinhwang.shrimpshell.Classes.Customer;
+import com.example.hsinhwang.shrimpshell.Classes.LogIn;
 import com.example.hsinhwang.shrimpshell.MainActivity;
 import com.example.hsinhwang.shrimpshell.R;
 import com.google.gson.Gson;
@@ -67,8 +68,10 @@ public class ProfileInformationFragment extends Fragment{
         String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
         Common.askPermissions(getActivity(), permissions, Common.REQ_EXTERNAL_STORAGE);
         SharedPreferences pref = activity.getSharedPreferences(Common.LOGIN, MODE_PRIVATE);
-        int idCustomer = pref.getInt("IdCustomer", 0);
-        Log.d(TAG, "" + idCustomer);
+        String email = pref.getString("email", "");
+        String password = pref.getString("password", "");
+        int idCustomer = LogIn.isValid(getActivity(), email, password);
+
     }
 
     @Override
@@ -93,7 +96,7 @@ public class ProfileInformationFragment extends Fragment{
             public void onClick(View view) {
                 SharedPreferences pref = getActivity().getSharedPreferences(Common.LOGIN,
                         Context.MODE_PRIVATE);
-                pref.edit().putBoolean("login", false).putString("email", "").putString("password", "").commit();
+                pref.edit().putBoolean("login", false).putString("email", "").putString("password", "").putInt("IdCustomer", 0).apply();
                 Intent intent = new Intent(getContext(), MainActivity.class);
                 startActivity(intent);
             }
