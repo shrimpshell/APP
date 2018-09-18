@@ -20,6 +20,7 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.Window;
 
+import com.example.hsinhwang.shrimpshell.Authentication.LoginActivity;
 import com.example.hsinhwang.shrimpshell.Classes.Common;
 import com.example.hsinhwang.shrimpshell.Classes.LogIn;
 import com.example.hsinhwang.shrimpshell.Classes.MainOptions;
@@ -61,9 +62,17 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent = new Intent(MainActivity.this, EmployeeHomeActivity.class);
                         startActivity(intent);
                     } else {
-                        fragment = new ProfileFragment();
-                        changeFragment(fragment);
-                        setTitle(R.string.profile);
+                        SharedPreferences preferences = getSharedPreferences(Common.LOGIN, MODE_PRIVATE);
+                        boolean login = preferences.getBoolean("login", false);
+                        if (!login) {
+                            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                        } else {
+                            fragment = new ProfileFragment();
+                            changeFragment(fragment);
+                            setTitle(R.string.profile);
+                        }
+
                     }
 
                     return true;
@@ -87,13 +96,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        SharedPreferences preferences = getSharedPreferences(Common.LOGIN, MODE_PRIVATE);
-        boolean login = preferences.getBoolean("login", false);
-        if (!login) {
-            initContent();
-            navigation.setSelectedItemId(R.id.item_home);
-        }
-
+        initContent();
+        navigation.setSelectedItemId(R.id.item_home);
     }
 
     private void initialization() {
