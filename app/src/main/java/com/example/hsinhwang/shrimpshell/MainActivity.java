@@ -65,17 +65,18 @@ public class MainActivity extends AppCompatActivity {
                     SharedPreferences employee_pref = getSharedPreferences(Common.EMPLOYEE_LOGIN, MODE_PRIVATE);
                     boolean employIsLogin = employee_pref.getBoolean("login", false);
                     boolean customerIsLogin = customer_pref.getBoolean("login", false);
-                    if (employIsLogin) {
-                        Intent intent = new Intent(MainActivity.this, EmployeeHomeActivity.class);
-                        startActivity(intent);
-                    } else if (customerIsLogin) {
-                        fragment = new ProfileFragment();
-                        changeFragment(fragment);
-                        setTitle(R.string.profile);
-                    } else {
-                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                        startActivity(intent);
-                    }
+
+//                    if (employIsLogin && !customerIsLogin) {
+//                        Intent intent = new Intent(MainActivity.this, EmployeeHomeActivity.class);
+//                        startActivityForResult(intent, 1);
+//                    } else if (customerIsLogin && !employIsLogin) {
+//                        fragment = new ProfileFragment();
+//                        changeFragment(fragment);
+//                        setTitle(R.string.profile);
+//                    } else if (!customerIsLogin) {
+//                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+//                        startActivityForResult(intent, 2);
+//                    }
 
                     return true;
                 default:
@@ -98,12 +99,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        SharedPreferences pref = getSharedPreferences(Common.EMPLOYEE_LOGIN, MODE_PRIVATE);
-        boolean isLoggedIn = pref.getBoolean("login", false);
-        if (isLoggedIn) {
-            initContent();
-            navigation.setSelectedItemId(R.id.item_home);
-        }
+//        SharedPreferences pref = getSharedPreferences(Common.EMPLOYEE_LOGIN, MODE_PRIVATE);
+//        boolean isLoggedIn = pref.getBoolean("login", false);
+//        if (isLoggedIn) {
+//            initContent();
+//            navigation.setSelectedItemId(R.id.item_home);
+//        }
     }
 
     private void initialization() {
@@ -162,22 +163,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK ){
-            if (requestCode == 1){
-                ProfileFragment profileFragment = new ProfileFragment();
-                changeFragment(profileFragment);
-                // 建立並切換到profile fragment
-            }else {
-                finish();
-            }
-
-            if (requestCode == 2){
-                ProfileFragment profileFragment = new ProfileFragment();
-                changeFragment(profileFragment);
-            }
-
-            if (requestCode == 3){
-                Intent intent = new Intent(MainActivity.this, EmployeeHomeActivity.class);
-                startActivity(intent);
+            switch (requestCode) {
+                case 1:
+                    Fragment homeFragment = new HomeFragment();
+                    changeFragment(homeFragment);
+                    break;
+                case 2:
+                    Fragment profileFragment = new ProfileFragment();
+                    changeFragment(profileFragment);
+                    break;
+                case 3:
+                    Intent intent = new Intent(MainActivity.this, EmployeeHomeActivity.class);
+                    startActivity(intent);
+                    break;
             }
         }
     }

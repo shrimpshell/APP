@@ -80,7 +80,6 @@ public class LoginActivity extends AppCompatActivity {
                                 .putString("email", uid)
                                 .putString("password", pw).apply();
                         setResult(RESULT_OK);
-                        setResult(2);
                         finish();
                     } else {
                         new AlertDialog.Builder(context)

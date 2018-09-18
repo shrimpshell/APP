@@ -52,6 +52,7 @@ public class EmployeeHomeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 SharedPreferences pref = getSharedPreferences(Common.EMPLOYEE_LOGIN, MODE_PRIVATE);
                 pref.edit().putBoolean("login", false).putString("email", "").putString("password", "").putInt("IdEmployee", 0).apply();
+                setResult(RESULT_OK);
                 finish();
             }
         });
