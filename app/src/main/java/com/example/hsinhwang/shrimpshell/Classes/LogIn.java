@@ -6,7 +6,6 @@ import android.util.Log;
 import com.example.hsinhwang.shrimpshell.R;
 import com.google.gson.JsonObject;
 
-
 public class LogIn {
     private final static String TAG = "LogIn";
     private static boolean isLogInCustomer = false;

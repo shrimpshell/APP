@@ -40,7 +40,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-
+import android.content.Context;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -64,6 +64,9 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
     private CommonTask roomGetAllTask, eventGetAllTask;
     private SharedPreferences pref;
 
+
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +84,8 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         initialization();
+        SharedPreferences pref = getActivity().getSharedPreferences(Common.PREF_CUSTOMER,
+                MODE_PRIVATE);
         List<MainOptions> optionList = new ArrayList<>();
         SharedPreferences preferences = getActivity().getSharedPreferences(Common.LOGIN, MODE_PRIVATE);
         boolean login = preferences.getBoolean("login", false);

@@ -1,7 +1,9 @@
 package com.example.hsinhwang.shrimpshell;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,6 +18,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.Window;
@@ -30,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private Window window;
     boolean login = false;
     BottomNavigationView navigation;
+
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -148,6 +152,30 @@ public class MainActivity extends AppCompatActivity {
                 default:
                     dialogInterface.cancel();
                     break;
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK ){
+            if (requestCode == 1){
+                ProfileFragment profileFragment = new ProfileFragment();
+                changeFragment(profileFragment);
+                // 建立並切換到profile fragment
+            }else {
+                finish();
+            }
+
+            if (requestCode == 2){
+                ProfileFragment profileFragment = new ProfileFragment();
+                changeFragment(profileFragment);
+            }
+
+            if (requestCode == 3){
+                Intent intent = new Intent(MainActivity.this, EmployeeHomeActivity.class);
+                startActivity(intent);
             }
         }
     }
