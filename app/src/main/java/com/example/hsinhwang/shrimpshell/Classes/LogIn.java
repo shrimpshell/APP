@@ -18,6 +18,7 @@ public class LogIn {
     public static boolean CustomerLogIn(Activity activity, String email, String password) {
         if (userExist(activity, email) && isValid(activity, email, password) > 0) {
             isLogInCustomer = true;
+            isLogInEmployee = false;
         } else if (!userExist(activity, email)) {
         } else if (isValid(activity, email, password) <= 0) {
         }
@@ -27,6 +28,7 @@ public class LogIn {
     public static boolean EmployeeLogIn(Activity activity, String email, String password) {
         if (employeeExist(activity, email) && employeeIsValid(activity, email, password) > 0) {
             isLogInEmployee = true;
+            isLogInCustomer = false;
         } else if (!employeeExist(activity, email)){
         } else if (!(employeeIsValid(activity, email, password) > 0)) {
         }

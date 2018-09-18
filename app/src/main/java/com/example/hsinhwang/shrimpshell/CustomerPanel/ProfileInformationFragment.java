@@ -96,7 +96,9 @@ public class ProfileInformationFragment extends Fragment{
             public void onClick(View view) {
                 SharedPreferences pref = getActivity().getSharedPreferences(Common.LOGIN,
                         Context.MODE_PRIVATE);
+                SharedPreferences page = getActivity().getSharedPreferences(Common.PAGE, MODE_PRIVATE);
                 pref.edit().putBoolean("login", false).putString("email", "").putString("password", "").putInt("IdCustomer", 0).apply();
+                page.edit().putInt("page", 1).apply();
                 Intent intent = new Intent(getContext(), MainActivity.class);
                 startActivity(intent);
             }
