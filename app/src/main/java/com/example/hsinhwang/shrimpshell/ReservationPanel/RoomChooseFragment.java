@@ -92,31 +92,32 @@ public class RoomChooseFragment extends Fragment {
                 new LinearLayoutManager(getActivity(),
                         LinearLayoutManager.HORIZONTAL, false));
 
-//        if (networkConnected(getActivity())) {
-//            String url = URL + "/RoomTypeServlet";
-//            roomTypeList = null;
-//            JsonObject jsonObject = new JsonObject();
-//            jsonObject.addProperty("action", "getAll");
-//            String jsonOut = jsonObject.toString();
-//            roomTypeGetAllTask = new ReservationPanelTask(url, jsonOut);
-//            try {
-//                String jsonIn = roomTypeGetAllTask.execute().get();
-//                Type listType = new TypeToken<List<RoomType>>() {
-//                }.getType();
-//                roomTypeList = new Gson().fromJson(jsonIn, listType);
-//            } catch (Exception e) {
-//                Log.e(TAG, e.toString());
-//            }
-//            if (roomTypeList == null || roomTypeList.isEmpty()) {
-//                showToast(getActivity(),"沒有找到房間");
-//            } else {
-//                rvRoomChoose.setAdapter(new RoomTypeAdapter(getActivity(), roomTypeList));
-//            }
-//        } else {
-//            showToast(getActivity(), R.string.msg_NoNetwork);
-//        }
-        roomTypeList = getRoomTypeList();
-        rvRoomChoose.setAdapter(new RoomTypeAdapter(getActivity(), roomTypeList));
+        if (networkConnected(getActivity())) {
+            String url = URL + "/RoomTypeServlet";
+            roomTypeList = null;
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("action", "getAll");
+            String jsonOut = jsonObject.toString();
+            roomTypeGetAllTask = new ReservationPanelTask(url, jsonOut);
+            try {
+                String jsonIn = roomTypeGetAllTask.execute().get();
+                Type listType = new TypeToken<List<RoomType>>() {
+                }.getType();
+                roomTypeList = new Gson().fromJson(jsonIn, listType);
+            } catch (Exception e) {
+                Log.e(TAG, e.toString());
+            }
+            if (roomTypeList == null || roomTypeList.isEmpty()) {
+                showToast(getActivity(),"沒有找到房間");
+            } else {
+                rvRoomChoose.setAdapter(new RoomTypeAdapter(getActivity(), roomTypeList));
+                Log.d(TAG,""+roomTypeList.get(1));
+            }
+        } else {
+            showToast(getActivity(), R.string.msg_NoNetwork);
+        }
+//        roomTypeList = getRoomTypeList();
+//        rvRoomChoose.setAdapter(new RoomTypeAdapter(getActivity(), roomTypeList));
         /* 不處理捲動事件所以監聽器設為null */
         rvRoomChoose.setOnFlingListener(null);
         /* 如果希望一次滑動一頁資料，要加上PagerSnapHelper物件 */
@@ -205,6 +206,7 @@ public class RoomChooseFragment extends Fragment {
             myViewHolder.ibAddRoom.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    Log.d(TAG,roomType.getRoomTypeName()+roomType.getRoomTypeSize()+roomType.getRoomTypeBed()+roomType.getRoomTypeAdult()+roomType.getRoomTypeLastQuantity()+roomType.getRoomTypePrice());
                     int roomQuantity = Integer.valueOf(myViewHolder.tvRoomTypeLastQuantity.getText().toString());
                     if (roomQuantity > 0) {
                         roomQuantity = roomQuantity - 1;
@@ -229,48 +231,48 @@ public class RoomChooseFragment extends Fragment {
 
     
 
-    public List<RoomType> getRoomTypeList() {
-        List<RoomType> roomTypeList = new ArrayList<>();
-        roomTypeList.add(new RoomType("3",
-                "4100", "海景標準雙人房",
-                "35平方公尺", "1張雙人床",
-                "2"));
-        roomTypeList.add(new RoomType("2",
-                "3800", "山景標準雙人房",
-                "35平方公尺", "1張雙人床",
-                "2"));
-        roomTypeList.add(new RoomType("1",
-                "5300", "海景標準四人房",
-                "45平方公尺", "2張雙人床",
-                "4"));
-        roomTypeList.add(new RoomType("3",
-                "4900", "山景標準四人房",
-                "45平方公尺", "1張雙人床",
-                "4"));
-        roomTypeList.add(new RoomType("1",
-                "5800", "海景精緻雙人房",
-                "42平方公尺", "1張雙人床",
-                "2"));
-        roomTypeList.add(new RoomType("2",
-                "5400", "山景精緻雙人房",
-                "42平方公尺", "1張雙人床",
-                "2"));
-        roomTypeList.add(new RoomType("1",
-                "7000", "海景精緻四人房",
-                "52平方公尺", "1張雙人床",
-                "4"));
-        roomTypeList.add(new RoomType("1",
-                "6800", "山景精緻四人房",
-                "52平方公尺", "1張雙人床",
-                "4"));
-        roomTypeList.add(new RoomType("1",
-                "8000", "海景豪華雙人房",
-                "60平方公尺", "1張雙人床",
-                "2"));
-        roomTypeList.add(new RoomType("1",
-                "7600", "山景豪華雙人房",
-                "60平方公尺", "1張雙人床",
-                "2"));
-        return roomTypeList;
-    }
+//    public List<RoomType> getRoomTypeList() {
+//        List<RoomType> roomTypeList = new ArrayList<>();
+//        roomTypeList.add(new RoomType("3",
+//                "4100", "海景標準雙人房",
+//                "35平方公尺", "1張雙人床",
+//                "2"));
+//        roomTypeList.add(new RoomType("2",
+//                "3800", "山景標準雙人房",
+//                "35平方公尺", "1張雙人床",
+//                "2"));
+//        roomTypeList.add(new RoomType("1",
+//                "5300", "海景標準四人房",
+//                "45平方公尺", "2張雙人床",
+//                "4"));
+//        roomTypeList.add(new RoomType("3",
+//                "4900", "山景標準四人房",
+//                "45平方公尺", "1張雙人床",
+//                "4"));
+//        roomTypeList.add(new RoomType("1",
+//                "5800", "海景精緻雙人房",
+//                "42平方公尺", "1張雙人床",
+//                "2"));
+//        roomTypeList.add(new RoomType("2",
+//                "5400", "山景精緻雙人房",
+//                "42平方公尺", "1張雙人床",
+//                "2"));
+//        roomTypeList.add(new RoomType("1",
+//                "7000", "海景精緻四人房",
+//                "52平方公尺", "1張雙人床",
+//                "4"));
+//        roomTypeList.add(new RoomType("1",
+//                "6800", "山景精緻四人房",
+//                "52平方公尺", "1張雙人床",
+//                "4"));
+//        roomTypeList.add(new RoomType("1",
+//                "8000", "海景豪華雙人房",
+//                "60平方公尺", "1張雙人床",
+//                "2"));
+//        roomTypeList.add(new RoomType("1",
+//                "7600", "山景豪華雙人房",
+//                "60平方公尺", "1張雙人床",
+//                "2"));
+//        return roomTypeList;
+//    }
 }

@@ -177,6 +177,7 @@ public class RoomCheckFragment extends Fragment {
                 public void onClick(View view) {
                     reservationList.remove(reservation);
                     ReservationListAdapter.this.notifyDataSetChanged();
+                    Toast.makeText(getActivity(),"請重新選擇房間",Toast.LENGTH_SHORT).show();
                 }
             });
         }

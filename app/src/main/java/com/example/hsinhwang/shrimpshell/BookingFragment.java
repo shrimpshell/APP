@@ -189,8 +189,8 @@ public class BookingFragment extends Fragment {
             transaction = manager.beginTransaction();
             transaction.replace(R.id.content, roomChooseFragment, "fragment");
             transaction.addToBackStack("fragment");
-            String checkInDate = year + "年" + month + "月" + day + "日" + changeWeekName(week) + "週";
-            String checkOutDate = lastYear + "年" + lastMonth + "月" + lastDay + "日" + changeWeekName(lastWeek) + "週";
+            String checkInDate = year + "年" + month + "月" + day + "日" + changeWeekName(week);
+            String checkOutDate = lastYear + "年" + lastMonth + "月" + lastDay + "日" + changeWeekName(lastWeek);
             bundle.putString("checkInDate",checkInDate);
             bundle.putString("checkOutDate",checkOutDate);
             bundle.putInt("AdultQuantity", Integer.valueOf(tvAdultQuantity.

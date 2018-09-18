@@ -24,7 +24,7 @@
             android:id="@+id/tvCheckInDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvRoomTypeName"
+            android:layout_below="@+id/tvRoomTypeName"
             android:layout_margin="10dp"
             android:text="@string/first_day_selected"
             android:textSize="16sp" />
