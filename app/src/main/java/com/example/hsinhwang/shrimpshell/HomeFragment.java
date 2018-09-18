@@ -3,6 +3,7 @@ package com.example.hsinhwang.shrimpshell;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -49,6 +50,9 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
+import static android.app.Activity.RESULT_OK;
+import static android.content.Context.MODE_PRIVATE;
+
 
 public class HomeFragment extends Fragment implements OnMapReadyCallback {
     private final static String TAG = "HomeFragment";
@@ -58,6 +62,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
     private LatLng hotel_latlng;
     private FragmentActivity activity;
     private CommonTask roomGetAllTask, eventGetAllTask;
+    private SharedPreferences pref;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,7 +82,9 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         initialization();
         List<MainOptions> optionList = new ArrayList<>();
-        if (!LogIn.CustomerLogIn() && !LogIn.EmployeeLogIn()) {
+        SharedPreferences preferences = getActivity().getSharedPreferences(Common.LOGIN, MODE_PRIVATE);
+        boolean login = preferences.getBoolean("login", false);
+        if (!login) {
             optionList.add(new MainOptions(R.string.login_title, (String)getText(R.string.login), R.drawable.login));
         }
         optionList.add(new MainOptions(R.string.intro_title, (String)getText(R.string.about), R.drawable.introduction));
@@ -346,7 +353,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                 }.getType();
                 rooms = new Gson().fromJson(jsonIn, listType);
             } catch (Exception e) {
-//                Log.e(TAG, e.toString());
+                Log.e(TAG, e.toString());
             }
             if (rooms == null || rooms.isEmpty()) {
                 Common.showToast(activity, R.string.msg_NoRoomsFound);

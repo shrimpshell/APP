@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -19,7 +20,10 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.Window;
 
+import com.example.hsinhwang.shrimpshell.Authentication.LoginActivity;
+import com.example.hsinhwang.shrimpshell.Classes.Common;
 import com.example.hsinhwang.shrimpshell.Classes.LogIn;
+import com.example.hsinhwang.shrimpshell.Classes.MainOptions;
 import com.example.hsinhwang.shrimpshell.EmployeePanel.EmployeeHomeActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -54,13 +58,21 @@ public class MainActivity extends AppCompatActivity {
                     setTitle(R.string.instant);
                     return true;
                 case R.id.item_profile:
-                    if (LogIn.EmployeeLogIn()) {
+                    if (LogIn.EmployeeLogIn(MainActivity.this)) {
                         Intent intent = new Intent(MainActivity.this, EmployeeHomeActivity.class);
                         startActivity(intent);
                     } else {
-                        fragment = new ProfileFragment();
-                        changeFragment(fragment);
-                        setTitle(R.string.profile);
+                        SharedPreferences preferences = getSharedPreferences(Common.LOGIN, MODE_PRIVATE);
+                        boolean login = preferences.getBoolean("login", false);
+                        if (!login) {
+                            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                        } else {
+                            fragment = new ProfileFragment();
+                            changeFragment(fragment);
+                            setTitle(R.string.profile);
+                        }
+
                     }
 
                     return true;
@@ -84,11 +96,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if (!LogIn.CustomerLogIn()){
-            initContent();
-            navigation.setSelectedItemId(R.id.item_home);
-        }
-
+        initContent();
+        navigation.setSelectedItemId(R.id.item_home);
     }
 
     private void initialization() {
@@ -130,6 +139,8 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(DialogInterface dialogInterface, int i) {
             switch (i) {
                 case DialogInterface.BUTTON_POSITIVE:
+                    SharedPreferences preferences = getActivity().getSharedPreferences(Common.LOGIN, MODE_PRIVATE);
+                    preferences.edit().clear().commit();
                     if (getActivity() != null) {
                         getActivity().finish();
                     }

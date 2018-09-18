@@ -2,6 +2,7 @@ package com.example.hsinhwang.shrimpshell.Authentication;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.v7.app.AlertDialog;
@@ -13,6 +14,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.hsinhwang.shrimpshell.Classes.Common;
+import com.example.hsinhwang.shrimpshell.Classes.LogIn;
 import com.example.hsinhwang.shrimpshell.MainActivity;
 import com.example.hsinhwang.shrimpshell.R;
 
@@ -51,10 +54,13 @@ public class LoginActivity extends AppCompatActivity {
         public void onClick(View view) {
             String uid = etEmail.getText().toString();
             String pw = etPassword.getText().toString();
-            if (uid.equals("xxx") && pw.equals("1234")) {
-                Toast.makeText(context, "登入成功", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(context, MainActivity.class);
-                startActivity(intent);
+            if (LogIn.CustomerLogIn(LoginActivity.this, uid, pw)) {
+                SharedPreferences preferences = getSharedPreferences(
+                        Common.LOGIN, MODE_PRIVATE);
+                preferences.edit().putBoolean("login", true)
+                        .putString("email", uid)
+                        .putString("password", pw).apply();
+                setResult(RESULT_OK);
                 finish();
             } else {
                 new AlertDialog.Builder(context)
