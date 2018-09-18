@@ -27,6 +27,7 @@ import com.example.hsinhwang.shrimpshell.Authentication.ProfileSettingActivity;
 import com.example.hsinhwang.shrimpshell.Classes.Common;
 import com.example.hsinhwang.shrimpshell.Classes.CommonTask;
 import com.example.hsinhwang.shrimpshell.Classes.Customer;
+import com.example.hsinhwang.shrimpshell.Classes.LogIn;
 import com.example.hsinhwang.shrimpshell.MainActivity;
 import com.example.hsinhwang.shrimpshell.R;
 import com.google.gson.Gson;
@@ -36,7 +37,7 @@ import com.github.clans.fab.FloatingActionButton;
 import static android.content.Context.MODE_PRIVATE;
 
 public class ProfileInformationFragment extends Fragment{
-    public static final String  TAG = "ProfileInformationFragment";
+    public static final String TAG = "ProfileInformationFragment";
     private static final int RESULT_OK = -1;
     private ImageView imageView;
     private ImageButton ibChange;
@@ -60,11 +61,17 @@ public class ProfileInformationFragment extends Fragment{
         return inflater.inflate(R.layout.fragment_profile_information, container, false);
     }
 
+    @SuppressLint("LongLogTag")
     @Override
     public void onStart() {
         super.onStart();
         String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
         Common.askPermissions(getActivity(), permissions, Common.REQ_EXTERNAL_STORAGE);
+        SharedPreferences pref = activity.getSharedPreferences(Common.LOGIN, MODE_PRIVATE);
+        String email = pref.getString("email", "");
+        String password = pref.getString("password", "");
+        int idCustomer = LogIn.isValid(getActivity(), email, password);
+
     }
 
     @Override
@@ -89,7 +96,7 @@ public class ProfileInformationFragment extends Fragment{
             public void onClick(View view) {
                 SharedPreferences pref = getActivity().getSharedPreferences(Common.LOGIN,
                         Context.MODE_PRIVATE);
-                pref.edit().putBoolean("login", false).putString("email", "").putString("password", "").commit();
+                pref.edit().putBoolean("login", false).putString("email", "").putString("password", "").putInt("IdCustomer", 0).apply();
                 Intent intent = new Intent(getContext(), MainActivity.class);
                 startActivity(intent);
             }

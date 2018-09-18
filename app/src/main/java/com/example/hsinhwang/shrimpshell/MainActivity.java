@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
     boolean login = false;
     BottomNavigationView navigation;
 
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         int count = getSupportFragmentManager().getBackStackEntryCount();
@@ -62,21 +61,20 @@ public class MainActivity extends AppCompatActivity {
                     setTitle(R.string.instant);
                     return true;
                 case R.id.item_profile:
-                    if (LogIn.EmployeeLogIn(MainActivity.this)) {
+                    SharedPreferences customer_pref = getSharedPreferences(Common.LOGIN, MODE_PRIVATE);
+                    SharedPreferences employee_pref = getSharedPreferences(Common.EMPLOYEE_LOGIN, MODE_PRIVATE);
+                    boolean employIsLogin = employee_pref.getBoolean("login", false);
+                    boolean customerIsLogin = customer_pref.getBoolean("login", false);
+                    if (employIsLogin) {
                         Intent intent = new Intent(MainActivity.this, EmployeeHomeActivity.class);
                         startActivity(intent);
+                    } else if (customerIsLogin) {
+                        fragment = new ProfileFragment();
+                        changeFragment(fragment);
+                        setTitle(R.string.profile);
                     } else {
-                        SharedPreferences preferences = getSharedPreferences(Common.LOGIN, MODE_PRIVATE);
-                        boolean login = preferences.getBoolean("login", false);
-                        if (!login) {
-                            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                            startActivity(intent);
-                        } else {
-                            fragment = new ProfileFragment();
-                            changeFragment(fragment);
-                            setTitle(R.string.profile);
-                        }
-
+                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                        startActivity(intent);
                     }
 
                     return true;
@@ -100,8 +98,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-//        initContent();
-//        navigation.setSelectedItemId(R.id.item_home);
+        SharedPreferences pref = getSharedPreferences(Common.EMPLOYEE_LOGIN, MODE_PRIVATE);
+        boolean isLoggedIn = pref.getBoolean("login", false);
+        if (isLoggedIn) {
+            initContent();
+            navigation.setSelectedItemId(R.id.item_home);
+        }
     }
 
     private void initialization() {
