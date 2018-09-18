@@ -36,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     private CommonTask loginTask;
     private RadioGroup rgLogin;
     private RadioButton rbCustomer, rbEmployee;
-    int IdCustomer = 0;
+    int IdCustomer = 0, IdEmployee = 0;
     String idEmployee = null;
 
 
@@ -74,11 +74,15 @@ public class LoginActivity extends AppCompatActivity {
             switch (selectedRole) {
                 case R.id.rbCustomer:
                     if (LogIn.CustomerLogIn(LoginActivity.this, email, password)) {
+                        IdCustomer = LogIn.isValid(LoginActivity.this, email, password);
+                        Log.d(TAG, String.valueOf(IdCustomer));
                         SharedPreferences preferences = getSharedPreferences(Common.LOGIN, MODE_PRIVATE);
                         SharedPreferences page = getSharedPreferences(Common.PAGE, MODE_PRIVATE);
                         preferences.edit().putBoolean("login", true)
                                 .putString("email", email)
-                                .putString("password", password).apply();
+                                .putString("password", password)
+                                .putInt("IdCustomer", IdCustomer)
+                                .apply();
                         page.edit().putInt("page", 2).apply();
                         finish();
                     } else {
@@ -91,11 +95,15 @@ public class LoginActivity extends AppCompatActivity {
                     break;
                 case R.id.rbEmployee:
                     if (LogIn.EmployeeLogIn(LoginActivity.this, email, password)) {
+                        IdEmployee = LogIn.employeeIsValid(LoginActivity.this, email, password);
+                        Log.d(TAG, String.valueOf(IdEmployee));
                         SharedPreferences preferences = getSharedPreferences(Common.EMPLOYEE_LOGIN, MODE_PRIVATE);
                         SharedPreferences page = getSharedPreferences(Common.PAGE, MODE_PRIVATE);
                         preferences.edit().putBoolean("login", true)
                                 .putString("email", email)
-                                .putString("password", password).apply();
+                                .putString("password", password)
+                                .putInt("IdEmployee", IdEmployee)
+                                .apply();
                         page.edit().putInt("page", 3).apply();
                         finish();
                     } else {

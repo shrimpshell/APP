@@ -3,7 +3,6 @@ package com.example.hsinhwang.shrimpshell.Classes;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.ImageView;
 
 import com.example.hsinhwang.shrimpshell.R;
@@ -17,7 +16,7 @@ import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class ImageTask extends AsyncTask<Object, Integer, Bitmap> {
+public class ImageCustomerTask extends AsyncTask<Object, Integer, Bitmap> {
     private final static String TAG = "ImageTask";
     private String url;
     private int id, imageSize;
@@ -27,18 +26,18 @@ public class ImageTask extends AsyncTask<Object, Integer, Bitmap> {
         改採weak參照就不會阻止imageView被回收 */
     private WeakReference<ImageView> imageViewWeakReference;
 
-    public ImageTask(String url, int id, int imageSize) {
+    public ImageCustomerTask(String url, int id, int imageSize) {
         this(url, id, imageSize, null);
     }
 
-    public ImageTask(String url, int id, int imageSize, ImageView imageView) {
+    public ImageCustomerTask(String url, int id, int imageSize, ImageView imageView) {
         this.url = url;
         this.id = id;
         this.imageSize = imageSize;
         this.imageViewWeakReference = new WeakReference<>(imageView);
     }
 
-    public ImageTask(String url, int id){
+    public ImageCustomerTask(String url, int id){
         this.url = url;
         this.id = id;
     }
@@ -47,8 +46,7 @@ public class ImageTask extends AsyncTask<Object, Integer, Bitmap> {
     protected Bitmap doInBackground(Object... objects) {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("action", "getImage");
-        jsonObject.addProperty("imageId", id);
-        jsonObject.addProperty("imageSize", imageSize);
+        jsonObject.addProperty("IdCustomer", id);
         return getRemoteImage(url, jsonObject.toString());
     }
 
@@ -62,7 +60,7 @@ public class ImageTask extends AsyncTask<Object, Integer, Bitmap> {
             if (bitmap != null) {
                 imageView.setImageBitmap(bitmap);
             } else {
-                imageView.setImageResource(R.drawable.room_review);
+                imageView.setImageResource(R.drawable.man128);
             }
         }
     }
@@ -78,7 +76,6 @@ public class ImageTask extends AsyncTask<Object, Integer, Bitmap> {
             connection.setRequestMethod("POST");
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream()));
             bw.write(jsonOut);
-//            Log.d(TAG, "output: " + jsonOut);
             bw.close();
 
             int responseCode = connection.getResponseCode();
@@ -87,10 +84,8 @@ public class ImageTask extends AsyncTask<Object, Integer, Bitmap> {
                 bitmap = BitmapFactory.decodeStream(
                         new BufferedInputStream(connection.getInputStream()));
             } else {
-//                Log.d(TAG, "response code: " + responseCode);
             }
         } catch (IOException e) {
-//            Log.e(TAG, e.toString());
         } finally {
             if (connection != null) {
                 connection.disconnect();

@@ -67,11 +67,6 @@ public class ProfileSettingActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String password = etProfileSettingPassword.getText().toString().trim();
                 String rePassword = etProfileSettingReenterPassword.getText().toString().trim();
-//                if (password.equals(rePassword)){
-//                    return;
-//                }else {
-//                    Common.showToast(activity, R.string.msa_PasswordNoRight);
-//                }
                 String phoneNo = etProfileSettingPhone.getText().toString().trim();
                 String address = etProfileSettingAddress.getText().toString().trim();
                 int idCustomer = preferences.getInt("IdCustomer", 0);

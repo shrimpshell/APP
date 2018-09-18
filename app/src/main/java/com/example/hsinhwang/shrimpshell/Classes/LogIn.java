@@ -13,14 +13,18 @@ public class LogIn {
     private final static String TAG = "LogIn";
     private static boolean isLogInCustomer = false;
     private static boolean isLogInEmployee = false;
+    private static int isValid = 0;
     private static CommonTask loginGetAllTask;
+
 
     public static boolean CustomerLogIn(Activity activity, String email, String password) {
         if (userExist(activity, email) && isValid(activity, email, password) > 0) {
             isLogInCustomer = true;
             isLogInEmployee = false;
         } else if (!userExist(activity, email)) {
+            Common.showToast(activity, "User does not exist");
         } else if (isValid(activity, email, password) <= 0) {
+            Common.showToast(activity, "Invalid username or password");
         }
         return isLogInCustomer;
     }
@@ -30,7 +34,9 @@ public class LogIn {
             isLogInEmployee = true;
             isLogInCustomer = false;
         } else if (!employeeExist(activity, email)){
+            Common.showToast(activity, "User does not exist");
         } else if (!(employeeIsValid(activity, email, password) > 0)) {
+            Common.showToast(activity, "Invalid username or password");
         }
         return isLogInEmployee;
     }
