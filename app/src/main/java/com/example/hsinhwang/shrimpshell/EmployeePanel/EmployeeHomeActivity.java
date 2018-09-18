@@ -3,21 +3,27 @@ package com.example.hsinhwang.shrimpshell.EmployeePanel;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutCompat;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.example.hsinhwang.shrimpshell.Classes.Common;
+import com.example.hsinhwang.shrimpshell.Classes.LogIn;
+import com.example.hsinhwang.shrimpshell.MainActivity;
 import com.example.hsinhwang.shrimpshell.ManagerPanel.ManagerHomeActivity;
 import com.example.hsinhwang.shrimpshell.R;
 
 public class EmployeeHomeActivity extends AppCompatActivity {
+    private final static String TAG = "EmployeeHomeActivity";
     private Window window;
     private LinearLayout employHomeBottom;
+    private FloatingActionButton employeeLogout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,14 +33,28 @@ public class EmployeeHomeActivity extends AppCompatActivity {
         insertDepartmentButton();
     }
 
-    private boolean isLoggedIn() {
-        // 以後判斷登入用
-        return true;
+    @Override
+    protected void onStart() {
+        super.onStart();
+        SharedPreferences pref = getSharedPreferences(Common.EMPLOYEE_LOGIN, MODE_PRIVATE);
+        String email = pref.getString("email", "");
+        String password = pref.getString("password", "");
+        int idEmployee = LogIn.employeeIsValid(EmployeeHomeActivity.this, email, password);
+        Log.d(TAG, String.valueOf(idEmployee));
     }
 
     private void initialization() {
         employHomeBottom = findViewById(R.id.employHomeBottom);
         employHomeBottom.setPadding(5, 5, 5,5);
+        employeeLogout = findViewById(R.id.employeeLogout);
+        employeeLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences pref = getSharedPreferences(Common.EMPLOYEE_LOGIN, MODE_PRIVATE);
+                pref.edit().putBoolean("login", false).putString("email", "").putString("password", "").putInt("IdEmployee", 0).apply();
+                finish();
+            }
+        });
     }
 
     /**

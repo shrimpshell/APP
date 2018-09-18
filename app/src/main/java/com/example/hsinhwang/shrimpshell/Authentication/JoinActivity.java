@@ -68,12 +68,6 @@ public class JoinActivity extends AppCompatActivity {
                 }
                 String email = etJoinEmail.getText().toString().trim();
                 String password = etJoinPassword.getText().toString();
-//                String rePassword = etJoinReenterPassword.getText().toString();
-//                if (password.equals(rePassword)){
-//                    return;
-//                }else {
-//                    Common.showToast(context, R.string.msa_PasswordNoRight);
-//                }
                 rbgender = (RadioButton) findViewById(rgGroup.getCheckedRadioButtonId());
                 String gender = rbgender.getText().toString();
                 String birthDay = btDate.getText().toString();
