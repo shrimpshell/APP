@@ -104,6 +104,7 @@ public class LogIn {
         return doesExist;
     }
 
+
     public static int isValid(Activity activity, String email, String password) {
         int idCustomer = 0;
         if (Common.networkConnected(activity)) {
