@@ -20,32 +20,37 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="最新活動"
-                android:textSize="24dp"
+                android:text="@string/lastest_events"
+                android:textSize="25dp"
                 android:textColor="#FFFFFF"
                 android:layout_marginBottom="10dp"/>
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/eventRecyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="130dp"
+                android:background="@color/colorWhite">
             </android.support.v7.widget.RecyclerView>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="房間預覽"
-                android:textSize="24dp"
+                android:text="@string/rooms"
+                android:paddingTop="6dp"
+                android:textSize="25dp"
                 android:textColor="#FFFFFF"
                 android:layout_marginBottom="10dp"/>
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/roomRecyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="130dp"
+                android:background="@color/colorWhite">
             </android.support.v7.widget.RecyclerView>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="地理位置"
-                android:textSize="24dp"
+                android:text="@string/location"
+                android:textColor="#FFFFFF"
+                android:paddingTop="6dp"
+                android:textSize="25dp"
                 android:layout_marginBottom="10dp"/>
 
             <fragment

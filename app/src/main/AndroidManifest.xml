@@ -7,6 +7,7 @@
     <!-- 以下為位置資訊應用 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -30,19 +31,40 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".IntroductionActivity"
+            android:name=".GeneralPages.IntroductionActivity"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".LocationActivity"
+            android:name=".GeneralPages.EventActivity"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".EventActivity"
+            android:name=".GeneralPages.RoomDetailActivity"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".RoomPreviewActivity"
-            android:parentActivityName=".MainActivity" />
-        <activity android:name=".EmployeeHomeActivity" />
-        <activity android:name=".LoginActivity"></activity>
+
+            android:name=".Authentication.JoinActivity"
+            android:parentActivityName=".Authentication.LoginActivity" />
+        <activity android:name=".EmployeePanel.EmployeeHomeActivity" />
+        <activity android:name=".Authentication.LoginActivity" />
+
+        <activity
+            android:name=".ManagerPanel.ManagerHomeActivity"
+            android:label="@string/title_activity_manager_home"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".ManagerPanel.ManagerEditActivity" />
+        <activity android:name=".ManagerPanel.ManagerEmployeeEditActivity" />
+        <activity android:name=".ManagerPanel.AddEmployeeActivity" />
+        <activity android:name=".ManagerPanel.AddEventActivity" />
+        <activity android:name=".ManagerPanel.AddRoomActivity"></activity>
+
+        <activity
+            android:name=".CalendarActivity"
+            android:label="@string/title_activity_calendar"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".RoomChooseActivity"
+            android:label="@string/title_activity_room_choose"
+            android:theme="@style/AppTheme"></activity>
+        <activity android:name=".ProfileReceiptDetailResultActivity"></activity>
     </application>
 
 </manifest>
