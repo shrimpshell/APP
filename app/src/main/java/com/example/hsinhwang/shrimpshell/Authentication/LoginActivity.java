@@ -19,7 +19,6 @@ import android.widget.Toast;
 import com.example.hsinhwang.shrimpshell.Classes.Common;
 import com.example.hsinhwang.shrimpshell.Classes.CommonTask;
 import com.example.hsinhwang.shrimpshell.Classes.LogIn;
-import com.example.hsinhwang.shrimpshell.Classes.MyTask;
 import com.example.hsinhwang.shrimpshell.MainActivity;
 import com.example.hsinhwang.shrimpshell.ManagerPanel.AddEmployeeActivity;
 import com.example.hsinhwang.shrimpshell.R;
@@ -84,61 +83,22 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View view) {
-            String user = etEmail.getText().toString().trim();
-            String password = etPassword.getText().toString().trim();
-
-            //當帳號或密碼長度小於0，跳出警示訊息
-            if (user.length() <= 0 || password.length() <= 0) {
-                showMessage();
-                return;
-            }
-
-            switch (rgLogin.getCheckedRadioButtonId()) {
-
-                //選擇Customer登入時
-                case R.id.rbCustomer:
-                    if (LogIn.isCustomerLogIn(LoginActivity.this, user, password)) {
-                        SharedPreferences pref = getSharedPreferences(Common.PREF_CUSTOMER,
-                                MODE_PRIVATE);
-                        pref.edit()
-                                .putBoolean("login", true)
-                                .putInt("IdCustomer",Integer.valueOf(IdCustomer))
-                                .putString("user", user)
-                                .putString("password", password)
-//                        .putString("gender", gender)
-//                        .putString("birthday", birthday)
-//                        .putString("phoneNo", phoneNo)
-//                        .putString("address", address)
-                                .apply();
-                        setResult(RESULT_OK);
-                        Log.e(TAG, String.valueOf(IdCustomer));
-                        finish();
-                    } else {
-                        showMessage();
-                    }
-                    break;
-
-                //選擇Employee登入時
-                case R.id.rbEmployee:
-                    if (LogIn.isEmployeeLogIn(LoginActivity.this, user, password)) {
-                        SharedPreferences pref = getSharedPreferences(Common.PREF_Employee,
-                                MODE_PRIVATE);
-                        pref.edit()
-                                .putBoolean("login", true)
-                                .putInt("idEmployee", Integer.parseInt(idEmployee))
-                                .putString("employeeCode", user)
-                                .putString("password", password)
-//                        .putString("gender", gender)
-//                        .putString("birthday", birthday)
-//                        .putString("phoneNo", phoneNo)
-//                        .putString("address", address)
-                                .apply();
-                        setResult(3);
-                        finish();
-                    } else {
-                        showMessage();
-                    }
-                    break;
+            String uid = etEmail.getText().toString();
+            String pw = etPassword.getText().toString();
+            if (LogIn.CustomerLogIn(LoginActivity.this, uid, pw)) {
+                SharedPreferences preferences = getSharedPreferences(
+                        Common.LOGIN, MODE_PRIVATE);
+                preferences.edit().putBoolean("login", true)
+                        .putString("email", uid)
+                        .putString("password", pw).apply();
+                setResult(RESULT_OK);
+                finish();
+            } else {
+                new AlertDialog.Builder(context)
+                        .setTitle("SS Hotel")
+                        .setMessage("登入失敗")
+                        .setPositiveButton("OK", null)
+                        .show();
             }
         }
     };

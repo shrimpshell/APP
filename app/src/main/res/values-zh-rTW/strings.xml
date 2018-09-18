@@ -9,7 +9,7 @@
     <string name="booking">訂房</string>
     <string name="profile">消費者資訊</string>
     <string name="home">首頁</string>
-    <string name="reserved">預約資訊</string>
+    <string name="instant">即時服務</string>
     <string name="login_title">登入</string>
     <string name="txLogInWelcome">歡迎</string>
     <string name="textLogEmail">Email或帳號</string>
@@ -33,6 +33,7 @@
     <string name="startTime">開始時間</string>
     <string name="endTime">結束時間</string>
     <string name="submit">提交</string>
+    <string name="textEmployeeProfile">員工資料</string>
 
     <!--測試用字串-->
     <string name="hello_employee_fragment">Hello employee fragment</string>
@@ -92,6 +93,7 @@
         <item id="1">清潔部門</item>
         <item id="2">房務部門</item>
         <item id="3">餐飲部門</item>
+        <item id="4">櫃檯部門</item>
     </string-array>
 
 </resources>

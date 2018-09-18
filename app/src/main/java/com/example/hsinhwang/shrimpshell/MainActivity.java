@@ -23,10 +23,10 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.Window;
 
-import com.example.hsinhwang.shrimpshell.Authentication.JoinActivity;
 import com.example.hsinhwang.shrimpshell.Authentication.LoginActivity;
 import com.example.hsinhwang.shrimpshell.Classes.Common;
 import com.example.hsinhwang.shrimpshell.Classes.LogIn;
+import com.example.hsinhwang.shrimpshell.Classes.MainOptions;
 import com.example.hsinhwang.shrimpshell.EmployeePanel.EmployeeHomeActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -59,18 +59,24 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.item_reserved:
                     fragment = new ReservedFragment();
                     changeFragment(fragment);
-                    setTitle(R.string.reserved);
+                    setTitle(R.string.instant);
                     return true;
                 case R.id.item_profile:
-                    SharedPreferences pref = getSharedPreferences(Common.PREF_CUSTOMER,
-                            MODE_PRIVATE);
-                    if (!LogIn.CustomerLogIn(pref)) {
-                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    if (LogIn.EmployeeLogIn(MainActivity.this)) {
+                        Intent intent = new Intent(MainActivity.this, EmployeeHomeActivity.class);
                         startActivity(intent);
                     } else {
-                        fragment = new ProfileFragment();
-                        changeFragment(fragment);
-                        setTitle(R.string.profile);
+                        SharedPreferences preferences = getSharedPreferences(Common.LOGIN, MODE_PRIVATE);
+                        boolean login = preferences.getBoolean("login", false);
+                        if (!login) {
+                            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                        } else {
+                            fragment = new ProfileFragment();
+                            changeFragment(fragment);
+                            setTitle(R.string.profile);
+                        }
+
                     }
 
                     return true;
@@ -94,21 +100,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        SharedPreferences pref = getSharedPreferences(Common.PREF_CUSTOMER,
-                MODE_PRIVATE);
-        if (!LogIn.CustomerLogIn(pref)){
-            initContent();
-            navigation.setSelectedItemId(R.id.item_home);
-        }
-
-        SharedPreferences prefC = getSharedPreferences(Common.PREF_Employee,
-                MODE_PRIVATE);
-        if (!LogIn.EmployeeLogIn(prefC)){
-            initContent();
-            navigation.setSelectedItemId(R.id.item_home);
-        }
-
-
+        initContent();
+        navigation.setSelectedItemId(R.id.item_home);
     }
 
     private void initialization() {
@@ -150,6 +143,8 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(DialogInterface dialogInterface, int i) {
             switch (i) {
                 case DialogInterface.BUTTON_POSITIVE:
+                    SharedPreferences preferences = getActivity().getSharedPreferences(Common.LOGIN, MODE_PRIVATE);
+                    preferences.edit().clear().commit();
                     if (getActivity() != null) {
                         getActivity().finish();
                     }

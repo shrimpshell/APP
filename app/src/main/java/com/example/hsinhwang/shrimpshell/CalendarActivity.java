@@ -2,6 +2,7 @@ package com.example.hsinhwang.shrimpshell;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.view.Window;
 import android.widget.CalendarView;
 import android.widget.TextView;
 
+import com.example.hsinhwang.shrimpshell.Classes.Common;
 import com.example.hsinhwang.shrimpshell.Classes.ReservationDate;
 
 import java.util.Calendar;
