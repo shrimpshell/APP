@@ -75,9 +75,6 @@ public class ProfileInformationFragment extends Fragment{
         Common.askPermissions(getActivity(), permissions, Common.REQ_EXTERNAL_STORAGE);
         preferences = activity.getSharedPreferences(Common.LOGIN, MODE_PRIVATE);
         fillprofile();
-        String email = preferences.getString("email", "");
-        String password = preferences.getString("password", "");
-        int idCustomer = LogIn.isValid(getActivity(), email, password);
 
     }
 
@@ -105,7 +102,12 @@ public class ProfileInformationFragment extends Fragment{
                         Context.MODE_PRIVATE);
 
                 SharedPreferences page = getActivity().getSharedPreferences(Common.PAGE, MODE_PRIVATE);
-                preferences.edit().putBoolean("login", false).putString("email", "").putString("password", "").putInt("IdCustomer", 0).apply();
+                preferences.edit()
+                        .putBoolean("login", false)
+                        .putString("email", "")
+                        .putString("password", "")
+                        .putInt("IdCustomer", 0)
+                        .apply();
                 page.edit().putInt("page", 1).apply();
 
                 Intent intent = new Intent(getContext(), MainActivity.class);
