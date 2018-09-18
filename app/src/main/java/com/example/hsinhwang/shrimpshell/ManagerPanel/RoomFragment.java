@@ -196,7 +196,7 @@ public class RoomFragment extends Fragment {
                 }.getType();
                 rooms = new Gson().fromJson(jsonIn, listType);
             } catch (Exception e) {
-//                Log.e(TAG, e.toString());
+                Log.e(TAG, e.toString());
             }
             if (rooms == null || rooms.isEmpty()) {
                 Common.showToast(activity, R.string.msg_NoRoomsFound);

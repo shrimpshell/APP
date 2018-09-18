@@ -71,7 +71,6 @@ public class ProfileInformationFragment extends Fragment{
         String email = pref.getString("email", "");
         String password = pref.getString("password", "");
         int idCustomer = LogIn.isValid(getActivity(), email, password);
-
     }
 
     @Override
