@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -34,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button btLogIn, btJoin;
     private CommonTask loginTask;
     private RadioGroup rgLogin;
+    private RadioButton rbCustomer, rbEmployee;
     int IdCustomer = 0;
     String idEmployee = null;
 
@@ -47,34 +49,23 @@ public class LoginActivity extends AppCompatActivity {
         initialization();
         btLogIn.setOnClickListener(btLogInListener);
         btJoin.setOnClickListener(btJoinListener);
+        rbCustomer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                btJoin.setEnabled(true);
+            }
+        });
+        rbEmployee.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                btJoin.setEnabled(false);
+            }
+        });
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        //判斷Customer是否已登入
-//        SharedPreferences prefC = getSharedPreferences(Common.LOGIN, MODE_PRIVATE);
-//        boolean login = prefC.getBoolean("login", false);
-//        if (login) {
-//            String user = prefC.getString("user", "");
-//            String password = prefC.getString("password", "");
-//            if (LogIn.isCustomerLogIn(LoginActivity.this, user, password)) {
-//                setResult(RESULT_OK);
-//                finish();
-//            }
-//        }
-//
-//        //判斷Employee是否已登入
-//        SharedPreferences prefE = getSharedPreferences(Common.LOGIN, MODE_PRIVATE);
-//        boolean logIn = prefE.getBoolean("login", false);
-//        if (logIn) {
-//            String user = prefE.getString("employeeCode", "");
-//            String password = prefE.getString("password", "");
-//            if (LogIn.isEmployeeLogIn(LoginActivity.this, user, password)) {
-//                setResult(3);
-//                finish();
-//            }
-//        }
 
     }
 
@@ -118,8 +109,6 @@ public class LoginActivity extends AppCompatActivity {
 
                 //轉換頁面至Employee註冊頁面
                 case R.id.rbEmployee:
-                    Intent intentE = new Intent(context, AddEmployeeActivity.class);
-                    startActivity(intentE);
                     break;
             }
 
@@ -134,6 +123,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void findViews() {
+        rbCustomer = findViewById(R.id.rbCustomer);
+        rbEmployee = findViewById(R.id.rbEmployee);
         btLogIn = (Button) findViewById(R.id.btLogIn);
         btJoin = (Button) findViewById(R.id.btJoin);
         etEmail = (EditText) findViewById(R.id.etEmail);
@@ -162,36 +153,5 @@ public class LoginActivity extends AppCompatActivity {
                 .show();
     }
 
-
-    //以下無使用，method於Class資料夾中的LogIn
-
-//    private boolean isLogIn (String user, String password){
-//        boolean isLogin = false;
-//        if (Common.networkConnected(LoginActivity.this)){
-//        String url = Common.URL + "/CustomerServlet";
-//        JsonObject jsonObject = new JsonObject();
-//        jsonObject.addProperty("action", "customerLogIn");
-//        jsonObject.addProperty("user", user);
-//        jsonObject.addProperty("password", password);
-//        String jsonOut = jsonObject.toString();
-//        loginTask = new CommonTask(url, jsonOut);
-//            try {
-//                String result = loginTask.execute().get();
-//                if(result == null) {
-//                    Common.showToast(LoginActivity.this, R.string.msg_NoProfileFound);
-//                } else {
-//                    isLogin = true;
-//                    idCustomer = result;
-//                }
-//            } catch (Exception e) {
-//                Log.e(TAG, e.toString());
-//                isLogin = false;
-//            }
-//        } else {
-//            Common.showToast(this, R.string.msg_NoNetwork);
-//        }
-//        return isLogin;
-//
-//    }
 }
 

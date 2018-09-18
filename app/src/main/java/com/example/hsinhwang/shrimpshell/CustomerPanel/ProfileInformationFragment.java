@@ -13,7 +13,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -32,6 +31,7 @@ import com.example.hsinhwang.shrimpshell.MainActivity;
 import com.example.hsinhwang.shrimpshell.R;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.github.clans.fab.FloatingActionButton;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -40,7 +40,7 @@ public class ProfileInformationFragment extends Fragment{
     private static final int RESULT_OK = -1;
     private ImageView imageView;
     private ImageButton ibChange;
-    private FloatingActionButton fabSetting, fabLogOut;
+    private com.github.clans.fab.FloatingActionButton fabSetting, fabLogOut;
     private FragmentActivity activity;
     private static final int REQUEST_TAKE_PICTURE_SMALL = 0;
     private static final int REQUEST_PICK_PICTURE = 1;
@@ -65,7 +65,6 @@ public class ProfileInformationFragment extends Fragment{
         super.onStart();
         String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
         Common.askPermissions(getActivity(), permissions, Common.REQ_EXTERNAL_STORAGE);
-//        fillprofile();
     }
 
     @Override
@@ -90,7 +89,7 @@ public class ProfileInformationFragment extends Fragment{
             public void onClick(View view) {
                 SharedPreferences pref = getActivity().getSharedPreferences(Common.LOGIN,
                         Context.MODE_PRIVATE);
-                pref.edit().putBoolean("login", false).apply();
+                pref.edit().putBoolean("login", false).putString("email", "").putString("password", "").commit();
                 Intent intent = new Intent(getContext(), MainActivity.class);
                 startActivity(intent);
             }
