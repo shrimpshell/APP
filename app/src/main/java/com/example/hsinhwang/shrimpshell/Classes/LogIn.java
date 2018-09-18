@@ -13,7 +13,9 @@ public class LogIn {
     private final static String TAG = "LogIn";
     private static boolean isLogInCustomer = false;
     private static boolean isLogInEmployee = false;
+    private static int isValid = 0;
     private static CommonTask loginGetAllTask;
+
 
     public static boolean CustomerLogIn(Activity activity, String email, String password) {
         if (userExist(activity, email) && isValid(activity, email, password) > 0) {
