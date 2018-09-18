@@ -103,12 +103,11 @@ public class ProfileInformationFragment extends Fragment{
             public void onClick(View view) {
                 preferences = getActivity().getSharedPreferences(Common.LOGIN,
                         Context.MODE_PRIVATE);
-                preferences.edit()
-                        .putBoolean("login", false)
-                        .putString("email", "")
-                        .putString("password", "")
-                        .putInt("IdCustomer", 0)
-                        .apply();
+
+                SharedPreferences page = getActivity().getSharedPreferences(Common.PAGE, MODE_PRIVATE);
+                preferences.edit().putBoolean("login", false).putString("email", "").putString("password", "").putInt("IdCustomer", 0).apply();
+                page.edit().putInt("page", 1).apply();
+
                 Intent intent = new Intent(getContext(), MainActivity.class);
                 startActivity(intent);
             }
