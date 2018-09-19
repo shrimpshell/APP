@@ -125,8 +125,8 @@
                 android:drawablePadding="10dp"
                 android:text="生日" />
 
-            <TextView
-                android:id="@+id/tvDate"
+            <Button
+                android:id="@+id/btDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="15dp"
@@ -189,7 +189,7 @@
                 android:text="取  消" />
 
             <Button
-                android:id="@+id/btJoinCecked"
+                android:id="@+id/btJoinChecked"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="50dp"

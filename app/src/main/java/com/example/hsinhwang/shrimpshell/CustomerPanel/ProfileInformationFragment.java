@@ -1,7 +1,10 @@
 package com.example.hsinhwang.shrimpshell.CustomerPanel;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -11,42 +14,74 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.example.hsinhwang.shrimpshell.Authentication.ProfileSettingActivity;
 import com.example.hsinhwang.shrimpshell.Classes.Common;
+import com.example.hsinhwang.shrimpshell.Classes.CommonTask;
+import com.example.hsinhwang.shrimpshell.Classes.Customer;
+import com.example.hsinhwang.shrimpshell.Classes.ImageCustomerTask;
+import com.example.hsinhwang.shrimpshell.Classes.ImageTask;
+import com.example.hsinhwang.shrimpshell.Classes.LogIn;
+import com.example.hsinhwang.shrimpshell.MainActivity;
 import com.example.hsinhwang.shrimpshell.R;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.github.clans.fab.FloatingActionButton;
+
+import java.io.ByteArrayOutputStream;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class ProfileInformationFragment extends Fragment{
+    public static final String TAG = "ProfileInformationFragment";
     private static final int RESULT_OK = -1;
     private ImageView imageView;
     private ImageButton ibChange;
+    private com.github.clans.fab.FloatingActionButton fabSetting, fabLogOut;
+    private FragmentActivity activity;
     private static final int REQUEST_TAKE_PICTURE_SMALL = 0;
     private static final int REQUEST_PICK_PICTURE = 1;
+    private SharedPreferences preferences;
+    private CommonTask userFindTask;
+    private TextView txMyMemberNumber, txMyName, txMemberEmail, txPhoneNumber;
+    private byte[] image;
+
+
     public ProfileInformationFragment(){
 
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        activity = getActivity();
         return inflater.inflate(R.layout.fragment_profile_information, container, false);
+    }
+
+    @SuppressLint("LongLogTag")
+    @Override
+    public void onStart() {
+        super.onStart();
+        String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        Common.askPermissions(getActivity(), permissions, Common.REQ_EXTERNAL_STORAGE);
+        preferences = activity.getSharedPreferences(Common.LOGIN, MODE_PRIVATE);
+        fillprofile();
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        imageView = getActivity().findViewById(R.id.ivProfilePicture);
-        ibChange = getActivity().findViewById(R.id.ibChange);
 
+        findview();
 
         ibChange.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,9 +94,98 @@ public class ProfileInformationFragment extends Fragment{
 
         });
 
+        fabLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                preferences = getActivity().getSharedPreferences(Common.LOGIN,
+                        Context.MODE_PRIVATE);
+
+                SharedPreferences page = getActivity().getSharedPreferences(Common.PAGE, MODE_PRIVATE);
+                preferences.edit()
+                        .putBoolean("login", false)
+                        .putString("email", "")
+                        .putString("password", "")
+                        .putInt("IdCustomer", 0)
+                        .apply();
+                page.edit().putInt("page", 1).apply();
+
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        fabSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), ProfileSettingActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
+    @SuppressLint("LongLogTag")
+    private void fillprofile() {
+        preferences = activity.getSharedPreferences
+                (Common.LOGIN, MODE_PRIVATE);
+        int idCustomer = preferences.getInt("IdCustomer", 0);
+        if (idCustomer == 0){
+            Common.showToast(activity, R.string.msg_NoProfileFound);
+        }
 
+        if (Common.networkConnected(activity)) {
+            String url = Common.URL + "/CustomerServlet";
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("action", "findById");
+            jsonObject.addProperty("IdCustomer", idCustomer);
+
+            String jsonOut = jsonObject.toString();
+            userFindTask = new CommonTask(url, jsonOut);
+            Customer customer = null;
+            try {
+                String result = userFindTask.execute().get();
+                Log.e(TAG, "result:" + result);
+                customer = new Gson().fromJson(result, Customer.class);
+            } catch (Exception e) {
+                Log.e(TAG, e.toString());
+            }
+            if (customer == null) {
+                Common.showToast(activity, R.string.msg_NoProfileFound);
+
+            } else {
+                customer.setIdCustomer(idCustomer);
+                txMyMemberNumber.setText(String.valueOf(customer.getIdCustomer()));
+                customerImage(customer.getIdCustomer());
+                txMyName.setText(customer.getName());
+                txMemberEmail.setText(customer.getEmail());
+                txPhoneNumber.setText(customer.getPhone());
+            }
+        }else {
+            Common.showToast(activity, R.string.msg_NoNetwork);
+        }
+    }
+
+    @SuppressLint("LongLogTag")
+    private void customerImage(int IdCustomer) {
+            String url = Common.URL + "/CustomerServlet";
+            Bitmap bitmap = null;
+
+        try {
+            bitmap = new ImageCustomerTask(url, IdCustomer).execute().get();
+        } catch (Exception e) {
+            Log.e(TAG, e.toString());
+        }
+        if (bitmap != null) {
+            imageView.setImageBitmap(bitmap);
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+            image = out.toByteArray();
+        } else {
+            imageView.setImageResource(R.drawable.man128);
+        }
+    }
+
+    @SuppressLint("LongLogTag")
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         if (resultCode == RESULT_OK) {
@@ -86,19 +210,43 @@ public class ProfileInformationFragment extends Fragment{
                             Bitmap srcImage = BitmapFactory.decodeFile(imagePath);
                             Bitmap downsizedImage = Common.downSize(srcImage, newSize);
                             imageView.setImageBitmap(downsizedImage);
+                            ByteArrayOutputStream out = new ByteArrayOutputStream();
+                            srcImage.compress(Bitmap.CompressFormat.JPEG, 100, out);
+                            image = out.toByteArray();
                         }
                     }
                     break;
             }
         }
+        String imageBase64 = "";
+        if (image != null) imageBase64 = Base64.encodeToString(image, Base64.DEFAULT);
+        preferences = activity.getSharedPreferences(Common.LOGIN, MODE_PRIVATE);
+        int idCustomer = preferences.getInt("IdCustomer", 0);
+
+        if (Common.networkConnected(activity)) {
+            String url = Common.URL + "/CustomerServlet";
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("action", "updateImage");
+            jsonObject.addProperty("IdCustomer", idCustomer);
+            jsonObject.addProperty("imageBase64", imageBase64);
+
+            String jsonOut = jsonObject.toString();
+            userFindTask = new CommonTask(url, jsonOut);
+            Customer customer = null;
+            try {
+                String result = userFindTask.execute().get();
+                Log.e(TAG, "result:" + result);
+                customer = new Gson().fromJson(result, Customer.class);
+            } catch (Exception e) {
+                Log.e(TAG, e.toString());
+                if (customer == null) {
+                    Common.showToast(activity, R.string.msg_NoProfileFound);
+                }
+            }
+        }
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
-        Common.askPermissions(getActivity(), permissions, Common.REQ_EXTERNAL_STORAGE);
-    }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
@@ -115,5 +263,19 @@ public class ProfileInformationFragment extends Fragment{
                 break;
         }
     }
+    private void findview() {
+        imageView = getActivity().findViewById(R.id.ivProfilePicture);
+        ibChange = getActivity().findViewById(R.id.ibChange);
+        fabLogOut = getActivity().findViewById(R.id.fabLogOut);
+        fabSetting = getActivity().findViewById(R.id.fabSetting);
+        txMyMemberNumber = getActivity().findViewById(R.id.txMyMemberNumber);
+        txMyName = getActivity().findViewById(R.id.txMyName);
+        txMemberEmail = getActivity().findViewById(R.id.txMemberEmail);
+        txPhoneNumber = getActivity().findViewById(R.id.txPhoneNumber);
+    }
+
+
+
+
 }
 

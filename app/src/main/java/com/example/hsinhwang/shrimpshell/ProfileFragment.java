@@ -1,6 +1,8 @@
 package com.example.hsinhwang.shrimpshell;
 
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -11,12 +13,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.hsinhwang.shrimpshell.Authentication.LoginActivity;
+import com.example.hsinhwang.shrimpshell.Classes.Common;
+import com.example.hsinhwang.shrimpshell.Classes.MainOptions;
 import com.example.hsinhwang.shrimpshell.CustomerPanel.ProfileCommentFragment;
 import com.example.hsinhwang.shrimpshell.CustomerPanel.ProfileInformationFragment;
-import com.example.hsinhwang.shrimpshell.CustomerPanel.ProfileReceiptFragment;
+import com.example.hsinhwang.shrimpshell.CustomerPanel.ProfileReceiptListFragment;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.content.Context.MODE_PRIVATE;
+
 
 public class ProfileFragment extends Fragment {
     private View view;
@@ -28,21 +36,26 @@ public class ProfileFragment extends Fragment {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_profile, container, false);
         viewPager = (ViewPager) view.findViewById(R.id.pager);
         Adapter adapter = new Adapter(getChildFragmentManager());
         adapter.addFragment(new ProfileInformationFragment(), "會員資訊");
-        adapter.addFragment(new ProfileReceiptFragment(), "消費明細");
+        adapter.addFragment(new ProfileReceiptListFragment(), "消費明細");
         adapter.addFragment(new ProfileCommentFragment(), "評論");
         viewPager.setAdapter(adapter);
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
-
         return view;
     }
 
+    // 分頁
     public class Adapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();

@@ -1,5 +1,6 @@
 package com.example.hsinhwang.shrimpshell;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -45,7 +46,7 @@ public class BookingFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         getActivity();
-        if (requestCode == 1 && resultCode == getActivity().RESULT_OK) {
+        if (requestCode == 4 && resultCode == Activity.RESULT_OK) {
             String fYear, fMonth, fDay, fWeek, lYear, lMonth, lDay, lWeek;
             String[] fd,ld;
             Bundle bundle = data.getExtras();
@@ -113,7 +114,7 @@ public class BookingFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("reservationDate", date);
                 intent.putExtras(bundle);
-                startActivityForResult(intent, 1);
+                startActivityForResult(intent, 4);
             }
         });
 
@@ -127,7 +128,7 @@ public class BookingFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("reservationDate", date);
                 intent.putExtras(bundle);
-                startActivityForResult(intent, 1);
+                startActivityForResult(intent, 4);
             }
         });
 

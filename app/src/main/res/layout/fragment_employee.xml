@@ -8,10 +8,18 @@
     android:background="@drawable/employee_home_background"
     tools:context=".ManagerPanel.EmployeeFragment">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/employeeFragmentRecyclerView"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swiperefreshlayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/employeeFragmentRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/toAddEmployee"

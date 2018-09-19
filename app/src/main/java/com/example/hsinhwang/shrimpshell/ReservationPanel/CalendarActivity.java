@@ -13,6 +13,7 @@ import android.view.Window;
 
 import com.example.hsinhwang.shrimpshell.BookingFragment;
 import com.example.hsinhwang.shrimpshell.Classes.ReservationDate;
+import com.example.hsinhwang.shrimpshell.MainActivity;
 import com.example.hsinhwang.shrimpshell.R;
 import com.savvi.rangedatepicker.CalendarPickerView;
 
@@ -51,12 +52,10 @@ public class CalendarActivity extends AppCompatActivity {
         calendar1.add(Calendar.DAY_OF_MONTH, 180);
         Date maxDay = calendar1.getTime();
         ArrayList<Integer> list = new ArrayList<>();
-//        list.add(1);
         calendarPickerView.deactivateDates(list);
         calendarPickerView.init(today, maxDay, new SimpleDateFormat("MMMM, YYYY", Locale.getDefault())) //
                 .inMode(CalendarPickerView.SelectionMode.RANGE)
                 .withSelectedDate(new Date());
-//                .withDeactivateDates(list);
         Log.d("list", calendarPickerView.getSelectedDates().toString());
         calendarPickerView.setOnDateSelectedListener(new CalendarPickerView.OnDateSelectedListener() {
             @Override

@@ -21,6 +21,11 @@
     <color name="colorGray">#10888888</color>
     <color name="colorMyProfileBackGround">#daedfd</color>
 
+    <color name="black">#000000</color>
+    <color name="tvBackground">#d7d7d7</color>
+    <!--<color name="red">#da004a</color>-->
+    <color name="btcheckout">#5F94D2</color>
+
 
 </resources>
 

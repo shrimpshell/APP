@@ -9,7 +9,7 @@
     <string name="booking">Booking a room</string>
     <string name="profile">Customer Profile</string>
     <string name="home">Home</string>
-    <string name="reserved">Reserved booking</string>
+    <string name="instant">Instant Service</string>
     <string name="login_title">Login</string>
     <string name="txLogInWelcome">Welcome</string>
     <string name="textLogEmail">Email or Account</string>
@@ -28,10 +28,12 @@
     <string name="textProfileAddress">Address</string>
     <string name="title_activity_manager_home">ManagerHomeActivity</string>
     <string name="name">Name</string>
-    <string name="description">Description</string>
+    <string name="roomSize">Room Size(Square Meter)</string>
+    <string name="bed">Bed(Quantity)</string>
     <string name="startTime">Start Time</string>
     <string name="endTime">End Time</string>
     <string name="submit">Submit</string>
+    <string name="textEmployeeProfile">Employee Profile</string>
 
     <!--測試用字串-->
     <string name="hello_employee_fragment">Hello employee fragment</string>
@@ -63,7 +65,8 @@
     <string name="adultnumber">2</string>
     <string name="childnumber">0</string>
     <string name="age">年齡</string>
-    <string name="confirm">確 定</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
     <string-array name="AgeArray">
         <item>不到1歲</item>
         <item>1歲</item>
@@ -116,13 +119,83 @@
     <string name="roomCheck">確 認 訂 房</string>
     <string name="checkRoom">確認訂房</string>
     <string name="roomQuantityName">數量</string>
-    <string name="roomQuantity">1</string>
     <string name="roomQuantityName2">間</string>
     <string name="changeQuantity">修改數量</string>
     <string name="deletRoom">刪除房間</string>
     <string name="sentReservation">送 出 訂 單</string>
     <string name="roomTypePeopleB">位大人</string>
-    <string name="msg_NoNetwork">No network connection available</string>
+
+
+    <string name="title_exit">Exit</string>
+    <string name="confirm_exit">Are you sure you want to exit?</string>
+
+    <!--消費明細 start-->
+    <string name="text_order_detail">Detail</string>
+    <string name="text_date">Check In Date</string>
+    <string name="text_room_type">Room Type</string>
+    <string name="text_meals">Meal Order</string>
+    <string name="text_discounted">Discount</string>
+    <string name="text_quantity">Quantity</string>
+    <string name="text_price">Total Amount</string>
+    <string name="text_order_number">Order ID</string>
+    <string name="text_result">Result</string>
+    <string name="text_order_meals">Add On</string>
+    <string name="text_discounted_detail">For this stay, you have earned</string>
+    <string name="text_discount">20% discount</string>
+    <string name="text_discount2">Discount Offer</string>
+    <string name="text_bfdiscount">Original Price NT$</string>
+    <string name="text_last_price">Amount after Discount would be </string>
+    <string name="text_tot_price">NT$</string>
+    <string name="text_checkout">Check Out</string>
+    <string name="textTitle">Processing</string>
+    <string name="textMessage">Please proceed to the front desk
+                               Thank you</string>
+    <string name="textOk">OK</string>
+    <!--消費明細 end-->
+
+    <string name="roomAdult">Adults</string>
+    <string name="roomChild">Children</string>
+    <string name="roomQuantity">Quantity</string>
+    <string name="description">Description</string>
+    <string name="msg_InsertFail">Fail to insert</string>
+    <string name="msg_InsertSuccess">Successfully inserted</string>
+    <string name="msg_NoNetwork">No Internet Connected</string>
+    <string name="roomPrice">Price</string>
+    <string name="msg_NameIsInvalid">Name cannot be empty</string>
+    <string name="msg_NoRoomsFound">Cannot find any room</string>
+    <string name="msg_UpdateFail">Fail to update</string>
+    <string name="msg_UpdateSuccess">Successfully updated</string>
+    <string name="remove">Remove</string>
+    <string name="msg_DeleteFail">Fail to Delete</string>
+    <string name="msg_DeleteSuccess">Successfully Deleted</string>
+    <string name="msg_LoadImageFail">Failed to load Image</string>
+    <string name="msg_LoadImageSuccess">Successfully load Image</string>
+    <string name="msg_NoProfileFound">No Profile Found</string>
+    <string name="MyProfileSetting">My Profile Setting</string>
+    <string name="msa_PasswordNoRight">Password Is Not Right</string>
+    <string name="msg_NoEventsFound">No Events found</string>
+    <string name="date_format">\"Please insert number in the follow order yyyy-MM-dd\"</string>
+    <string name="department">Department</string>
+    <string name="msg_NoEmployeesFound">No employees found</string>
+    <string name="sqrtmeter">How many Square meter?</string>
+    <string name="bedQuantity">How many beds?</string>
+    <string name="discount_label">Discount</string>
+    <string name="date_format_short">Format: yyyy-MM-dd</string>
+    <string name="customer">Customer</string>
+    <string name="employee">Employee</string>
+    <string name="employeeEditId">Employee ID</string>
+    <string name="employeeEditName">Employee Name</string>
+    <string name="employeeEditGender">Gender</string>
+    <string name="employeeEditEmail">Email</string>
+    <string name="employeeEditDept">Department</string>
+
+    <string-array name="department_options">
+        <item id="1">Clean Service</item>
+        <item id="2">Room Service</item>
+        <item id="3">Meal Service</item>
+        <item id="4">Concierge Service</item>
+        <item id="5">Manager</item>
+    </string-array>
 </resources>
 
 
