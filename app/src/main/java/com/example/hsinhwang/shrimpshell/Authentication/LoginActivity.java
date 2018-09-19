@@ -96,7 +96,6 @@ public class LoginActivity extends AppCompatActivity {
                 case R.id.rbEmployee:
                     if (LogIn.EmployeeLogIn(LoginActivity.this, email, password)) {
                         IdEmployee = LogIn.employeeIsValid(LoginActivity.this, email, password);
-                        Log.d(TAG, String.valueOf(IdEmployee));
                         SharedPreferences preferences = getSharedPreferences(Common.EMPLOYEE_LOGIN, MODE_PRIVATE);
                         SharedPreferences page = getSharedPreferences(Common.PAGE, MODE_PRIVATE);
                         preferences.edit().putBoolean("login", true)
