@@ -75,7 +75,6 @@ public class ProfileInformationFragment extends Fragment{
         Common.askPermissions(getActivity(), permissions, Common.REQ_EXTERNAL_STORAGE);
         preferences = activity.getSharedPreferences(Common.LOGIN, MODE_PRIVATE);
         fillprofile();
-
     }
 
     @Override

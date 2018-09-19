@@ -22,7 +22,9 @@ public class LogIn {
             isLogInCustomer = true;
             isLogInEmployee = false;
         } else if (!userExist(activity, email)) {
+            Common.showToast(activity, "User does not exist");
         } else if (isValid(activity, email, password) <= 0) {
+            Common.showToast(activity, "Invalid username or password");
         }
         return isLogInCustomer;
     }
@@ -32,7 +34,9 @@ public class LogIn {
             isLogInEmployee = true;
             isLogInCustomer = false;
         } else if (!employeeExist(activity, email)){
+            Common.showToast(activity, "User does not exist");
         } else if (!(employeeIsValid(activity, email, password) > 0)) {
+            Common.showToast(activity, "Invalid username or password");
         }
         return isLogInEmployee;
     }

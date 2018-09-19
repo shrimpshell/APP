@@ -88,12 +88,18 @@
     <string name="roomQuantity">庫存數</string>
     <string name="description">詳情</string>
     <string name="roomPrice">價錢</string>
+    <string name="employeeEditId">員工編號</string>
+    <string name="employeeEditName">員工姓名</string>
+    <string name="employeeEditGender">性別</string>
+    <string name="employeeEditEmail">郵件</string>
+    <string name="employeeEditDept">部門</string>
 
     <string-array name="department_options">
         <item id="1">清潔部門</item>
         <item id="2">房務部門</item>
         <item id="3">餐飲部門</item>
         <item id="4">櫃檯部門</item>
+        <item id="5">主管</item>
     </string-array>
 
 </resources>

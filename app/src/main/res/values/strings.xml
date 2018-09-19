@@ -176,12 +176,18 @@
     <string name="date_format_short">Format: yyyy-MM-dd</string>
     <string name="customer">Customer</string>
     <string name="employee">Employee</string>
+    <string name="employeeEditId">Employee ID</string>
+    <string name="employeeEditName">Employee Name</string>
+    <string name="employeeEditGender">Gender</string>
+    <string name="employeeEditEmail">Email</string>
+    <string name="employeeEditDept">Department</string>
 
     <string-array name="department_options">
         <item id="1">Clean Service</item>
         <item id="2">Room Service</item>
         <item id="3">Meal Service</item>
         <item id="4">Concierge Service</item>
+        <item id="5">Manager</item>
     </string-array>
 
 </resources>
