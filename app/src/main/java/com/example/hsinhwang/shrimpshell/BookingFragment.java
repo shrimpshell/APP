@@ -18,7 +18,10 @@ import com.example.hsinhwang.shrimpshell.Classes.ReservationDate;
 import com.example.hsinhwang.shrimpshell.ReservationPanel.CalendarActivity;
 import com.example.hsinhwang.shrimpshell.ReservationPanel.RoomChooseFragment;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.StringTokenizer;
 
 public class BookingFragment extends Fragment {
     private TextView tvFirstYearSelected, tvFirstDaySelected, tvFirstMonSelected, tvFirstWeekSelected,
@@ -36,6 +39,38 @@ public class BookingFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        getActivity();
+        if (requestCode == 1 && resultCode == getActivity().RESULT_OK) {
+            String fYear, fMonth, fDay, fWeek, lYear, lMonth, lDay, lWeek;
+            String[] fd,ld;
+            Bundle bundle = data.getExtras();
+            String firstday = bundle.getString("firstday");
+            String lastday = bundle.getString("lastday");
+            Log.d("Day", firstday + " " + lastday);
+            fd = firstday.split("-");
+            fYear=fd[0];
+            tvFirstYearSelected.setText(fYear);
+            fMonth=fd[1];
+            tvFirstMonSelected.setText(fMonth);
+            fDay=fd[2];
+            tvFirstDaySelected.setText(fDay);
+            fWeek=fd[3];
+            tvFirstWeekSelected.setText(fWeek);
+            ld = lastday.split("-");
+            lYear=ld[0];
+            tvLastYearSelected.setText(lYear);
+            lMonth=ld[1];
+            tvLastMonSelected.setText(lMonth);
+            lDay=ld[2];
+            tvLastDaySelected.setText(lDay);
+            lWeek=ld[3];
+            tvLastWeekSelected.setText(lWeek);
+        }
     }
 
     @Override
@@ -78,7 +113,7 @@ public class BookingFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("reservationDate", date);
                 intent.putExtras(bundle);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
             }
         });
 
@@ -92,7 +127,7 @@ public class BookingFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("reservationDate", date);
                 intent.putExtras(bundle);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
             }
         });
 
