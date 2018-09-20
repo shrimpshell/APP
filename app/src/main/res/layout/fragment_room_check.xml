@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/customer_global_background"
+    tools:context=".ReservationPanel.RoomCheckFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:id="@+id/tvRoomChecknTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="7dp"
+            android:text="@string/checkRoom"
+            android:textColor="@color/white"
+            android:textSize="24sp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvCheckReservation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvRoomChecknTitle" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabRoomCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="16dp"
+            android:backgroundTint="@color/greenBlue"
+            android:elevation="5dp"
+            android:tint="@android:color/white"
+            app:borderWidth="0dp"
+            app:pressedTranslationZ="10dp"
+            app:rippleColor="@color/white"
+            app:srcCompat="@drawable/ic_chevron_right"
+            tools:ignore="RtlHardcoded"
+            tools:targetApi="lollipop" />
+    </RelativeLayout>
+</LinearLayout>

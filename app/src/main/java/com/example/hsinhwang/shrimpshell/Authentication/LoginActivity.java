@@ -36,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     private CommonTask loginTask;
     private RadioGroup rgLogin;
     private RadioButton rbCustomer, rbEmployee;
-    int IdCustomer = 0;
+    int IdCustomer = 0, IdEmployee = 0;
     String idEmployee = null;
 
 
@@ -73,7 +73,9 @@ public class LoginActivity extends AppCompatActivity {
             int selectedRole = rgLogin.getCheckedRadioButtonId();
             switch (selectedRole) {
                 case R.id.rbCustomer:
-                    if ((IdCustomer = LogIn.isValid(LoginActivity.this, email, password)) != 0) {
+                    if (LogIn.CustomerLogIn(LoginActivity.this, email, password)) {
+                        IdCustomer = LogIn.isValid(LoginActivity.this, email, password);
+                        Log.d(TAG, String.valueOf(IdCustomer));
                         SharedPreferences preferences = getSharedPreferences(Common.LOGIN, MODE_PRIVATE);
                         SharedPreferences page = getSharedPreferences(Common.PAGE, MODE_PRIVATE);
                         preferences.edit().putBoolean("login", true)
@@ -93,11 +95,14 @@ public class LoginActivity extends AppCompatActivity {
                     break;
                 case R.id.rbEmployee:
                     if (LogIn.EmployeeLogIn(LoginActivity.this, email, password)) {
+                        IdEmployee = LogIn.employeeIsValid(LoginActivity.this, email, password);
                         SharedPreferences preferences = getSharedPreferences(Common.EMPLOYEE_LOGIN, MODE_PRIVATE);
                         SharedPreferences page = getSharedPreferences(Common.PAGE, MODE_PRIVATE);
                         preferences.edit().putBoolean("login", true)
                                 .putString("email", email)
-                                .putString("password", password).apply();
+                                .putString("password", password)
+                                .putInt("IdEmployee", IdEmployee)
+                                .apply();
                         page.edit().putInt("page", 3).apply();
                         finish();
                     } else {

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/customer_global_background"
+    tools:context=".ReservationPanel.RoomChooseFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:id="@+id/tvRoomChooseTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="7dp"
+            android:text="@string/roomChoose"
+            android:textColor="@color/white"
+            android:textSize="24sp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvRoomChoose"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvRoomChooseTitle" />
+
+        <Button
+            android:id="@+id/btRoomCheck"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_below="@+id/rvRoomChoose"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/lightBlue"
+            android:text="@string/roomCheck"
+            android:textColor="@color/white"
+            android:textSize="24sp" />
+    </RelativeLayout>
+</LinearLayout>

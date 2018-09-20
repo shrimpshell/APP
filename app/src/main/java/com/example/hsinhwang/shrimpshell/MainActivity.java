@@ -1,11 +1,9 @@
 package com.example.hsinhwang.shrimpshell;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
@@ -33,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
     private Window window;
     boolean login = false;
     BottomNavigationView navigation;
+
+    int request_code = 0;
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -105,16 +105,20 @@ public class MainActivity extends AppCompatActivity {
 
         switch (pageId) {
             case 2:
-                Fragment profileFragment = new ProfileFragment();
-                changeFragment(profileFragment);
-                setTitle(R.string.profile);
-                navigation.setSelectedItemId(R.id.item_profile);
-                break;
+                if (request_code == 2) {
+                    Fragment profileFragment = new ProfileFragment();
+                    changeFragment(profileFragment);
+                    setTitle(R.string.profile);
+                    navigation.setSelectedItemId(R.id.item_profile);
+                    break;
+                }
             default:
-                Fragment homeFragment = new HomeFragment();
-                changeFragment(homeFragment);
-                setTitle(R.string.profile);
-                navigation.setSelectedItemId(R.id.item_home);
+                if (request_code == 0) {
+                    Fragment homeFragment = new HomeFragment();
+                    changeFragment(homeFragment);
+                    setTitle(R.string.profile);
+                    navigation.setSelectedItemId(R.id.item_home);
+                }
         }
     }
 
@@ -171,7 +175,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK ){
+        if (resultCode == RESULT_OK) {
+            request_code = requestCode;
             switch (requestCode) {
                 case 1:
                     Fragment homeFragment = new HomeFragment();
@@ -185,6 +190,9 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(MainActivity.this, EmployeeHomeActivity.class);
                     startActivity(intent);
                     break;
+                case 4:
+                    Fragment BookingFragment = new BookingFragment();
+                    changeFragment(BookingFragment);
             }
         }
 

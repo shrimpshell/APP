@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:layout_margin="10dp"
+    android:orientation="vertical"
     tools:context=".BookingFragment">
 
     <!--標題-->
@@ -26,9 +26,9 @@
         android:id="@+id/rlFirstDate"
         android:layout_width="125dp"
         android:layout_height="160dp"
+        android:layout_below="@+id/tvResrvationTitle"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
-        android:layout_below="@+id/tvResrvationTitle"
         android:orientation="vertical">
 
         <TextView
@@ -44,19 +44,18 @@
             android:id="@+id/tvFirstYearSelected"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/tvFirstDate"
             android:layout_marginStart="25dp"
             android:layout_marginTop="5dp"
             android:text="@string/firstyear"
-            android:layout_below="@+id/tvFirstDate"
             android:textColor="@color/white"
             android:textSize="25sp" />
 
         <TextView
             android:id="@+id/tvFirstDaySelected"
-            android:layout_width="60dp"
+            android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_below="@+id/tvFirstYearSelected"
-            android:layout_marginStart="5dp"
             android:layout_marginTop="-5dp"
             android:gravity="center"
             android:text="@string/firstday"
@@ -68,23 +67,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tvFirstYearSelected"
-            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
             android:layout_toEndOf="@+id/tvFirstDaySelected"
             android:text="@string/firstmonth"
             android:textColor="@color/white"
-            android:textSize="25sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/tvFirstWeekSelected"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvFirstMonSelected"
-            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
             android:layout_toEndOf="@+id/tvFirstDaySelected"
             android:gravity="center"
             android:text="@string/firstweek"
             android:textColor="@color/white"
-            android:textSize="25sp" />
+            android:textSize="20sp" />
     </RelativeLayout>
 
     <ImageView
@@ -100,64 +99,63 @@
         android:id="@+id/rlLastDate"
         android:layout_width="125dp"
         android:layout_height="160dp"
-        android:layout_marginStart="10dp"
         android:layout_below="@+id/tvResrvationTitle"
-        android:layout_toEndOf="@+id/ivArrow" >
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@+id/ivArrow">
 
-    <TextView
-        android:id="@+id/tvLastDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:text="@string/last_day_selected"
-        android:textColor="@color/white"
-        android:textSize="20sp" />
+        <TextView
+            android:id="@+id/tvLastDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:text="@string/last_day_selected"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/tvLastYearSelected"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvLastDate"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="5dp"
-        android:text="@string/lastyear"
-        android:textColor="@color/white"
-        android:textSize="25sp" />
+        <TextView
+            android:id="@+id/tvLastYearSelected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvLastDate"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="5dp"
+            android:text="@string/lastyear"
+            android:textColor="@color/white"
+            android:textSize="25sp" />
 
-    <TextView
-        android:id="@+id/tvLastDaySelected"
-        android:layout_width="60dp"
-        android:layout_height="80dp"
-        android:layout_below="@+id/tvLastYearSelected"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="-5dp"
-        android:gravity="center"
-        android:text="@string/lastday"
-        android:textColor="@color/white"
-        android:textSize="65sp" />
+        <TextView
+            android:id="@+id/tvLastDaySelected"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_below="@+id/tvLastYearSelected"
+            android:layout_marginTop="-5dp"
+            android:gravity="center"
+            android:text="@string/lastday"
+            android:textColor="@color/white"
+            android:textSize="65sp" />
 
-    <TextView
-        android:id="@+id/tvLastMonSelected"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvLastYearSelected"
-        android:layout_marginStart="5dp"
-        android:layout_toEndOf="@+id/tvLastDaySelected"
-        android:text="@string/lastmonth"
-        android:textColor="@color/white"
-        android:textSize="25sp" />
+        <TextView
+            android:id="@+id/tvLastMonSelected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvLastYearSelected"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@+id/tvLastDaySelected"
+            android:text="@string/lastmonth"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/tvLastWeekSelected"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvLastMonSelected"
-        android:layout_marginStart="5dp"
-        android:layout_toEndOf="@+id/tvLastDaySelected"
-        android:text="@string/lastweek"
-        android:textColor="@color/white"
-        android:textSize="25sp" />
-</RelativeLayout>
+        <TextView
+            android:id="@+id/tvLastWeekSelected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvLastMonSelected"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@+id/tvLastDaySelected"
+            android:text="@string/lastweek"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+    </RelativeLayout>
     <!--人數選擇-->
     <TextView
         android:id="@+id/tvAdult"
@@ -256,7 +254,7 @@
         android:layout_alignParentRight="true"
         android:layout_gravity="end|bottom"
         android:layout_margin="16dp"
-        android:backgroundTint="@color/lightBlue"
+        android:backgroundTint="@color/greenBlue"
         android:elevation="5dp"
         android:tint="@android:color/white"
         app:borderWidth="0dp"
@@ -265,5 +263,6 @@
         app:srcCompat="@drawable/ic_chevron_right"
         tools:ignore="RtlHardcoded"
         tools:targetApi="lollipop" />
+
 </RelativeLayout>
 
