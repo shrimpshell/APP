@@ -33,6 +33,7 @@
     <string name="startTime">開始時間</string>
     <string name="endTime">結束時間</string>
     <string name="submit">提交</string>
+    <string name="textEmployeeProfile">員工資料</string>
 
     <!--測試用字串-->
     <string name="hello_employee_fragment">Hello employee fragment</string>
@@ -55,6 +56,8 @@
     <string name="cancel">取 消</string>
     <string name="title_exit">離開</string>
     <string name="confirm_exit">確定要離開嗎？</string>
+    <string name="sqrtmeter">多少平方公尺？</string>
+    <string name="bedQuantity">幾張床？</string>
 
     <!--消費明細 start-->
     <string name="text_order_detail">明細</string>
@@ -85,6 +88,19 @@
     <string name="roomQuantity">庫存數</string>
     <string name="description">詳情</string>
     <string name="roomPrice">價錢</string>
+    <string name="employeeEditId">員工編號</string>
+    <string name="employeeEditName">員工姓名</string>
+    <string name="employeeEditGender">性別</string>
+    <string name="employeeEditEmail">郵件</string>
+    <string name="employeeEditDept">部門</string>
+
+    <string-array name="department_options">
+        <item id="1">清潔部門</item>
+        <item id="2">房務部門</item>
+        <item id="3">餐飲部門</item>
+        <item id="4">櫃檯部門</item>
+        <item id="5">主管</item>
+    </string-array>
 
 </resources>
 

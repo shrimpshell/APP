@@ -55,6 +55,29 @@
 
     </LinearLayout>
 
+    <RadioGroup
+        android:id="@+id/rgLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+
+        <RadioButton
+            android:id="@+id/rbCustomer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/customer"
+            android:checked="true" />
+
+        <RadioButton
+            android:id="@+id/rbEmployee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:text="@string/employee"/>
+    </RadioGroup>
+
     <RelativeLayout
 
         android:layout_width="match_parent"
@@ -71,7 +94,6 @@
             android:text="@string/textLogJoin"
             android:textSize="20sp"
             android:textColor="#FFFFFF"
-            android:onClick="join"
             android:textStyle="bold"/>
 
         <Button
@@ -85,7 +107,6 @@
             android:text="@string/textLogLogIn"
             android:textSize="20sp"
             android:textColor="#FFFFFF"
-            android:onClick="login"
             android:textStyle="bold"/>
     </RelativeLayout>
 

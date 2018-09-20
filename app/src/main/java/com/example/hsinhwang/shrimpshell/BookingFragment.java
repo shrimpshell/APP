@@ -1,9 +1,13 @@
 package com.example.hsinhwang.shrimpshell;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,22 +16,62 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.hsinhwang.shrimpshell.Classes.ReservationDate;
+import com.example.hsinhwang.shrimpshell.ReservationPanel.CalendarActivity;
+import com.example.hsinhwang.shrimpshell.ReservationPanel.RoomChooseFragment;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.StringTokenizer;
 
 public class BookingFragment extends Fragment {
     private TextView tvFirstYearSelected, tvFirstDaySelected, tvFirstMonSelected, tvFirstWeekSelected,
             tvLastYearSelected, tvLastDaySelected, tvLastMonSelected, tvLastWeekSelected,
             tvAdultQuantity, tvChildQuantity;
     private ImageButton ibtAdultMinus, ibtAdultplus, ibtChildMinus, ibtChildplus;
-    private String weekName;
+    private String weekName, lastDate;
     private Calendar calendar = Calendar.getInstance();
+    private FragmentManager manager;
+    private FragmentTransaction transaction;
     private RelativeLayout rlFirstDate, rlLastDate;
+    private int year, month, day, week, lastYear, lastMonth, lastDay, lastWeek;
     private static final String TAG = "Debug";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        getActivity();
+        if (requestCode == 4 && resultCode == Activity.RESULT_OK) {
+            String fYear, fMonth, fDay, fWeek, lYear, lMonth, lDay, lWeek;
+            String[] fd,ld;
+            Bundle bundle = data.getExtras();
+            String firstday = bundle.getString("firstday");
+            String lastday = bundle.getString("lastday");
+            Log.d("Day", firstday + " " + lastday);
+            fd = firstday.split("-");
+            fYear=fd[0];
+            tvFirstYearSelected.setText(fYear);
+            fMonth=fd[1];
+            tvFirstMonSelected.setText(fMonth);
+            fDay=fd[2];
+            tvFirstDaySelected.setText(fDay);
+            fWeek=fd[3];
+            tvFirstWeekSelected.setText(fWeek);
+            ld = lastday.split("-");
+            lYear=ld[0];
+            tvLastYearSelected.setText(lYear);
+            lMonth=ld[1];
+            tvLastMonSelected.setText(lMonth);
+            lDay=ld[2];
+            tvLastDaySelected.setText(lDay);
+            lWeek=ld[3];
+            tvLastWeekSelected.setText(lWeek);
+        }
     }
 
     @Override
@@ -70,7 +114,7 @@ public class BookingFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("reservationDate", date);
                 intent.putExtras(bundle);
-                startActivity(intent);
+                startActivityForResult(intent, 4);
             }
         });
 
@@ -84,7 +128,7 @@ public class BookingFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("reservationDate", date);
                 intent.putExtras(bundle);
-                startActivity(intent);
+                startActivityForResult(intent, 4);
             }
         });
 
@@ -92,7 +136,7 @@ public class BookingFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 int adultQuantity = Integer.parseInt(tvAdultQuantity.getText().toString());
-                if (adultQuantity != 0) {
+                if (adultQuantity > 0) {
                     tvAdultQuantity.setText(String.valueOf(adultQuantity - 1));
                 }
             }
@@ -126,10 +170,10 @@ public class BookingFragment extends Fragment {
     }
 
     private void showFirstDate() {
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH) + 1;
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-        int week = calendar.get(Calendar.DAY_OF_WEEK);
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH) + 1;
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+        week = calendar.get(Calendar.DAY_OF_WEEK);
 
         tvFirstYearSelected.setText(String.valueOf(year) + " 年");
         tvFirstDaySelected.setText(String.valueOf(day));
@@ -139,10 +183,10 @@ public class BookingFragment extends Fragment {
 
     private void showLastDate() {
         calendar.add(Calendar.DAY_OF_MONTH, 1);
-        int lastYear = calendar.get(Calendar.YEAR);
-        int lastMonth = calendar.get(Calendar.MONTH) + 1;
-        int lastDay = calendar.get(Calendar.DAY_OF_MONTH);
-        int lastWeek = calendar.get(Calendar.DAY_OF_WEEK);
+        lastYear = calendar.get(Calendar.YEAR);
+        lastMonth = calendar.get(Calendar.MONTH) + 1;
+        lastDay = calendar.get(Calendar.DAY_OF_MONTH);
+        lastWeek = calendar.get(Calendar.DAY_OF_WEEK);
 
         tvLastYearSelected.setText(String.valueOf(lastYear) + " 年");
         tvLastDaySelected.setText(String.valueOf(lastDay));
@@ -179,14 +223,24 @@ public class BookingFragment extends Fragment {
     FloatingActionButton.OnClickListener BookingFragmentChange_Listener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(getActivity(), RoomChooseActivity.class);
-            ReservationDate date = new ReservationDate(tvFirstYearSelected.getText().toString(), tvFirstMonSelected.getText().toString(),
-                    tvFirstDaySelected.getText().toString(), tvFirstWeekSelected.getText().toString(), tvLastYearSelected.getText().toString(), tvLastMonSelected.getText().toString(),
-                    tvLastDaySelected.getText().toString(), tvLastWeekSelected.getText().toString(), tvAdultQuantity.getText().toString(), tvChildQuantity.getText().toString());
+            RoomChooseFragment roomChooseFragment = new RoomChooseFragment();
             Bundle bundle = new Bundle();
-            bundle.putSerializable("reservationDate", date);
-            intent.putExtras(bundle);
-            startActivity(intent);
+            manager = getActivity().getSupportFragmentManager();
+            transaction = manager.beginTransaction();
+            transaction.replace(R.id.content, roomChooseFragment, "fragment");
+            transaction.addToBackStack("fragment");
+            String checkInDate = year + "年" + month + "月" + day + "日" + changeWeekName(week);
+            String checkOutDate = lastYear + "年" + lastMonth + "月" + lastDay + "日" + changeWeekName(lastWeek);
+            bundle.putString("checkInDate", checkInDate);
+            bundle.putString("checkOutDate", checkOutDate);
+            bundle.putInt("AdultQuantity", Integer.valueOf(tvAdultQuantity.
+                    getText().toString()));
+            bundle.putInt("ChildQuantity", Integer.valueOf(tvChildQuantity.
+                    getText().toString()));
+            Log.d(TAG, "大人 " + tvAdultQuantity.getText().toString());
+            Log.d(TAG, "孩童 " + tvChildQuantity.getText().toString());
+            roomChooseFragment.setArguments(bundle);
+            transaction.commit();
         }
     };
 }

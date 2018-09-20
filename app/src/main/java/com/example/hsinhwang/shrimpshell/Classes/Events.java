@@ -1,34 +1,43 @@
 package com.example.hsinhwang.shrimpshell.Classes;
 
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import java.io.Serializable;
-import java.sql.Date;
+import java.sql.Blob;
 
 public class Events implements Serializable {
-    private int imageId;
-    private String name, description;
-    private Date startDate, endDate;
+    private int eventId;
+    private float discount;
+    private String name, description, start, end;
+    private Blob eventImage;
 
-    public Events(int imageId, String name, String description, Date startDate, Date endDate) {
-        this.imageId = imageId;
+    public Events(int eventId, String name, String description, String start, String end, float discount) {
+        this.eventId = eventId;
         this.name = name;
         this.description = description;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.start = start;
+        this.end = end;
+        this.discount = discount;
+
     }
 
     public String toString() {
         String text = "活動名稱: " + name +
-                "\n活動期間: " + startDate + " ~ " + endDate+
-                "\n活動內容: " + description;
+                "\n活動期間: " + start + " ~ " + end +
+                "\n活動內容: " + description +
+                "\n折扣: " + (int)(discount * 100) + "%";
         return text;
     }
 
-    public int getImageId() {
-        return imageId;
+    public void setEventImage(Blob eventImage) {
+        this.eventImage = eventImage;
+    }
+
+    public Blob getEventImage() {
+        return eventImage;
+    }
+
+    public int getEventId() {
+        return eventId;
     }
 
     public String getName() {
@@ -39,12 +48,15 @@ public class Events implements Serializable {
         return description;
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public String getStart() {
+        return start;
     }
 
-    public Date getEndDate() {
-        return endDate;
+    public String getEnd() {
+        return end;
     }
 
+    public float getDiscount() {
+        return discount;
+    }
 }

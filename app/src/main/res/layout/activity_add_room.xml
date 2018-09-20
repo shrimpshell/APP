@@ -18,11 +18,12 @@
         android:background="@drawable/employee_home_background">
 
         <ImageView
+            android:id="@+id/ivRoom"
             android:layout_width="250dp"
             android:layout_height="150dp"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="50dp"
-            android:background="@drawable/room_review" />
+            android:src="@drawable/room_review" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -52,7 +53,9 @@
             android:id="@+id/etAddRoomSize"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/edText"/>
+            android:background="@color/edText"
+            android:hint="@string/sqrtmeter"
+            android:inputType="number"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -67,7 +70,9 @@
             android:id="@+id/etAddRoomBed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/edText"/>
+            android:background="@color/edText"
+            android:inputType="number"
+            android:hint="@string/bedQuantity"/>
 
         <TextView
             android:layout_width="match_parent"

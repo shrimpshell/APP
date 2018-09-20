@@ -43,6 +43,7 @@
         <activity
             android:name=".Authentication.JoinActivity"
             android:parentActivityName=".Authentication.LoginActivity" />
+        <activity android:name=".Authentication.ProfileSettingActivity" />
         <activity android:name=".EmployeePanel.EmployeeHomeActivity" />
         <activity android:name=".Authentication.LoginActivity" />
         <activity
@@ -55,9 +56,10 @@
         <activity android:name=".ManagerPanel.AddEventActivity" />
         <activity android:name=".ManagerPanel.AddRoomActivity" />
         <activity
-            android:name=".CalendarActivity"
+            android:name=".ReservationPanel.CalendarActivity"
             android:label="@string/title_activity_calendar"
             android:theme="@style/AppTheme.NoActionBar" />
+<<<<<<< HEAD
         <activity
             android:name=".RoomChooseActivity"
             android:label="@string/title_activity_room_choose"
@@ -75,6 +77,11 @@
         <activity android:name=".InstantEmployeePanel.EmployeeDinlingService" />
         <activity android:name=".InstantEmployeePanel.EmployeeCleanService" />
         <activity android:name=".InstantEmployeePanel.EmployeeRoomService"></activity>
+=======
+
+        <activity android:name=".ProfileReceiptDetailResultActivity" />
+        <activity android:name=".EmployeePanel.EmployeeEditActivity"></activity>
+>>>>>>> b35a483fedc46feae97f9807203e1466b17dce0f
     </application>
 
 </manifest>

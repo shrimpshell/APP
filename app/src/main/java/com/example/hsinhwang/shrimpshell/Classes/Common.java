@@ -27,12 +27,20 @@ import static android.content.Context.MODE_PRIVATE;
 public class Common {
     public static final int REQ_EXTERNAL_STORAGE = 0;
     private static final String TAG = "Common";
+<<<<<<< HEAD
     public static final String SERVER_URI =
             "ws://10.0.2.2:8080/ShellService/WsServer/"; //socket
     //    public static String URL = "http://192.168.50.46:8080/ShellService/"; // 手機用
     public static final String URL = "http://10.0.2.2:8080/ShellService"; // 模擬機用
     private static SharedPreferences preferences;
     public static ChatWebSocketClient chatwebSocketClient;
+=======
+//    public static String URL = "http://192.168.50.46:8080/ShellService/"; // 手機用
+    public static String URL = "http://10.0.2.2:8080/ShellService"; // 模擬機用
+    public static final String LOGIN = "GLOBAL_LOGIN";
+    public static final String EMPLOYEE_LOGIN = "EMPLOYEE_LOGIN";
+    public static final String PAGE = "PAGE";
+>>>>>>> b35a483fedc46feae97f9807203e1466b17dce0f
 
     public static boolean networkConnected(Activity activity) {
         ConnectivityManager conManager =

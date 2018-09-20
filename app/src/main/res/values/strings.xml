@@ -3,7 +3,18 @@
     <string name="intro_title">Intro Duction</string>
     <string name="introduction1">\t\t蝦殼飯店創立於2018年。從一個五人的軟體APP研發團隊開始，其目標是為了更好的客戶體驗。</string>
     <string name="introduction2">\t\t蝦殼使用創新元素帶給客戶即時的回饋。</string>
+<<<<<<< HEAD
 
+=======
+    <string name="location_title">Traffic Information</string>
+    <string name="event_title">Latest Event</string>
+    <string name="rp_title">Room Preview</string>
+    <string name="booking">Booking a room</string>
+    <string name="profile">Customer Profile</string>
+    <string name="home">Home</string>
+    <string name="instant">Instant Service</string>
+    <string name="login_title">Login</string>
+>>>>>>> b35a483fedc46feae97f9807203e1466b17dce0f
     <string name="txLogInWelcome">Welcome</string>
     <string name="textLogEmail">Email or Account</string>
     <string name="textLogInPassword">Password</string>
@@ -21,11 +32,12 @@
     <string name="textProfileAddress">Address</string>
     <string name="title_activity_manager_home">ManagerHomeActivity</string>
     <string name="name">Name</string>
-    <string name="roomSize">Room Size</string>
-    <string name="bed">Bed</string>
+    <string name="roomSize">Room Size(Square Meter)</string>
+    <string name="bed">Bed(Quantity)</string>
     <string name="startTime">Start Time</string>
     <string name="endTime">End Time</string>
     <string name="submit">Submit</string>
+    <string name="textEmployeeProfile">Employee Profile</string>
 
     <!--測試用字串-->
     <string name="hello_employee_fragment">Hello employee fragment</string>
@@ -92,8 +104,6 @@
         <item>17歲</item>
     </string-array>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_calendar">CalendarActivity</string>
     <string name="firstday">日</string>
     <string name="firstmonth">月</string>
@@ -112,15 +122,24 @@
     <string name="roomTypeNoSmoking">禁煙</string>
     <string name="roomTypeWifi">免費WiFi</string>
     <string name="roomTypeMeal">含早餐</string>
-    <string name="roomTypePeopleAdult">最多可住3位大人</string>
-    <string name="roomTypePeopleChild">1位小孩</string>
+    <string name="roomTypePeople">最多可住</string>
+    <string name="roomTypePeopleAdult">3</string>
+    <string name="roomTypePeopleChild">1位孩童</string>
     <string name="roomTypeLastA">剩</string>
     <string name="roomTypeLastB">間</string>
     <string name="roomTypeLastQuantity">3</string>
     <string name="roomTypePriceN">NT$</string>
-    <string name="roomTypePrice">3,800</string>
+    <string name="roomTypePrice">4,100</string>
     <string name="roomTypeQTitle">數量</string>
     <string name="roomTypeQuantity">1</string>
+    <string name="roomCheck">確 認 訂 房</string>
+    <string name="checkRoom">確認訂房</string>
+    <string name="roomQuantityName">數量</string>
+    <string name="roomQuantityName2">間</string>
+    <string name="changeQuantity">修改數量</string>
+    <string name="deletRoom">刪除房間</string>
+    <string name="sentReservation">送 出 訂 單</string>
+    <string name="roomTypePeopleB">位大人</string>
 
 
     <string name="title_exit">Exit</string>
@@ -159,7 +178,35 @@
     <string name="msg_InsertSuccess">Successfully inserted</string>
     <string name="msg_NoNetwork">No Internet Connected</string>
     <string name="roomPrice">Price</string>
+    <string name="msg_NameIsInvalid">Name cannot be empty</string>
+    <string name="msg_NoRoomsFound">Cannot find any room</string>
+    <string name="msg_UpdateFail">Fail to update</string>
+    <string name="msg_UpdateSuccess">Successfully updated</string>
+    <string name="remove">Remove</string>
+    <string name="msg_DeleteFail">Fail to Delete</string>
+    <string name="msg_DeleteSuccess">Successfully Deleted</string>
+    <string name="msg_LoadImageFail">Failed to load Image</string>
+    <string name="msg_LoadImageSuccess">Successfully load Image</string>
+    <string name="msg_NoProfileFound">No Profile Found</string>
+    <string name="MyProfileSetting">My Profile Setting</string>
+    <string name="msa_PasswordNoRight">Password Is Not Right</string>
+    <string name="msg_NoEventsFound">No Events found</string>
+    <string name="date_format">\"Please insert number in the follow order yyyy-MM-dd\"</string>
+    <string name="department">Department</string>
+    <string name="msg_NoEmployeesFound">No employees found</string>
+    <string name="sqrtmeter">How many Square meter?</string>
+    <string name="bedQuantity">How many beds?</string>
+    <string name="discount_label">Discount</string>
+    <string name="date_format_short">Format: yyyy-MM-dd</string>
+    <string name="customer">Customer</string>
+    <string name="employee">Employee</string>
+    <string name="employeeEditId">Employee ID</string>
+    <string name="employeeEditName">Employee Name</string>
+    <string name="employeeEditGender">Gender</string>
+    <string name="employeeEditEmail">Email</string>
+    <string name="employeeEditDept">Department</string>
 
+<<<<<<< HEAD
     <!-- 即時服務 -->
     <string name="textStatusService">服務進度</string>
     <string name="textInstantService">客房服務</string>
@@ -183,6 +230,15 @@
     <string name="title_activity_empolyee_room_service">EmpolyeeRoomServiceActivity</string>
 
 
+=======
+    <string-array name="department_options">
+        <item id="1">Clean Service</item>
+        <item id="2">Room Service</item>
+        <item id="3">Meal Service</item>
+        <item id="4">Concierge Service</item>
+        <item id="5">Manager</item>
+    </string-array>
+>>>>>>> b35a483fedc46feae97f9807203e1466b17dce0f
 </resources>
 
 

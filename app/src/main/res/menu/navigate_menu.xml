@@ -13,8 +13,13 @@
         android:title="@string/booking"/>
 
     <item
+<<<<<<< HEAD
         android:id="@+id/item_instant"
         android:icon="@drawable/reserved"
+=======
+        android:id="@+id/item_reserved"
+        android:icon="@drawable/concierge"
+>>>>>>> b35a483fedc46feae97f9807203e1466b17dce0f
         android:title="@string/instant"/>
 
     <item

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="6dp"
+    app:cardCornerRadius="6dp"
+    app:cardElevation="6dp">
+
+    <RelativeLayout
+        android:id="@+id/rlCheckRoomLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tvRoomTypeName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/roomTypeName"
+            android:textSize="32sp" />
+
+        <TextView
+            android:id="@+id/tvCheckInDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvRoomTypeName"
+            android:layout_margin="10dp"
+            android:text="@string/first_day_selected"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvCheckOutDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvRoomTypeName"
+            android:layout_alignParentEnd="true"
+            android:gravity="end"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_toEndOf="@+id/tvCheckInDate"
+            android:text="@string/last_day_selected"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvRoomQuantityName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvCheckOutDay"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/roomQuantityName"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/tvRoomQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvCheckOutDay"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/tvRoomQuantityName"
+            android:text="@string/roomQuantity"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/tvRoomQuantityName2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvCheckOutDay"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/tvRoomQuantity"
+            android:text="@string/roomQuantityName2"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/btChangeQuantity"
+            android:layout_width="90dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/tvCheckOutDay"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/tvRoomQuantityName2"
+            android:text="@string/changeQuantity"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btDeletRoom"
+            android:layout_width="90dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/tvCheckOutDay"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/btChangeQuantity"
+            android:text="@string/deletRoom"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>
