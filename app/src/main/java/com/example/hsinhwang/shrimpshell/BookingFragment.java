@@ -175,6 +175,11 @@ public class BookingFragment extends Fragment {
         day = calendar.get(Calendar.DAY_OF_MONTH);
         week = calendar.get(Calendar.DAY_OF_WEEK);
 
+        fYear=String.valueOf(year);
+        fMonth=String.valueOf(month);
+        fDay=String.valueOf(day);
+        fWeek=String.valueOf(changeWeekName(week));
+
         tvFirstYearSelected.setText(String.valueOf(year) + " 年");
         tvFirstDaySelected.setText(String.valueOf(day));
         tvFirstMonSelected.setText(" " + String.valueOf(month) + " 月");
@@ -187,6 +192,11 @@ public class BookingFragment extends Fragment {
         lastMonth = calendar.get(Calendar.MONTH) + 1;
         lastDay = calendar.get(Calendar.DAY_OF_MONTH);
         lastWeek = calendar.get(Calendar.DAY_OF_WEEK);
+
+        lYear=String.valueOf(lastYear);
+        lMonth=String.valueOf(lastMonth);
+        lDay=String.valueOf(lastDay);
+        lWeek=String.valueOf(changeWeekName(lastWeek));
 
         tvLastYearSelected.setText(String.valueOf(lastYear) + " 年");
         tvLastDaySelected.setText(String.valueOf(lastDay));
