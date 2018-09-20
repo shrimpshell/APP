@@ -3,18 +3,8 @@
     <string name="intro_title">Intro Duction</string>
     <string name="introduction1">\t\t蝦殼飯店創立於2018年。從一個五人的軟體APP研發團隊開始，其目標是為了更好的客戶體驗。</string>
     <string name="introduction2">\t\t蝦殼使用創新元素帶給客戶即時的回饋。</string>
-<<<<<<< HEAD
 
-=======
-    <string name="location_title">Traffic Information</string>
-    <string name="event_title">Latest Event</string>
-    <string name="rp_title">Room Preview</string>
-    <string name="booking">Booking a room</string>
-    <string name="profile">Customer Profile</string>
-    <string name="home">Home</string>
-    <string name="instant">Instant Service</string>
-    <string name="login_title">Login</string>
->>>>>>> b35a483fedc46feae97f9807203e1466b17dce0f
+
     <string name="txLogInWelcome">Welcome</string>
     <string name="textLogEmail">Email or Account</string>
     <string name="textLogInPassword">Password</string>
@@ -206,7 +196,7 @@
     <string name="employeeEditEmail">Email</string>
     <string name="employeeEditDept">Department</string>
 
-<<<<<<< HEAD
+
     <!-- 即時服務 -->
     <string name="textStatusService">服務進度</string>
     <string name="textInstantService">客房服務</string>
@@ -230,7 +220,7 @@
     <string name="title_activity_empolyee_room_service">EmpolyeeRoomServiceActivity</string>
 
 
-=======
+
     <string-array name="department_options">
         <item id="1">Clean Service</item>
         <item id="2">Room Service</item>
@@ -238,7 +228,6 @@
         <item id="4">Concierge Service</item>
         <item id="5">Manager</item>
     </string-array>
->>>>>>> b35a483fedc46feae97f9807203e1466b17dce0f
 </resources>
 
 
