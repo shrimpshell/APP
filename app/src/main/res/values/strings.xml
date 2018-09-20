@@ -188,6 +188,7 @@
     <string name="employeeEditGender">Gender</string>
     <string name="employeeEditEmail">Email</string>
     <string name="employeeEditDept">Department</string>
+    <string name="msg_NoCommentsFound">No Rating Found</string>
 
     <string-array name="department_options">
         <item id="1">Clean Service</item>
