@@ -24,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hsinhwang.shrimpshell.Classes.CommonTask;
 import com.example.hsinhwang.shrimpshell.Classes.RoomType;
 import com.example.hsinhwang.shrimpshell.R;
 import com.google.gson.Gson;
@@ -45,7 +46,7 @@ public class RoomChooseFragment extends Fragment {
     private int adultQuantity, childQuantity;
     private String checkInDate, checkOutDate;
     private String TAG = "Debug";
-    private ReservationPanelTask roomTypeGetAllTask;
+    private CommonTask roomTypeGetAllTask;
     public static String URL = "http://10.0.2.2:8080/ShellService";
 
     @Override
@@ -97,7 +98,7 @@ public class RoomChooseFragment extends Fragment {
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("action", "getAll");
             String jsonOut = jsonObject.toString();
-            roomTypeGetAllTask = new ReservationPanelTask(url, jsonOut);
+            roomTypeGetAllTask = new CommonTask(url, jsonOut);
             try {
                 String jsonIn = roomTypeGetAllTask.execute().get();
                 Type listType = new TypeToken<List<RoomType>>() {
