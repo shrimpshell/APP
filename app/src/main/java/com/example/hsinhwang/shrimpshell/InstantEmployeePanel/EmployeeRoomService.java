@@ -1,6 +1,10 @@
 package com.example.hsinhwang.shrimpshell.InstantEmployeePanel;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.strictmode.IntentReceiverLeakedViolation;
 import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
@@ -13,10 +17,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.hsinhwang.shrimpshell.Classes.ChatMessage;
 import com.example.hsinhwang.shrimpshell.Classes.Common;
 import com.example.hsinhwang.shrimpshell.Classes.EmployeeRoom;
 import com.example.hsinhwang.shrimpshell.R;
+import com.google.gson.Gson;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,9 +41,10 @@ public class EmployeeRoomService extends AppCompatActivity {
         rvEmployeeRoomService = findViewById(R.id.rvEmployeeRoomService);
         rvEmployeeRoomService.setLayoutManager(new LinearLayoutManager(this));
         employeeRoomList = getEmployeeRoom();
-        rvEmployeeRoomService.setAdapter(new EmployeeRoomAdapter(this,employeeRoomList));
+        rvEmployeeRoomService.setAdapter(new EmployeeRoomAdapter(this, employeeRoomList));
 
-        //Common.connectServer();
+
+
     }
 
     private List<EmployeeRoom> getEmployeeRoom() {
@@ -46,7 +54,27 @@ public class EmployeeRoomService extends AppCompatActivity {
     }
 
     private void registerInstantReceiver() {
+        IntentFilter unFinishFilter = new IntentFilter("未處理");
+        IntentFilter playingFilter = new IntentFilter("處理中");
+        IntentFilter finishFilter = new IntentFilter("已完成");
+        InstantReceiver intentReceiver = new InstantReceiver();
+        broadcastManager.registerReceiver(intentReceiver, unFinishFilter);
+        broadcastManager.registerReceiver(intentReceiver, playingFilter);
+        broadcastManager.registerReceiver(intentReceiver, finishFilter);
 
+
+    }
+
+    private class InstantReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+
+
+
+
+
+        }
     }
 
 
@@ -60,10 +88,9 @@ public class EmployeeRoomService extends AppCompatActivity {
         }
 
 
-
         public class MyViewHolder extends RecyclerView.ViewHolder {
             ImageView imageView;
-            TextView tvRoomId,tvItem,tvQuantity;
+            TextView tvRoomId, tvItem, tvQuantity;
 
             public MyViewHolder(@NonNull View itemView) {
                 super(itemView);
@@ -103,4 +130,7 @@ public class EmployeeRoomService extends AppCompatActivity {
 
 
     }
+
+
+
 }

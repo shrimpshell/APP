@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.example.hsinhwang.shrimpshell.Classes.ChatMessage;
 import com.example.hsinhwang.shrimpshell.Classes.Common;
+import com.example.hsinhwang.shrimpshell.Classes.EmployeeCall;
 import com.example.hsinhwang.shrimpshell.Classes.EmployeeClean;
 import com.example.hsinhwang.shrimpshell.R;
 import com.google.gson.Gson;
@@ -41,14 +42,16 @@ public class EmployeeCleanService extends AppCompatActivity {
         employeeCleanList = getEmployeeClean();
         rvEmployeeClean.setAdapter(new EmployeeCleanAdapter(this, employeeCleanList));
 
-        //Common.connectServer(this, "EmployeeCall","2");
-
     }
 
     private void registerInstantReceiver() {
-        IntentFilter instantFilter = new IntentFilter("Call");
+        IntentFilter unFinishFilter = new IntentFilter("未處理");
+        IntentFilter playingFilter = new IntentFilter("處理中");
+        IntentFilter finishFilter = new IntentFilter("已完成");
         InstantReceiver instantReceiver = new InstantReceiver();
-        broadcastManager.registerReceiver(instantReceiver, instantFilter);
+        broadcastManager.registerReceiver(instantReceiver, unFinishFilter);
+        broadcastManager.registerReceiver(instantReceiver, playingFilter);
+        broadcastManager.registerReceiver(instantReceiver, finishFilter);
 
     }
 
@@ -63,12 +66,9 @@ public class EmployeeCleanService extends AppCompatActivity {
     private class InstantReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            String message = intent.getStringExtra("message");
-            ChatMessage chatMessage = new Gson().fromJson(message, ChatMessage.class);
-            String Sender = chatMessage.getSender();
-            employeeCleanList.add(new EmployeeClean(R.drawable.icon_finish,Sender));
 
-            rvEmployeeClean.getAdapter().notifyDataSetChanged();
+
+
 
 
         }
@@ -128,4 +128,7 @@ public class EmployeeCleanService extends AppCompatActivity {
 
 
     }
+
+
+
 }

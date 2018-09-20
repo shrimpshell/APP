@@ -1,6 +1,9 @@
 package com.example.hsinhwang.shrimpshell.InstantEmployeePanel;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
@@ -13,10 +16,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.hsinhwang.shrimpshell.Classes.ChatMessage;
 import com.example.hsinhwang.shrimpshell.Classes.Common;
-import com.example.hsinhwang.shrimpshell.Classes.EmployeeCall;
 import com.example.hsinhwang.shrimpshell.Classes.EmployeeDinling;
 import com.example.hsinhwang.shrimpshell.R;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +41,7 @@ public class EmployeeDinlingService extends AppCompatActivity {
         employeeDinlingList = getEmpolyeeDinling();
         rvEmployeeDinling.setAdapter(new EmployeeDinlingAdapter(this,employeeDinlingList));
 
-        //Common.connectServer();
+
     }
 
     private List<EmployeeDinling> getEmpolyeeDinling() {
@@ -47,8 +51,26 @@ public class EmployeeDinlingService extends AppCompatActivity {
     }
 
     private void registerInstantReceiver() {
+        IntentFilter unFinishFilter = new IntentFilter("未處理");
+        IntentFilter playingFilter = new IntentFilter("處理中");
+        IntentFilter finishFilter = new IntentFilter("已完成");
+        InstantReceiver instantReceiver = new InstantReceiver();
+        broadcastManager.registerReceiver(instantReceiver, unFinishFilter);
+        broadcastManager.registerReceiver(instantReceiver, playingFilter);
+        broadcastManager.registerReceiver(instantReceiver, finishFilter);
+
 
     }
+
+    private class InstantReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+
+        }
+    }
+
+
 
     private class EmployeeDinlingAdapter extends
             RecyclerView.Adapter<EmployeeDinlingAdapter.MyViewHolder> {
@@ -104,4 +126,6 @@ public class EmployeeDinlingService extends AppCompatActivity {
 
 
     }
+
+
 }

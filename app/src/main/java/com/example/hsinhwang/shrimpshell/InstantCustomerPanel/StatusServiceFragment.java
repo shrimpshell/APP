@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,8 +15,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.hsinhwang.shrimpshell.Classes.Common;
+import com.example.hsinhwang.shrimpshell.Classes.Instant;
 import com.example.hsinhwang.shrimpshell.Classes.StatusService;
 import com.example.hsinhwang.shrimpshell.R;
+import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +27,7 @@ import java.util.List;
 
 public class StatusServiceFragment extends Fragment {
     RecyclerView rvStatusService;
-    private LocalBroadcastManager broadcastManager;
+
 
 
 
@@ -35,10 +39,21 @@ public class StatusServiceFragment extends Fragment {
                 container, false);
 
 
+
         handlerView(view);
 
         return view;
 
+    }
+
+    private void showAllInstant() {
+        if (Common.networkConnected(getActivity())){
+            String url = Common.URL + "InstantServlet";
+            List<Instant> instants = null ;
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("action","getAll");
+            String jsonOut = jsonObject.toString();
+        }
     }
 
     private void handlerView(View view) {
@@ -47,9 +62,6 @@ public class StatusServiceFragment extends Fragment {
         rvStatusService.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         List<StatusService> statusServicesList = getStatusServiceList();
-
-
-
         rvStatusService.setAdapter(new StatusServiceAdapter(getActivity(),statusServicesList));
 
 
@@ -121,8 +133,7 @@ public class StatusServiceFragment extends Fragment {
 
 
 
-        statusServicesList.add(new StatusService(R.drawable.icon_finish,"123",
-                "321"));
+
         return statusServicesList;
 
     }

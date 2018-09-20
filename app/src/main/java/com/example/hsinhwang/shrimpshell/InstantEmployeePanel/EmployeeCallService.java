@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,9 +29,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeCallService extends AppCompatActivity {
+    private static final String TAG = "EmployeeCall";
     private LocalBroadcastManager broadcastManager;
     private RecyclerView rvEmployeeCall;
     private List<EmployeeCall> employeeCallList;
+
 
 
     @Override
@@ -41,25 +44,20 @@ public class EmployeeCallService extends AppCompatActivity {
         registerInstantReceiver();
         rvEmployeeCall = findViewById(R.id.rvEmployeeCall);
         rvEmployeeCall.setLayoutManager(new LinearLayoutManager(this));
-        employeeCallList = getEmployeeCall();
+        employeeCallList = new ArrayList<>();
         rvEmployeeCall.setAdapter(new EmployeeCallAdapter(this, employeeCallList));
 
-        Common.connectServer(this, "E007", "1");
+
+
+
 
     }
 
-    private List<EmployeeCall> getEmployeeCall() {
-        List<EmployeeCall> employeeCallList = new ArrayList<>();
-
-        return employeeCallList;
-    }
 
     private void registerInstantReceiver() {
-        IntentFilter unFinishFilter = new IntentFilter("未處理");
-        IntentFilter finishFilter = new IntentFilter("已完成");
+        IntentFilter instantFilter = new IntentFilter("Call");
         InstantReceiver instantReceiver = new InstantReceiver();
-        broadcastManager.registerReceiver(instantReceiver, unFinishFilter);
-        broadcastManager.registerReceiver(instantReceiver, finishFilter);
+        broadcastManager.registerReceiver(instantReceiver, instantFilter);
 
     }
 
@@ -69,16 +67,15 @@ public class EmployeeCallService extends AppCompatActivity {
             String message = intent.getStringExtra("message");
             ChatMessage chatMessage = new Gson().fromJson(message, ChatMessage.class);
             String sender = chatMessage.getSender();
-            String state = chatMessage.getState();
-            if (state.equals("未處理")) {
-                employeeCallList.add(new EmployeeCall(R.drawable.icon_unfinish, sender));
 
-                rvEmployeeCall.getAdapter().notifyDataSetChanged();
+            employeeCallList.add(new EmployeeCall(R.drawable.icon_playing,sender));
 
-            } else if (state.equals("已完成")) {
+            rvEmployeeCall.getAdapter().notifyItemInserted(employeeCallList.size());
+            rvEmployeeCall.getAdapter().notifyDataSetChanged();
 
 
-            }
+
+
 
 
         }

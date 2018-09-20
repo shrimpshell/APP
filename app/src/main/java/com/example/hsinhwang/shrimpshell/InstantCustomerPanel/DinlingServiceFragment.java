@@ -19,9 +19,12 @@ import android.widget.Toast;
 
 import com.example.hsinhwang.shrimpshell.Classes.ChatMessage;
 import com.example.hsinhwang.shrimpshell.Classes.Common;
+import com.example.hsinhwang.shrimpshell.Classes.CommonTask;
 import com.example.hsinhwang.shrimpshell.Classes.DinlingServiceMsg;
+import com.example.hsinhwang.shrimpshell.Classes.Instant;
 import com.example.hsinhwang.shrimpshell.R;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -139,6 +142,9 @@ public class DinlingServiceFragment extends Fragment {
 
                             break;
                         case 1:
+
+
+
                             if (myViewHolder.btDinling.getVisibility() != View.VISIBLE ||
                                     myViewHolder.etDinling.getVisibility() != View.VISIBLE) {
 
@@ -155,6 +161,9 @@ public class DinlingServiceFragment extends Fragment {
                             break;
 
                         case 2:
+
+
+
                             if (myViewHolder.btDinling.getVisibility() != View.VISIBLE ||
                                     myViewHolder.etDinling.getVisibility() != View.VISIBLE) {
 
@@ -171,6 +180,9 @@ public class DinlingServiceFragment extends Fragment {
                             break;
 
                         case 3:
+
+
+
                             if (myViewHolder.btDinling.getVisibility() != View.VISIBLE ||
                                     myViewHolder.etDinling.getVisibility() != View.VISIBLE) {
 
@@ -204,6 +216,8 @@ public class DinlingServiceFragment extends Fragment {
                 public void onClick(View v) {
                     ChatMessage chatMessage;
                     String chatMessageJson;
+                    int unFinish = 1;
+
 
                     String UserEnter = myViewHolder.etDinling.getText().toString();
 
@@ -222,14 +236,12 @@ public class DinlingServiceFragment extends Fragment {
                                 Toast.makeText(context, "你點的 A餐 數量為" + UserEnter + "份",
                                         Toast.LENGTH_SHORT).show();
 
-
-                                Common.connectServer(context, "U888", "3");
-
-                                chatMessage = new ChatMessage("3", "U888", "E007",
-                                        "未處理", "A餐", "0" + UserEnter);
-                                chatMessageJson = new Gson().toJson(chatMessage);
-                                Common.wsInstantClient.send(chatMessageJson);
-                                Log.d(TAG, "output: " + chatMessageJson);
+                                int A = 666;
+                                String dinlingTypeName = myViewHolder.tvDinling1.getText().toString().trim();
+                                int status = unFinish,
+                                        quantity = Integer.parseInt(myViewHolder.etDinling.getText().toString().trim()),
+                                        price = Integer.parseInt(myViewHolder.tvDinling2.getText().toString().trim()),
+                                        idRoomNumber = A;
 
 
                             }
@@ -248,13 +260,8 @@ public class DinlingServiceFragment extends Fragment {
                                 Toast.makeText(context, "你點的 B餐 數量為" + UserEnter + "份",
                                         Toast.LENGTH_SHORT).show();
 
-                                Common.connectServer(context, "U888", "3");
 
-                                chatMessage = new ChatMessage("3", "U888", "E007",
-                                        "未處理", "B餐", "0" + UserEnter);
-                                chatMessageJson = new Gson().toJson(chatMessage);
-                                Common.wsInstantClient.send(chatMessageJson);
-                                Log.d(TAG, "output: " + chatMessageJson);
+
                             }
                             break;
 
@@ -270,13 +277,8 @@ public class DinlingServiceFragment extends Fragment {
                                 Toast.makeText(context, "你點的 C餐 數量為" + UserEnter + "份",
                                         Toast.LENGTH_SHORT).show();
 
-                                Common.connectServer(context, "U888", "3");
 
-                                chatMessage = new ChatMessage("3", "U888", "E007",
-                                        "未處理", "C餐", "0" + UserEnter);
-                                chatMessageJson = new Gson().toJson(chatMessage);
-                                Common.wsInstantClient.send(chatMessageJson);
-                                Log.d(TAG, "output: " + chatMessageJson);
+
 
                             }
                             break;
@@ -294,6 +296,10 @@ public class DinlingServiceFragment extends Fragment {
         }
     }
 
+    private void insertAction() {
+
+    }
+
 
     public List<DinlingServiceMsg> getDinlingServicesMsgs() {
         List<DinlingServiceMsg> dinlingServiceMsgs = new ArrayList<>();
@@ -305,5 +311,10 @@ public class DinlingServiceFragment extends Fragment {
         return dinlingServiceMsgs;
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        Common.disconnectServer();
 
+    }
 }

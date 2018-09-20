@@ -219,31 +219,11 @@ public class TrafficServiceFragment extends Fragment {
 
                 @Override
                 public void onClick(View v) {
-                    int UserEnterHour;
-                    int UserEnterMin;
-                    ChatMessage chatMessage;
-                    String chatMessageJson;
                     String UserEnterPerson = myViewHolder.etTraffic.getText().toString();
 
                     switch (trafficServiceMsg.getNumber()) {
                         case 1:
 
-//                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//                                UserEnterHour = myViewHolder.tpTraffic.getHour();
-//                                UserEnterMin = myViewHolder.tpTraffic.getMinute();
-//
-//
-//                                if (UserEnterPerson.equals("")) {
-//
-//                                    Toast.makeText(context, "請輸入欲接送人數！", Toast.LENGTH_SHORT).show();
-//
-//                                } else {
-//
-//                                    Toast.makeText(context, "接送人數為" + UserEnterPerson + "人" +
-//                                                    "時間為" + UserEnterHour + "點" + UserEnterMin + "分",
-//                                            Toast.LENGTH_SHORT).show();
-//
-//                                }
 
                             if (UserEnterPerson.equals("")) {
 
@@ -254,13 +234,6 @@ public class TrafficServiceFragment extends Fragment {
                                 Toast.makeText(context, "接送人數為" + UserEnterPerson +
                                         "人，請稍候！", Toast.LENGTH_SHORT).show();
 
-                                Common.connectServer(context, "U888", "4");
-
-                                chatMessage = new ChatMessage("4", "U888", "E007",
-                                        "未處理", "高鐵接送", "0" + UserEnterPerson);
-                                chatMessageJson = new Gson().toJson(chatMessage);
-                                Common.wsInstantClient.send(chatMessageJson);
-                                Log.d(TAG, "output: " + chatMessageJson);
 
                             }
 
@@ -269,25 +242,6 @@ public class TrafficServiceFragment extends Fragment {
 
                         case 2:
 
-//                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//                                UserEnterHour = myViewHolder.tpTraffic.getHour();
-//                                UserEnterMin = myViewHolder.tpTraffic.getMinute();
-//
-//
-//                                if (UserEnterPerson.equals("")) {
-//
-//                                    Toast.makeText(context, "請輸入欲接送人數！", Toast.LENGTH_SHORT).show();
-//
-//                                } else {
-//
-//                                    Toast.makeText(context, "接送人數為" + UserEnterPerson + "人" +
-//                                                    "時間為" + UserEnterHour + "點" + UserEnterMin + "分",
-//                                            Toast.LENGTH_SHORT).show();
-//
-//                                }
-//
-//
-//                            }
 
                             if (UserEnterPerson.equals("")) {
 
@@ -298,39 +252,13 @@ public class TrafficServiceFragment extends Fragment {
                                 Toast.makeText(context, "接送人數為" + UserEnterPerson +
                                         "人，請稍候！", Toast.LENGTH_SHORT).show();
 
-                                Common.connectServer(context, "U888", "4");
-
-                                chatMessage = new ChatMessage("4", "U888", "E007",
-                                        "未處理", "火車站接送", "0" + UserEnterPerson);
-                                chatMessageJson = new Gson().toJson(chatMessage);
-                                Common.wsInstantClient.send(chatMessageJson);
-                                Log.d(TAG, "output: " + chatMessageJson);
 
                             }
 
                             break;
 
                         case 3:
-//
-//                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//                                UserEnterHour = myViewHolder.tpTraffic.getHour();
-//                                UserEnterMin = myViewHolder.tpTraffic.getMinute();
-//
-//
-//                                if (UserEnterPerson.equals("")) {
-//
-//                                    Toast.makeText(context, "請輸入欲接送人數！", Toast.LENGTH_SHORT).show();
-//
-//                                } else {
-//
-//                                    Toast.makeText(context, "接送人數為" + UserEnterPerson + "人" +
-//                                                    "時間為" + UserEnterHour + "點" + UserEnterMin + "分",
-//                                            Toast.LENGTH_SHORT).show();
-//
-//                                }
-//
-//
-//                            }
+
 
                             if (UserEnterPerson.equals("")) {
 
@@ -341,14 +269,6 @@ public class TrafficServiceFragment extends Fragment {
                                 Toast.makeText(context, "接送人數為" + UserEnterPerson +
                                         "人，請稍候！", Toast.LENGTH_SHORT).show();
 
-
-                                Common.connectServer(context, "U888", "4");
-
-                                chatMessage = new ChatMessage("4", "U888", "E007",
-                                        "未處理", "機場接送", "0" + UserEnterPerson);
-                                chatMessageJson = new Gson().toJson(chatMessage);
-                                Common.wsInstantClient.send(chatMessageJson);
-                                Log.d(TAG, "output: " + chatMessageJson);
 
                             }
 
@@ -380,4 +300,7 @@ public class TrafficServiceFragment extends Fragment {
 
         return trafficServiceMsgs;
     }
+
+
+
 }

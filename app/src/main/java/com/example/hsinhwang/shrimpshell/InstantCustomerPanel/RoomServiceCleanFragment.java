@@ -42,6 +42,8 @@ public class RoomServiceCleanFragment extends Fragment {
         handlerView(view);
         return view;
 
+
+
     }
 
     private void handlerView(View view) {
@@ -132,11 +134,15 @@ public class RoomServiceCleanFragment extends Fragment {
                                     ("聯絡櫃檯", R.drawable.icon_call_service_instant, 4));
 
 
+
                             notifyItemInserted(roomServiceMsgs.size());
 
                             break;
 
                         case 1:
+
+
+
                             if (
                                     myViewHolder.tvRoomService2.getVisibility() != View.VISIBLE ||
                                             myViewHolder.btRoomService.getVisibility() != View.VISIBLE ||
@@ -160,6 +166,9 @@ public class RoomServiceCleanFragment extends Fragment {
                             break;
 
                         case 2:
+
+
+
                             if (
                                     myViewHolder.tvRoomService2.getVisibility() != View.VISIBLE ||
                                             myViewHolder.btRoomService.getVisibility() != View.VISIBLE ||
@@ -185,6 +194,8 @@ public class RoomServiceCleanFragment extends Fragment {
 
 
                         case 3:
+
+
 
                             if (
                                     myViewHolder.tvRoomService2.getVisibility() != View.VISIBLE ||
@@ -223,6 +234,11 @@ public class RoomServiceCleanFragment extends Fragment {
 
                             break;
                         case 4:
+
+                            Common.connectServer(context,"User","User");
+
+
+
                             if (
                                     myViewHolder.btRoomService.getVisibility() != View.VISIBLE) {
 
@@ -257,10 +273,6 @@ public class RoomServiceCleanFragment extends Fragment {
             myViewHolder.btRoomService.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    int UserEnterHour = 0;
-//                    int UserEnterMin = 0;
-                    ChatMessage chatMessage;
-                    String chatMessageJson;
                     String UserEnteritem1;
                     String UserEnteritem2;
                     UserEnteritem1 = myViewHolder.etRoomService1.getText().toString();
@@ -271,25 +283,12 @@ public class RoomServiceCleanFragment extends Fragment {
 
                         case 1:
 
-//                            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-//
-//                                UserEnterHour = myViewHolder.tpRoomService.getHour();
-//                                UserEnterMin = myViewHolder.tpRoomService.getMinute();
-//                            }
-//
-//
-//                            Toast.makeText(context, "我們將於" + UserEnterHour + "點"
-//                                    + UserEnterMin + "分" + "為您打掃房間", Toast.LENGTH_SHORT).show();
-//
+
                             Toast.makeText(context,"我們將為您打掃房間",Toast.LENGTH_SHORT).show();
 
-                            Common.connectServer(context,"U888","2");
 
-                            chatMessage = new ChatMessage("2","U888","E007",
-                                    "未處理","清潔服務","0");
-                            chatMessageJson = new Gson().toJson(chatMessage);
-                            Common.wsInstantClient.send(chatMessageJson);
-                            Log.d(TAG, "output: " + chatMessageJson);
+
+
 
 
 
@@ -298,26 +297,12 @@ public class RoomServiceCleanFragment extends Fragment {
 
                         case 2:
 
-//                            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-//
-//                                UserEnterHour = myViewHolder.tpRoomService.getHour();
-//                                UserEnterMin = myViewHolder.tpRoomService.getMinute();
-//                            }
-//
-//                            Toast.makeText(context, "我們將於" + UserEnterHour + "點"
-//                                    + UserEnterMin + "分" + "為您收取換洗衣物", Toast.LENGTH_SHORT).show();
+
 
                             Toast.makeText(context,"我們將為您清洗換洗衣物",Toast.LENGTH_SHORT).show();
 
-                            Common.connectServer(context,"U888","4");
 
-                            chatMessage = new ChatMessage("4","U888","E007",
-                                    "未處理","洗衣服務","0");
-                            chatMessageJson = new Gson().toJson(chatMessage);
-                            Common.wsInstantClient.send(chatMessageJson);
-                            Log.d(TAG, "output: " + chatMessageJson);
 
-//
 
                             break;
 
@@ -339,14 +324,6 @@ public class RoomServiceCleanFragment extends Fragment {
                                             + " 個及盥洗用具" + UserEnteritem2 + " 組", Toast.LENGTH_SHORT).show();
 
 
-                                    Common.connectServer(context,"U888","4");
-
-                                    chatMessage = new ChatMessage("4","U888","E007",
-                                            "未處理","備品服務",UserEnteritem1 + UserEnteritem2);
-                                    chatMessageJson = new Gson().toJson(chatMessage);
-                                    Common.wsInstantClient.send(chatMessageJson);
-                                    Log.d(TAG, "output: " + chatMessageJson);
-
 
 
 
@@ -365,13 +342,9 @@ public class RoomServiceCleanFragment extends Fragment {
                                     Toast.makeText(context, "已收到您需要枕頭 " + UserEnteritem1
                                             + "個", Toast.LENGTH_SHORT).show();
 
-                                    Common.connectServer(context,"U888","4");
 
-                                    chatMessage = new ChatMessage("4","U888","E007",
-                                            "未處理","枕頭備品","0" + UserEnteritem1);
-                                    chatMessageJson = new Gson().toJson(chatMessage);
-                                    Common.wsInstantClient.send(chatMessageJson);
-                                    Log.d(TAG, "output: " + chatMessageJson);
+
+
 
 
 
@@ -391,13 +364,7 @@ public class RoomServiceCleanFragment extends Fragment {
                                     Toast.makeText(context, "已收到您需要盥洗用具 " + UserEnteritem2
                                             + " 組", Toast.LENGTH_SHORT).show();
 
-                                    Common.connectServer(context,"U888","4");
 
-                                    chatMessage = new ChatMessage("4","U888","E007",
-                                            "未處理","盥洗備品","0" + UserEnteritem2);
-                                    chatMessageJson = new Gson().toJson(chatMessage);
-                                    Common.wsInstantClient.send(chatMessageJson);
-                                    Log.d(TAG, "output: " + chatMessageJson);
 
 
 
@@ -413,14 +380,15 @@ public class RoomServiceCleanFragment extends Fragment {
                             Toast.makeText(context, "已聯絡櫃檯為您服務，請稍候！", Toast.LENGTH_SHORT).show();
 
 
-                            Common.connectServer(context,"U888","1");
 
-                            chatMessage = new ChatMessage("1","U888","E007",
-                                    "未處理","聯絡櫃檯","0");
-                            chatMessageJson = new Gson().toJson(chatMessage);
-                            Common.wsInstantClient.send(chatMessageJson);
-                            Log.d(TAG, "output: " + chatMessageJson);
-                            Log.d(TAG, "output: " + chatMessageJson);
+
+                            ChatMessage chatMessage = new ChatMessage("Call","User","Employee"
+                                    ,"finish");
+                            String chatMessageJson = new Gson().toJson(chatMessage);
+                            Common.chatwebSocketClient.send(chatMessageJson);
+
+
+
 
                             break;
 
@@ -447,4 +415,6 @@ public class RoomServiceCleanFragment extends Fragment {
 
         return roomServiceMsgs;
     }
+
+
 }

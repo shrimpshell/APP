@@ -1,7 +1,5 @@
 package com.example.hsinhwang.shrimpshell.Classes;
 
-
-
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
@@ -17,16 +15,15 @@ import org.java_websocket.handshake.ServerHandshake;
 import java.net.URI;
 import java.util.Locale;
 
-public class WSInstantClient extends WebSocketClient {
-    private static final String TAG = "WSInstantClient";
+public class ChatWebSocketClient extends WebSocketClient{
+    private static final String TAG = "ChatWebSocketClient";
     private LocalBroadcastManager broadcastManager;
     private Gson gson;
 
-    WSInstantClient(URI serverUri, Context context) {
+    public ChatWebSocketClient(URI serverUri, Context context) {
         super(serverUri, new Draft_6455());
         broadcastManager = LocalBroadcastManager.getInstance(context);
         gson = new Gson();
-
 
     }
 
@@ -37,18 +34,17 @@ public class WSInstantClient extends WebSocketClient {
                 handshakeData.getHttpStatus(),
                 handshakeData.getHttpStatusMessage());
         Log.d(TAG, "onOpen: " + text);
+
     }
 
     @Override
     public void onMessage(String message) {
-        JsonObject jsonObject = gson.fromJson(message,JsonObject.class);
+        JsonObject jsonObject = gson.fromJson(message, JsonObject.class);
         String type = jsonObject.get("type").getAsString();
         sendMessageBroadcast(type, message);
         Log.d(TAG, "onMessage: " + message);
 
     }
-
-
 
     @Override
     public void onClose(int code, String reason, boolean remote) {

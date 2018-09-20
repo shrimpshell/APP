@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.item_profile:
                     if (LogIn.EmployeeLogIn()) {
-                            Intent intent = new Intent(MainActivity.this, EmployeeCleanService.class);
+                            Intent intent = new Intent(MainActivity.this, EmployeeCallService.class);
                             startActivity(intent);
                         } else {
                             fragment = new ProfileFragment();

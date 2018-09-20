@@ -32,7 +32,7 @@ public class Common {
     //    public static String URL = "http://192.168.50.46:8080/ShellService/"; // 手機用
     public static final String URL = "http://10.0.2.2:8080/ShellService"; // 模擬機用
     private static SharedPreferences preferences;
-    public static WSInstantClient wsInstantClient;
+    public static ChatWebSocketClient chatwebSocketClient;
 
     public static boolean networkConnected(Activity activity) {
         ConnectivityManager conManager =
@@ -107,30 +107,26 @@ public class Common {
     }
 
 
-
-
-
-
     // 建立WebSocket連線
-    public static void connectServer(Context context, String userName, String typeName) {
+    public static void connectServer(Context context, String userId, String groupId) {
         URI uri = null;
         try {
-            uri = new URI(SERVER_URI + userName + "/" + typeName);
+            uri = new URI(SERVER_URI + userId + "/" + groupId);
 
         } catch (URISyntaxException e) {
             Log.e(TAG, e.toString());
         }
-        if (wsInstantClient == null) {
-            wsInstantClient = new WSInstantClient(uri, context);
-            wsInstantClient.connect();
+        if (chatwebSocketClient == null) {
+            chatwebSocketClient = new ChatWebSocketClient(uri, context);
+            chatwebSocketClient.connect();
         }
     }
 
     // 中斷WebSocket連線
     public static void disconnectServer() {
-        if (wsInstantClient != null) {
-            wsInstantClient.close();
-            wsInstantClient = null;
+        if (chatwebSocketClient != null) {
+            chatwebSocketClient.close();
+            chatwebSocketClient = null;
         }
     }
 }
