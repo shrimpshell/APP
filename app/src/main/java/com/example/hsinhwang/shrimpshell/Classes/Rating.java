@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Rating implements Serializable{
     private int IdRating, IdRoomReservation;
     private float ratingStar;
-    private String opinion, review, time;
+    private String opinion, review, time, Name;
     ;
 
 
@@ -17,6 +17,17 @@ public class Rating implements Serializable{
         this.opinion = opinion;
         this.review = review;
         this.IdRoomReservation = IdRoomReservation;
+    }
+
+    public Rating(int IdRating, float ratingStar, String time, String opinion, String review,
+                  int IdRoomReservation, String Name) {
+        this.IdRating = IdRating;
+        this.ratingStar = ratingStar;
+        this.time = time;
+        this.opinion = opinion;
+        this.review = review;
+        this.IdRoomReservation = IdRoomReservation;
+        this.Name = Name;
     }
 
     public Rating(int IdRoomReservation, float ratingStar, String opinion){
@@ -72,5 +83,13 @@ public class Rating implements Serializable{
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getName() {
+        return Name;
+    }
+
+    public void setName(String name) {
+        Name = name;
     }
 }
