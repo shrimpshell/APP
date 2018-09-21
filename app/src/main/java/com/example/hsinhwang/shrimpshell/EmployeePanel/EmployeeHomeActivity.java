@@ -177,6 +177,8 @@ public class EmployeeHomeActivity extends AppCompatActivity {
             if (employee == null) {
                 Common.showToast(this, R.string.msg_NoEmployeesFound);
             } else {
+                SharedPreferences pref = getSharedPreferences(Common.EMPLOYEE_LOGIN, MODE_PRIVATE);
+                pref.edit().putInt("idDepartment", employee.getDepartmentId());
                 loadImage(idEmployee);
                 insertDepartmentButton(employee.getDepartmentId());
                 txMyName.setText(employee.getName());
@@ -222,6 +224,7 @@ public class EmployeeHomeActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         employHomeBottom.removeAllViews();
                         Intent intent = new Intent(EmployeeHomeActivity.this, ManagerHomeActivity.class);
+                        // Intent intent = new Intent(EmployeeHomeActivity.this, ManagerHomeActivity.class);
                         startActivity(intent);
                     }
                 });
