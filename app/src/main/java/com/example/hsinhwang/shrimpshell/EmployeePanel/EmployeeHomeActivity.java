@@ -54,15 +54,12 @@ public class EmployeeHomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee_home);
         initialization();
-        insertDepartmentButton();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         SharedPreferences pref = getSharedPreferences(Common.EMPLOYEE_LOGIN, MODE_PRIVATE);
-        String email = pref.getString("email", "");
-        String password = pref.getString("password", "");
         idEmployee = pref.getInt("IdEmployee", 0);
         loadData();
     }
@@ -181,6 +178,7 @@ public class EmployeeHomeActivity extends AppCompatActivity {
                 Common.showToast(this, R.string.msg_NoEmployeesFound);
             } else {
                 loadImage(idEmployee);
+                insertDepartmentButton(employee.getDepartmentId());
                 txMyName.setText(employee.getName());
                 txMemberEmail.setText(employee.getEmail());
                 txPhoneNumber.setText(employee.getPhone());
@@ -208,61 +206,130 @@ public class EmployeeHomeActivity extends AppCompatActivity {
         }
     }
 
-    private void insertDepartmentButton() {
-        if (true) { // 黃信：如果是主管，執行這段程式碼 之後需要用switch case判斷員工編號
-            // 設定按鈕尺寸/Margin
-            LinearLayoutCompat.LayoutParams param = new LinearLayoutCompat.LayoutParams(240, 240);
-            param.leftMargin = 20;
-            // 動態生成按鈕
-            Button btn = new Button(this);
-            btn.setText("工作進度");
-            btn.setBackgroundColor(Color.parseColor("#F7DF96"));
-            btn.setLayoutParams(param);
-            btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(EmployeeHomeActivity.this, ManagerHomeActivity.class);
-                    startActivity(intent);
-                }
-            });
-            employHomeBottom.addView(btn);
+    private void insertDepartmentButton(int departmentId) {
+        // 設定按鈕尺寸/Margin
+        LinearLayoutCompat.LayoutParams param = new LinearLayoutCompat.LayoutParams(240, 240);
+        param.leftMargin = 20;
 
-            Button edit = new Button(this);
-            edit.setText("編輯資料");
-            edit.setBackgroundColor(Color.parseColor("#F7DF96"));
-            edit.setLayoutParams(param);
-            edit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(EmployeeHomeActivity.this, EmployeeEditActivity.class);
-                    Bundle bundle = new Bundle();
-                    Employees emp = new Employees(employee.getId(), employee.getCode(), employee.getName(), employee.getPassword(),
-                            employee.getEmail(), employee.getGender(), employee.getPhone(), employee.getAddress(), employee.getDepartmentId());
-                    bundle.putSerializable("employee", emp);
-                    intent.putExtras(bundle);
-                    startActivity(intent);
-                }
-            });
-            employHomeBottom.addView(edit);
-
-            Button logout = new Button(this);
-            logout.setText("登出");
-            logout.setBackgroundColor(Color.parseColor("#F7DF96"));
-            logout.setLayoutParams(param);
-            logout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    SharedPreferences pref = getSharedPreferences(Common.EMPLOYEE_LOGIN, MODE_PRIVATE);
-                    SharedPreferences page = getSharedPreferences(Common.PAGE, MODE_PRIVATE);
-                    pref.edit().putBoolean("login", false).putString("email", "").putString("password", "").putInt("IdEmployee", 0).apply();
-                    page.edit().putInt("page", 1).apply();
-                    finish();
-                }
-            });
-            employHomeBottom.addView(logout);
-
+        switch (departmentId) {
+            case 1: // 清潔
+                Button cleanBtn = new Button(this);
+                cleanBtn.setText("清潔進度");
+                cleanBtn.setBackgroundColor(Color.parseColor("#F7DF96"));
+                cleanBtn.setLayoutParams(param);
+                cleanBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        employHomeBottom.removeAllViews();
+                        Intent intent = new Intent(EmployeeHomeActivity.this, ManagerHomeActivity.class);
+                        startActivity(intent);
+                    }
+                });
+                employHomeBottom.addView(cleanBtn);
+                break;
+            case 2: // 房務
+                Button roomBtn = new Button(this);
+                roomBtn.setText("房務進度");
+                roomBtn.setBackgroundColor(Color.parseColor("#F7DF96"));
+                roomBtn.setLayoutParams(param);
+                roomBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        employHomeBottom.removeAllViews();
+                        Intent intent = new Intent(EmployeeHomeActivity.this, ManagerHomeActivity.class);
+                        startActivity(intent);
+                    }
+                });
+                employHomeBottom.addView(roomBtn);
+                break;
+            case 3: // 餐飲
+                Button dineBtn = new Button(this);
+                dineBtn.setText("房務進度");
+                dineBtn.setBackgroundColor(Color.parseColor("#F7DF96"));
+                dineBtn.setLayoutParams(param);
+                dineBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        employHomeBottom.removeAllViews();
+                        Intent intent = new Intent(EmployeeHomeActivity.this, ManagerHomeActivity.class);
+                        startActivity(intent);
+                    }
+                });
+                employHomeBottom.addView(dineBtn);
+                break;
+            case 4: // 櫃檯
+                Button conciergeBtn = new Button(this);
+                conciergeBtn.setText("房務進度");
+                conciergeBtn.setBackgroundColor(Color.parseColor("#F7DF96"));
+                conciergeBtn.setLayoutParams(param);
+                conciergeBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        employHomeBottom.removeAllViews();
+                        Intent intent = new Intent(EmployeeHomeActivity.this, ManagerHomeActivity.class);
+                        startActivity(intent);
+                    }
+                });
+                employHomeBottom.addView(conciergeBtn);
+                break;
+            case 5: // 主管
+                // 動態生成按鈕
+                Button managerBtn = new Button(this);
+                managerBtn.setText("管理編輯");
+                managerBtn.setBackgroundColor(Color.parseColor("#F7DF96"));
+                managerBtn.setLayoutParams(param);
+                managerBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        employHomeBottom.removeAllViews();
+                        Intent intent = new Intent(EmployeeHomeActivity.this, ManagerHomeActivity.class);
+                        startActivity(intent);
+                    }
+                });
+                employHomeBottom.addView(managerBtn);
+                break;
+            default:
+                Common.showToast(this, "cannot identify department");
+                finish();
         }
 
+        Button edit = new Button(this);
+        edit.setText("編輯資料");
+        edit.setBackgroundColor(Color.parseColor("#F7DF96"));
+        edit.setLayoutParams(param);
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(EmployeeHomeActivity.this, EmployeeEditActivity.class);
+                Bundle bundle = new Bundle();
+                Employees emp = new Employees(employee.getId(), employee.getCode(), employee.getName(), employee.getPassword(),
+                        employee.getEmail(), employee.getGender(), employee.getPhone(), employee.getAddress(), employee.getDepartmentId());
+                bundle.putSerializable("employee", emp);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+        employHomeBottom.addView(edit);
+
+        Button logout = new Button(this);
+        logout.setText("登出");
+        logout.setBackgroundColor(Color.parseColor("#F7DF96"));
+        logout.setLayoutParams(param);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences pref = getSharedPreferences(Common.EMPLOYEE_LOGIN, MODE_PRIVATE);
+                SharedPreferences page = getSharedPreferences(Common.PAGE, MODE_PRIVATE);
+                pref.edit().putBoolean("login", false).putString("email", "").putString("password", "").putInt("IdEmployee", 0).apply();
+                page.edit().putInt("page", 1).apply();
+                finish();
+            }
+        });
+        employHomeBottom.addView(logout);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }
