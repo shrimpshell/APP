@@ -75,7 +75,6 @@ public class LoginActivity extends AppCompatActivity {
                 case R.id.rbCustomer:
                     if (LogIn.CustomerLogIn(LoginActivity.this, email, password)) {
                         IdCustomer = LogIn.isValid(LoginActivity.this, email, password);
-                        Log.d(TAG, String.valueOf(IdCustomer));
                         SharedPreferences preferences = getSharedPreferences(Common.LOGIN, MODE_PRIVATE);
                         SharedPreferences page = getSharedPreferences(Common.PAGE, MODE_PRIVATE);
                         preferences.edit().putBoolean("login", true)
