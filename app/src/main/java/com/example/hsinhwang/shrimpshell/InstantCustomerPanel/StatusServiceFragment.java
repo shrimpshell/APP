@@ -1,6 +1,9 @@
 package com.example.hsinhwang.shrimpshell.InstantCustomerPanel;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,10 +18,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.hsinhwang.shrimpshell.Classes.ChatMessage;
 import com.example.hsinhwang.shrimpshell.Classes.Common;
 import com.example.hsinhwang.shrimpshell.Classes.Instant;
 import com.example.hsinhwang.shrimpshell.Classes.StatusService;
 import com.example.hsinhwang.shrimpshell.R;
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
@@ -27,6 +32,8 @@ import java.util.List;
 
 public class StatusServiceFragment extends Fragment {
     RecyclerView rvStatusService;
+    private LocalBroadcastManager broadcastManager;
+    private List<StatusService>
 
 
 
@@ -37,24 +44,17 @@ public class StatusServiceFragment extends Fragment {
             , @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_status_service,
                 container, false);
+        broadcastManager = LocalBroadcastManager.getInstance(getActivity());
+        registerChatReceiver();
 
-
-
+        Common.connectServer(this, getUserName(this),);
         handlerView(view);
 
         return view;
 
     }
 
-    private void showAllInstant() {
-        if (Common.networkConnected(getActivity())){
-            String url = Common.URL + "InstantServlet";
-            List<Instant> instants = null ;
-            JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("action","getAll");
-            String jsonOut = jsonObject.toString();
-        }
-    }
+
 
     private void handlerView(View view) {
 
@@ -65,6 +65,32 @@ public class StatusServiceFragment extends Fragment {
         rvStatusService.setAdapter(new StatusServiceAdapter(getActivity(),statusServicesList));
 
 
+    }
+
+    private void registerChatReceiver() {
+        IntentFilter cleanFilter = new IntentFilter("1");
+        IntentFilter roomFilter = new IntentFilter("2");
+        IntentFilter dinlingFilter = new IntentFilter("3");
+        ChatReceiver chatReceiver = new ChatReceiver();
+        broadcastManager.registerReceiver(chatReceiver, cleanFilter);
+        broadcastManager.registerReceiver(chatReceiver, roomFilter);
+        broadcastManager.registerReceiver(chatReceiver, dinlingFilter);
+    }
+
+
+    private class ChatReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String message = intent.getStringExtra("message");
+            ChatMessage chatMessage = new Gson().fromJson(message, ChatMessage.class);
+            String sender = chatMessage.getSenderId();
+
+
+
+
+
+
+        }
     }
 
 
@@ -137,8 +163,6 @@ public class StatusServiceFragment extends Fragment {
         return statusServicesList;
 
     }
-
-
 
 
 

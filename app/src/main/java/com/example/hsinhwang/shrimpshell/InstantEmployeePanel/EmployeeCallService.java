@@ -64,14 +64,14 @@ public class EmployeeCallService extends AppCompatActivity {
     private class InstantReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            String message = intent.getStringExtra("message");
-            ChatMessage chatMessage = new Gson().fromJson(message, ChatMessage.class);
-            String sender = chatMessage.getSender();
-
-            employeeCallList.add(new EmployeeCall(R.drawable.icon_playing,sender));
-
-            rvEmployeeCall.getAdapter().notifyItemInserted(employeeCallList.size());
-            rvEmployeeCall.getAdapter().notifyDataSetChanged();
+//            String message = intent.getStringExtra("message");
+//            ChatMessage chatMessage = new Gson().fromJson(message, ChatMessage.class);
+//            String sender = chatMessage.getSender();
+//
+//            employeeCallList.add(new EmployeeCall(R.drawable.icon_playing,sender));
+//
+//            rvEmployeeCall.getAdapter().notifyItemInserted(employeeCallList.size());
+//            rvEmployeeCall.getAdapter().notifyDataSetChanged();
 
 
 

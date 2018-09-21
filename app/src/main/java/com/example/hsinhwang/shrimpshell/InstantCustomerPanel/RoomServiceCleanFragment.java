@@ -382,13 +382,6 @@ public class RoomServiceCleanFragment extends Fragment {
 
 
 
-                            ChatMessage chatMessage = new ChatMessage("Call","User","Employee"
-                                    ,"finish");
-                            String chatMessageJson = new Gson().toJson(chatMessage);
-                            Common.chatwebSocketClient.send(chatMessageJson);
-
-
-
 
                             break;
 

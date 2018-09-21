@@ -1,6 +1,9 @@
 package com.example.hsinhwang.shrimpshell.InstantCustomerPanel;
 
+
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -17,11 +20,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.hsinhwang.shrimpshell.Classes.ChatMessage;
 import com.example.hsinhwang.shrimpshell.Classes.Common;
 import com.example.hsinhwang.shrimpshell.Classes.CommonTask;
 import com.example.hsinhwang.shrimpshell.Classes.DinlingServiceMsg;
-import com.example.hsinhwang.shrimpshell.Classes.Instant;
 import com.example.hsinhwang.shrimpshell.R;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -59,6 +60,7 @@ public class DinlingServiceFragment extends Fragment {
 
 
     }
+
 
 
     private class DinlingServiceMsgAdapter extends
@@ -234,6 +236,8 @@ public class DinlingServiceFragment extends Fragment {
                                 Toast.makeText(context, "你點的 A餐 數量為" + UserEnter + "份",
                                         Toast.LENGTH_SHORT).show();
 
+
+
                                 
 
 
@@ -312,4 +316,6 @@ public class DinlingServiceFragment extends Fragment {
         Common.disconnectServer();
 
     }
+
+
 }
