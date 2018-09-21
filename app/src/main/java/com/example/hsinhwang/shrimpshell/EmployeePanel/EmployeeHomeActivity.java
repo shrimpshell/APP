@@ -240,6 +240,7 @@ public class EmployeeHomeActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         employHomeBottom.removeAllViews();
                         Intent intent = new Intent(EmployeeHomeActivity.this, ManagerHomeActivity.class);
+                        // Intent intent = new Intent(EmployeeHomeActivity.this, ManagerHomeActivity.class);
                         startActivity(intent);
                     }
                 });
@@ -255,6 +256,7 @@ public class EmployeeHomeActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         employHomeBottom.removeAllViews();
                         Intent intent = new Intent(EmployeeHomeActivity.this, ManagerHomeActivity.class);
+                        // Intent intent = new Intent(EmployeeHomeActivity.this, ManagerHomeActivity.class);
                         startActivity(intent);
                     }
                 });
@@ -270,6 +272,7 @@ public class EmployeeHomeActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         employHomeBottom.removeAllViews();
                         Intent intent = new Intent(EmployeeHomeActivity.this, ManagerHomeActivity.class);
+                        // Intent intent = new Intent(EmployeeHomeActivity.this, ManagerHomeActivity.class);
                         startActivity(intent);
                     }
                 });
