@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.hsinhwang.shrimpshell.Classes.ProfileReceiptDetail;
 import com.example.hsinhwang.shrimpshell.ProfileReceiptDetailResultActivity;
 import com.example.hsinhwang.shrimpshell.R;
 
