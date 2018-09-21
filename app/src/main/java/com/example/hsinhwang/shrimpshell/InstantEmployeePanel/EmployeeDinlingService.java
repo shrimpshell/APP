@@ -77,7 +77,6 @@ public class EmployeeDinlingService extends AppCompatActivity {
                     rvEmployeeDinling.getAdapter().notifyItemInserted(employeeDinlingList.size());
 
 
-
                     break;
 
                 case 2: //處理中
@@ -170,11 +169,11 @@ public class EmployeeDinlingService extends AppCompatActivity {
                     switch (Integer.parseInt(myViewHolder.tvStatusNumber.getText().toString())) {
                         case 1:
 
-                            chatMessage =
-                                    new ChatMessage(myViewHolder.tvRoomId.getText().toString(),
-                                            "603", "3", "0",
-                                            myViewHolder.tvItem.getText().toString(), 3, 2
-                                            , Integer.parseInt(myViewHolder.tvQuantity.getText().toString()));
+                            chatMessage = new ChatMessage("E007",
+                                    myViewHolder.tvRoomId.getText().toString(),
+                                    "3", "0",
+                                    myViewHolder.tvItem.getText().toString(), 3, 2
+                                    , Integer.parseInt(myViewHolder.tvQuantity.getText().toString()));
                             chatMessageJson = new Gson().toJson(chatMessage);
                             Common.chatwebSocketClient.send(chatMessageJson);
                             Log.d(TAG, "output: " + chatMessageJson);
@@ -183,11 +182,11 @@ public class EmployeeDinlingService extends AppCompatActivity {
 
                         case 2:
 
-                            chatMessage =
-                                    new ChatMessage(myViewHolder.tvRoomId.getText().toString(),
-                                            "603", "3", "0",
-                                            myViewHolder.tvItem.getText().toString(), 3, 3
-                                            , Integer.parseInt(myViewHolder.tvQuantity.getText().toString()));
+                            chatMessage = new ChatMessage("E001",
+                                    myViewHolder.tvRoomId.getText().toString(),
+                                    "3", "0",
+                                    myViewHolder.tvItem.getText().toString(), 3, 3
+                                    , Integer.parseInt(myViewHolder.tvQuantity.getText().toString()));
                             chatMessageJson = new Gson().toJson(chatMessage);
                             Common.chatwebSocketClient.send(chatMessageJson);
                             Log.d(TAG, "output: " + chatMessageJson);

@@ -1,10 +1,10 @@
 package com.example.hsinhwang.shrimpshell.Classes;
 
 public class EmployeeClean {
-    private int imageStatus, tvStatusNumber;
-    private String tvRooId;
+    private int imageStatus;
+    private String tvRooId,tvStatusNumber;
 
-    public EmployeeClean(int imageStatus, int tvStatusNumber, String tvRooId) {
+    public EmployeeClean(int imageStatus, String tvStatusNumber, String tvRooId) {
         this.imageStatus = imageStatus;
         this.tvStatusNumber = tvStatusNumber;
         this.tvRooId = tvRooId;
@@ -18,19 +18,19 @@ public class EmployeeClean {
         this.imageStatus = imageStatus;
     }
 
-    public int getTvStatusNumber() {
-        return tvStatusNumber;
-    }
-
-    public void setTvStatusNumber(int tvStatusNumber) {
-        this.tvStatusNumber = tvStatusNumber;
-    }
-
     public String getTvRooId() {
         return tvRooId;
     }
 
     public void setTvRooId(String tvRooId) {
         this.tvRooId = tvRooId;
+    }
+
+    public String getTvStatusNumber() {
+        return tvStatusNumber;
+    }
+
+    public void setTvStatusNumber(String tvStatusNumber) {
+        this.tvStatusNumber = tvStatusNumber;
     }
 }

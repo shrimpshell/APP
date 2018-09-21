@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,14 +23,16 @@ import com.example.hsinhwang.shrimpshell.Classes.EmployeeCall;
 import com.example.hsinhwang.shrimpshell.Classes.EmployeeClean;
 import com.example.hsinhwang.shrimpshell.R;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeCleanService extends AppCompatActivity {
+    private static final String TAG = "EmployeeClean";
     private LocalBroadcastManager broadcastManager;
-    private RecyclerView rvEmployeeClean;
-    private List<EmployeeClean> employeeCleanList;
+    RecyclerView rvEmployeeClean;
+    List<EmployeeClean> employeeCleanList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,37 +42,52 @@ public class EmployeeCleanService extends AppCompatActivity {
         registerInstantReceiver();
         rvEmployeeClean = findViewById(R.id.rvEmployeeClean);
         rvEmployeeClean.setLayoutManager(new LinearLayoutManager(this));
-        employeeCleanList = getEmployeeClean();
+        employeeCleanList = new ArrayList<>();
         rvEmployeeClean.setAdapter(new EmployeeCleanAdapter(this, employeeCleanList));
+
+        Common.connectServer(this, "E001", "3");
 
     }
 
     private void registerInstantReceiver() {
-        IntentFilter unFinishFilter = new IntentFilter("未處理");
-        IntentFilter playingFilter = new IntentFilter("處理中");
-        IntentFilter finishFilter = new IntentFilter("已完成");
-        InstantReceiver instantReceiver = new InstantReceiver();
-        broadcastManager.registerReceiver(instantReceiver, unFinishFilter);
-        broadcastManager.registerReceiver(instantReceiver, playingFilter);
-        broadcastManager.registerReceiver(instantReceiver, finishFilter);
+        IntentFilter cleanFilter = new IntentFilter("1");
+        ChatReceiver chatReceiver = new ChatReceiver();
+        broadcastManager.registerReceiver(chatReceiver, cleanFilter);
 
     }
 
-    public List<EmployeeClean> getEmployeeClean() {
-        List<EmployeeClean> employeeCleanList = new ArrayList<>();
 
-
-
-        return employeeCleanList;
-    }
-
-    private class InstantReceiver extends BroadcastReceiver {
+    private class ChatReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
+            String message = intent.getStringExtra("message");
+            ChatMessage chatMessage = new Gson().fromJson(message, ChatMessage.class);
+            String sender = chatMessage.getSenderId();
+            int status = chatMessage.getStatus();
+            Log.d(TAG, "Clean get: " + message);
+            switch (status) {
+                case 1:
+                    employeeCleanList.add(new EmployeeClean(R.drawable.icon_unfinish,
+                            "1", sender));
+                    rvEmployeeClean.getAdapter().notifyItemInserted(employeeCleanList.size());
 
+                    break;
+                case 2:
+                    employeeCleanList.add(new EmployeeClean(R.drawable.icon_playing,
+                            "2", sender));
+                    rvEmployeeClean.getAdapter().notifyItemInserted(employeeCleanList.size());
 
+                    break;
+                case 3:
+                    employeeCleanList.add(new EmployeeClean(R.drawable.icon_finish,
+                            "3", sender));
+                    rvEmployeeClean.getAdapter().notifyItemInserted(employeeCleanList.size());
+                    break;
+                default:
+                    break;
 
-
+            }
+            rvEmployeeClean.getAdapter().notifyDataSetChanged();
 
         }
 
@@ -89,13 +107,14 @@ public class EmployeeCleanService extends AppCompatActivity {
 
         class MyViewHolder extends RecyclerView.ViewHolder {
             ImageView imageView;
-            TextView tvRoomId;
+            TextView tvRoomId, tvStatusNumber;
 
             public MyViewHolder(@NonNull View itemView) {
                 super(itemView);
 
                 imageView = itemView.findViewById(R.id.ivEmployeeClean);
                 tvRoomId = itemView.findViewById(R.id.tvEmployeeCleanRoomId);
+                tvStatusNumber = itemView.findViewById(R.id.tvEmployeeCleanStatus);
 
             }
         }
@@ -115,20 +134,51 @@ public class EmployeeCleanService extends AppCompatActivity {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int position) {
+        public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, int position) {
             final EmployeeClean employeeClean = employeeCleanList.get(position);
 
             myViewHolder.imageView.setImageResource(employeeClean.getImageStatus());
             myViewHolder.tvRoomId.setText(employeeClean.getTvRooId());
+            myViewHolder.tvStatusNumber.setText(employeeClean.getTvStatusNumber());
+
+            myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ChatMessage chatMessage;
+                    String chatMessageJson;
+                    switch (Integer.parseInt(myViewHolder.tvStatusNumber.getText().toString())) {
+
+                        case 1:
+                            chatMessage = new ChatMessage
+                                    ("E001",
+                                            myViewHolder.tvRoomId.getText().toString(),
+                                            "1", "0", "0",
+                                            1, 2, 0);
+                            chatMessageJson = new Gson().toJson(chatMessage);
+                            Common.chatwebSocketClient.send(chatMessageJson);
+                            Log.d(TAG, "output: " + chatMessageJson);
+                            break;
+
+                        case 2:
+                            chatMessage = new ChatMessage
+                                    ("E001",
+                                            myViewHolder.tvRoomId.getText().toString(),
+                                            "1", "0", "0",
+                                            1, 3, 0);
+                            chatMessageJson = new Gson().toJson(chatMessage);
+                            Common.chatwebSocketClient.send(chatMessageJson);
+                            Log.d(TAG, "output: " + chatMessageJson);
+                            break;
+
+                    }
+                }
+            });
 
 
         }
 
 
-
-
     }
-
 
 
 }

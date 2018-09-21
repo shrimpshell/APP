@@ -1,10 +1,10 @@
 package com.example.hsinhwang.shrimpshell.Classes;
 
 public class EmployeeRoom {
-    private int imageStatus,tvStatusNumber;
-    private String tvRoomId,tvItem,tvQuantity;
+    private int imageStatus;
+    private String tvRoomId,tvItem,tvQuantity,tvStatusNumber;
 
-    public EmployeeRoom(int imageStatus, int tvStatusNumber, String tvRoomId, String tvItem, String tvQuantity) {
+    public EmployeeRoom(int imageStatus, String tvStatusNumber, String tvRoomId, String tvItem, String tvQuantity) {
         this.imageStatus = imageStatus;
         this.tvStatusNumber = tvStatusNumber;
         this.tvRoomId = tvRoomId;
@@ -18,14 +18,6 @@ public class EmployeeRoom {
 
     public void setImageStatus(int imageStatus) {
         this.imageStatus = imageStatus;
-    }
-
-    public int getTvStatusNumber() {
-        return tvStatusNumber;
-    }
-
-    public void setTvStatusNumber(int tvStatusNumber) {
-        this.tvStatusNumber = tvStatusNumber;
     }
 
     public String getTvRoomId() {
@@ -50,5 +42,13 @@ public class EmployeeRoom {
 
     public void setTvQuantity(String tvQuantity) {
         this.tvQuantity = tvQuantity;
+    }
+
+    public String getTvStatusNumber() {
+        return tvStatusNumber;
+    }
+
+    public void setTvStatusNumber(String tvStatusNumber) {
+        this.tvStatusNumber = tvStatusNumber;
     }
 }

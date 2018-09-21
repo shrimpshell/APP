@@ -211,7 +211,7 @@ public class StatusServiceFragment extends Fragment {
             myViewHolder.tvService.setText(statusService.getTvservice());
 
 
-            
+
         }
 
     }
