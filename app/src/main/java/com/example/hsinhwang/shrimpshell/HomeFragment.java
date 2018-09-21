@@ -87,9 +87,11 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         SharedPreferences pref = getActivity().getSharedPreferences(Common.LOGIN,
                 MODE_PRIVATE);
         List<MainOptions> optionList = new ArrayList<>();
-        SharedPreferences preferences = getActivity().getSharedPreferences(Common.LOGIN, MODE_PRIVATE);
-        boolean login = preferences.getBoolean("login", false);
-        if (!login) {
+        SharedPreferences customer_pref = getActivity().getSharedPreferences(Common.LOGIN, MODE_PRIVATE);
+        SharedPreferences employee_pref = getActivity().getSharedPreferences(Common.EMPLOYEE_LOGIN, MODE_PRIVATE);
+        boolean customer_login = customer_pref.getBoolean("login", false);
+        boolean employee_login = employee_pref.getBoolean("login", false);
+        if (!customer_login && !employee_login) {
             optionList.add(new MainOptions(R.string.login_title, (String)getText(R.string.login), R.drawable.login));
         }
         optionList.add(new MainOptions(R.string.intro_title, (String)getText(R.string.about), R.drawable.introduction));

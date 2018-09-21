@@ -35,6 +35,37 @@ public class MainActivity extends AppCompatActivity {
     int request_code = 0;
 
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        initialization();
+        initContent();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        SharedPreferences page = getSharedPreferences(Common.PAGE, MODE_PRIVATE);
+        int pageId = page.getInt("page", 0);
+
+        switch (pageId) {
+            case 2:
+                Fragment profileFragment = new ProfileFragment();
+                changeFragment(profileFragment);
+                setTitle(R.string.profile);
+                navigation.setSelectedItemId(R.id.item_profile);
+                break;
+            default:
+                if (request_code == 0) {
+                    Fragment homeFragment = new HomeFragment();
+                    changeFragment(homeFragment);
+                    setTitle(R.string.profile);
+                    navigation.setSelectedItemId(R.id.item_home);
+                }
+        }
+    }
+
+    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         int count = getSupportFragmentManager().getBackStackEntryCount();
         if (keyCode == KeyEvent.KEYCODE_BACK && count == 0) {
@@ -88,39 +119,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
     };
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        initContent();
-        initialization();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        SharedPreferences page = getSharedPreferences(Common.PAGE, MODE_PRIVATE);
-        int pageId = page.getInt("page", 0);
-
-        switch (pageId) {
-            case 2:
-                if (request_code == 2) {
-                    Fragment profileFragment = new ProfileFragment();
-                    changeFragment(profileFragment);
-                    setTitle(R.string.profile);
-                    navigation.setSelectedItemId(R.id.item_profile);
-                    break;
-                }
-            default:
-                if (request_code == 0) {
-                    Fragment homeFragment = new HomeFragment();
-                    changeFragment(homeFragment);
-                    setTitle(R.string.profile);
-                    navigation.setSelectedItemId(R.id.item_home);
-                }
-        }
-    }
 
     private void initialization() {
         navigation = findViewById(R.id.navigation);
