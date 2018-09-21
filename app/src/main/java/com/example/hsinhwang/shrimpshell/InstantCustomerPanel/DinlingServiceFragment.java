@@ -4,6 +4,7 @@ package com.example.hsinhwang.shrimpshell.InstantCustomerPanel;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -24,6 +25,7 @@ import com.example.hsinhwang.shrimpshell.Classes.ChatMessage;
 import com.example.hsinhwang.shrimpshell.Classes.Common;
 import com.example.hsinhwang.shrimpshell.Classes.CommonTask;
 import com.example.hsinhwang.shrimpshell.Classes.DinlingServiceMsg;
+import com.example.hsinhwang.shrimpshell.InstantActivity;
 import com.example.hsinhwang.shrimpshell.R;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -31,11 +33,14 @@ import com.google.gson.JsonObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
 import static android.support.constraint.Constraints.TAG;
 
 
 public class DinlingServiceFragment extends Fragment {
     private RecyclerView rvDinlingService;
+    SharedPreferences preferences;
+    private String customerName ;
 
 
     @Override
@@ -44,7 +49,8 @@ public class DinlingServiceFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_dinling_service_fab,
                 container, false);
 
-
+        preferences = getActivity().getSharedPreferences(Common.LOGIN, MODE_PRIVATE);
+        customerName = preferences.getString("email", "");
 
         handleViews(view);
 
@@ -219,8 +225,8 @@ public class DinlingServiceFragment extends Fragment {
             myViewHolder.btDinling.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-
+                    ChatMessage chatMessage;
+                    String chatMessageJson;
 
                     String UserEnter = myViewHolder.etDinling.getText().toString();
 
@@ -239,11 +245,11 @@ public class DinlingServiceFragment extends Fragment {
                                 Toast.makeText(context, "你點的 A餐 數量為" + UserEnter + "份",
                                         Toast.LENGTH_SHORT).show();
 
-                                ChatMessage chatMessage =
-                                        new ChatMessage("603", "0", "0",
+                                chatMessage =
+                                        new ChatMessage(customerName, "0", "0",
                                                 "3", "A餐",3,
                                                 1,Integer.parseInt(UserEnter));
-                                String chatMessageJson = new Gson().toJson(chatMessage);
+                                chatMessageJson = new Gson().toJson(chatMessage);
                                 Common.chatwebSocketClient.send(chatMessageJson);
                                 Log.d(TAG, "output: " + chatMessageJson);
 
@@ -268,11 +274,11 @@ public class DinlingServiceFragment extends Fragment {
                                 Toast.makeText(context, "你點的 B餐 數量為" + UserEnter + "份",
                                         Toast.LENGTH_SHORT).show();
 
-                                ChatMessage chatMessage =
-                                        new ChatMessage("603", "0", "0",
+                                chatMessage =
+                                        new ChatMessage(customerName, "0", "0",
                                                 "3", "B餐",3,
                                                 1,Integer.parseInt(UserEnter));
-                                String chatMessageJson = new Gson().toJson(chatMessage);
+                                chatMessageJson = new Gson().toJson(chatMessage);
                                 Common.chatwebSocketClient.send(chatMessageJson);
                                 Log.d(TAG, "output: " + chatMessageJson);
 
@@ -293,18 +299,16 @@ public class DinlingServiceFragment extends Fragment {
                                 Toast.makeText(context, "你點的 C餐 數量為" + UserEnter + "份",
                                         Toast.LENGTH_SHORT).show();
 
-                                ChatMessage chatMessage =
-                                        new ChatMessage("603", "0", "0",
+                                chatMessage =
+                                        new ChatMessage(customerName, "0", "0",
                                                 "3", "C餐",3,
                                                 1,Integer.parseInt(UserEnter));
-                                String chatMessageJson = new Gson().toJson(chatMessage);
+                                chatMessageJson = new Gson().toJson(chatMessage);
                                 Common.chatwebSocketClient.send(chatMessageJson);
                                 Log.d(TAG, "output: " + chatMessageJson);
 
-
-
-
                             }
+
                             break;
 
                         default:
@@ -322,9 +326,7 @@ public class DinlingServiceFragment extends Fragment {
 
 
 
-    private void insertAction() {
 
-    }
 
 
     public List<DinlingServiceMsg> getDinlingServicesMsgs() {
@@ -337,12 +339,7 @@ public class DinlingServiceFragment extends Fragment {
         return dinlingServiceMsgs;
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        Common.disconnectServer();
 
-    }
 
 
 }

@@ -158,9 +158,12 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                         case R.string.intro_title:
                             onClickIntro();
                             break;
+
                     }
 
                 }
+
+
             });
         }
 

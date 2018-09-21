@@ -1,5 +1,6 @@
 package com.example.hsinhwang.shrimpshell;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -16,6 +17,8 @@ import com.example.hsinhwang.shrimpshell.InstantCustomerPanel.StatusServiceFragm
 
 
 public class InstantActivity extends AppCompatActivity {
+    SharedPreferences preferences;
+    private String customerName;
     private BottomNavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -49,8 +52,10 @@ public class InstantActivity extends AppCompatActivity {
         BottomNavigationView navigation = findViewById(R.id.navigationInstant);
         navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
 
+        preferences = getSharedPreferences(Common.LOGIN, MODE_PRIVATE);
+        customerName = preferences.getString("email", "");
 
-        Common.connectServer(this,Common.LOGIN,"0");
+        Common.connectServer(this,customerName,"0");
 
         initContent();
 

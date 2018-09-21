@@ -24,8 +24,13 @@ import android.widget.TextView;
 
 import com.example.hsinhwang.shrimpshell.Classes.Common;
 import com.example.hsinhwang.shrimpshell.Classes.CommonTask;
+import com.example.hsinhwang.shrimpshell.Classes.EmployeeRoom;
 import com.example.hsinhwang.shrimpshell.Classes.Employees;
 import com.example.hsinhwang.shrimpshell.Classes.ImageEmployeeTask;
+import com.example.hsinhwang.shrimpshell.InstantEmployeePanel.EmployeeCallService;
+import com.example.hsinhwang.shrimpshell.InstantEmployeePanel.EmployeeCleanService;
+import com.example.hsinhwang.shrimpshell.InstantEmployeePanel.EmployeeDinlingService;
+import com.example.hsinhwang.shrimpshell.InstantEmployeePanel.EmployeeRoomService;
 import com.example.hsinhwang.shrimpshell.ManagerPanel.ManagerHomeActivity;
 import com.example.hsinhwang.shrimpshell.R;
 import com.google.gson.Gson;
@@ -224,7 +229,7 @@ public class EmployeeHomeActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         employHomeBottom.removeAllViews();
-                        Intent intent = new Intent(EmployeeHomeActivity.this, ManagerHomeActivity.class);
+                        Intent intent = new Intent(EmployeeHomeActivity.this, EmployeeCleanService.class);
                         // Intent intent = new Intent(EmployeeHomeActivity.this, ManagerHomeActivity.class);
                         startActivity(intent);
                     }
@@ -240,7 +245,7 @@ public class EmployeeHomeActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         employHomeBottom.removeAllViews();
-                        Intent intent = new Intent(EmployeeHomeActivity.this, ManagerHomeActivity.class);
+                        Intent intent = new Intent(EmployeeHomeActivity.this, EmployeeDinlingService.class);
                         // Intent intent = new Intent(EmployeeHomeActivity.this, ManagerHomeActivity.class);
                         startActivity(intent);
                     }
@@ -249,14 +254,14 @@ public class EmployeeHomeActivity extends AppCompatActivity {
                 break;
             case 3: // 餐飲
                 Button dineBtn = new Button(this);
-                dineBtn.setText("房務進度");
+                dineBtn.setText("餐飲進度");
                 dineBtn.setBackgroundColor(Color.parseColor("#F7DF96"));
                 dineBtn.setLayoutParams(param);
                 dineBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         employHomeBottom.removeAllViews();
-                        Intent intent = new Intent(EmployeeHomeActivity.this, ManagerHomeActivity.class);
+                        Intent intent = new Intent(EmployeeHomeActivity.this, EmployeeRoomService.class);
                         // Intent intent = new Intent(EmployeeHomeActivity.this, ManagerHomeActivity.class);
                         startActivity(intent);
                     }

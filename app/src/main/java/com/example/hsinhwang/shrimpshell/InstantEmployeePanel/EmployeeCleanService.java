@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
@@ -33,6 +34,8 @@ public class EmployeeCleanService extends AppCompatActivity {
     private LocalBroadcastManager broadcastManager;
     RecyclerView rvEmployeeClean;
     List<EmployeeClean> employeeCleanList;
+    SharedPreferences preferences;
+    private String employeeName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +48,10 @@ public class EmployeeCleanService extends AppCompatActivity {
         employeeCleanList = new ArrayList<>();
         rvEmployeeClean.setAdapter(new EmployeeCleanAdapter(this, employeeCleanList));
 
-        Common.connectServer(this, Common.EMPLOYEE_LOGIN, "1");
+        preferences = getSharedPreferences(Common.EMPLOYEE_LOGIN, MODE_PRIVATE);
+        employeeName = preferences.getString("email", "");
+
+        Common.connectServer(this, employeeName, "1");
 
     }
 
@@ -150,7 +156,7 @@ public class EmployeeCleanService extends AppCompatActivity {
 
                         case 1:
                             chatMessage = new ChatMessage
-                                    (Common.EMPLOYEE_LOGIN,
+                                    (employeeName,
                                             myViewHolder.tvRoomId.getText().toString(),
                                             "1", "0", "0",
                                             1, 2, 0);
@@ -161,7 +167,7 @@ public class EmployeeCleanService extends AppCompatActivity {
 
                         case 2:
                             chatMessage = new ChatMessage
-                                    (Common.EMPLOYEE_LOGIN,
+                                    (employeeName,
                                             myViewHolder.tvRoomId.getText().toString(),
                                             "1", "0", "0",
                                             1, 3, 0);
@@ -180,5 +186,9 @@ public class EmployeeCleanService extends AppCompatActivity {
 
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Common.disconnectServer();
+    }
 }

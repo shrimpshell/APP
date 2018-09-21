@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.strictmode.IntentReceiverLeakedViolation;
 import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
@@ -33,6 +34,8 @@ public class EmployeeRoomService extends AppCompatActivity {
     private LocalBroadcastManager broadcastManager;
     RecyclerView rvEmployeeRoomService;
     List<EmployeeRoom> employeeRoomList;
+    SharedPreferences preferences;
+    private String employeeName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +48,10 @@ public class EmployeeRoomService extends AppCompatActivity {
         employeeRoomList = new ArrayList<>();
         rvEmployeeRoomService.setAdapter(new EmployeeRoomAdapter(this, employeeRoomList));
 
-        Common.connectServer(this, Common.EMPLOYEE_LOGIN, "2");
+        preferences = getSharedPreferences(Common.EMPLOYEE_LOGIN, MODE_PRIVATE);
+        employeeName = preferences.getString("email", "");
+
+        Common.connectServer(this, employeeName, "2");
 
     }
 
@@ -156,7 +162,7 @@ public class EmployeeRoomService extends AppCompatActivity {
                     switch (Integer.parseInt(myViewHolder.tvStatusNumber.getText().toString())) {
 
                         case 1:
-                            chatMessage = new ChatMessage(Common.EMPLOYEE_LOGIN,
+                            chatMessage = new ChatMessage(employeeName,
                                     myViewHolder.tvRoomId.getText().toString()
                                     , "2", "0",
                                     myViewHolder.tvItem.getText().toString()
@@ -168,7 +174,7 @@ public class EmployeeRoomService extends AppCompatActivity {
 
                             break;
                         case 2:
-                            chatMessage = new ChatMessage(Common.EMPLOYEE_LOGIN,
+                            chatMessage = new ChatMessage(employeeName,
                                     myViewHolder.tvRoomId.getText().toString()
                                     , "2", "0",
                                     myViewHolder.tvItem.getText().toString()
@@ -187,6 +193,12 @@ public class EmployeeRoomService extends AppCompatActivity {
         }
 
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Common.disconnectServer();
     }
 
 

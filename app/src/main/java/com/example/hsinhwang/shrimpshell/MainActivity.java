@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
 
                     switch (pageId) {
                         case 3:
-                            Intent intent3 = new Intent(MainActivity.this, EmployeeDinlingService.class);
+                            Intent intent3 = new Intent(MainActivity.this, EmployeeHomeActivity.class);
                             startActivityForResult(intent3, 3);
                             break;
                         case 2:

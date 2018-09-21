@@ -1,6 +1,7 @@
 package com.example.hsinhwang.shrimpshell.InstantCustomerPanel;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -29,10 +30,13 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
 import static android.support.constraint.Constraints.TAG;
 
 public class RoomServiceCleanFragment extends Fragment {
     RecyclerView rvRoomService;
+    SharedPreferences preferences;
+    String customerName;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,11 +44,11 @@ public class RoomServiceCleanFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_room_service_fab,
                 container, false);
 
-
+        preferences = getActivity().getSharedPreferences(Common.LOGIN, MODE_PRIVATE);
+        customerName = preferences.getString("email", "");
 
         handlerView(view);
         return view;
-
 
 
     }
@@ -88,7 +92,6 @@ public class RoomServiceCleanFragment extends Fragment {
                 cbRoomService1 = itemView.findViewById(R.id.cbRoomService1);
                 cbRoomService2 = itemView.findViewById(R.id.cbRoomService2);
                 btRoomService = itemView.findViewById(R.id.btRoomService);
-
 
 
             }
@@ -136,7 +139,6 @@ public class RoomServiceCleanFragment extends Fragment {
                                     ("聯絡櫃檯", R.drawable.icon_call_service_instant, 4));
 
 
-
                             notifyItemInserted(roomServiceMsgs.size());
 
                             break;
@@ -144,24 +146,19 @@ public class RoomServiceCleanFragment extends Fragment {
                         case 1:
 
 
-
-                            if (
-                                    myViewHolder.tvRoomService2.getVisibility() != View.VISIBLE ||
-                                            myViewHolder.btRoomService.getVisibility() != View.VISIBLE ||
-                                            myViewHolder.tpRoomService.getVisibility() != View.VISIBLE) {
+                            if (myViewHolder.tvRoomService2.getVisibility() != View.VISIBLE ||
+                                    myViewHolder.btRoomService.getVisibility() != View.VISIBLE) {
 
                                 myViewHolder.tvRoomService2.setVisibility(View.VISIBLE);
                                 myViewHolder.btRoomService.setVisibility(View.VISIBLE);
-                                myViewHolder.tpRoomService.setVisibility(View.VISIBLE);
 
-                            } else if (
-                                    myViewHolder.tvRoomService2.getVisibility() != View.GONE ||
-                                            myViewHolder.btRoomService.getVisibility() != View.GONE ||
-                                            myViewHolder.tpRoomService.getVisibility() != View.GONE) {
+
+                            } else if (myViewHolder.tvRoomService2.getVisibility() != View.GONE ||
+                                    myViewHolder.btRoomService.getVisibility() != View.GONE) {
 
                                 myViewHolder.tvRoomService2.setVisibility(View.GONE);
                                 myViewHolder.btRoomService.setVisibility(View.GONE);
-                                myViewHolder.tpRoomService.setVisibility(View.GONE);
+
 
                             }
 
@@ -170,24 +167,18 @@ public class RoomServiceCleanFragment extends Fragment {
                         case 2:
 
 
-
-                            if (
-                                    myViewHolder.tvRoomService2.getVisibility() != View.VISIBLE ||
-                                            myViewHolder.btRoomService.getVisibility() != View.VISIBLE ||
-                                            myViewHolder.tpRoomService.getVisibility() != View.VISIBLE) {
+                            if (myViewHolder.tvRoomService2.getVisibility() != View.VISIBLE ||
+                                    myViewHolder.btRoomService.getVisibility() != View.VISIBLE) {
 
                                 myViewHolder.tvRoomService2.setVisibility(View.VISIBLE);
                                 myViewHolder.btRoomService.setVisibility(View.VISIBLE);
-                                myViewHolder.tpRoomService.setVisibility(View.VISIBLE);
 
-                            } else if (
-                                    myViewHolder.tvRoomService2.getVisibility() != View.GONE ||
-                                            myViewHolder.btRoomService.getVisibility() != View.GONE ||
-                                            myViewHolder.tpRoomService.getVisibility() != View.GONE) {
+
+                            } else if (myViewHolder.tvRoomService2.getVisibility() != View.GONE ||
+                                    myViewHolder.btRoomService.getVisibility() != View.GONE) {
 
                                 myViewHolder.tvRoomService2.setVisibility(View.GONE);
                                 myViewHolder.btRoomService.setVisibility(View.GONE);
-                                myViewHolder.tpRoomService.setVisibility(View.GONE);
 
                             }
 
@@ -198,14 +189,12 @@ public class RoomServiceCleanFragment extends Fragment {
                         case 3:
 
 
-
-                            if (
-                                    myViewHolder.tvRoomService2.getVisibility() != View.VISIBLE ||
-                                            myViewHolder.etRoomService1.getVisibility() != View.VISIBLE ||
-                                            myViewHolder.etRoomService2.getVisibility() != View.VISIBLE ||
-                                            myViewHolder.cbRoomService1.getVisibility() != View.VISIBLE ||
-                                            myViewHolder.cbRoomService2.getVisibility() != View.VISIBLE ||
-                                            myViewHolder.btRoomService.getVisibility() != View.VISIBLE) {
+                            if (myViewHolder.tvRoomService2.getVisibility() != View.VISIBLE ||
+                                    myViewHolder.etRoomService1.getVisibility() != View.VISIBLE ||
+                                    myViewHolder.etRoomService2.getVisibility() != View.VISIBLE ||
+                                    myViewHolder.cbRoomService1.getVisibility() != View.VISIBLE ||
+                                    myViewHolder.cbRoomService2.getVisibility() != View.VISIBLE ||
+                                    myViewHolder.btRoomService.getVisibility() != View.VISIBLE) {
 
                                 myViewHolder.tvRoomService2.setVisibility(View.VISIBLE);
                                 myViewHolder.etRoomService1.setVisibility(View.VISIBLE);
@@ -215,13 +204,12 @@ public class RoomServiceCleanFragment extends Fragment {
                                 myViewHolder.btRoomService.setVisibility(View.VISIBLE);
 
 
-                            } else if (
-                                    myViewHolder.tvRoomService2.getVisibility() != View.GONE ||
-                                            myViewHolder.etRoomService1.getVisibility() != View.GONE ||
-                                            myViewHolder.etRoomService2.getVisibility() != View.GONE ||
-                                            myViewHolder.cbRoomService1.getVisibility() != View.GONE ||
-                                            myViewHolder.cbRoomService2.getVisibility() != View.GONE ||
-                                            myViewHolder.btRoomService.getVisibility() != View.GONE) {
+                            } else if (myViewHolder.tvRoomService2.getVisibility() != View.GONE ||
+                                    myViewHolder.etRoomService1.getVisibility() != View.GONE ||
+                                    myViewHolder.etRoomService2.getVisibility() != View.GONE ||
+                                    myViewHolder.cbRoomService1.getVisibility() != View.GONE ||
+                                    myViewHolder.cbRoomService2.getVisibility() != View.GONE ||
+                                    myViewHolder.btRoomService.getVisibility() != View.GONE) {
 
                                 myViewHolder.tvRoomService2.setVisibility(View.GONE);
                                 myViewHolder.etRoomService1.setVisibility(View.GONE);
@@ -237,9 +225,6 @@ public class RoomServiceCleanFragment extends Fragment {
                             break;
                         case 4:
 
-                            Common.connectServer(context,"User","User");
-
-
 
                             if (
                                     myViewHolder.btRoomService.getVisibility() != View.VISIBLE) {
@@ -249,7 +234,7 @@ public class RoomServiceCleanFragment extends Fragment {
 
                             } else if (
 
-                                    myViewHolder.btRoomService.getVisibility() != View.GONE ) {
+                                    myViewHolder.btRoomService.getVisibility() != View.GONE) {
 
                                 myViewHolder.btRoomService.setVisibility(View.GONE);
 
@@ -277,6 +262,8 @@ public class RoomServiceCleanFragment extends Fragment {
                 public void onClick(View v) {
                     String UserEnteritem1;
                     String UserEnteritem2;
+                    ChatMessage chatMessage;
+                    String chatMessageJson;
                     UserEnteritem1 = myViewHolder.etRoomService1.getText().toString();
                     UserEnteritem2 = myViewHolder.etRoomService2.getText().toString();
 
@@ -286,24 +273,30 @@ public class RoomServiceCleanFragment extends Fragment {
                         case 1:
 
 
-                            Toast.makeText(context,"我們將為您打掃房間",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "我們將為您打掃房間", Toast.LENGTH_SHORT).show();
 
-
-
-
-
-
+                            chatMessage =
+                                    new ChatMessage(customerName, "0", "0",
+                                            "1", "清潔服務", 1,
+                                            1, 0);
+                            chatMessageJson = new Gson().toJson(chatMessage);
+                            Common.chatwebSocketClient.send(chatMessageJson);
+                            Log.d(TAG, "output: " + chatMessageJson);
 
 
                             break;
 
                         case 2:
 
+                            Toast.makeText(context, "我們將為您清洗換洗衣物", Toast.LENGTH_SHORT).show();
 
-
-                            Toast.makeText(context,"我們將為您清洗換洗衣物",Toast.LENGTH_SHORT).show();
-
-
+                            chatMessage =
+                                    new ChatMessage(customerName, "0", "0",
+                                            "2", "洗衣服務", 2,
+                                            1, 0);
+                            chatMessageJson = new Gson().toJson(chatMessage);
+                            Common.chatwebSocketClient.send(chatMessageJson);
+                            Log.d(TAG, "output: " + chatMessageJson);
 
 
                             break;
@@ -326,9 +319,13 @@ public class RoomServiceCleanFragment extends Fragment {
                                             + " 個及盥洗用具" + UserEnteritem2 + " 組", Toast.LENGTH_SHORT).show();
 
 
-
-
-
+                                    chatMessage =
+                                            new ChatMessage(customerName, "0", "0",
+                                                    "2", "備品服務", 2,
+                                                    1, Integer.parseInt(UserEnteritem1 + UserEnteritem2));
+                                    chatMessageJson = new Gson().toJson(chatMessage);
+                                    Common.chatwebSocketClient.send(chatMessageJson);
+                                    Log.d(TAG, "output: " + chatMessageJson);
 
 
                                 }
@@ -344,12 +341,13 @@ public class RoomServiceCleanFragment extends Fragment {
                                     Toast.makeText(context, "已收到您需要枕頭 " + UserEnteritem1
                                             + "個", Toast.LENGTH_SHORT).show();
 
-
-
-
-
-
-
+                                    chatMessage =
+                                            new ChatMessage(customerName, "0", "0",
+                                                    "2", "枕頭備品", 2,
+                                                    1, Integer.parseInt(UserEnteritem1));
+                                    chatMessageJson = new Gson().toJson(chatMessage);
+                                    Common.chatwebSocketClient.send(chatMessageJson);
+                                    Log.d(TAG, "output: " + chatMessageJson);
 
 
                                 }
@@ -366,9 +364,13 @@ public class RoomServiceCleanFragment extends Fragment {
                                     Toast.makeText(context, "已收到您需要盥洗用具 " + UserEnteritem2
                                             + " 組", Toast.LENGTH_SHORT).show();
 
-
-
-
+                                    chatMessage =
+                                            new ChatMessage(customerName, "0", "0",
+                                                    "2", "盥洗用具", 2,
+                                                    1, Integer.parseInt(UserEnteritem2));
+                                    chatMessageJson = new Gson().toJson(chatMessage);
+                                    Common.chatwebSocketClient.send(chatMessageJson);
+                                    Log.d(TAG, "output: " + chatMessageJson);
 
 
                                 }
@@ -380,9 +382,6 @@ public class RoomServiceCleanFragment extends Fragment {
                         case 4:
 
                             Toast.makeText(context, "已聯絡櫃檯為您服務，請稍候！", Toast.LENGTH_SHORT).show();
-
-
-
 
 
                             break;

@@ -1,6 +1,7 @@
 package com.example.hsinhwang.shrimpshell.InstantCustomerPanel;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -29,16 +30,22 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
 import static android.support.constraint.Constraints.TAG;
 
 public class TrafficServiceFragment extends Fragment {
     RecyclerView rvTrafficService;
+    SharedPreferences preferences;
+    private String customerName;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_traffic_service_fab,
                 container, false);
+
+        preferences = getActivity().getSharedPreferences(Common.LOGIN, MODE_PRIVATE);
+        customerName = preferences.getString("email", "");
 
 
 
@@ -135,22 +142,18 @@ public class TrafficServiceFragment extends Fragment {
                         case 1:
                             if (myViewHolder.etTraffic.getVisibility() != View.VISIBLE ||
                                     myViewHolder.btTraffic.getVisibility() != View.VISIBLE ||
-                                    myViewHolder.tpTraffic.getVisibility() != View.VISIBLE ||
                                     myViewHolder.tvTraffic2.getVisibility() != View.VISIBLE) {
 
                                 myViewHolder.etTraffic.setVisibility(View.VISIBLE);
                                 myViewHolder.btTraffic.setVisibility(View.VISIBLE);
-                                myViewHolder.tpTraffic.setVisibility(View.VISIBLE);
                                 myViewHolder.tvTraffic2.setVisibility(View.VISIBLE);
 
                             } else if (myViewHolder.etTraffic.getVisibility() != View.GONE ||
                                     myViewHolder.btTraffic.getVisibility() != View.GONE ||
-                                    myViewHolder.tpTraffic.getVisibility() != View.GONE ||
                                     myViewHolder.tvTraffic2.getVisibility() != View.GONE) {
 
                                 myViewHolder.etTraffic.setVisibility(View.GONE);
                                 myViewHolder.btTraffic.setVisibility(View.GONE);
-                                myViewHolder.tpTraffic.setVisibility(View.GONE);
                                 myViewHolder.tvTraffic2.setVisibility(View.GONE);
 
                             }
@@ -159,22 +162,18 @@ public class TrafficServiceFragment extends Fragment {
                         case 2:
                             if (myViewHolder.etTraffic.getVisibility() != View.VISIBLE ||
                                     myViewHolder.btTraffic.getVisibility() != View.VISIBLE ||
-                                    myViewHolder.tpTraffic.getVisibility() != View.VISIBLE ||
                                     myViewHolder.tvTraffic2.getVisibility() != View.VISIBLE) {
 
                                 myViewHolder.etTraffic.setVisibility(View.VISIBLE);
                                 myViewHolder.btTraffic.setVisibility(View.VISIBLE);
-                                myViewHolder.tpTraffic.setVisibility(View.VISIBLE);
                                 myViewHolder.tvTraffic2.setVisibility(View.VISIBLE);
 
                             } else if (myViewHolder.etTraffic.getVisibility() != View.GONE ||
                                     myViewHolder.btTraffic.getVisibility() != View.GONE ||
-                                    myViewHolder.tpTraffic.getVisibility() != View.GONE ||
                                     myViewHolder.tvTraffic2.getVisibility() != View.GONE) {
 
                                 myViewHolder.etTraffic.setVisibility(View.GONE);
                                 myViewHolder.btTraffic.setVisibility(View.GONE);
-                                myViewHolder.tpTraffic.setVisibility(View.GONE);
                                 myViewHolder.tvTraffic2.setVisibility(View.GONE);
 
                             }
@@ -184,22 +183,18 @@ public class TrafficServiceFragment extends Fragment {
                         case 3:
                             if (myViewHolder.etTraffic.getVisibility() != View.VISIBLE ||
                                     myViewHolder.btTraffic.getVisibility() != View.VISIBLE ||
-                                    myViewHolder.tpTraffic.getVisibility() != View.VISIBLE ||
                                     myViewHolder.tvTraffic2.getVisibility() != View.VISIBLE) {
 
                                 myViewHolder.etTraffic.setVisibility(View.VISIBLE);
                                 myViewHolder.btTraffic.setVisibility(View.VISIBLE);
-                                myViewHolder.tpTraffic.setVisibility(View.VISIBLE);
                                 myViewHolder.tvTraffic2.setVisibility(View.VISIBLE);
 
                             } else if (myViewHolder.etTraffic.getVisibility() != View.GONE ||
                                     myViewHolder.btTraffic.getVisibility() != View.GONE ||
-                                    myViewHolder.tpTraffic.getVisibility() != View.GONE ||
                                     myViewHolder.tvTraffic2.getVisibility() != View.GONE) {
 
                                 myViewHolder.etTraffic.setVisibility(View.GONE);
                                 myViewHolder.btTraffic.setVisibility(View.GONE);
-                                myViewHolder.tpTraffic.setVisibility(View.GONE);
                                 myViewHolder.tvTraffic2.setVisibility(View.GONE);
 
                             }
@@ -222,10 +217,11 @@ public class TrafficServiceFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     String UserEnterPerson = myViewHolder.etTraffic.getText().toString();
-
+                    ChatMessage chatMessage;
+                    String chatMessageJson;
                     switch (trafficServiceMsg.getNumber()) {
-                        case 1:
 
+                        case 1:
 
                             if (UserEnterPerson.equals("")) {
 
@@ -235,6 +231,14 @@ public class TrafficServiceFragment extends Fragment {
 
                                 Toast.makeText(context, "接送人數為" + UserEnterPerson +
                                         "人，請稍候！", Toast.LENGTH_SHORT).show();
+
+                                chatMessage =
+                                        new ChatMessage(customerName, "0", "0",
+                                                "2", "高鐵接駁",2,
+                                                1,Integer.parseInt(UserEnterPerson));
+                                chatMessageJson = new Gson().toJson(chatMessage);
+                                Common.chatwebSocketClient.send(chatMessageJson);
+                                Log.d(TAG, "output: " + chatMessageJson);
 
 
                             }
@@ -254,6 +258,14 @@ public class TrafficServiceFragment extends Fragment {
                                 Toast.makeText(context, "接送人數為" + UserEnterPerson +
                                         "人，請稍候！", Toast.LENGTH_SHORT).show();
 
+                                chatMessage =
+                                        new ChatMessage(customerName, "0", "0",
+                                                "2", "火車接駁",2,
+                                                1,Integer.parseInt(UserEnterPerson));
+                                chatMessageJson = new Gson().toJson(chatMessage);
+                                Common.chatwebSocketClient.send(chatMessageJson);
+                                Log.d(TAG, "output: " + chatMessageJson);
+
 
                             }
 
@@ -270,6 +282,14 @@ public class TrafficServiceFragment extends Fragment {
 
                                 Toast.makeText(context, "接送人數為" + UserEnterPerson +
                                         "人，請稍候！", Toast.LENGTH_SHORT).show();
+
+                                chatMessage =
+                                        new ChatMessage(customerName, "0", "0",
+                                                "2", "機場接駁",2,
+                                                1,Integer.parseInt(UserEnterPerson));
+                                chatMessageJson = new Gson().toJson(chatMessage);
+                                Common.chatwebSocketClient.send(chatMessageJson);
+                                Log.d(TAG, "output: " + chatMessageJson);
 
 
                             }
@@ -302,6 +322,7 @@ public class TrafficServiceFragment extends Fragment {
 
         return trafficServiceMsgs;
     }
+
 
 
 
