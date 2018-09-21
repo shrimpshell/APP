@@ -77,6 +77,7 @@ public class EmployeeHomeActivity extends AppCompatActivity {
                     }
                     break;
                 case REQUEST_PICK_PICTURE:    //挑圖
+                    employHomeBottom.removeAllViews();
                     Uri uri = intent.getData();
                     if (uri != null) {
                         String[] columns = {MediaStore.Images.Media.DATA};
