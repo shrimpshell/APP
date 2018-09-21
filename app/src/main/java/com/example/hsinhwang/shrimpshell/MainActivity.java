@@ -16,7 +16,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.Window;
@@ -24,13 +23,8 @@ import android.view.Window;
 import com.example.hsinhwang.shrimpshell.Authentication.LoginActivity;
 import com.example.hsinhwang.shrimpshell.Classes.Common;
 import com.example.hsinhwang.shrimpshell.Classes.LogIn;
-<<<<<<< HEAD
-import com.example.hsinhwang.shrimpshell.InstantEmployeePanel.EmployeeCallService;
-import com.example.hsinhwang.shrimpshell.InstantEmployeePanel.EmployeeCleanService;
-=======
-import com.example.hsinhwang.shrimpshell.Classes.MainOptions;
 import com.example.hsinhwang.shrimpshell.EmployeePanel.EmployeeHomeActivity;
->>>>>>> b35a483fedc46feae97f9807203e1466b17dce0f
+
 
 public class MainActivity extends AppCompatActivity {
     private Window window;
@@ -60,25 +54,12 @@ public class MainActivity extends AppCompatActivity {
                     changeFragment(fragment);
                     setTitle(R.string.booking);
                     return true;
-<<<<<<< HEAD
+
                 case R.id.item_instant:
-                    Intent intent1 = new Intent(MainActivity.this,InstantActivity.class);
-                    startActivity(intent1);
+                    Intent intent = new Intent(MainActivity.this,InstantActivity.class);
+                    startActivity(intent);
                     return true;
-                case R.id.item_profile:
-                    if (LogIn.EmployeeLogIn()) {
-                            Intent intent = new Intent(MainActivity.this, EmployeeCallService.class);
-                            startActivity(intent);
-                        } else {
-                            fragment = new ProfileFragment();
-                            changeFragment(fragment);
-                            setTitle(R.string.profile);
-=======
-                case R.id.item_reserved:
-                    fragment = new ReservedFragment();
-                    changeFragment(fragment);
-                    setTitle(R.string.instant);
-                    return true;
+
                 case R.id.item_profile:
                     SharedPreferences page = getSharedPreferences(Common.PAGE, MODE_PRIVATE);
                     int pageId = page.getInt("page", 0);
@@ -96,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                         default:
                             Intent intent1 = new Intent(MainActivity.this, LoginActivity.class);
                             startActivityForResult(intent1, 1);
->>>>>>> b35a483fedc46feae97f9807203e1466b17dce0f
+
                     }
 
                     return true;

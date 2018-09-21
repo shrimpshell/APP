@@ -2,36 +2,34 @@ package com.example.hsinhwang.shrimpshell.Classes;
 
 
 public class Instant {
-    private int Status,Quantity,Price,IdDinling,IdCleanService,IdRoomService,
-            IdRoomNumber,IdEmployee;
-    private String DinlingTypeName,Type,EmployeeCode;
+    private int IdInstantDetail, IdInstantService, Status, Quantity, IdInstantType, IdRoomStatus;
 
-    public Instant(int status, int quantity, int price, int idDinling, int idRoomNumber,
-                   int idEmployee, String dinlingTypeName) {
+    public Instant(int idInstantDetail, int idInstantService, int status, int quantity, int idInstantType,
+                   int idRoomStatus) {
+        super();
+        IdInstantDetail = idInstantDetail;
+        IdInstantService = idInstantService;
         Status = status;
         Quantity = quantity;
-        Price = price;
-        IdDinling = idDinling;
-        IdRoomNumber = idRoomNumber;
-        IdEmployee = idEmployee;
-        DinlingTypeName = dinlingTypeName;
+        IdInstantType = idInstantType;
+        IdRoomStatus = idRoomStatus;
     }
 
-    public Instant(int status, int quantity, int idRoomService, int idRoomNumber,
-                   int idEmployee, String type) {
-        Status = status;
-        Quantity = quantity;
-        IdRoomService = idRoomService;
-        IdRoomNumber = idRoomNumber;
-        IdEmployee = idEmployee;
-        Type = type;
+
+    public int getIdInstantDetail() {
+        return IdInstantDetail;
     }
 
-    public Instant(int status, int idCleanService, int idRoomNumber, int idEmployee) {
-        Status = status;
-        IdCleanService = idCleanService;
-        IdRoomNumber = idRoomNumber;
-        IdEmployee = idEmployee;
+    public void setIdInstantDetail(int idInstantDetail) {
+        IdInstantDetail = idInstantDetail;
+    }
+
+    public int getIdInstantService() {
+        return IdInstantService;
+    }
+
+    public void setIdInstantService(int idInstantService) {
+        IdInstantService = idInstantService;
     }
 
     public int getStatus() {
@@ -50,76 +48,21 @@ public class Instant {
         Quantity = quantity;
     }
 
-    public int getPrice() {
-        return Price;
+    public int getIdInstantType() {
+        return IdInstantType;
     }
 
-    public void setPrice(int price) {
-        Price = price;
+    public void setIdInstantType(int idInstantType) {
+        IdInstantType = idInstantType;
     }
 
-    public int getIdDinling() {
-        return IdDinling;
+    public int getIdRoomStatus() {
+        return IdRoomStatus;
     }
 
-    public void setIdDinling(int idDinling) {
-        IdDinling = idDinling;
+    public void setIdRoomStatus(int idRoomStatus) {
+        IdRoomStatus = idRoomStatus;
     }
 
-    public int getIdCleanService() {
-        return IdCleanService;
-    }
-
-    public void setIdCleanService(int idCleanService) {
-        IdCleanService = idCleanService;
-    }
-
-    public int getIdRoomService() {
-        return IdRoomService;
-    }
-
-    public void setIdRoomService(int idRoomService) {
-        IdRoomService = idRoomService;
-    }
-
-    public int getIdRoomNumber() {
-        return IdRoomNumber;
-    }
-
-    public void setIdRoomNumber(int idRoomNumber) {
-        IdRoomNumber = idRoomNumber;
-    }
-
-    public int getIdEmployee() {
-        return IdEmployee;
-    }
-
-    public void setIdEmployee(int idEmployee) {
-        IdEmployee = idEmployee;
-    }
-
-    public String getDinlingTypeName() {
-        return DinlingTypeName;
-    }
-
-    public void setDinlingTypeName(String dinlingTypeName) {
-        DinlingTypeName = dinlingTypeName;
-    }
-
-    public String getType() {
-        return Type;
-    }
-
-    public void setType(String type) {
-        Type = type;
-    }
-
-    public String getEmployeeCode() {
-        return EmployeeCode;
-    }
-
-    public void setEmployeeCode(String employeeCode) {
-        EmployeeCode = employeeCode;
-    }
 }
 

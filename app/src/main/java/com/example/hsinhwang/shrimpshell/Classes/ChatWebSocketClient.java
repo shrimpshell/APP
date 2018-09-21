@@ -40,8 +40,8 @@ public class ChatWebSocketClient extends WebSocketClient{
     @Override
     public void onMessage(String message) {
         JsonObject jsonObject = gson.fromJson(message, JsonObject.class);
-        String type = jsonObject.get("type").getAsString();
-        sendMessageBroadcast(type, message);
+        String serviceId = jsonObject.get("serviceId").getAsString();
+        sendMessageBroadcast(serviceId, message);
         Log.d(TAG, "onMessage: " + message);
 
     }

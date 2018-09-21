@@ -94,22 +94,6 @@ public class Common {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 
-    //儲存客戶和商家點擊之即時資訊
-    public static void setInstantMessage(Context context, String state, String type) {
-        preferences = context.getSharedPreferences("state", MODE_PRIVATE);
-        preferences.edit().putString(state, type).apply();
-
-
-    }
-
-    //讀取客戶和商家點擊之即時資訊
-    public static String getInstantMessage(Context context, String state) {
-        preferences = context.getSharedPreferences("state", MODE_PRIVATE);
-        state = preferences.getString(state, "");
-
-        return state;
-    }
-
 
     // 建立WebSocket連線
     public static void connectServer(Context context, String userId, String groupId) {

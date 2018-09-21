@@ -214,9 +214,7 @@ public class DinlingServiceFragment extends Fragment {
             myViewHolder.btDinling.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ChatMessage chatMessage;
-                    String chatMessageJson;
-                    int unFinish = 1;
+
 
 
                     String UserEnter = myViewHolder.etDinling.getText().toString();
@@ -236,12 +234,7 @@ public class DinlingServiceFragment extends Fragment {
                                 Toast.makeText(context, "你點的 A餐 數量為" + UserEnter + "份",
                                         Toast.LENGTH_SHORT).show();
 
-                                int A = 666;
-                                String dinlingTypeName = myViewHolder.tvDinling1.getText().toString().trim();
-                                int status = unFinish,
-                                        quantity = Integer.parseInt(myViewHolder.etDinling.getText().toString().trim()),
-                                        price = Integer.parseInt(myViewHolder.tvDinling2.getText().toString().trim()),
-                                        idRoomNumber = A;
+                                
 
 
                             }
@@ -295,6 +288,8 @@ public class DinlingServiceFragment extends Fragment {
 
         }
     }
+
+
 
     private void insertAction() {
 
