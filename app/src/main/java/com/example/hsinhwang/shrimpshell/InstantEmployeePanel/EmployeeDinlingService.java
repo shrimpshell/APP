@@ -27,7 +27,7 @@ import java.util.List;
 
 public class EmployeeDinlingService extends AppCompatActivity {
     private LocalBroadcastManager broadcastManager;
-    private RecyclerView rvEmployeeDinling;
+    RecyclerView rvEmployeeDinling;
     private List<EmployeeDinling> employeeDinlingList;
 
     @Override
@@ -38,37 +38,71 @@ public class EmployeeDinlingService extends AppCompatActivity {
         registerInstantReceiver();
         rvEmployeeDinling = findViewById(R.id.rvEmployeeDinling);
         rvEmployeeDinling.setLayoutManager(new LinearLayoutManager(this));
-        employeeDinlingList = getEmpolyeeDinling();
+        employeeDinlingList = new ArrayList<>();
         rvEmployeeDinling.setAdapter(new EmployeeDinlingAdapter(this,employeeDinlingList));
 
+        Common.connectServer(this,"E001","3");
 
     }
 
-    private List<EmployeeDinling> getEmpolyeeDinling() {
-        List<EmployeeDinling> employeeDinlingList = new ArrayList<>();
 
-        return employeeDinlingList;
-    }
 
     private void registerInstantReceiver() {
-        IntentFilter unFinishFilter = new IntentFilter("未處理");
-        IntentFilter playingFilter = new IntentFilter("處理中");
-        IntentFilter finishFilter = new IntentFilter("已完成");
-        InstantReceiver instantReceiver = new InstantReceiver();
-        broadcastManager.registerReceiver(instantReceiver, unFinishFilter);
-        broadcastManager.registerReceiver(instantReceiver, playingFilter);
-        broadcastManager.registerReceiver(instantReceiver, finishFilter);
+        IntentFilter dinlingFilter = new IntentFilter("3");
+        ChatReceiver chatReceiver = new ChatReceiver();
+        broadcastManager.registerReceiver(chatReceiver, dinlingFilter);
+
 
 
     }
 
-    private class InstantReceiver extends BroadcastReceiver {
+    private class ChatReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
+            String message = intent.getStringExtra("message");
+            ChatMessage chatMessage = new Gson().fromJson(message, ChatMessage.class);
+            String sender = chatMessage.getSenderId();
+            String item = chatMessage.getServiceItem();
+            int status = chatMessage.getStatus();
+            String quantiyty = String.valueOf(chatMessage.getQuantity());
 
+            switch (status){
+                case 1: //未完成
+                    employeeDinlingList.add(new EmployeeDinling(R.drawable.icon_unfinish
+                    ,sender,item,quantiyty));
+
+                    rvEmployeeDinling.getAdapter().notifyItemInserted(employeeDinlingList.size());
+
+                    break;
+
+                case 2: //處理中
+                    employeeDinlingList.add(new EmployeeDinling(R.drawable.icon_playing
+                            ,sender,item,quantiyty));
+
+                    rvEmployeeDinling.getAdapter().notifyItemInserted(employeeDinlingList.size());
+
+                    break;
+
+
+                case 3: //已完成
+                    employeeDinlingList.add(new EmployeeDinling(R.drawable.icon_finish
+                            ,sender,item,quantiyty));
+
+                    rvEmployeeDinling.getAdapter().notifyItemInserted(employeeDinlingList.size());
+
+                    break;
+
+                default:
+
+                    break;
+            }
+
+            rvEmployeeDinling.getAdapter().notifyDataSetChanged();
 
         }
     }
+
+
 
 
 

@@ -48,12 +48,6 @@
                 android:textSize="25sp" />
 
 
-            <TimePicker
-                android:id="@+id/tpRoomService"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:timePickerMode="spinner" />
-
 
             <CheckBox
                 android:id="@+id/cbRoomService1"

@@ -4,12 +4,12 @@ import java.io.Serializable;
 
 public class StatusService implements Serializable {
     private int image;
-    private String tvitem,tvstatus;
+    private String tvitem,tvquantity;
 
-    public StatusService(int image, String tvitem, String tvstatus) {
+    public StatusService(int image, String tvitem, String tvquantity) {
         this.image = image;
         this.tvitem = tvitem;
-        this.tvstatus = tvstatus;
+        this.tvquantity = tvquantity;
     }
 
     public int getImage() {
@@ -28,11 +28,11 @@ public class StatusService implements Serializable {
         this.tvitem = tvitem;
     }
 
-    public String getTvstatus() {
-        return tvstatus;
+    public String getTvquantity() {
+        return tvquantity;
     }
 
-    public void setTvstatus(String tvstatus) {
-        this.tvstatus = tvstatus;
+    public void setTvquantity(String tvquantity) {
+        this.tvquantity = tvquantity;
     }
 }

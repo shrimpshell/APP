@@ -12,7 +12,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="110dp"
         android:layout_margin="10dp"
         android:orientation="horizontal">
 
@@ -20,7 +20,8 @@
             android:id="@+id/ivStatusService"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_marginTop="23dp"
+            android:layout_marginStart="10dp"
             android:src="@drawable/icon_playing" />
 
         <LinearLayout
@@ -37,12 +38,21 @@
                 android:textSize="25sp" />
 
             <TextView
-                android:id="@+id/tvStatusService"
+                android:id="@+id/tvQuantityService"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="5dp"
-                android:text="狀態"
+                android:text="項目"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/tvService"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:text="數量"
                 android:textSize="25sp" />
 
 

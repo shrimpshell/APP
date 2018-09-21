@@ -47,12 +47,6 @@
                 android:text="預約時間"
                 android:textSize="25sp" />
 
-            <TimePicker
-                android:id="@+id/tpTraffic"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:timePickerMode="spinner" />
-
 
             <EditText
                 android:id="@+id/etTraffic"

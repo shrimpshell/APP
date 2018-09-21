@@ -39,6 +39,9 @@ public class RoomServiceCleanFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_room_service_fab,
                 container, false);
+
+
+
         handlerView(view);
         return view;
 
@@ -85,7 +88,7 @@ public class RoomServiceCleanFragment extends Fragment {
                 cbRoomService1 = itemView.findViewById(R.id.cbRoomService1);
                 cbRoomService2 = itemView.findViewById(R.id.cbRoomService2);
                 btRoomService = itemView.findViewById(R.id.btRoomService);
-                tpRoomService = itemView.findViewById(R.id.tpRoomService);
+
 
 
             }
@@ -111,7 +114,6 @@ public class RoomServiceCleanFragment extends Fragment {
             myViewHolder.imageView.setImageResource(roomServiceMsg.getImage());
             myViewHolder.tvRoomService1.setText(roomServiceMsg.getTvRoomService1());
             myViewHolder.tvRoomService2.setVisibility(View.GONE);
-            myViewHolder.tpRoomService.setVisibility(View.GONE);
             myViewHolder.etRoomService1.setVisibility(View.GONE);
             myViewHolder.etRoomService2.setVisibility(View.GONE);
             myViewHolder.cbRoomService1.setVisibility(View.GONE);

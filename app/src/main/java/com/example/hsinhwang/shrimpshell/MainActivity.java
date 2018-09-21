@@ -56,8 +56,8 @@ public class MainActivity extends AppCompatActivity {
                     return true;
 
                 case R.id.item_instant:
-                    Intent intent = new Intent(MainActivity.this,InstantActivity.class);
-                    startActivity(intent);
+                    Intent intent2 = new Intent(MainActivity.this,InstantActivity.class);
+                    startActivity(intent2);
                     return true;
 
                 case R.id.item_profile:

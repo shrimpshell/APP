@@ -2,6 +2,7 @@ package com.example.hsinhwang.shrimpshell.Classes;
 
 public class ChatMessage {
 
+    // groupId Customer:0 clean:1 room:2 dinling:3
     private String senderId, receiverId, senderGroupId, receiverGroupId, serviceItem;
     private int serviceId, status, quantity;
 

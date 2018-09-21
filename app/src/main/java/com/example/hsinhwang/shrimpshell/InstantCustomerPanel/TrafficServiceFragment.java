@@ -40,6 +40,8 @@ public class TrafficServiceFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_traffic_service_fab,
                 container, false);
 
+
+
         handlerView(view);
         return view;
     }
@@ -82,7 +84,7 @@ public class TrafficServiceFragment extends Fragment {
                 tvTraffic2 = itemView.findViewById(R.id.tvTraffic2);
                 etTraffic = itemView.findViewById(R.id.etTraffic);
                 btTraffic = itemView.findViewById(R.id.btTraffic);
-                tpTraffic = itemView.findViewById(R.id.tpTraffic);
+
 
             }
         }
@@ -110,7 +112,7 @@ public class TrafficServiceFragment extends Fragment {
             myViewHolder.tvTraffic2.setVisibility(View.GONE);
             myViewHolder.etTraffic.setVisibility(View.GONE);
             myViewHolder.btTraffic.setVisibility(View.GONE);
-            myViewHolder.tpTraffic.setVisibility(View.GONE);
+
 
             myViewHolder.layout_traffic.setOnClickListener(new View.OnClickListener() {
                 @Override

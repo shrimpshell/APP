@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hsinhwang.shrimpshell.Classes.ChatMessage;
 import com.example.hsinhwang.shrimpshell.Classes.Common;
 import com.example.hsinhwang.shrimpshell.Classes.CommonTask;
 import com.example.hsinhwang.shrimpshell.Classes.DinlingServiceMsg;
@@ -42,6 +43,8 @@ public class DinlingServiceFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_dinling_service_fab,
                 container, false);
+
+
 
         handleViews(view);
 
@@ -236,6 +239,14 @@ public class DinlingServiceFragment extends Fragment {
                                 Toast.makeText(context, "你點的 A餐 數量為" + UserEnter + "份",
                                         Toast.LENGTH_SHORT).show();
 
+                                ChatMessage chatMessage =
+                                        new ChatMessage("", "0", "0",
+                                                "3", "A餐",3,
+                                                1,Integer.parseInt(UserEnter));
+                                String chatMessageJson = new Gson().toJson(chatMessage);
+                                Common.chatwebSocketClient.send(chatMessageJson);
+                                Log.d(TAG, "output: " + chatMessageJson);
+
 
 
                                 
@@ -257,6 +268,14 @@ public class DinlingServiceFragment extends Fragment {
                                 Toast.makeText(context, "你點的 B餐 數量為" + UserEnter + "份",
                                         Toast.LENGTH_SHORT).show();
 
+                                ChatMessage chatMessage =
+                                        new ChatMessage("", "0", "0",
+                                                "3", "B餐",3,
+                                                1,Integer.parseInt(UserEnter));
+                                String chatMessageJson = new Gson().toJson(chatMessage);
+                                Common.chatwebSocketClient.send(chatMessageJson);
+                                Log.d(TAG, "output: " + chatMessageJson);
+
 
 
                             }
@@ -273,6 +292,14 @@ public class DinlingServiceFragment extends Fragment {
 
                                 Toast.makeText(context, "你點的 C餐 數量為" + UserEnter + "份",
                                         Toast.LENGTH_SHORT).show();
+
+                                ChatMessage chatMessage =
+                                        new ChatMessage("603", "0", "0",
+                                                "3", "C餐",3,
+                                                1,Integer.parseInt(UserEnter));
+                                String chatMessageJson = new Gson().toJson(chatMessage);
+                                Common.chatwebSocketClient.send(chatMessageJson);
+                                Log.d(TAG, "output: " + chatMessageJson);
 
 
 
