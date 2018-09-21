@@ -33,7 +33,7 @@ import java.util.List;
 public class StatusServiceFragment extends Fragment {
     RecyclerView rvStatusService;
     private LocalBroadcastManager broadcastManager;
-    private List<StatusService> statusServiceList;
+    List<StatusService> statusServiceList;
 
 
 
@@ -47,7 +47,7 @@ public class StatusServiceFragment extends Fragment {
         broadcastManager = LocalBroadcastManager.getInstance(getActivity());
         registerChatReceiver();
 
-
+        Common.connectServer(getActivity(),"603","0");
         handlerView(view);
 
         return view;
@@ -61,8 +61,8 @@ public class StatusServiceFragment extends Fragment {
         rvStatusService = view.findViewById(R.id.rvStatusService);
         rvStatusService.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        List<StatusService> statusServicesList = new ArrayList<>();
-        rvStatusService.setAdapter(new StatusServiceAdapter(getActivity(),statusServicesList));
+        statusServiceList = new ArrayList<>();
+        rvStatusService.setAdapter(new StatusServiceAdapter(getActivity(),statusServiceList));
 
 
     }
@@ -86,20 +86,20 @@ public class StatusServiceFragment extends Fragment {
             int serviceId = chatMessage.getServiceId();
             String item = chatMessage.getServiceItem();
             int status = chatMessage.getStatus();
-            String quantiyty = String.valueOf(chatMessage.getQuantity());
+            String quantity = String.valueOf(chatMessage.getQuantity());
 
             switch (serviceId){
                 case 1: //Clean
                     if (status == 2) {
                         statusServiceList.add(new StatusService(R.drawable.icon_playing,
-                                item,quantiyty));
+                                item,quantity,"清潔服務"));
 
                         rvStatusService.getAdapter().notifyItemInserted(statusServiceList.size());
 
                     } else if (status == 3) {
 
                         statusServiceList.add(new StatusService(R.drawable.icon_finish,
-                                item,quantiyty));
+                                item,quantity,"清潔服務"));
 
                         rvStatusService.getAdapter().notifyItemInserted(statusServiceList.size());
 
@@ -111,14 +111,14 @@ public class StatusServiceFragment extends Fragment {
 
                     if (status == 2) {
                         statusServiceList.add(new StatusService(R.drawable.icon_playing,
-                                item,quantiyty));
+                                item,quantity,"房務服務"));
 
                         rvStatusService.getAdapter().notifyItemInserted(statusServiceList.size());
 
                     } else if (status == 3) {
 
                         statusServiceList.add(new StatusService(R.drawable.icon_finish,
-                                item,quantiyty));
+                                item,quantity,"房務服務"));
 
                         rvStatusService.getAdapter().notifyItemInserted(statusServiceList.size());
 
@@ -130,14 +130,14 @@ public class StatusServiceFragment extends Fragment {
 
                     if (status == 2) {
                         statusServiceList.add(new StatusService(R.drawable.icon_playing,
-                                item,quantiyty));
+                                item,quantity,"餐點服務"));
 
                         rvStatusService.getAdapter().notifyItemInserted(statusServiceList.size());
 
                     } else if (status == 3) {
 
                         statusServiceList.add(new StatusService(R.drawable.icon_finish,
-                                item,quantiyty));
+                                item,quantity,"餐點服務"));
 
                         rvStatusService.getAdapter().notifyItemInserted(statusServiceList.size());
 
@@ -172,7 +172,7 @@ public class StatusServiceFragment extends Fragment {
 
         class MyViewHolder extends RecyclerView.ViewHolder {
             private ImageView imageView;
-            private TextView tvItem, tvQuantity;
+            private TextView tvItem, tvQuantity, tvService;
 
             MyViewHolder(@NonNull View itemView) {
                 super(itemView);
@@ -180,6 +180,7 @@ public class StatusServiceFragment extends Fragment {
                 imageView = itemView.findViewById(R.id.ivStatusService);
                 tvItem = itemView.findViewById(R.id.tvItemService);
                 tvQuantity = itemView.findViewById(R.id.tvQuantityService);
+                tvService = itemView.findViewById(R.id.tvService);
             }
         }
 
@@ -207,11 +208,10 @@ public class StatusServiceFragment extends Fragment {
             myViewHolder.imageView.setImageResource(statusService.getImage());
             myViewHolder.tvItem.setText(statusService.getTvitem());
             myViewHolder.tvQuantity.setText(statusService.getTvquantity());
+            myViewHolder.tvService.setText(statusService.getTvservice());
 
 
-
-
-
+            
         }
 
     }

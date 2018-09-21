@@ -240,7 +240,7 @@ public class DinlingServiceFragment extends Fragment {
                                         Toast.LENGTH_SHORT).show();
 
                                 ChatMessage chatMessage =
-                                        new ChatMessage("", "0", "0",
+                                        new ChatMessage("603", "0", "0",
                                                 "3", "A餐",3,
                                                 1,Integer.parseInt(UserEnter));
                                 String chatMessageJson = new Gson().toJson(chatMessage);
@@ -269,7 +269,7 @@ public class DinlingServiceFragment extends Fragment {
                                         Toast.LENGTH_SHORT).show();
 
                                 ChatMessage chatMessage =
-                                        new ChatMessage("", "0", "0",
+                                        new ChatMessage("603", "0", "0",
                                                 "3", "B餐",3,
                                                 1,Integer.parseInt(UserEnter));
                                 String chatMessageJson = new Gson().toJson(chatMessage);

@@ -11,6 +11,7 @@
     app:cardElevation="6dp">
 
     <LinearLayout
+        android:id="@+id/layout_employee_dinling"
         android:layout_width="match_parent"
         android:layout_height="110dp"
         android:layout_margin="10dp"
@@ -54,6 +55,16 @@
                 android:layout_marginTop="5dp"
                 android:text="數量"
                 android:textSize="25sp"/>
+
+            <TextView
+                android:id="@+id/tvEmployeeDinlingStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:text="狀態碼"
+                android:textSize="25sp"
+                android:visibility="gone"/>
 
 
         </LinearLayout>

@@ -22,8 +22,10 @@ import android.view.Window;
 
 import com.example.hsinhwang.shrimpshell.Authentication.LoginActivity;
 import com.example.hsinhwang.shrimpshell.Classes.Common;
+import com.example.hsinhwang.shrimpshell.Classes.EmployeeDinling;
 import com.example.hsinhwang.shrimpshell.Classes.LogIn;
 import com.example.hsinhwang.shrimpshell.EmployeePanel.EmployeeHomeActivity;
+import com.example.hsinhwang.shrimpshell.InstantEmployeePanel.EmployeeDinlingService;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -66,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
                     switch (pageId) {
                         case 3:
-                            Intent intent3 = new Intent(MainActivity.this, EmployeeHomeActivity.class);
+                            Intent intent3 = new Intent(MainActivity.this, EmployeeDinlingService.class);
                             startActivityForResult(intent3, 3);
                             break;
                         case 2:

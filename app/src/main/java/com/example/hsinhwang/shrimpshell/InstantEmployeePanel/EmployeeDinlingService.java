@@ -10,10 +10,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.hsinhwang.shrimpshell.Classes.ChatMessage;
@@ -25,7 +27,10 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.support.constraint.Constraints.TAG;
+
 public class EmployeeDinlingService extends AppCompatActivity {
+    private static final String TAG = "EmployeeDinling";
     private LocalBroadcastManager broadcastManager;
     RecyclerView rvEmployeeDinling;
     private List<EmployeeDinling> employeeDinlingList;
@@ -39,19 +44,17 @@ public class EmployeeDinlingService extends AppCompatActivity {
         rvEmployeeDinling = findViewById(R.id.rvEmployeeDinling);
         rvEmployeeDinling.setLayoutManager(new LinearLayoutManager(this));
         employeeDinlingList = new ArrayList<>();
-        rvEmployeeDinling.setAdapter(new EmployeeDinlingAdapter(this,employeeDinlingList));
+        rvEmployeeDinling.setAdapter(new EmployeeDinlingAdapter(this, employeeDinlingList));
 
-        Common.connectServer(this,"E001","3");
+        Common.connectServer(this, "E001", "3");
 
     }
-
 
 
     private void registerInstantReceiver() {
         IntentFilter dinlingFilter = new IntentFilter("3");
         ChatReceiver chatReceiver = new ChatReceiver();
         broadcastManager.registerReceiver(chatReceiver, dinlingFilter);
-
 
 
     }
@@ -64,20 +67,22 @@ public class EmployeeDinlingService extends AppCompatActivity {
             String sender = chatMessage.getSenderId();
             String item = chatMessage.getServiceItem();
             int status = chatMessage.getStatus();
-            String quantiyty = String.valueOf(chatMessage.getQuantity());
-
-            switch (status){
+            String quantity = String.valueOf(chatMessage.getQuantity());
+            Log.d(TAG, "Dinling get: " + message);
+            switch (status) {
                 case 1: //未完成
                     employeeDinlingList.add(new EmployeeDinling(R.drawable.icon_unfinish
-                    ,sender,item,quantiyty));
+                            , "1", sender, item, quantity));
 
                     rvEmployeeDinling.getAdapter().notifyItemInserted(employeeDinlingList.size());
+
+
 
                     break;
 
                 case 2: //處理中
                     employeeDinlingList.add(new EmployeeDinling(R.drawable.icon_playing
-                            ,sender,item,quantiyty));
+                            , "2", sender, item, quantity));
 
                     rvEmployeeDinling.getAdapter().notifyItemInserted(employeeDinlingList.size());
 
@@ -86,7 +91,7 @@ public class EmployeeDinlingService extends AppCompatActivity {
 
                 case 3: //已完成
                     employeeDinlingList.add(new EmployeeDinling(R.drawable.icon_finish
-                            ,sender,item,quantiyty));
+                            , "3", sender, item, quantity));
 
                     rvEmployeeDinling.getAdapter().notifyItemInserted(employeeDinlingList.size());
 
@@ -103,9 +108,6 @@ public class EmployeeDinlingService extends AppCompatActivity {
     }
 
 
-
-
-
     private class EmployeeDinlingAdapter extends
             RecyclerView.Adapter<EmployeeDinlingAdapter.MyViewHolder> {
         Context context;
@@ -119,7 +121,8 @@ public class EmployeeDinlingService extends AppCompatActivity {
 
         public class MyViewHolder extends RecyclerView.ViewHolder {
             ImageView imageView;
-            TextView tvRoomId,tvItem,tvQuantity;
+            TextView tvRoomId, tvItem, tvQuantity, tvStatusNumber;
+
 
             public MyViewHolder(@NonNull View itemView) {
                 super(itemView);
@@ -128,6 +131,9 @@ public class EmployeeDinlingService extends AppCompatActivity {
                 tvRoomId = itemView.findViewById(R.id.tvEmployeeDinlingRoomId);
                 tvItem = itemView.findViewById(R.id.tvEmployeeDinlingItem);
                 tvQuantity = itemView.findViewById(R.id.tvEmployeeDinlingQuantity);
+                tvStatusNumber = itemView.findViewById(R.id.tvEmployeeDinlingStatus);
+
+
             }
         }
 
@@ -146,17 +152,53 @@ public class EmployeeDinlingService extends AppCompatActivity {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int position) {
+        public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, int position) {
             final EmployeeDinling employeeDinling = employeeDinlingList.get(position);
 
             myViewHolder.imageView.setImageResource(employeeDinling.getImageStatus());
             myViewHolder.tvRoomId.setText(employeeDinling.getTvRoomId());
             myViewHolder.tvItem.setText(employeeDinling.getTvItem());
             myViewHolder.tvQuantity.setText(employeeDinling.getTvQuantity());
+            myViewHolder.tvStatusNumber.setText(employeeDinling.getTvStatusNumber());
+
+
+            myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ChatMessage chatMessage;
+                    String chatMessageJson;
+                    switch (Integer.parseInt(myViewHolder.tvStatusNumber.getText().toString())) {
+                        case 1:
+
+                            chatMessage =
+                                    new ChatMessage(myViewHolder.tvRoomId.getText().toString(),
+                                            "603", "3", "0",
+                                            myViewHolder.tvItem.getText().toString(), 3, 2
+                                            , Integer.parseInt(myViewHolder.tvQuantity.getText().toString()));
+                            chatMessageJson = new Gson().toJson(chatMessage);
+                            Common.chatwebSocketClient.send(chatMessageJson);
+                            Log.d(TAG, "output: " + chatMessageJson);
+
+                            break;
+
+                        case 2:
+
+                            chatMessage =
+                                    new ChatMessage(myViewHolder.tvRoomId.getText().toString(),
+                                            "603", "3", "0",
+                                            myViewHolder.tvItem.getText().toString(), 3, 3
+                                            , Integer.parseInt(myViewHolder.tvQuantity.getText().toString()));
+                            chatMessageJson = new Gson().toJson(chatMessage);
+                            Common.chatwebSocketClient.send(chatMessageJson);
+                            Log.d(TAG, "output: " + chatMessageJson);
+
+
+                    }
+
+                }
+            });
 
         }
-
-
 
 
     }

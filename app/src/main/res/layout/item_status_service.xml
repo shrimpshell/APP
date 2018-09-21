@@ -30,11 +30,20 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tvService"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:text="服務"
+                android:textSize="25sp" />
+
+            <TextView
                 android:id="@+id/tvItemService"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:text="服務"
+                android:text="項目"
                 android:textSize="25sp" />
 
             <TextView
@@ -43,17 +52,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="5dp"
-                android:text="項目"
-                android:textSize="25sp" />
-
-            <TextView
-                android:id="@+id/tvService"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="5dp"
                 android:text="數量"
                 android:textSize="25sp" />
+
+
 
 
         </LinearLayout>
