@@ -45,6 +45,7 @@ public class EmployeeRoomService extends AppCompatActivity {
         employeeRoomList = new ArrayList<>();
         rvEmployeeRoomService.setAdapter(new EmployeeRoomAdapter(this, employeeRoomList));
 
+        Common.connectServer(this, Common.EMPLOYEE_LOGIN, "2");
 
     }
 
@@ -77,14 +78,14 @@ public class EmployeeRoomService extends AppCompatActivity {
 
                 case 2:
                     employeeRoomList.add(new EmployeeRoom(R.drawable.icon_playing,
-                            "1", sender, item, quantity));
+                            "2", sender, item, quantity));
                     rvEmployeeRoomService.getAdapter().notifyItemInserted(employeeRoomList.size());
 
                     break;
 
                 case 3:
                     employeeRoomList.add(new EmployeeRoom(R.drawable.icon_finish,
-                            "1", sender, item, quantity));
+                            "3", sender, item, quantity));
                     rvEmployeeRoomService.getAdapter().notifyItemInserted(employeeRoomList.size());
 
                     break;
@@ -155,7 +156,7 @@ public class EmployeeRoomService extends AppCompatActivity {
                     switch (Integer.parseInt(myViewHolder.tvStatusNumber.getText().toString())) {
 
                         case 1:
-                            chatMessage = new ChatMessage("E001",
+                            chatMessage = new ChatMessage(Common.EMPLOYEE_LOGIN,
                                     myViewHolder.tvRoomId.getText().toString()
                                     , "2", "0",
                                     myViewHolder.tvItem.getText().toString()
@@ -167,7 +168,7 @@ public class EmployeeRoomService extends AppCompatActivity {
 
                             break;
                         case 2:
-                            chatMessage = new ChatMessage("E001",
+                            chatMessage = new ChatMessage(Common.EMPLOYEE_LOGIN,
                                     myViewHolder.tvRoomId.getText().toString()
                                     , "2", "0",
                                     myViewHolder.tvItem.getText().toString()

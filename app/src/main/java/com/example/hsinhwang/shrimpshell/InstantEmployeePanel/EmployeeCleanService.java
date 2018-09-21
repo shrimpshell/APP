@@ -45,7 +45,7 @@ public class EmployeeCleanService extends AppCompatActivity {
         employeeCleanList = new ArrayList<>();
         rvEmployeeClean.setAdapter(new EmployeeCleanAdapter(this, employeeCleanList));
 
-        Common.connectServer(this, "E001", "3");
+        Common.connectServer(this, Common.EMPLOYEE_LOGIN, "1");
 
     }
 
@@ -150,7 +150,7 @@ public class EmployeeCleanService extends AppCompatActivity {
 
                         case 1:
                             chatMessage = new ChatMessage
-                                    ("E001",
+                                    (Common.EMPLOYEE_LOGIN,
                                             myViewHolder.tvRoomId.getText().toString(),
                                             "1", "0", "0",
                                             1, 2, 0);
@@ -161,7 +161,7 @@ public class EmployeeCleanService extends AppCompatActivity {
 
                         case 2:
                             chatMessage = new ChatMessage
-                                    ("E001",
+                                    (Common.EMPLOYEE_LOGIN,
                                             myViewHolder.tvRoomId.getText().toString(),
                                             "1", "0", "0",
                                             1, 3, 0);

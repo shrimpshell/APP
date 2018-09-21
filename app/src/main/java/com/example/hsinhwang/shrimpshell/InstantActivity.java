@@ -50,7 +50,7 @@ public class InstantActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
 
 
-        Common.connectServer(this,"603","0");
+        Common.connectServer(this,Common.LOGIN,"0");
 
         initContent();
 

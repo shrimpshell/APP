@@ -46,7 +46,7 @@ public class EmployeeDinlingService extends AppCompatActivity {
         employeeDinlingList = new ArrayList<>();
         rvEmployeeDinling.setAdapter(new EmployeeDinlingAdapter(this, employeeDinlingList));
 
-        Common.connectServer(this, "E001", "3");
+        Common.connectServer(this, Common.EMPLOYEE_LOGIN, "3");
 
     }
 
@@ -169,7 +169,7 @@ public class EmployeeDinlingService extends AppCompatActivity {
                     switch (Integer.parseInt(myViewHolder.tvStatusNumber.getText().toString())) {
                         case 1:
 
-                            chatMessage = new ChatMessage("E007",
+                            chatMessage = new ChatMessage(Common.EMPLOYEE_LOGIN,
                                     myViewHolder.tvRoomId.getText().toString(),
                                     "3", "0",
                                     myViewHolder.tvItem.getText().toString(), 3, 2
@@ -182,7 +182,7 @@ public class EmployeeDinlingService extends AppCompatActivity {
 
                         case 2:
 
-                            chatMessage = new ChatMessage("E001",
+                            chatMessage = new ChatMessage(Common.EMPLOYEE_LOGIN,
                                     myViewHolder.tvRoomId.getText().toString(),
                                     "3", "0",
                                     myViewHolder.tvItem.getText().toString(), 3, 3

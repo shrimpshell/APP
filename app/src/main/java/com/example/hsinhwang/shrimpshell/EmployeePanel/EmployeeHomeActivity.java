@@ -77,6 +77,7 @@ public class EmployeeHomeActivity extends AppCompatActivity {
                     }
                     break;
                 case REQUEST_PICK_PICTURE:    //挑圖
+                    employHomeBottom.removeAllViews();
                     Uri uri = intent.getData();
                     if (uri != null) {
                         String[] columns = {MediaStore.Images.Media.DATA};
@@ -177,6 +178,8 @@ public class EmployeeHomeActivity extends AppCompatActivity {
             if (employee == null) {
                 Common.showToast(this, R.string.msg_NoEmployeesFound);
             } else {
+                SharedPreferences pref = getSharedPreferences(Common.EMPLOYEE_LOGIN, MODE_PRIVATE);
+                pref.edit().putInt("idDepartment", employee.getDepartmentId());
                 loadImage(idEmployee);
                 insertDepartmentButton(employee.getDepartmentId());
                 txMyName.setText(employee.getName());
@@ -222,6 +225,7 @@ public class EmployeeHomeActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         employHomeBottom.removeAllViews();
                         Intent intent = new Intent(EmployeeHomeActivity.this, ManagerHomeActivity.class);
+                        // Intent intent = new Intent(EmployeeHomeActivity.this, ManagerHomeActivity.class);
                         startActivity(intent);
                     }
                 });
@@ -237,6 +241,7 @@ public class EmployeeHomeActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         employHomeBottom.removeAllViews();
                         Intent intent = new Intent(EmployeeHomeActivity.this, ManagerHomeActivity.class);
+                        // Intent intent = new Intent(EmployeeHomeActivity.this, ManagerHomeActivity.class);
                         startActivity(intent);
                     }
                 });
@@ -252,6 +257,7 @@ public class EmployeeHomeActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         employHomeBottom.removeAllViews();
                         Intent intent = new Intent(EmployeeHomeActivity.this, ManagerHomeActivity.class);
+                        // Intent intent = new Intent(EmployeeHomeActivity.this, ManagerHomeActivity.class);
                         startActivity(intent);
                     }
                 });
@@ -267,6 +273,7 @@ public class EmployeeHomeActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         employHomeBottom.removeAllViews();
                         Intent intent = new Intent(EmployeeHomeActivity.this, ManagerHomeActivity.class);
+                        // Intent intent = new Intent(EmployeeHomeActivity.this, ManagerHomeActivity.class);
                         startActivity(intent);
                     }
                 });
@@ -300,6 +307,7 @@ public class EmployeeHomeActivity extends AppCompatActivity {
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                employHomeBottom.removeAllViews();
                 Intent intent = new Intent(EmployeeHomeActivity.this, EmployeeEditActivity.class);
                 Bundle bundle = new Bundle();
                 Employees emp = new Employees(employee.getId(), employee.getCode(), employee.getName(), employee.getPassword(),
@@ -318,6 +326,7 @@ public class EmployeeHomeActivity extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                employHomeBottom.removeAllViews();
                 SharedPreferences pref = getSharedPreferences(Common.EMPLOYEE_LOGIN, MODE_PRIVATE);
                 SharedPreferences page = getSharedPreferences(Common.PAGE, MODE_PRIVATE);
                 pref.edit().putBoolean("login", false).putString("email", "").putString("password", "").putInt("IdEmployee", 0).apply();
