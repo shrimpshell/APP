@@ -36,8 +36,6 @@ public class InstantServiceFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_instant_service,
                 container, false);
 
-
-
         initView(view);
         initContent();
         return view;
