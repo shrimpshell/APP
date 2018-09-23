@@ -6,8 +6,11 @@ public class Rating implements Serializable{
     private int IdRating, IdRoomReservation;
     private float ratingStar;
     private String opinion, review, time, Name;
-    ;
 
+    public Rating (int IdRoomReservation, String review){
+        this.review = review;
+        this.IdRoomReservation = IdRoomReservation;
+    }
 
     public Rating(int IdRating, float ratingStar, String time, String opinion, String review,
                   int IdRoomReservation) {

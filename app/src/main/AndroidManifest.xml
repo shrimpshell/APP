@@ -54,14 +54,19 @@
         <activity android:name=".ManagerPanel.AddEmployeeActivity" />
         <activity android:name=".ManagerPanel.AddEventActivity" />
         <activity android:name=".ManagerPanel.AddRoomActivity" />
+        <activity android:name=".ManagerPanel.RatingReviewActivity" />
         <activity
             android:name=".ReservationPanel.CalendarActivity"
             android:label="@string/title_activity_calendar"
             android:theme="@style/AppTheme.NoActionBar" />
 
+
         <activity android:name=".GeneralPages.AllRatingActivity" />
         <activity android:name=".ProfileReceiptDetailResultActivity" />
-        <activity android:name=".EmployeePanel.EmployeeEditActivity"></activity>
+        <activity android:name=".EmployeePanel.EmployeeEditActivity"/>
+       
+
+
     </application>
 
 </manifest>

@@ -43,6 +43,7 @@ public class AllRatingActivity extends AppCompatActivity {
         activity = AllRatingActivity.this;
         findView();
         rvAllRatings.setLayoutManager(new LinearLayoutManager(activity));
+
         //下拉更新
         srAllRating.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -53,7 +54,6 @@ public class AllRatingActivity extends AppCompatActivity {
             }
         });
     }
-
 
     private void findView() {
         srAllRating = (SwipeRefreshLayout) findViewById(R.id.srAllRating);
