@@ -131,10 +131,10 @@ public class AddEmployeeActivity extends AppCompatActivity {
         int gender = employeeAddGenderGroup.getCheckedRadioButtonId();
         switch (gender) {
             case R.id.Male:
-                genderStr = "先生";
+                genderStr = "MALE";
                 break;
             case R.id.Female:
-                genderStr = "女士";
+                genderStr = "FEMALE";
                 break;
             default:
                 Toast.makeText(AddEmployeeActivity.this, "請選擇性別", Toast.LENGTH_SHORT);
