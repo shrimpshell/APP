@@ -64,6 +64,7 @@
         <activity android:name=".GeneralPages.AllRatingActivity" />
         <activity android:name=".ProfileReceiptDetailResultActivity" />
         <activity android:name=".EmployeePanel.EmployeeEditActivity"/>
+        <activity android:name=".CustomerPanel.ProfileAddRatingFragment"/>
        
 
 

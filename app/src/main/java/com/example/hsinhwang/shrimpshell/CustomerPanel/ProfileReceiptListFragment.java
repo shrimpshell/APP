@@ -2,14 +2,18 @@ package com.example.hsinhwang.shrimpshell.CustomerPanel;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ChangedPackages;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.hsinhwang.shrimpshell.Classes.ProfileReceiptDetail;
@@ -22,7 +26,6 @@ import java.util.Date;
 import java.util.List;
 
 public class ProfileReceiptListFragment extends Fragment{
-
     private String order_id;
 
     @Override
@@ -57,7 +60,6 @@ public class ProfileReceiptListFragment extends Fragment{
     }
 
 
-
     private class ProfileReceiptDetailAdapter extends RecyclerView.Adapter<ProfileReceiptDetailAdapter.MyViewHolder> {
         private Context context;
         private List<ProfileReceiptDetail> profileReceiptDetailList;
@@ -69,6 +71,7 @@ public class ProfileReceiptListFragment extends Fragment{
 
         class MyViewHolder extends RecyclerView.ViewHolder {//ProfileReceiptDetailAdapter內部類別MyViewHolder
             TextView date, orderNumber, roomQuantity, roomType, mealsQuantity, meals, result, discounted, totalPrice;
+            Button rating;
 
 
             MyViewHolder(View itemView) {//MyViewHolder 建構式
@@ -82,7 +85,8 @@ public class ProfileReceiptListFragment extends Fragment{
                 discounted = itemView.findViewById(R.id.discounted);
                 totalPrice = itemView.findViewById(R.id.totalPrice);
                 result = itemView.findViewById(R.id.result);
-                itemView.setOnClickListener(new View.OnClickListener() {//每個itemView 設定監聽事件
+                rating = itemView.findViewById(R.id.rating);
+                result.setOnClickListener(new View.OnClickListener() {//每個itemView 設定監聽事件
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(getActivity(), ProfileReceiptDetailResultActivity.class);
@@ -94,6 +98,20 @@ public class ProfileReceiptListFragment extends Fragment{
                         intent.putExtras(bundle);
                         startActivity(intent);//ProfileReceiptListFragment >> ProfileReceiptDetailResultActivity換頁
 
+                    }
+                });
+
+                //去評論
+                rating.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                    Intent intent = new Intent(getActivity(), ProfileAddRatingFragment.class);
+                    String order_id = "15";
+                    Bundle bundle = new Bundle();
+                    ProfileReceiptDetail profileReceiptDetail = new ProfileReceiptDetail(order_id);
+                    bundle.putSerializable("profileReceiptDetail", 15);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
                     }
                 });
             }
@@ -130,6 +148,10 @@ public class ProfileReceiptListFragment extends Fragment{
             viewHolder.result.setText(profileReceiptDetail.getResult());
             viewHolder.totalPrice.setText("總額NT$" + profileReceiptDetail.getTotal_price());
 
+            if (profileReceiptDetail.getResult().equals("未付款")){
+                viewHolder.rating.setVisibility(View.GONE);
+            }
+
 
             /*viewHolder.item_view_layout.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -164,4 +186,6 @@ public class ProfileReceiptListFragment extends Fragment{
 
         return dateString;
     }
+
+
 }
