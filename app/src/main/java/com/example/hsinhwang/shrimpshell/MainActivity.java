@@ -24,6 +24,10 @@ import com.example.hsinhwang.shrimpshell.Authentication.LoginActivity;
 import com.example.hsinhwang.shrimpshell.Classes.Common;
 import com.example.hsinhwang.shrimpshell.Classes.EmployeeDinling;
 import com.example.hsinhwang.shrimpshell.Classes.LogIn;
+
+import com.example.hsinhwang.shrimpshell.Classes.MainOptions;
+import com.example.hsinhwang.shrimpshell.CustomerPanel.ProfileAddRatingFragment;
+
 import com.example.hsinhwang.shrimpshell.EmployeePanel.EmployeeHomeActivity;
 import com.example.hsinhwang.shrimpshell.InstantEmployeePanel.EmployeeDinlingService;
 
@@ -194,6 +198,8 @@ public class MainActivity extends AppCompatActivity {
                 case 4:
                     Fragment BookingFragment = new BookingFragment();
                     changeFragment(BookingFragment);
+                    break;
+
             }
         }
 

@@ -62,6 +62,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity android:name=".ProfileReceiptDetailResultActivity" />
+
         <activity
             android:name=".InstantActivity"
             android:label="@string/title_activity_instant"
@@ -76,7 +77,12 @@
         <activity android:name=".InstantEmployeePanel.EmployeeRoomService"></activity>
 
 
-        <activity android:name=".EmployeePanel.EmployeeEditActivity"></activity>
+        <activity android:name=".EmployeePanel.EmployeeEditActivity"/>
+        <activity android:name=".CustomerPanel.ProfileAddRatingFragment"/>
+       
+
+
+
         <activity android:name=".GeneralPages.AllRatingActivity" />
 
     </application>
