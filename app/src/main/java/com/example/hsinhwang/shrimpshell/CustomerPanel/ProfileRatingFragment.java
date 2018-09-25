@@ -67,7 +67,7 @@ public class ProfileRatingFragment extends Fragment {
             String url = Common.URL + "/RatingServlet";
             List<Rating> ratings = null;
             JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("action", "getAll");
+            jsonObject.addProperty("action", "getAllById");
             jsonObject.addProperty("IdCustomer", idCustomer);
             String jsonOut = jsonObject.toString();
             ratingGetAllTask = new CommonTask(url, jsonOut);
