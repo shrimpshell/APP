@@ -55,11 +55,13 @@ public class MainActivity extends AppCompatActivity {
 
         switch (pageId) {
             case 2:
-                Fragment profileFragment = new ProfileFragment();
-                changeFragment(profileFragment);
-                setTitle(R.string.profile);
-                navigation.setSelectedItemId(R.id.item_profile);
-                break;
+                if (request_code == 0) {
+                    Fragment profileFragment = new ProfileFragment();
+                    changeFragment(profileFragment);
+                    setTitle(R.string.profile);
+                    navigation.setSelectedItemId(R.id.item_profile);
+                    break;
+                }
             default:
                 if (request_code == 0) {
                     Fragment homeFragment = new HomeFragment();
@@ -93,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                     return true;
 
                 case R.id.item_instant:
-                    Intent intent2 = new Intent(MainActivity.this,InstantActivity.class);
+                    Intent intent2 = new Intent(MainActivity.this, InstantActivity.class);
                     startActivity(intent2);
                     return true;
 

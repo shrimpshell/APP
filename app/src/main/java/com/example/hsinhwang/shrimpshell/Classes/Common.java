@@ -30,6 +30,7 @@ public class Common {
 
     public static final String LOGIN = "GLOBAL_LOGIN";
     public static final String EMPLOYEE_LOGIN = "EMPLOYEE_LOGIN";
+    public static final String RESERVATION_DATA = "RESERVATION_DATA";
     public static final String PAGE = "PAGE";
     public static final String INSTANT_TEST = "INSTANT_TEST";
 

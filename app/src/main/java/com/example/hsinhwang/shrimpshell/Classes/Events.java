@@ -10,6 +10,11 @@ public class Events implements Serializable {
     private String name, description, start, end;
     private Blob eventImage;
 
+    public Events(float discount) {
+        super();
+        this.discount = discount;
+    }
+
     public Events(int eventId, String name, String description, String start, String end, float discount) {
         this.eventId = eventId;
         this.name = name;
