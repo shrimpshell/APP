@@ -3,18 +3,49 @@ package com.example.hsinhwang.shrimpshell.Classes;
 
 public class Instant {
     private int IdInstantDetail, IdInstantService, Status, Quantity, IdInstantType, IdRoomStatus;
+    private String RoomNumber;
 
-    public Instant(int idInstantDetail, int idInstantService, int status, int quantity, int idInstantType,
-                   int idRoomStatus) {
-        super();
+    public Instant(int idInstantDetail, int idInstantService, String roomNumber, int status, int quantity, int idInstantType, int idRoomStatus) {
         IdInstantDetail = idInstantDetail;
         IdInstantService = idInstantService;
         Status = status;
         Quantity = quantity;
         IdInstantType = idInstantType;
         IdRoomStatus = idRoomStatus;
+        RoomNumber = roomNumber;
     }
 
+    public Instant(int idInstantDetail, int idInstantService, String roomNumber, int status, int quantity, int idInstantType) {
+        IdInstantDetail = idInstantDetail;
+        IdInstantService = idInstantService;
+        Status = status;
+        Quantity = quantity;
+        IdInstantType = idInstantType;
+        RoomNumber = roomNumber;
+    }
+
+
+    public Instant(int idInstantService, String roomNumber,int status, int quantity, int idInstantType, int idRoomStatus) {
+        IdInstantService = idInstantService;
+        Status = status;
+        Quantity = quantity;
+        IdInstantType = idInstantType;
+        IdRoomStatus = idRoomStatus;
+        RoomNumber = roomNumber;
+    }
+
+    public Instant(int idInstantService, String roomNumber,int status, int quantity, int idInstantType) {
+        IdInstantService = idInstantService;
+        Status = status;
+        Quantity = quantity;
+        IdInstantType = idInstantType;
+        RoomNumber = roomNumber;
+    }
+
+    public Instant(int idInstantDetail, int status) {
+        IdInstantDetail = idInstantDetail;
+        Status = status;
+    }
 
     public int getIdInstantDetail() {
         return IdInstantDetail;
@@ -64,5 +95,12 @@ public class Instant {
         IdRoomStatus = idRoomStatus;
     }
 
+    public String getRoomNumber() {
+        return RoomNumber;
+    }
+
+    public void setRoomNumber(String roomNumber) {
+        RoomNumber = roomNumber;
+    }
 }
 

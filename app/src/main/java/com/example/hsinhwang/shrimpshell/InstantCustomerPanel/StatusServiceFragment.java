@@ -9,10 +9,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,24 +23,34 @@ import android.widget.TextView;
 
 import com.example.hsinhwang.shrimpshell.Classes.ChatMessage;
 import com.example.hsinhwang.shrimpshell.Classes.Common;
+import com.example.hsinhwang.shrimpshell.Classes.CommonTask;
+import com.example.hsinhwang.shrimpshell.Classes.EmployeeDinling;
 import com.example.hsinhwang.shrimpshell.Classes.Instant;
 import com.example.hsinhwang.shrimpshell.Classes.StatusService;
+import com.example.hsinhwang.shrimpshell.InstantEmployeePanel.EmployeeDinlingService;
 import com.example.hsinhwang.shrimpshell.R;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.ContentValues.TAG;
 import static android.content.Context.MODE_PRIVATE;
 
 
 public class StatusServiceFragment extends Fragment {
+    FragmentActivity activity;
     RecyclerView rvStatusService;
     private LocalBroadcastManager broadcastManager;
+    private CommonTask customerStatus;
     List<StatusService> statusServiceList;
     SharedPreferences preferences;
     String customerName;
+    StatusServiceAdapter adapter;
+    int idInstantDetail;
 
 
 
@@ -52,28 +64,65 @@ public class StatusServiceFragment extends Fragment {
         broadcastManager = LocalBroadcastManager.getInstance(getActivity());
         registerChatReceiver();
 
+        activity = getActivity();
+        rvStatusService = view.findViewById(R.id.rvStatusService);
+        rvStatusService.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        statusServiceList = getStatusServiceList();
+        adapter = new StatusServiceAdapter(getActivity(),statusServiceList);
+        rvStatusService.setAdapter(adapter);
 
         preferences = getActivity().getSharedPreferences(Common.LOGIN, MODE_PRIVATE);
         customerName = preferences.getString("email", "");
 
         Common.connectServer(getActivity(),customerName,"0");
-        handlerView(view);
+
 
         return view;
 
     }
 
+    private List<StatusService> getStatusServiceList() {
+        List<StatusService> statusServiceList = new ArrayList<>();
 
+        return statusServiceList;
+    }
 
-    private void handlerView(View view) {
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (Common.networkConnected(activity)) {
+            String url = Common.URL + "/InstantServlet";
+            List<StatusService> statusServices = null;
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("action", "getCustomerStatus");
+            jsonObject.addProperty("roomNumber", 502);
+            String jsonOut = jsonObject.toString();
+            customerStatus = new CommonTask(url, jsonOut);
+            try {
+                String jsonIn = customerStatus.execute().get();
+                Type listType = new TypeToken<List<StatusService>>() {
+                }.getType();
+                statusServices = new Gson().fromJson(jsonIn, listType);
+            } catch (Exception e) {
+                Log.e(TAG, e.toString());
+            }
+            if (statusServices == null || statusServices.isEmpty()) {
+                Common.showToast(activity, R.string.msg_NoInstantFound);
+            } else {
+                rvStatusService.setAdapter
+                        (new StatusServiceAdapter(activity, statusServices));
+            }
 
-        rvStatusService = view.findViewById(R.id.rvStatusService);
-        rvStatusService.setLayoutManager(new LinearLayoutManager(getActivity()));
+        } else {
+            Common.showToast(activity, R.string.msg_NoNetwork);
+        }
+    }
 
-        statusServiceList = new ArrayList<>();
-        rvStatusService.setAdapter(new StatusServiceAdapter(getActivity(),statusServiceList));
+    private List<StatusService> statusServiceList() {
+        List<StatusService> statusServiceList = new ArrayList<>();
 
-
+        return statusServiceList;
     }
 
     private void registerChatReceiver() {
@@ -92,73 +141,42 @@ public class StatusServiceFragment extends Fragment {
         public void onReceive(Context context, Intent intent) {
             String message = intent.getStringExtra("message");
             ChatMessage chatMessage = new Gson().fromJson(message, ChatMessage.class);
-            int serviceId = chatMessage.getServiceId();
-            String item = chatMessage.getServiceItem();
-            int status = chatMessage.getStatus();
-            String quantity = String.valueOf(chatMessage.getQuantity());
+            idInstantDetail = chatMessage.getInstantNumber();
 
-            switch (serviceId){
-                case 1: //Clean
-                    if (status == 2) {
-                        statusServiceList.add(new StatusService(R.drawable.icon_playing,
-                                item,quantity,"清潔服務"));
+            if (idInstantDetail != 0) {
 
-                        rvStatusService.getAdapter().notifyItemInserted(statusServiceList.size());
-
-                    } else if (status == 3) {
-
-                        statusServiceList.add(new StatusService(R.drawable.icon_finish,
-                                item,quantity,"清潔服務"));
-
-                        rvStatusService.getAdapter().notifyItemInserted(statusServiceList.size());
-
+                if (Common.networkConnected(activity)) {
+                    String url = Common.URL + "/InstantServlet";
+                    List<StatusService> statusServices = null;
+                    JsonObject jsonObject = new JsonObject();
+                    jsonObject.addProperty("action", "getCustomerStatus");
+                    jsonObject.addProperty("roomNumber", 502);
+                    String jsonOut = jsonObject.toString();
+                    customerStatus = new CommonTask(url, jsonOut);
+                    try {
+                        String jsonIn = customerStatus.execute().get();
+                        Type listType = new TypeToken<List<StatusService>>() {
+                        }.getType();
+                        statusServices = new Gson().fromJson(jsonIn, listType);
+                    } catch (Exception e) {
+                        Log.e(TAG, e.toString());
+                    }
+                    if (statusServices == null || statusServices.isEmpty()) {
+                        Common.showToast(activity, R.string.msg_NoInstantFound);
+                    } else {
+                        rvStatusService.setAdapter
+                                (new StatusServiceAdapter(activity, statusServices));
                     }
 
-                    break;
+                } else {
+                    Common.showToast(activity, R.string.msg_NoNetwork);
+                }
 
-                case 2: //Room
+                rvStatusService.getAdapter().notifyDataSetChanged();
 
-                    if (status == 2) {
-                        statusServiceList.add(new StatusService(R.drawable.icon_playing,
-                                item,quantity,"房務服務"));
 
-                        rvStatusService.getAdapter().notifyItemInserted(statusServiceList.size());
-
-                    } else if (status == 3) {
-
-                        statusServiceList.add(new StatusService(R.drawable.icon_finish,
-                                item,quantity,"房務服務"));
-
-                        rvStatusService.getAdapter().notifyItemInserted(statusServiceList.size());
-
-                    }
-
-                    break;
-
-                case 3: //Dinling
-
-                    if (status == 2) {
-                        statusServiceList.add(new StatusService(R.drawable.icon_playing,
-                                item,quantity,"餐點服務"));
-
-                        rvStatusService.getAdapter().notifyItemInserted(statusServiceList.size());
-
-                    } else if (status == 3) {
-
-                        statusServiceList.add(new StatusService(R.drawable.icon_finish,
-                                item,quantity,"餐點服務"));
-
-                        rvStatusService.getAdapter().notifyItemInserted(statusServiceList.size());
-
-                    }
-
-                    break;
-
-                default:
-
-                    break;
             }
-            rvStatusService.getAdapter().notifyDataSetChanged();
+
 
         }
     }
@@ -214,10 +232,70 @@ public class StatusServiceFragment extends Fragment {
                 MyViewHolder myViewHolder, int position) {
             final StatusService statusService = statusServiceList.get(position);
 
-            myViewHolder.imageView.setImageResource(statusService.getImage());
-            myViewHolder.tvItem.setText(statusService.getTvitem());
-            myViewHolder.tvQuantity.setText(statusService.getTvquantity());
-            myViewHolder.tvService.setText(statusService.getTvservice());
+            switch (statusService.getStatus()) {
+                case 1:
+                    myViewHolder.imageView.setImageResource(R.drawable.icon_unfinish);
+                    break;
+                case 2:
+                    myViewHolder.imageView.setImageResource(R.drawable.icon_playing);
+                    break;
+                case 3:
+                    myViewHolder.imageView.setImageResource(R.drawable.icon_finish);
+                    break;
+                default:
+                    break;
+            }
+
+            switch (statusService.getIdInstantType()) {
+                case 1:
+                    myViewHolder.tvItem.setText(R.string.service_type_1);
+                    break;
+                case 2:
+                    myViewHolder.tvItem.setText(R.string.service_type_2);
+                    break;
+                case 3:
+                    myViewHolder.tvItem.setText(R.string.service_type_3);
+                    break;
+                case 4:
+                    myViewHolder.tvItem.setText(R.string.service_type_4);
+                    break;
+                case 5:
+                    myViewHolder.tvItem.setText(R.string.service_type_5);
+                    break;
+                case 6:
+                    myViewHolder.tvItem.setText(R.string.service_type_6);
+                    break;
+                case 7:
+                    myViewHolder.tvItem.setText(R.string.service_type_7);
+                    break;
+                case 8:
+                    myViewHolder.tvItem.setText(R.string.service_type_8);
+                    break;
+                case 9:
+                    myViewHolder.tvItem.setText(R.string.service_type_9);
+                    break;
+                case 10:
+                    myViewHolder.tvItem.setText(R.string.service_type_10);
+                    break;
+                default:
+                    break;
+            }
+
+            switch (statusService.getIdInstantService()) {
+                case 1:
+                    myViewHolder.tvService.setText(R.string.service_1);
+                    break;
+                case 2:
+                    myViewHolder.tvService.setText(R.string.service_2);
+                    break;
+                case 3:
+                    myViewHolder.tvService.setText(R.string.service_3);
+                    break;
+                default:
+                    break;
+            }
+
+            myViewHolder.tvQuantity.setText(String.valueOf(statusService.getQuantity()));
 
 
 

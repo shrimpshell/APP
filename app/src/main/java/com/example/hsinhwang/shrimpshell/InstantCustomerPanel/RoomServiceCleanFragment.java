@@ -274,14 +274,13 @@ public class RoomServiceCleanFragment extends Fragment {
 
 
                             Toast.makeText(context, "我們將為您打掃房間", Toast.LENGTH_SHORT).show();
-
-                            chatMessage =
-                                    new ChatMessage(customerName, "0", "0",
-                                            "1", "清潔服務", 1,
-                                            1, 0);
-                            chatMessageJson = new Gson().toJson(chatMessage);
-                            Common.chatwebSocketClient.send(chatMessageJson);
-                            Log.d(TAG, "output: " + chatMessageJson);
+//
+//                            chatMessage =
+//                                    new ChatMessage(customerName, "0", "0",
+//                                            "1", idInstantDetail);
+//                            chatMessageJson = new Gson().toJson(chatMessage);
+//                            Common.chatwebSocketClient.send(chatMessageJson);
+//                            Log.d(TAG, "output: " + chatMessageJson);
 
 
                             break;
@@ -290,13 +289,12 @@ public class RoomServiceCleanFragment extends Fragment {
 
                             Toast.makeText(context, "我們將為您清洗換洗衣物", Toast.LENGTH_SHORT).show();
 
-                            chatMessage =
-                                    new ChatMessage(customerName, "0", "0",
-                                            "2", "洗衣服務", 2,
-                                            1, 0);
-                            chatMessageJson = new Gson().toJson(chatMessage);
-                            Common.chatwebSocketClient.send(chatMessageJson);
-                            Log.d(TAG, "output: " + chatMessageJson);
+//                            chatMessage =
+//                                    new ChatMessage(customerName, "0", "0",
+//                                            "2", idInstantDetail);
+//                            chatMessageJson = new Gson().toJson(chatMessage);
+//                            Common.chatwebSocketClient.send(chatMessageJson);
+//                            Log.d(TAG, "output: " + chatMessageJson);
 
 
                             break;
@@ -318,15 +316,14 @@ public class RoomServiceCleanFragment extends Fragment {
                                     Toast.makeText(context, "已收到您需要枕頭 " + UserEnteritem1
                                             + " 個及盥洗用具" + UserEnteritem2 + " 組", Toast.LENGTH_SHORT).show();
 
-
-                                    chatMessage =
-                                            new ChatMessage(customerName, "0", "0",
-                                                    "2", "備品服務", 2,
-                                                    1, Integer.parseInt(UserEnteritem1 + UserEnteritem2));
-                                    chatMessageJson = new Gson().toJson(chatMessage);
-                                    Common.chatwebSocketClient.send(chatMessageJson);
-                                    Log.d(TAG, "output: " + chatMessageJson);
-
+//
+//                                    chatMessage =
+//                                            new ChatMessage(customerName, "0", "0",
+//                                                    "2", idInstantDetail);
+//                                    chatMessageJson = new Gson().toJson(chatMessage);
+//                                    Common.chatwebSocketClient.send(chatMessageJson);
+//                                    Log.d(TAG, "output: " + chatMessageJson);
+//
 
                                 }
 
@@ -340,15 +337,14 @@ public class RoomServiceCleanFragment extends Fragment {
 
                                     Toast.makeText(context, "已收到您需要枕頭 " + UserEnteritem1
                                             + "個", Toast.LENGTH_SHORT).show();
-
-                                    chatMessage =
-                                            new ChatMessage(customerName, "0", "0",
-                                                    "2", "枕頭備品", 2,
-                                                    1, Integer.parseInt(UserEnteritem1));
-                                    chatMessageJson = new Gson().toJson(chatMessage);
-                                    Common.chatwebSocketClient.send(chatMessageJson);
-                                    Log.d(TAG, "output: " + chatMessageJson);
-
+//
+//                                    chatMessage =
+//                                            new ChatMessage(customerName, "0", "0",
+//                                                    "2", idInstantDetail);
+//                                    chatMessageJson = new Gson().toJson(chatMessage);
+//                                    Common.chatwebSocketClient.send(chatMessageJson);
+//                                    Log.d(TAG, "output: " + chatMessageJson);
+//
 
                                 }
 
@@ -364,13 +360,12 @@ public class RoomServiceCleanFragment extends Fragment {
                                     Toast.makeText(context, "已收到您需要盥洗用具 " + UserEnteritem2
                                             + " 組", Toast.LENGTH_SHORT).show();
 
-                                    chatMessage =
-                                            new ChatMessage(customerName, "0", "0",
-                                                    "2", "盥洗用具", 2,
-                                                    1, Integer.parseInt(UserEnteritem2));
-                                    chatMessageJson = new Gson().toJson(chatMessage);
-                                    Common.chatwebSocketClient.send(chatMessageJson);
-                                    Log.d(TAG, "output: " + chatMessageJson);
+//                                    chatMessage =
+//                                            new ChatMessage(customerName, "0", "0",
+//                                                    "2",idInstantDeatil);
+//                                    chatMessageJson = new Gson().toJson(chatMessage);
+//                                    Common.chatwebSocketClient.send(chatMessageJson);
+//                                    Log.d(TAG, "output: " + chatMessageJson);
 
 
                                 }

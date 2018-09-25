@@ -11,7 +11,7 @@ import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
-
+import static android.content.Context.NOTIFICATION_SERVICE;
 import com.example.hsinhwang.shrimpshell.InstantCustomerPanel.StatusServiceFragment;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -23,7 +23,7 @@ import org.java_websocket.handshake.ServerHandshake;
 import java.net.URI;
 import java.util.Locale;
 
-import static android.content.Context.NOTIFICATION_SERVICE;
+
 
 public class ChatWebSocketClient extends WebSocketClient {
     private static final String TAG = "ChatWebSocketClient";

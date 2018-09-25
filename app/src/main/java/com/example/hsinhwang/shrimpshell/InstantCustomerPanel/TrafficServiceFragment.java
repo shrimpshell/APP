@@ -79,7 +79,6 @@ public class TrafficServiceFragment extends Fragment {
             ImageView imageView;
             LinearLayout layout_traffic;
             TextView tvTraffic1, tvTraffic2;
-            TimePicker tpTraffic;
             EditText etTraffic;
             Button btTraffic;
 
@@ -231,14 +230,13 @@ public class TrafficServiceFragment extends Fragment {
 
                                 Toast.makeText(context, "接送人數為" + UserEnterPerson +
                                         "人，請稍候！", Toast.LENGTH_SHORT).show();
-
-                                chatMessage =
-                                        new ChatMessage(customerName, "0", "0",
-                                                "2", "高鐵接駁",2,
-                                                1,Integer.parseInt(UserEnterPerson));
-                                chatMessageJson = new Gson().toJson(chatMessage);
-                                Common.chatwebSocketClient.send(chatMessageJson);
-                                Log.d(TAG, "output: " + chatMessageJson);
+//
+//                                chatMessage =
+//                                        new ChatMessage(customerName, "0", "0",
+//                                                "2", idInstantDetail);
+//                                chatMessageJson = new Gson().toJson(chatMessage);
+//                                Common.chatwebSocketClient.send(chatMessageJson);
+//                                Log.d(TAG, "output: " + chatMessageJson);
 
 
                             }
@@ -258,13 +256,12 @@ public class TrafficServiceFragment extends Fragment {
                                 Toast.makeText(context, "接送人數為" + UserEnterPerson +
                                         "人，請稍候！", Toast.LENGTH_SHORT).show();
 
-                                chatMessage =
-                                        new ChatMessage(customerName, "0", "0",
-                                                "2", "火車接駁",2,
-                                                1,Integer.parseInt(UserEnterPerson));
-                                chatMessageJson = new Gson().toJson(chatMessage);
-                                Common.chatwebSocketClient.send(chatMessageJson);
-                                Log.d(TAG, "output: " + chatMessageJson);
+//                                chatMessage =
+//                                        new ChatMessage(customerName, "0", "0",
+//                                                "2", idInstantDetail);
+//                                chatMessageJson = new Gson().toJson(chatMessage);
+//                                Common.chatwebSocketClient.send(chatMessageJson);
+//                                Log.d(TAG, "output: " + chatMessageJson);
 
 
                             }
@@ -283,13 +280,12 @@ public class TrafficServiceFragment extends Fragment {
                                 Toast.makeText(context, "接送人數為" + UserEnterPerson +
                                         "人，請稍候！", Toast.LENGTH_SHORT).show();
 
-                                chatMessage =
-                                        new ChatMessage(customerName, "0", "0",
-                                                "2", "機場接駁",2,
-                                                1,Integer.parseInt(UserEnterPerson));
-                                chatMessageJson = new Gson().toJson(chatMessage);
-                                Common.chatwebSocketClient.send(chatMessageJson);
-                                Log.d(TAG, "output: " + chatMessageJson);
+//                                chatMessage =
+//                                        new ChatMessage(customerName, "0", "0",
+//                                                "2", idInstantDetail);
+//                                chatMessageJson = new Gson().toJson(chatMessage);
+//                                Common.chatwebSocketClient.send(chatMessageJson);
+//                                Log.d(TAG, "output: " + chatMessageJson);
 
 
                             }

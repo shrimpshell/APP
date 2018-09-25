@@ -195,6 +195,8 @@
     <string name="employeeEditGender">Gender</string>
     <string name="employeeEditEmail">Email</string>
     <string name="employeeEditDept">Department</string>
+    <string name="id_InstantSuccess">Id add Success</string>
+    <string name="id_InstantFail">Id add Fail</string>
 
 
     <!-- 即時服務 -->
@@ -218,7 +220,20 @@
     <string name="title_activity_employee_dinling_service">EmployeeDinlingServiceActivity</string>
     <string name="title_activity_employee_clean_service">EmployeeCleanServiceActivity</string>
     <string name="title_activity_empolyee_room_service">EmpolyeeRoomServiceActivity</string>
-
+    <string name="msg_NoInstantFound">No Instant Found</string>
+    <string name="service_type_1">A餐</string>
+    <string name="service_type_2">B餐</string>
+    <string name="service_type_3">C餐</string>
+    <string name="service_type_4">機場接送</string>
+    <string name="service_type_5">車站接送</string>
+    <string name="service_type_6">高鐵接送</string>
+    <string name="service_type_7">清潔服務</string>
+    <string name="service_type_8">洗衣服務</string>
+    <string name="service_type_9">枕頭備品</string>
+    <string name="service_type_10">盥洗用具</string>
+    <string name="service_1">清潔服務</string>
+    <string name="service_2">房務服務</string>
+    <string name="service_3">餐點服務</string>
 
 
     <string-array name="department_options">

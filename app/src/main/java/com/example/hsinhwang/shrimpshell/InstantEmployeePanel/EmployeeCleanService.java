@@ -20,7 +20,7 @@ import android.widget.TextView;
 
 import com.example.hsinhwang.shrimpshell.Classes.ChatMessage;
 import com.example.hsinhwang.shrimpshell.Classes.Common;
-import com.example.hsinhwang.shrimpshell.Classes.EmployeeCall;
+
 import com.example.hsinhwang.shrimpshell.Classes.EmployeeClean;
 import com.example.hsinhwang.shrimpshell.R;
 import com.google.gson.Gson;
@@ -36,6 +36,7 @@ public class EmployeeCleanService extends AppCompatActivity {
     List<EmployeeClean> employeeCleanList;
     SharedPreferences preferences;
     private String employeeName;
+    EmployeeCleanAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,16 +44,25 @@ public class EmployeeCleanService extends AppCompatActivity {
         setContentView(R.layout.activity_employee_clean_service);
         broadcastManager = LocalBroadcastManager.getInstance(this);
         registerInstantReceiver();
+
         rvEmployeeClean = findViewById(R.id.rvEmployeeClean);
         rvEmployeeClean.setLayoutManager(new LinearLayoutManager(this));
-        employeeCleanList = new ArrayList<>();
-        rvEmployeeClean.setAdapter(new EmployeeCleanAdapter(this, employeeCleanList));
+        employeeCleanList = getEmployeeCleanList();
+
+        adapter = new EmployeeCleanAdapter(this, employeeCleanList);
+        rvEmployeeClean.setAdapter(adapter);
 
         preferences = getSharedPreferences(Common.EMPLOYEE_LOGIN, MODE_PRIVATE);
         employeeName = preferences.getString("email", "");
 
         Common.connectServer(this, employeeName, "1");
 
+    }
+    private List<EmployeeClean> getEmployeeCleanList() {
+        List<EmployeeClean> employeeCleanList = new ArrayList<>();
+
+
+        return employeeCleanList;
     }
 
     private void registerInstantReceiver() {
@@ -69,31 +79,6 @@ public class EmployeeCleanService extends AppCompatActivity {
             String message = intent.getStringExtra("message");
             ChatMessage chatMessage = new Gson().fromJson(message, ChatMessage.class);
             String sender = chatMessage.getSenderId();
-            int status = chatMessage.getStatus();
-            Log.d(TAG, "Clean get: " + message);
-            switch (status) {
-                case 1:
-                    employeeCleanList.add(new EmployeeClean(R.drawable.icon_unfinish,
-                            "1", sender));
-                    rvEmployeeClean.getAdapter().notifyItemInserted(employeeCleanList.size());
-
-                    break;
-                case 2:
-                    employeeCleanList.add(new EmployeeClean(R.drawable.icon_playing,
-                            "2", sender));
-                    rvEmployeeClean.getAdapter().notifyItemInserted(employeeCleanList.size());
-
-                    break;
-                case 3:
-                    employeeCleanList.add(new EmployeeClean(R.drawable.icon_finish,
-                            "3", sender));
-                    rvEmployeeClean.getAdapter().notifyItemInserted(employeeCleanList.size());
-                    break;
-                default:
-                    break;
-
-            }
-            rvEmployeeClean.getAdapter().notifyDataSetChanged();
 
         }
 
@@ -150,33 +135,7 @@ public class EmployeeCleanService extends AppCompatActivity {
             myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ChatMessage chatMessage;
-                    String chatMessageJson;
-                    switch (Integer.parseInt(myViewHolder.tvStatusNumber.getText().toString())) {
 
-                        case 1:
-                            chatMessage = new ChatMessage
-                                    (employeeName,
-                                            myViewHolder.tvRoomId.getText().toString(),
-                                            "1", "0", "0",
-                                            1, 2, 0);
-                            chatMessageJson = new Gson().toJson(chatMessage);
-                            Common.chatwebSocketClient.send(chatMessageJson);
-                            Log.d(TAG, "output: " + chatMessageJson);
-                            break;
-
-                        case 2:
-                            chatMessage = new ChatMessage
-                                    (employeeName,
-                                            myViewHolder.tvRoomId.getText().toString(),
-                                            "1", "0", "0",
-                                            1, 3, 0);
-                            chatMessageJson = new Gson().toJson(chatMessage);
-                            Common.chatwebSocketClient.send(chatMessageJson);
-                            Log.d(TAG, "output: " + chatMessageJson);
-                            break;
-
-                    }
                 }
             });
 

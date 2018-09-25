@@ -3,20 +3,17 @@ package com.example.hsinhwang.shrimpshell.Classes;
 public class ChatMessage {
 
     // groupId Customer:0 clean:1 room:2 dinling:3
-    private String senderId, receiverId, senderGroupId, receiverGroupId, serviceItem;
-    private int serviceId, status, quantity;
+    private String senderId, receiverId, senderGroupId, receiverGroupId;
+    private int serviceId,instantNumber;
 
     public ChatMessage(String senderId, String receiverId, String senderGroupId,
-                       String receiverGroupId, String serviceItem, int serviceId,
-                       int status, int quantity) {
+                       String receiverGroupId, int serviceId, int instantNumber) {
         this.senderId = senderId;
         this.receiverId = receiverId;
         this.senderGroupId = senderGroupId;
         this.receiverGroupId = receiverGroupId;
-        this.serviceItem = serviceItem;
         this.serviceId = serviceId;
-        this.status = status;
-        this.quantity = quantity;
+        this.instantNumber = instantNumber;
     }
 
     public String getSenderId() {
@@ -51,14 +48,6 @@ public class ChatMessage {
         this.receiverGroupId = receiverGroupId;
     }
 
-    public String getServiceItem() {
-        return serviceItem;
-    }
-
-    public void setServiceItem(String serviceItem) {
-        this.serviceItem = serviceItem;
-    }
-
     public int getServiceId() {
         return serviceId;
     }
@@ -67,19 +56,11 @@ public class ChatMessage {
         this.serviceId = serviceId;
     }
 
-    public int getStatus() {
-        return status;
+    public int getInstantNumber() {
+        return instantNumber;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setInstantNumber(int instantNumber) {
+        this.instantNumber = instantNumber;
     }
 }

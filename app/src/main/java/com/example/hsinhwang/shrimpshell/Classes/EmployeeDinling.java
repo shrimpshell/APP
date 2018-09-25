@@ -1,54 +1,74 @@
 package com.example.hsinhwang.shrimpshell.Classes;
 
 public class EmployeeDinling {
-    private int imageStatus;
-    private String tvRoomId,tvItem,tvQuantity,tvStatusNumber;
+    private int IdInstantDetail, IdInstantService, Status, Quantity, IdInstantType, IdRoomStatus;
+    private String RoomNumber;
 
-    public EmployeeDinling(int imageStatus, String tvStatusNumber, String tvRoomId, String tvItem, String tvQuantity) {
-        this.imageStatus = imageStatus;
-        this.tvStatusNumber = tvStatusNumber;
-        this.tvRoomId = tvRoomId;
-        this.tvItem = tvItem;
-        this.tvQuantity = tvQuantity;
+    public EmployeeDinling(int idInstantDetail, int idInstantService, int status, int quantity,
+                           int idInstantType, int idRoomStatus, String roomNumber) {
+        IdInstantDetail = idInstantDetail;
+        IdInstantService = idInstantService;
+        Status = status;
+        Quantity = quantity;
+        IdInstantType = idInstantType;
+        IdRoomStatus = idRoomStatus;
+        RoomNumber = roomNumber;
     }
 
-    public int getImageStatus() {
-        return imageStatus;
+
+    public int getIdInstantDetail() {
+        return IdInstantDetail;
     }
 
-    public void setImageStatus(int imageStatus) {
-        this.imageStatus = imageStatus;
+    public void setIdInstantDetail(int idInstantDetail) {
+        IdInstantDetail = idInstantDetail;
     }
 
-    public String getTvRoomId() {
-        return tvRoomId;
+    public int getIdInstantService() {
+        return IdInstantService;
     }
 
-    public void setTvRoomId(String tvRoomId) {
-        this.tvRoomId = tvRoomId;
+    public void setIdInstantService(int idInstantService) {
+        IdInstantService = idInstantService;
     }
 
-    public String getTvItem() {
-        return tvItem;
+    public int getStatus() {
+        return Status;
     }
 
-    public void setTvItem(String tvItem) {
-        this.tvItem = tvItem;
+    public void setStatus(int status) {
+        Status = status;
     }
 
-    public String getTvQuantity() {
-        return tvQuantity;
+    public int getQuantity() {
+        return Quantity;
     }
 
-    public void setTvQuantity(String tvQuantity) {
-        this.tvQuantity = tvQuantity;
+    public void setQuantity(int quantity) {
+        Quantity = quantity;
     }
 
-    public String getTvStatusNumber() {
-        return tvStatusNumber;
+    public int getIdInstantType() {
+        return IdInstantType;
     }
 
-    public void setTvStatusNumber(String tvStatusNumber) {
-        this.tvStatusNumber = tvStatusNumber;
+    public void setIdInstantType(int idInstantType) {
+        IdInstantType = idInstantType;
+    }
+
+    public int getIdRoomStatus() {
+        return IdRoomStatus;
+    }
+
+    public void setIdRoomStatus(int idRoomStatus) {
+        IdRoomStatus = idRoomStatus;
+    }
+
+    public String getRoomNumber() {
+        return RoomNumber;
+    }
+
+    public void setRoomNumber(String roomNumber) {
+        RoomNumber = roomNumber;
     }
 }

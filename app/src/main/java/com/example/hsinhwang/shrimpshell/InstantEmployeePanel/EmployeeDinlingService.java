@@ -16,15 +16,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-
+import static com.example.hsinhwang.shrimpshell.Classes.Common.chatwebSocketClient;
 import com.example.hsinhwang.shrimpshell.Classes.ChatMessage;
 import com.example.hsinhwang.shrimpshell.Classes.Common;
+import com.example.hsinhwang.shrimpshell.Classes.CommonTask;
 import com.example.hsinhwang.shrimpshell.Classes.EmployeeDinling;
+import com.example.hsinhwang.shrimpshell.Classes.Instant;
 import com.example.hsinhwang.shrimpshell.R;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,9 +38,13 @@ public class EmployeeDinlingService extends AppCompatActivity {
     private static final String TAG = "EmployeeDinling";
     private LocalBroadcastManager broadcastManager;
     RecyclerView rvEmployeeDinling;
-    private List<EmployeeDinling> employeeDinlingList;
-    SharedPreferences preferences;
+    SharedPreferences preferences, type;
     private String employeeName;
+    private CommonTask employeeStatus;
+    EmployeeDinlingAdapter adapter;
+    List<EmployeeDinling> employeeDinlings;
+    int idInstantDetail;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,15 +52,62 @@ public class EmployeeDinlingService extends AppCompatActivity {
         setContentView(R.layout.activity_employee_dinling_service);
         broadcastManager = LocalBroadcastManager.getInstance(this);
         registerInstantReceiver();
+
         rvEmployeeDinling = findViewById(R.id.rvEmployeeDinling);
         rvEmployeeDinling.setLayoutManager(new LinearLayoutManager(this));
-        employeeDinlingList = new ArrayList<>();
-        rvEmployeeDinling.setAdapter(new EmployeeDinlingAdapter(this, employeeDinlingList));
+        employeeDinlings = getEmployeeDinlingList();
+        adapter = new EmployeeDinlingAdapter(this, employeeDinlings);
+        rvEmployeeDinling.setAdapter(adapter);
 
         preferences = getSharedPreferences(Common.EMPLOYEE_LOGIN, MODE_PRIVATE);
         employeeName = preferences.getString("email", "");
 
         Common.connectServer(this, employeeName, "3");
+
+    }
+
+    private List<EmployeeDinling> getEmployeeDinlingList() {
+        List<EmployeeDinling> employeeDinlingList = new ArrayList<>();
+
+
+
+
+
+        return employeeDinlingList;
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if (Common.networkConnected(this)) {
+            String url = Common.URL + "/InstantServlet";
+            List<EmployeeDinling> employeeDinlings = null;
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("action", "getEmployeeStatus");
+            jsonObject.addProperty("idInstantService", 3);
+            String jsonOut = jsonObject.toString();
+            employeeStatus = new CommonTask(url, jsonOut);
+            try {
+                String jsonIn = employeeStatus.execute().get();
+                Type listType = new TypeToken<List<EmployeeDinling>>() {
+                }.getType();
+                employeeDinlings = new Gson().fromJson(jsonIn, listType);
+            } catch (Exception e) {
+                Log.e(TAG, e.toString());
+            }
+            if (employeeDinlings == null || employeeDinlings.isEmpty()) {
+                Common.showToast(this, R.string.msg_NoInstantFound);
+            } else {
+                rvEmployeeDinling.setAdapter
+                        (new EmployeeDinlingAdapter(this, employeeDinlings));
+            }
+
+        } else {
+            Common.showToast(this, R.string.msg_NoNetwork);
+        }
+
 
     }
 
@@ -65,62 +120,61 @@ public class EmployeeDinlingService extends AppCompatActivity {
 
     }
 
-    private class ChatReceiver extends BroadcastReceiver {
+    public class ChatReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
             String message = intent.getStringExtra("message");
             ChatMessage chatMessage = new Gson().fromJson(message, ChatMessage.class);
-            String sender = chatMessage.getSenderId();
-            String item = chatMessage.getServiceItem();
-            int status = chatMessage.getStatus();
-            String quantity = String.valueOf(chatMessage.getQuantity());
-            Log.d(TAG, "Dinling get: " + message);
-            switch (status) {
-                case 1: //未完成
-                    employeeDinlingList.add(new EmployeeDinling(R.drawable.icon_unfinish
-                            , "1", sender, item, quantity));
+            idInstantDetail = chatMessage.getInstantNumber();
+            if (idInstantDetail != 0 ) {
 
-                    rvEmployeeDinling.getAdapter().notifyItemInserted(employeeDinlingList.size());
+                if (Common.networkConnected(EmployeeDinlingService.this)) {
+                    String url = Common.URL + "/InstantServlet";
+                    List<EmployeeDinling> employeeDinlings = null;
+                    JsonObject jsonObject = new JsonObject();
+                    jsonObject.addProperty("action", "getEmployeeStatus");
+                    jsonObject.addProperty("idInstantService", 3);
+                    String jsonOut = jsonObject.toString();
+                    employeeStatus = new CommonTask(url, jsonOut);
+                    try {
+                        String jsonIn = employeeStatus.execute().get();
+                        Type listType = new TypeToken<List<EmployeeDinling>>() {
+                        }.getType();
+                        employeeDinlings = new Gson().fromJson(jsonIn, listType);
+                    } catch (Exception e) {
+                        Log.e(TAG, e.toString());
+                    }
+                    if (employeeDinlings == null || employeeDinlings.isEmpty()) {
+                        Common.showToast(EmployeeDinlingService.this, R.string.msg_NoInstantFound);
+                    } else {
+                        rvEmployeeDinling.setAdapter(null);
+                        rvEmployeeDinling.setAdapter
+                                (new EmployeeDinlingAdapter(EmployeeDinlingService.this, employeeDinlings));
+                    }
 
+                } else {
+                    Common.showToast(EmployeeDinlingService.this, R.string.msg_NoNetwork);
+                }
 
-                    break;
+                rvEmployeeDinling.getAdapter().notifyDataSetChanged();
 
-                case 2: //處理中
-                    employeeDinlingList.add(new EmployeeDinling(R.drawable.icon_playing
-                            , "2", sender, item, quantity));
-
-                    rvEmployeeDinling.getAdapter().notifyItemInserted(employeeDinlingList.size());
-
-                    break;
-
-
-                case 3: //已完成
-                    employeeDinlingList.add(new EmployeeDinling(R.drawable.icon_finish
-                            , "3", sender, item, quantity));
-
-                    rvEmployeeDinling.getAdapter().notifyItemInserted(employeeDinlingList.size());
-
-                    break;
-
-                default:
-
-                    break;
             }
 
-            rvEmployeeDinling.getAdapter().notifyDataSetChanged();
 
         }
+
+
     }
 
 
     private class EmployeeDinlingAdapter extends
             RecyclerView.Adapter<EmployeeDinlingAdapter.MyViewHolder> {
         Context context;
-        List<EmployeeDinling> employeeDinlingList;
+        List<EmployeeDinling> employeeDinlings;
 
-        EmployeeDinlingAdapter(Context context, List<EmployeeDinling> employeeDinlingList) {
+        EmployeeDinlingAdapter(Context context, List<EmployeeDinling> employeeDinlings) {
             this.context = context;
-            this.employeeDinlingList = employeeDinlingList;
+            this.employeeDinlings = employeeDinlings;
 
         }
 
@@ -144,7 +198,7 @@ public class EmployeeDinlingService extends AppCompatActivity {
 
         @Override
         public int getItemCount() {
-            return employeeDinlingList.size();
+            return employeeDinlings.size();
         }
 
         @NonNull
@@ -158,47 +212,114 @@ public class EmployeeDinlingService extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, int position) {
-            final EmployeeDinling employeeDinling = employeeDinlingList.get(position);
+            final EmployeeDinling employeeDinling = employeeDinlings.get(position);
 
-            myViewHolder.imageView.setImageResource(employeeDinling.getImageStatus());
-            myViewHolder.tvRoomId.setText(employeeDinling.getTvRoomId());
-            myViewHolder.tvItem.setText(employeeDinling.getTvItem());
-            myViewHolder.tvQuantity.setText(employeeDinling.getTvQuantity());
-            myViewHolder.tvStatusNumber.setText(employeeDinling.getTvStatusNumber());
+            switch (employeeDinling.getStatus()) {
+                case 1:
+                    myViewHolder.imageView.setImageResource(R.drawable.icon_unfinish);
+                    break;
+                case 2:
+                    myViewHolder.imageView.setImageResource(R.drawable.icon_playing);
+                    break;
+                case 3:
+                    myViewHolder.imageView.setImageResource(R.drawable.icon_finish);
+                    break;
+                default:
+                    break;
+            }
+
+            switch (employeeDinling.getIdInstantType()) {
+                case 1:
+                    myViewHolder.tvItem.setText(R.string.service_type_1);
+                    break;
+                case 2:
+                    myViewHolder.tvItem.setText(R.string.service_type_2);
+                    break;
+                case 3:
+                    myViewHolder.tvItem.setText(R.string.service_type_3);
+                    break;
+                default:
+                    break;
+            }
+
+
+            myViewHolder.tvRoomId.setText(employeeDinling.getRoomNumber());
+            myViewHolder.tvQuantity.setText(String.valueOf(employeeDinling.getQuantity()));
 
 
             myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ChatMessage chatMessage;
-                    String chatMessageJson;
-                    switch (Integer.parseInt(myViewHolder.tvStatusNumber.getText().toString())) {
-                        case 1:
+                    int status = 0;
+                    String roomNumber = employeeDinling.getRoomNumber();
+                    idInstantDetail = employeeDinling.getIdInstantDetail();
+                    if (employeeDinling.getStatus() == 1) {
 
-                            chatMessage = new ChatMessage(employeeName,
-                                    myViewHolder.tvRoomId.getText().toString(),
-                                    "3", "0",
-                                    myViewHolder.tvItem.getText().toString(), 3, 2
-                                    , Integer.parseInt(myViewHolder.tvQuantity.getText().toString()));
-                            chatMessageJson = new Gson().toJson(chatMessage);
-                            Common.chatwebSocketClient.send(chatMessageJson);
-                            Log.d(TAG, "output: " + chatMessageJson);
+                        status = 2;
 
-                            break;
+                    } else if (employeeDinling.getStatus() == 2) {
 
-                        case 2:
-
-                            chatMessage = new ChatMessage(employeeName,
-                                    myViewHolder.tvRoomId.getText().toString(),
-                                    "3", "0",
-                                    myViewHolder.tvItem.getText().toString(), 3, 3
-                                    , Integer.parseInt(myViewHolder.tvQuantity.getText().toString()));
-                            chatMessageJson = new Gson().toJson(chatMessage);
-                            Common.chatwebSocketClient.send(chatMessageJson);
-                            Log.d(TAG, "output: " + chatMessageJson);
-
+                        status = 3;
 
                     }
+                    if (Common.networkConnected(EmployeeDinlingService.this)) {
+                        String url = Common.URL + "/InstantServlet";
+                        JsonObject jsonObject = new JsonObject();
+                        jsonObject.addProperty("action", "updateStatus");
+                        jsonObject.addProperty("idInstantDetail", new Gson().toJson(idInstantDetail));
+                        jsonObject.addProperty("status", new Gson().toJson(status));
+                        int count = 0;
+                        try {
+                            String result = new CommonTask(url, jsonObject.toString()).execute().get();
+                            count = Integer.valueOf(result);
+                        } catch (Exception e) {
+                            Log.e(TAG, e.toString());
+                        }
+                        if (count == 0) {
+                            Common.showToast(EmployeeDinlingService.this, R.string.msg_UpdateFail);
+                        } else {
+                            Common.showToast(EmployeeDinlingService.this, R.string.msg_UpdateSuccess);
+                        }
+                    } else {
+                        Common.showToast(EmployeeDinlingService.this, R.string.msg_NoNetwork);
+                    }
+
+                    if (Common.networkConnected(EmployeeDinlingService.this)) {
+                        String url = Common.URL + "/InstantServlet";
+                        List<EmployeeDinling> employeeDinlings = null;
+                        JsonObject jsonObject = new JsonObject();
+                        jsonObject.addProperty("action", "getEmployeeStatus");
+                        jsonObject.addProperty("idInstantService", 3);
+                        String jsonOut = jsonObject.toString();
+                        employeeStatus = new CommonTask(url, jsonOut);
+                        try {
+                            String jsonIn = employeeStatus.execute().get();
+                            Type listType = new TypeToken<List<EmployeeDinling>>() {
+                            }.getType();
+                            employeeDinlings = new Gson().fromJson(jsonIn, listType);
+                        } catch (Exception e) {
+                            Log.e(TAG, e.toString());
+                        }
+                        if (employeeDinlings == null || employeeDinlings.isEmpty()) {
+                            Common.showToast(EmployeeDinlingService.this, R.string.msg_NoInstantFound);
+                        } else {
+                            rvEmployeeDinling.setAdapter(null);
+                            rvEmployeeDinling.setAdapter
+                                    (new EmployeeDinlingAdapter(EmployeeDinlingService.this, employeeDinlings));
+                        }
+
+                    } else {
+                        Common.showToast(EmployeeDinlingService.this, R.string.msg_NoNetwork);
+                    }
+
+                    ChatMessage chatMessage =
+                            new ChatMessage(employeeName, roomNumber, "3",
+                                    "0", 3, idInstantDetail);
+                    String chatMessageJson = new Gson().toJson(chatMessage);
+                    Common.chatwebSocketClient.send(chatMessageJson);
+                    Log.d(TAG, "output: " + chatMessageJson);
+
+                    adapter.notifyDataSetChanged();
 
                 }
             });
@@ -207,6 +328,7 @@ public class EmployeeDinlingService extends AppCompatActivity {
 
 
     }
+
 
     @Override
     protected void onDestroy() {

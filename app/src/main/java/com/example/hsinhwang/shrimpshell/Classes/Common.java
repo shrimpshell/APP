@@ -11,18 +11,11 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.Toast;
-
-import org.java_websocket.WebSocket;
-import org.java_websocket.client.WebSocketClient;
-
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.file.WatchService;
-import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
-import static android.content.Context.MODE_PRIVATE;
 
 public class Common {
     public static final int REQ_EXTERNAL_STORAGE = 0;
@@ -36,6 +29,7 @@ public class Common {
     public static final String LOGIN = "GLOBAL_LOGIN";
     public static final String EMPLOYEE_LOGIN = "EMPLOYEE_LOGIN";
     public static final String PAGE = "PAGE";
+
 
 
     public static boolean networkConnected(Activity activity) {
@@ -117,4 +111,9 @@ public class Common {
             chatwebSocketClient = null;
         }
     }
+
+
+
+
+
 }

@@ -18,6 +18,7 @@ import com.example.hsinhwang.shrimpshell.InstantCustomerPanel.StatusServiceFragm
 
 public class InstantActivity extends AppCompatActivity {
     SharedPreferences preferences;
+
     private String customerName;
     private BottomNavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -45,7 +46,7 @@ public class InstantActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instant);
 
@@ -58,6 +59,10 @@ public class InstantActivity extends AppCompatActivity {
         Common.connectServer(this,customerName,"0");
 
         initContent();
+
+
+
+
 
 
     }
