@@ -150,7 +150,10 @@ public class RoomFragment extends Fragment {
                                             Common.showToast(activity, R.string.msg_DeleteFail);
                                         } else {
                                             roomList.remove(room);
-                                            RoomAdapter.this.notifyDataSetChanged();
+                                            swiperefreshlayout.setRefreshing(true);
+                                            roomFragmentRecyclerView.setAdapter(null);
+                                            showAllRooms();
+                                            swiperefreshlayout.setRefreshing(false);
                                             Common.showToast(activity, R.string.msg_DeleteSuccess);
                                         }
                                     } else {
