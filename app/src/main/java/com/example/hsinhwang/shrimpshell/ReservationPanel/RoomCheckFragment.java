@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hsinhwang.shrimpshell.Authentication.LoginActivity;
+import com.example.hsinhwang.shrimpshell.BookingFragment;
 import com.example.hsinhwang.shrimpshell.Classes.Common;
 import com.example.hsinhwang.shrimpshell.Classes.CommonTask;
 import com.example.hsinhwang.shrimpshell.Classes.Reservation;
@@ -117,6 +118,11 @@ public class RoomCheckFragment extends Fragment {
 //                            } else {
 //                                Common.showToast(this, R.string.msg_NoNetwork);
 //                            }
+                            BookingFragment bookingFragment=new BookingFragment();
+                            FragmentManager manager = getActivity().getSupportFragmentManager();
+                            FragmentTransaction transaction = manager.beginTransaction();
+                            transaction.replace(R.id.content, bookingFragment, "bookingFragment");
+                            transaction.commit();
                             Toast.makeText(getActivity(), "已幫您訂房，期待您的入住！", Toast.LENGTH_SHORT).show();
                         }
                     }

@@ -60,8 +60,8 @@ public class MainActivity extends AppCompatActivity {
                     changeFragment(profileFragment);
                     setTitle(R.string.profile);
                     navigation.setSelectedItemId(R.id.item_profile);
-                    break;
                 }
+                    break;
             default:
                 if (request_code == 0) {
                     Fragment homeFragment = new HomeFragment();
