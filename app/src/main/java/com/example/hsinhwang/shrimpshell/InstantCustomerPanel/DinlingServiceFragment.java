@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -36,9 +37,12 @@ import static android.support.constraint.Constraints.TAG;
 
 
 public class DinlingServiceFragment extends Fragment {
+    FragmentActivity activity;
     private RecyclerView rvDinlingService;
-    SharedPreferences preferences;
+    SharedPreferences preferences,pref;
     private String customerName;
+    String roomNumber;
+    int idRoomStatus;
 
 
     @Override
@@ -47,8 +51,13 @@ public class DinlingServiceFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_dinling_service_fab,
                 container, false);
 
+        activity = getActivity();
+
         preferences = getActivity().getSharedPreferences(Common.LOGIN, MODE_PRIVATE);
         customerName = preferences.getString("email", "");
+
+
+
 
         handleViews(view);
 
@@ -56,6 +65,21 @@ public class DinlingServiceFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        SharedPreferences pref = getActivity().getSharedPreferences(Common.INSTANT_TEST, MODE_PRIVATE);
+        if (customerName.equals("cc@gmail.com")) {
+            roomNumber = pref.getString("roomNumber1","");
+            idRoomStatus = pref.getInt("idRoomStatus1",0);
+
+        } else {
+            roomNumber = pref.getString("roomNumber2","");
+            idRoomStatus = pref.getInt("idRoomStatus2",0);
+
+        }
+    }
 
     private void handleViews(View view) {
         rvDinlingService = view.findViewById(R.id.rvDinlingService);
@@ -238,17 +262,19 @@ public class DinlingServiceFragment extends Fragment {
                                 Toast.makeText(context, "你點的 A餐 數量為" + UserEnter + "份",
                                         Toast.LENGTH_SHORT).show();
 
+
+
                                 int idInstantService = 3;
-                                String roomNumber = "502"; // 偏好設定拿取
+
                                 int status = 1;
                                 int quantity = Integer.parseInt(UserEnter.trim());
                                 int idInstantType = 1;
-                                int idRoomStatus = 8;
-                                 // 偏好設定拿取
+
+
 
 
                                 int idInstantDetail = 0;
-                                if (Common.networkConnected(getActivity())) {
+                                if (Common.networkConnected(activity)) {
                                     String url = Common.URL + "/InstantServlet";
                                     Instant instant = new Instant(idInstantDetail, idInstantService, roomNumber, status,
                                              quantity, idInstantType, idRoomStatus);
@@ -262,12 +288,12 @@ public class DinlingServiceFragment extends Fragment {
                                         Log.e(TAG,"Josh :" + e.toString());
                                     }
                                     if (idInstantDetail != 0) {
-                                        Common.showToast(getActivity(), R.string.id_InstantSuccess);
+                                        Common.showToast(activity, R.string.id_InstantSuccess);
                                     } else {
-                                        Common.showToast(getActivity(), R.string.id_InstantFail);
+                                        Common.showToast(activity, R.string.id_InstantFail);
                                     }
                                 } else {
-                                    Common.showToast(getActivity(), R.string.msg_NoNetwork);
+                                    Common.showToast(activity, R.string.msg_NoNetwork);
                                 }
 
 
@@ -349,5 +375,9 @@ public class DinlingServiceFragment extends Fragment {
         return dinlingServiceMsgs;
     }
 
-
+    @Override
+    public void onStop() {
+        super.onStop();
+        Common.disconnectServer();
+    }
 }

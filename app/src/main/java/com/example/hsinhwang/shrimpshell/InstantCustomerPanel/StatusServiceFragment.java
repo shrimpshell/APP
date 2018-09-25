@@ -47,10 +47,11 @@ public class StatusServiceFragment extends Fragment {
     private LocalBroadcastManager broadcastManager;
     private CommonTask customerStatus;
     List<StatusService> statusServiceList;
-    SharedPreferences preferences;
+    SharedPreferences preferences, roomNumber;
     String customerName;
     StatusServiceAdapter adapter;
     int idInstantDetail;
+    String roomNumber_A;
 
 
 
@@ -75,7 +76,12 @@ public class StatusServiceFragment extends Fragment {
         preferences = getActivity().getSharedPreferences(Common.LOGIN, MODE_PRIVATE);
         customerName = preferences.getString("email", "");
 
-        Common.connectServer(getActivity(),customerName,"0");
+
+
+
+
+
+        Common.connectServer(activity,customerName,"0");
 
 
         return view;
@@ -91,12 +97,22 @@ public class StatusServiceFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+
+        roomNumber = getActivity().getSharedPreferences(Common.INSTANT_TEST, MODE_PRIVATE);
+        if (customerName.equals("cc@gmail.com")) {
+            roomNumber_A = roomNumber.getString("roomNumber1","");
+        } else {
+            roomNumber_A = roomNumber.getString("roomNumber2","");
+        }
+
+
+
         if (Common.networkConnected(activity)) {
             String url = Common.URL + "/InstantServlet";
             List<StatusService> statusServices = null;
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("action", "getCustomerStatus");
-            jsonObject.addProperty("roomNumber", 502);
+            jsonObject.addProperty("roomNumber", roomNumber_A);
             String jsonOut = jsonObject.toString();
             customerStatus = new CommonTask(url, jsonOut);
             try {
@@ -150,7 +166,7 @@ public class StatusServiceFragment extends Fragment {
                     List<StatusService> statusServices = null;
                     JsonObject jsonObject = new JsonObject();
                     jsonObject.addProperty("action", "getCustomerStatus");
-                    jsonObject.addProperty("roomNumber", 502);
+                    jsonObject.addProperty("roomNumber", roomNumber_A);
                     String jsonOut = jsonObject.toString();
                     customerStatus = new CommonTask(url, jsonOut);
                     try {
@@ -303,5 +319,9 @@ public class StatusServiceFragment extends Fragment {
 
     }
 
-
+    @Override
+    public void onStop() {
+        super.onStop();
+        Common.disconnectServer();
+    }
 }

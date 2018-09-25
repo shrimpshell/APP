@@ -56,6 +56,12 @@ public class InstantActivity extends AppCompatActivity {
         preferences = getSharedPreferences(Common.LOGIN, MODE_PRIVATE);
         customerName = preferences.getString("email", "");
 
+        SharedPreferences pref = getSharedPreferences(Common.INSTANT_TEST, MODE_PRIVATE);
+        pref.edit().putString("roomNumber1","502")
+                .putInt("idRoomStatus1",8)
+                .putString("roomNumber2","301")
+                .putInt("idRoomStatus2",2).apply();
+
         Common.connectServer(this,customerName,"0");
 
         initContent();
