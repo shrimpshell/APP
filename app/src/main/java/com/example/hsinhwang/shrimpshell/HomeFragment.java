@@ -28,6 +28,7 @@ import com.example.hsinhwang.shrimpshell.Classes.Events;
 import com.example.hsinhwang.shrimpshell.Classes.ImageTask;
 import com.example.hsinhwang.shrimpshell.Classes.MainOptions;
 import com.example.hsinhwang.shrimpshell.Classes.Rooms;
+import com.example.hsinhwang.shrimpshell.GeneralPages.AllRatingActivity;
 import com.example.hsinhwang.shrimpshell.GeneralPages.EventActivity;
 import com.example.hsinhwang.shrimpshell.GeneralPages.IntroductionActivity;
 import com.example.hsinhwang.shrimpshell.GeneralPages.RoomDetailActivity;
@@ -87,12 +88,15 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         SharedPreferences pref = getActivity().getSharedPreferences(Common.LOGIN,
                 MODE_PRIVATE);
         List<MainOptions> optionList = new ArrayList<>();
-        SharedPreferences preferences = getActivity().getSharedPreferences(Common.LOGIN, MODE_PRIVATE);
-        boolean login = preferences.getBoolean("login", false);
-        if (!login) {
+        SharedPreferences customer_pref = getActivity().getSharedPreferences(Common.LOGIN, MODE_PRIVATE);
+        SharedPreferences employee_pref = getActivity().getSharedPreferences(Common.EMPLOYEE_LOGIN, MODE_PRIVATE);
+        boolean customer_login = customer_pref.getBoolean("login", false);
+        boolean employee_login = employee_pref.getBoolean("login", false);
+        if (!customer_login && !employee_login) {
             optionList.add(new MainOptions(R.string.login_title, (String)getText(R.string.login), R.drawable.login));
         }
         optionList.add(new MainOptions(R.string.intro_title, (String)getText(R.string.about), R.drawable.introduction));
+        optionList.add(new MainOptions(R.string.all_rating, (String)getText(R.string.rating), R.drawable.view_rating));
         mainRecyclerView = view.findViewById(R.id.mainRecyclerView);
         mainRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mainRecyclerView.setAdapter(new MainAdapter(inflater, optionList));
@@ -156,9 +160,14 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                         case R.string.intro_title:
                             onClickIntro();
                             break;
+                        case R.string.all_rating:
+                            onClickRating();
+
                     }
 
                 }
+
+
             });
         }
 
@@ -307,6 +316,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
+    //轉頁在這裡
     public void onClickLogin() {
         Intent intent = new Intent(getActivity(), LoginActivity.class);
         startActivity(intent);
@@ -314,6 +324,11 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
 
     public void onClickIntro() {
         Intent intent = new Intent(getActivity(), IntroductionActivity.class);
+        startActivity(intent);
+    }
+
+    public void onClickRating(){
+        Intent intent = new Intent(getActivity(), AllRatingActivity.class);
         startActivity(intent);
     }
 

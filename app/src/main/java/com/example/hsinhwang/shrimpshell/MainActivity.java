@@ -16,16 +16,21 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.Window;
 
 import com.example.hsinhwang.shrimpshell.Authentication.LoginActivity;
 import com.example.hsinhwang.shrimpshell.Classes.Common;
+import com.example.hsinhwang.shrimpshell.Classes.EmployeeDinling;
 import com.example.hsinhwang.shrimpshell.Classes.LogIn;
+
 import com.example.hsinhwang.shrimpshell.Classes.MainOptions;
+import com.example.hsinhwang.shrimpshell.CustomerPanel.ProfileAddRatingFragment;
+
 import com.example.hsinhwang.shrimpshell.EmployeePanel.EmployeeHomeActivity;
+import com.example.hsinhwang.shrimpshell.InstantEmployeePanel.EmployeeDinlingService;
+
 
 public class MainActivity extends AppCompatActivity {
     private Window window;
@@ -33,6 +38,39 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView navigation;
 
     int request_code = 0;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        initialization();
+        initContent();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        SharedPreferences page = getSharedPreferences(Common.PAGE, MODE_PRIVATE);
+        int pageId = page.getInt("page", 0);
+
+        switch (pageId) {
+            case 2:
+                if (request_code == 0) {
+                    Fragment profileFragment = new ProfileFragment();
+                    changeFragment(profileFragment);
+                    setTitle(R.string.profile);
+                    navigation.setSelectedItemId(R.id.item_profile);
+                    break;
+                }
+            default:
+                if (request_code == 0) {
+                    Fragment homeFragment = new HomeFragment();
+                    changeFragment(homeFragment);
+                    setTitle(R.string.profile);
+                    navigation.setSelectedItemId(R.id.item_home);
+                }
+        }
+    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -55,11 +93,12 @@ public class MainActivity extends AppCompatActivity {
                     changeFragment(fragment);
                     setTitle(R.string.booking);
                     return true;
-                case R.id.item_reserved:
-                    fragment = new ReservedFragment();
-                    changeFragment(fragment);
-                    setTitle(R.string.instant);
+
+                case R.id.item_instant:
+                    Intent intent2 = new Intent(MainActivity.this, InstantActivity.class);
+                    startActivity(intent2);
                     return true;
+
                 case R.id.item_profile:
                     SharedPreferences page = getSharedPreferences(Common.PAGE, MODE_PRIVATE);
                     int pageId = page.getInt("page", 0);
@@ -77,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
                         default:
                             Intent intent1 = new Intent(MainActivity.this, LoginActivity.class);
                             startActivityForResult(intent1, 1);
+
                     }
 
                     return true;
@@ -88,37 +128,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
     };
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        initContent();
-        initialization();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        SharedPreferences page = getSharedPreferences(Common.PAGE, MODE_PRIVATE);
-        int pageId = page.getInt("page", 0);
-
-        switch (pageId) {
-            case 2:
-                    Fragment profileFragment = new ProfileFragment();
-                    changeFragment(profileFragment);
-                    setTitle(R.string.profile);
-                    navigation.setSelectedItemId(R.id.item_profile);
-                    break;
-            default:
-                if (request_code == 0) {
-                    Fragment homeFragment = new HomeFragment();
-                    changeFragment(homeFragment);
-                    setTitle(R.string.profile);
-                    navigation.setSelectedItemId(R.id.item_home);
-                }
-        }
-    }
 
     private void initialization() {
         navigation = findViewById(R.id.navigation);
@@ -191,6 +200,8 @@ public class MainActivity extends AppCompatActivity {
                 case 4:
                     Fragment BookingFragment = new BookingFragment();
                     changeFragment(BookingFragment);
+                    break;
+
             }
         }
 

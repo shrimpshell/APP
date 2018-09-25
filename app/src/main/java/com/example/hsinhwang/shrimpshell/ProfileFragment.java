@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import com.example.hsinhwang.shrimpshell.Authentication.LoginActivity;
 import com.example.hsinhwang.shrimpshell.Classes.Common;
 import com.example.hsinhwang.shrimpshell.Classes.MainOptions;
-import com.example.hsinhwang.shrimpshell.CustomerPanel.ProfileCommentFragment;
+import com.example.hsinhwang.shrimpshell.CustomerPanel.ProfileRatingFragment;
 import com.example.hsinhwang.shrimpshell.CustomerPanel.ProfileInformationFragment;
 import com.example.hsinhwang.shrimpshell.CustomerPanel.ProfileReceiptListFragment;
 
@@ -48,7 +48,7 @@ public class ProfileFragment extends Fragment {
         Adapter adapter = new Adapter(getChildFragmentManager());
         adapter.addFragment(new ProfileInformationFragment(), "會員資訊");
         adapter.addFragment(new ProfileReceiptListFragment(), "消費明細");
-        adapter.addFragment(new ProfileCommentFragment(), "評論");
+        adapter.addFragment(new ProfileRatingFragment(), "評論");
         viewPager.setAdapter(adapter);
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);

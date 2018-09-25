@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:orientation="vertical"
+    android:padding="6dp"
+    app:cardBackgroundColor="@color/yellow"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="6dp">
+
+    <LinearLayout
+        android:id="@+id/layout_roomService"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/ivRoomService"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="5dp"
+            android:src="@drawable/icon_room_service_clean" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvRoomService1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:text="服務"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/tvRoomService2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:text="預約時間"
+                android:textSize="25sp" />
+
+
+
+            <CheckBox
+                android:id="@+id/cbRoomService1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:text="枕頭"
+                android:textSize="25sp" />
+
+            <EditText
+                android:id="@+id/etRoomService1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:hint="@string/roomServiceCount"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:textSize="25sp" />
+            <!-- imOptions="actionDone" 將數入預設自動換下行 改成完成 不跳下行 -->
+
+            <CheckBox
+                android:id="@+id/cbRoomService2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:text="盥洗用具"
+                android:textSize="25sp" />
+
+            <EditText
+                android:id="@+id/etRoomService2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:hint="@string/roomServiceCount"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:textSize="25sp" />
+            <!-- imOptions="actionDone" 將數入預設自動換下行 改成完成 不跳下行 -->
+
+
+            <Button
+                android:id="@+id/btRoomService"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/btRoomService"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</android.support.v7.widget.CardView>

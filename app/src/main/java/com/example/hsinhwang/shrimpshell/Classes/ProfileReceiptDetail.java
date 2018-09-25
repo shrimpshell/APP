@@ -1,4 +1,6 @@
-package com.example.hsinhwang.shrimpshell.CustomerPanel;
+package com.example.hsinhwang.shrimpshell.Classes;
+
+        import android.os.Bundle;
 
         import java.io.Serializable;
         import java.util.Date;
@@ -32,6 +34,10 @@ public class ProfileReceiptDetail implements Serializable {
         this.roomQuantity = roomQuantity;
         this.totalPrice = totalPrice;
         this.result = result;
+    }
+
+    public ProfileReceiptDetail(String order_id){
+        this.order_id = order_id;
     }
 
     public String getOrder_id() {
@@ -129,4 +135,5 @@ public class ProfileReceiptDetail implements Serializable {
     public void setResult(String result) {
         this.result = result;
     }
+
 }

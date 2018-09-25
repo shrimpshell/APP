@@ -131,7 +131,7 @@ public class ManagerEmployeeEditActivity extends AppCompatActivity {
                 spinnerDepartment.setSelection(((Employees) obj).getDepartmentId() - 1);
 
                 employeeCode.setText(employee.getCode());
-                if (((Employees) obj).getGender().equals("先生")) {
+                if (((Employees) obj).getGender().equals("MALE")) {
                     employeeEditGenderGroup.check(R.id.Male);
                 } else {
                     employeeEditGenderGroup.check(R.id.Female);
@@ -170,7 +170,7 @@ public class ManagerEmployeeEditActivity extends AppCompatActivity {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
             image = out.toByteArray();
         } else {
-            employeePic.setImageResource(R.drawable.events);
+            employeePic.setImageResource(R.drawable.employee_pic);
         }
     }
 
@@ -179,10 +179,10 @@ public class ManagerEmployeeEditActivity extends AppCompatActivity {
         int gender = employeeEditGenderGroup.getCheckedRadioButtonId();
         switch (gender) {
             case R.id.Male:
-                genderStr = "先生";
+                genderStr = "MALE";
                 break;
             case R.id.Female:
-                genderStr = "女士";
+                genderStr = "FEMALE";
                 break;
             default:
                 Toast.makeText(this, "請選擇性別", Toast.LENGTH_SHORT);
@@ -202,6 +202,15 @@ public class ManagerEmployeeEditActivity extends AppCompatActivity {
             case "Meal Service":
                 department = 3;
                 break;
+            case "櫃檯部門":
+            case "Concierge Service":
+                department = 4;
+                break;
+            case "主管":
+            case "Manager":
+                department = 5;
+                break;
+
         }
         String code = employeeCode.getText().toString().trim(),
                 name = etEmployeeName.getText().toString().trim(),
