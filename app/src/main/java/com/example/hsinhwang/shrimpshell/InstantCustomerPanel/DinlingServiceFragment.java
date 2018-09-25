@@ -27,7 +27,6 @@ import com.example.hsinhwang.shrimpshell.Classes.Instant;
 import com.example.hsinhwang.shrimpshell.R;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import static com.example.hsinhwang.shrimpshell.Classes.Common.chatwebSocketClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +38,7 @@ import static android.support.constraint.Constraints.TAG;
 public class DinlingServiceFragment extends Fragment {
     FragmentActivity activity;
     private RecyclerView rvDinlingService;
-    SharedPreferences preferences,pref;
+    SharedPreferences preferences;
     private String customerName;
     String roomNumber;
     int idRoomStatus;
@@ -245,7 +244,7 @@ public class DinlingServiceFragment extends Fragment {
                 public void onClick(View v) {
                     ChatMessage chatMessage;
                     String chatMessageJson;
-                    String UserEnter = myViewHolder.etDinling.getText().toString();
+                    String UserEnter = String.valueOf(myViewHolder.etDinling.getText().toString());
 
                     switch (dinlingServiceMsg.getNumber()) {
 
@@ -265,14 +264,9 @@ public class DinlingServiceFragment extends Fragment {
 
 
                                 int idInstantService = 3;
-
                                 int status = 1;
-                                int quantity = Integer.parseInt(UserEnter.trim());
+                                int quantity = Integer.parseInt(UserEnter);
                                 int idInstantType = 1;
-
-
-
-
                                 int idInstantDetail = 0;
                                 if (Common.networkConnected(activity)) {
                                     String url = Common.URL + "/InstantServlet";
@@ -299,9 +293,9 @@ public class DinlingServiceFragment extends Fragment {
 
                                 chatMessage =
                                         new ChatMessage(customerName, "0", "0",
-                                                "3",3, idInstantDetail);
+                                                "3", 3, idInstantDetail);
                                 chatMessageJson = new Gson().toJson(chatMessage);
-                                chatwebSocketClient.send(chatMessageJson);
+                                Common.chatwebSocketClient.send(chatMessageJson);
                                 Log.d(TAG, "output: " + chatMessageJson);
 
 
