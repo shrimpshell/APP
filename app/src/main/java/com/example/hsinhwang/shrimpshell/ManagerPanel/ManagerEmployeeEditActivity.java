@@ -170,7 +170,7 @@ public class ManagerEmployeeEditActivity extends AppCompatActivity {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
             image = out.toByteArray();
         } else {
-            employeePic.setImageResource(R.drawable.events);
+            employeePic.setImageResource(R.drawable.employee_pic);
         }
     }
 
