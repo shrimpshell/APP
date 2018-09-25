@@ -1,4 +1,4 @@
-package com.example.hsinhwang.shrimpshell.CustomerPanel;
+package com.example.hsinhwang.shrimpshell.Classes;
 
         import java.io.Serializable;
         import java.util.Date;

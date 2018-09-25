@@ -28,6 +28,8 @@
     <string name="endTime">End Time</string>
     <string name="submit">Submit</string>
     <string name="textEmployeeProfile">Employee Profile</string>
+    <string name="all_rating">Rating</string>
+    <string name="rating">Rating</string>
 
     <!--測試用字串-->
     <string name="hello_employee_fragment">Hello employee fragment</string>
@@ -234,6 +236,8 @@
     <string name="service_1">清潔服務</string>
     <string name="service_2">房務服務</string>
     <string name="service_3">餐點服務</string>
+    <string name="msg_NoCommentsFound">No Rating Found</string>
+
 
 
     <string-array name="department_options">

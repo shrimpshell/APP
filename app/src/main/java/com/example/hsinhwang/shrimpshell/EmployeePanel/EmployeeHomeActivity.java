@@ -32,6 +32,7 @@ import com.example.hsinhwang.shrimpshell.InstantEmployeePanel.EmployeeCleanServi
 import com.example.hsinhwang.shrimpshell.InstantEmployeePanel.EmployeeDinlingService;
 import com.example.hsinhwang.shrimpshell.InstantEmployeePanel.EmployeeRoomService;
 import com.example.hsinhwang.shrimpshell.ManagerPanel.ManagerHomeActivity;
+import com.example.hsinhwang.shrimpshell.ManagerPanel.RatingReviewActivity;
 import com.example.hsinhwang.shrimpshell.R;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -299,7 +300,23 @@ public class EmployeeHomeActivity extends AppCompatActivity {
                     }
                 });
                 employHomeBottom.addView(managerBtn);
+
+                Button reviewBtn = new Button(this);
+                reviewBtn.setText("回覆評論");
+                reviewBtn.setBackgroundColor(Color.parseColor("#F7DF96"));
+                reviewBtn.setLayoutParams(param);
+                reviewBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        employHomeBottom.removeAllViews();
+                        Intent intent = new Intent(EmployeeHomeActivity.this, RatingReviewActivity.class);
+                        startActivity(intent);
+                    }
+                });
+                employHomeBottom.addView(reviewBtn);
                 break;
+
+
             default:
                 Common.showToast(this, "cannot identify department");
                 finish();
