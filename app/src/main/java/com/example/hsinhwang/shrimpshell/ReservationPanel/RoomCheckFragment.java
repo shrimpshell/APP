@@ -71,7 +71,6 @@ public class RoomCheckFragment extends Fragment {
         Log.d(TAG, checkInDate);
         Log.d(TAG, checkOutDate);
         Log.d(TAG, String.valueOf(reservationList.size()));
-        Log.d(TAG,String.valueOf(reservationList.get(1).getPrice()));
         fabRoomCheck = view.findViewById(R.id.fabRoomCheck);
         fabRoomCheck.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,7 +165,9 @@ public class RoomCheckFragment extends Fragment {
                 tvCheckOutDate = itemView.findViewById(R.id.tvCheckOutDay);
                 tvRoomQuantity = itemView.findViewById(R.id.tvRoomQuantity);
                 btChangeQuantity = itemView.findViewById(R.id.btChangeQuantity);
+                tvRoomPrice=itemView.findViewById(R.id.tvRoomPrice);
                 btDeletRoom = itemView.findViewById(R.id.btDeletRoom);
+                cbAddBed=itemView.findViewById(R.id.cbAddBed);
             }
         }
 
@@ -195,8 +196,8 @@ public class RoomCheckFragment extends Fragment {
             myViewHolder.tvRoomTypeName.setText(reservation.getRoomTypeName());
             myViewHolder.tvCheckInDate.setText(reservation.getCheckInDate());
             myViewHolder.tvCheckOutDate.setText(reservation.getCheckOutDate());
-            myViewHolder.tvRoomPrice.setText(String.valueOf(reservation.getPrice()).toString());
-            myViewHolder.tvRoomQuantity.setText(String.valueOf(reservation.getQuantity()).toString());
+            myViewHolder.tvRoomPrice.setText(String.valueOf(reservation.getPrice()));
+            myViewHolder.tvRoomQuantity.setText(String.valueOf(reservation.getQuantity()));
             myViewHolder.btChangeQuantity.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
