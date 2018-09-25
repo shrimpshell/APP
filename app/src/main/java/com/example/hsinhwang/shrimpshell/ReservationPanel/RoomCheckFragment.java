@@ -118,10 +118,10 @@ public class RoomCheckFragment extends Fragment {
 //                            } else {
 //                                Common.showToast(this, R.string.msg_NoNetwork);
 //                            }
-                            BookingFragment bookingFragment=new BookingFragment();
+                            BookingFragment bookingFragment = new BookingFragment();
                             FragmentManager manager = getActivity().getSupportFragmentManager();
                             FragmentTransaction transaction = manager.beginTransaction();
-                            transaction.replace(R.id.content, bookingFragment, "bookingFragment");
+                            transaction.replace(R.id.content, bookingFragment, "RoomCheckFragment");
                             transaction.commit();
                             Toast.makeText(getActivity(), "已幫您訂房，期待您的入住！", Toast.LENGTH_SHORT).show();
                         }
@@ -171,9 +171,9 @@ public class RoomCheckFragment extends Fragment {
                 tvCheckOutDate = itemView.findViewById(R.id.tvCheckOutDay);
                 tvRoomQuantity = itemView.findViewById(R.id.tvRoomQuantity);
                 btChangeQuantity = itemView.findViewById(R.id.btChangeQuantity);
-                tvRoomPrice=itemView.findViewById(R.id.tvRoomPrice);
+                tvRoomPrice = itemView.findViewById(R.id.tvRoomPrice);
                 btDeletRoom = itemView.findViewById(R.id.btDeletRoom);
-                cbAddBed=itemView.findViewById(R.id.cbAddBed);
+                cbAddBed = itemView.findViewById(R.id.cbAddBed);
             }
         }
 
@@ -196,13 +196,13 @@ public class RoomCheckFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, int i) {
             final Reservation reservation = reservationList.get(i);
-            Log.d(TAG,reservationList.get(i).getRoomTypeName()+reservationList.get(i).getCheckInDate()+reservationList.get(i).getCheckOutDate()+reservationList.get(i).getQuantity()+reservationList.get(i).getPrice());
+            Log.d(TAG, reservationList.get(i).getRoomTypeName() + reservationList.get(i).getCheckInDate() + reservationList.get(i).getCheckOutDate() + reservationList.get(i).getQuantity() + reservationList.get(i).getPrice());
             final int roomQuantity = reservation.getQuantity();
             final String[] total = new String[roomQuantity];
             myViewHolder.tvRoomTypeName.setText(reservation.getRoomTypeName());
             myViewHolder.tvCheckInDate.setText(reservation.getCheckInDate());
             myViewHolder.tvCheckOutDate.setText(reservation.getCheckOutDate());
-            myViewHolder.tvRoomPrice.setText(String.valueOf(reservation.getPrice()));
+            myViewHolder.tvRoomPrice.setText(String.valueOf(reservation.getPrice() * reservation.getQuantity()));
             myViewHolder.tvRoomQuantity.setText(String.valueOf(reservation.getQuantity()));
             myViewHolder.btChangeQuantity.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -221,6 +221,8 @@ public class RoomCheckFragment extends Fragment {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 myViewHolder.tvRoomQuantity.setText(total[which]);
+                                int price = reservation.getPrice() * Integer.valueOf(total[which]);
+                                myViewHolder.tvRoomPrice.setText(String.valueOf(price));
                                 Toast.makeText(getActivity(), "已更改數量", Toast.LENGTH_SHORT).show();
                             }
                         });
@@ -239,7 +241,7 @@ public class RoomCheckFragment extends Fragment {
             myViewHolder.cbAddBed.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    myViewHolder.tvRoomPrice.setText(String.valueOf(reservation.getPrice()+1000));
+                    myViewHolder.tvRoomPrice.setText(String.valueOf(reservation.getPrice() + 1000));
                 }
             });
         }

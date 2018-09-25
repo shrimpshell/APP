@@ -336,8 +336,6 @@ public class RoomChooseFragment extends Fragment {
                                 reservation.setQuantity(reservation.getQuantity() + 1);
                                 int quantity = reservation.getQuantity();
                                 Log.d(TAG, String.valueOf(quantity));
-                                reservation.setPrice(reservation.getPrice() * quantity);
-                                Log.d(TAG, String.valueOf(reservation.getPrice()));
                                 reservationList.set(index, reservation);
                                 Log.d(TAG, String.valueOf(reservationList.get(index).getQuantity() + reservationList.get(index).getPrice()));
                             }
@@ -355,14 +353,14 @@ public class RoomChooseFragment extends Fragment {
                                 reservation.setQuantity(reservation.getQuantity() + 1);
                                 int quantity = reservation.getQuantity();
                                 Log.d(TAG, String.valueOf(quantity));
-                                reservation.setPrice(reservation.getPrice() * quantity);
-                                Log.d(TAG, String.valueOf(reservation.getPrice()));
                                 reservationList.set(index, reservation);
                                 Log.d(TAG, String.valueOf(reservationList.get(index).getQuantity()) + String.valueOf(reservationList.get(index).getPrice()));
                             }
                         }
                         showToast(activity, "已將房間加入訂單");
                     } else {
+                        roomTypeList.remove(roomType);
+                        RoomTypeAdapter.this.notifyDataSetChanged();
                         showToast(activity, "您選的房間已被訂完");
                     }
                 }
