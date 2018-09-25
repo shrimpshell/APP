@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -60,13 +61,29 @@
             android:label="@string/title_activity_calendar"
             android:theme="@style/AppTheme.NoActionBar" />
 
-
-        <activity android:name=".GeneralPages.AllRatingActivity" />
         <activity android:name=".ProfileReceiptDetailResultActivity" />
+
+        <activity
+            android:name=".InstantActivity"
+            android:label="@string/title_activity_instant"
+            android:theme="@style/AppTheme" />
+        <!-- <activity -->
+        <!-- android:name=".InstantCustomerPanel.StatusServiceActivity" -->
+        <!-- android:label="@string/title_activity_status_service" -->
+        <!-- android:theme="@style/AppTheme" /> -->
+        <activity android:name=".InstantEmployeePanel.EmployeeCallService" />
+        <activity android:name=".InstantEmployeePanel.EmployeeDinlingService" />
+        <activity android:name=".InstantEmployeePanel.EmployeeCleanService" />
+        <activity android:name=".InstantEmployeePanel.EmployeeRoomService"></activity>
+
+
         <activity android:name=".EmployeePanel.EmployeeEditActivity"/>
         <activity android:name=".CustomerPanel.ProfileAddRatingFragment"/>
        
 
+
+
+        <activity android:name=".GeneralPages.AllRatingActivity" />
 
     </application>
 

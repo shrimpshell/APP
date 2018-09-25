@@ -2,6 +2,7 @@ package com.example.hsinhwang.shrimpshell.Classes;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
@@ -10,18 +11,29 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.Toast;
-
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.HashSet;
 import java.util.Set;
+
 
 public class Common {
     public static final int REQ_EXTERNAL_STORAGE = 0;
     private static final String TAG = "Common";
-//    public static String URL = "http://172.20.10.3:8080/ShellService/"; // 手機用
-    public static String URL = "http://10.0.2.2:8080/ShellService"; // 模擬機用
+
+    public static final String SERVER_URI = "ws://10.0.2.2:8080/ShellService/WsServer/"; //socket
+    public static final String URL = "http://10.0.2.2:8080/ShellService"; // 模擬機用
+//    public static final String SERVER_URI = "ws://192.168.50.124:8080/ShellService/WsServer/";
+//    public static String URL = "http://192.168.50.124:8080/ShellService/"; // 手機用
+    private static SharedPreferences preferences;
+    public static ChatWebSocketClient chatwebSocketClient;
+
     public static final String LOGIN = "GLOBAL_LOGIN";
     public static final String EMPLOYEE_LOGIN = "EMPLOYEE_LOGIN";
     public static final String PAGE = "PAGE";
+    public static final String INSTANT_TEST = "INSTANT_TEST";
+
+
 
     public static boolean networkConnected(Activity activity) {
         ConnectivityManager conManager =
@@ -78,4 +90,33 @@ public class Common {
     public static void showToast(Context context, String message) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
+
+
+    // 建立WebSocket連線
+    public static void connectServer(Context context, String userId, String groupId) {
+        URI uri = null;
+        try {
+            uri = new URI(SERVER_URI + userId + "/" + groupId);
+
+        } catch (URISyntaxException e) {
+            Log.e(TAG, e.toString());
+        }
+        if (chatwebSocketClient == null) {
+            chatwebSocketClient = new ChatWebSocketClient(uri, context);
+            chatwebSocketClient.connect();
+        }
+    }
+
+    // 中斷WebSocket連線
+    public static void disconnectServer() {
+        if (chatwebSocketClient != null) {
+            chatwebSocketClient.close();
+            chatwebSocketClient = null;
+        }
+    }
+
+
+
+
+
 }

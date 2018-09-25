@@ -162,9 +162,12 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                             break;
                         case R.string.all_rating:
                             onClickRating();
+
                     }
 
                 }
+
+
             });
         }
 

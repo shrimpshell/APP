@@ -16,17 +16,21 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.Window;
 
 import com.example.hsinhwang.shrimpshell.Authentication.LoginActivity;
 import com.example.hsinhwang.shrimpshell.Classes.Common;
+import com.example.hsinhwang.shrimpshell.Classes.EmployeeDinling;
 import com.example.hsinhwang.shrimpshell.Classes.LogIn;
+
 import com.example.hsinhwang.shrimpshell.Classes.MainOptions;
 import com.example.hsinhwang.shrimpshell.CustomerPanel.ProfileAddRatingFragment;
+
 import com.example.hsinhwang.shrimpshell.EmployeePanel.EmployeeHomeActivity;
+import com.example.hsinhwang.shrimpshell.InstantEmployeePanel.EmployeeDinlingService;
+
 
 public class MainActivity extends AppCompatActivity {
     private Window window;
@@ -87,11 +91,12 @@ public class MainActivity extends AppCompatActivity {
                     changeFragment(fragment);
                     setTitle(R.string.booking);
                     return true;
-                case R.id.item_reserved:
-                    fragment = new ReservedFragment();
-                    changeFragment(fragment);
-                    setTitle(R.string.instant);
+
+                case R.id.item_instant:
+                    Intent intent2 = new Intent(MainActivity.this,InstantActivity.class);
+                    startActivity(intent2);
                     return true;
+
                 case R.id.item_profile:
                     SharedPreferences page = getSharedPreferences(Common.PAGE, MODE_PRIVATE);
                     int pageId = page.getInt("page", 0);
@@ -109,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
                         default:
                             Intent intent1 = new Intent(MainActivity.this, LoginActivity.class);
                             startActivityForResult(intent1, 1);
+
                     }
 
                     return true;
