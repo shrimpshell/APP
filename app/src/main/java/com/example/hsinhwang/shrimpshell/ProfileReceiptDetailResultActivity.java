@@ -3,7 +3,6 @@ package com.example.hsinhwang.shrimpshell;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
@@ -17,8 +16,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.hsinhwang.shrimpshell.Classes.Common;
-import com.example.hsinhwang.shrimpshell.CustomerPanel.ProfileReceiptDetail;
+import com.example.hsinhwang.shrimpshell.Classes.ProfileReceiptDetail;
 
 public class ProfileReceiptDetailResultActivity extends Activity {
     private Window window;
