@@ -2,6 +2,7 @@ package com.example.hsinhwang.shrimpshell;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,7 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.hsinhwang.shrimpshell.Classes.Common;
 import com.example.hsinhwang.shrimpshell.Classes.ReservationDate;
 import com.example.hsinhwang.shrimpshell.ReservationPanel.CalendarActivity;
 import com.example.hsinhwang.shrimpshell.ReservationPanel.RoomChooseFragment;
@@ -24,12 +26,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.StringTokenizer;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class BookingFragment extends Fragment {
     private TextView tvFirstYearSelected, tvFirstDaySelected, tvFirstMonSelected, tvFirstWeekSelected,
             tvLastYearSelected, tvLastDaySelected, tvLastMonSelected, tvLastWeekSelected,
             tvAdultQuantity, tvChildQuantity;
     private ImageButton ibtAdultMinus, ibtAdultplus, ibtChildMinus, ibtChildplus;
-    private String weekName, fYear, fMonth, fDay, fWeek, lYear, lMonth, lDay, lWeek;
+    private String firstday, lastday, weekName, fYear, fMonth, fDay, fWeek, lYear, lMonth, lDay, lWeek;
     private String[] fd, ld;
     private Calendar calendar = Calendar.getInstance();
     private FragmentManager manager;
@@ -47,11 +51,12 @@ public class BookingFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         getActivity();
+        //如果CalendarActivity有帶值回來，就把日期更新
         if (requestCode == 4 && resultCode == Activity.RESULT_OK) {
 
             Bundle bundle = data.getExtras();
-            String firstday = bundle.getString("firstday");
-            String lastday = bundle.getString("lastday");
+            firstday = bundle.getString("firstday");
+            lastday = bundle.getString("lastday");
             Log.d("Day", firstday + " " + lastday);
             fd = firstday.split("-");
             fYear = fd[0];
@@ -101,9 +106,11 @@ public class BookingFragment extends Fragment {
         ibtChildMinus = view.findViewById(R.id.ibtChildMinus);
         ibtChildplus = view.findViewById(R.id.ibtChildPlus);
 
+        //將入住日期和退房日期預設為今天和明天
         showFirstDate();
         showLastDate();
 
+        //點擊進入選擇住房日期
         rlFirstDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -118,6 +125,7 @@ public class BookingFragment extends Fragment {
             }
         });
 
+        //點擊進入選擇住房日期
         rlLastDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -132,6 +140,7 @@ public class BookingFragment extends Fragment {
             }
         });
 
+        //按下"-"的按鈕，大人的人數減1
         ibtAdultMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -142,6 +151,7 @@ public class BookingFragment extends Fragment {
             }
         });
 
+        //按下"+"的按鈕，大人的人數加1
         ibtAdultplus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -150,6 +160,7 @@ public class BookingFragment extends Fragment {
             }
         });
 
+        //按下"-"的按鈕，孩童的人數減1
         ibtChildMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -160,6 +171,7 @@ public class BookingFragment extends Fragment {
             }
         });
 
+        //按下"+"的按鈕，孩童的人數加1
         ibtChildplus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -169,23 +181,26 @@ public class BookingFragment extends Fragment {
         });
     }
 
+    //取得今天的日期
     private void showFirstDate() {
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH) + 1;
         day = calendar.get(Calendar.DAY_OF_MONTH);
         week = calendar.get(Calendar.DAY_OF_WEEK);
 
-        fYear=String.valueOf(year);
-        fMonth=String.valueOf(month);
-        fDay=String.valueOf(day);
-        fWeek=String.valueOf(changeWeekName(week));
+        fYear = String.valueOf(year);
+        fMonth = String.valueOf(month);
+        fDay = String.valueOf(day);
+        fWeek = String.valueOf(changeWeekName(week));
 
+        //把今天的日期設定到入住日期
         tvFirstYearSelected.setText(String.valueOf(year) + " 年");
         tvFirstDaySelected.setText(String.valueOf(day));
         tvFirstMonSelected.setText(" " + String.valueOf(month) + " 月");
         tvFirstWeekSelected.setText(changeWeekName(week));
     }
 
+    //取得明天的日期
     private void showLastDate() {
         calendar.add(Calendar.DAY_OF_MONTH, 1);
         lastYear = calendar.get(Calendar.YEAR);
@@ -193,17 +208,19 @@ public class BookingFragment extends Fragment {
         lastDay = calendar.get(Calendar.DAY_OF_MONTH);
         lastWeek = calendar.get(Calendar.DAY_OF_WEEK);
 
-        lYear=String.valueOf(lastYear);
-        lMonth=String.valueOf(lastMonth);
-        lDay=String.valueOf(lastDay);
-        lWeek=String.valueOf(changeWeekName(lastWeek));
+        lYear = String.valueOf(lastYear);
+        lMonth = String.valueOf(lastMonth);
+        lDay = String.valueOf(lastDay);
+        lWeek = String.valueOf(changeWeekName(lastWeek));
 
+        //把明天的日期設定到退房日期
         tvLastYearSelected.setText(String.valueOf(lastYear) + " 年");
         tvLastDaySelected.setText(String.valueOf(lastDay));
         tvLastMonSelected.setText(" " + String.valueOf(lastMonth) + " 月");
         tvLastWeekSelected.setText(changeWeekName(lastWeek));
     }
 
+    //把預設星期的格式轉換成"週日"的格式
     public String changeWeekName(int w) {
         switch (w) {
             case Calendar.SUNDAY:
@@ -230,9 +247,11 @@ public class BookingFragment extends Fragment {
         return weekName;
     }
 
+    //設定按下FloatingActionButton按鈕到指定的頁面
     FloatingActionButton.OnClickListener BookingFragmentChange_Listener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            //設定要到的頁面
             RoomChooseFragment roomChooseFragment = new RoomChooseFragment();
             Bundle bundle = new Bundle();
             manager = getActivity().getSupportFragmentManager();
@@ -240,16 +259,20 @@ public class BookingFragment extends Fragment {
             transaction.replace(R.id.content, roomChooseFragment, "fragment");
             transaction.addToBackStack("fragment");
 
-            String checkInDate = fYear + "年" + fMonth + "月" + fDay + "日" + fWeek;
-            String checkOutDate = lYear + "年" + lMonth + "月" + lDay + "日" + lWeek;
+            //把日期和人數放到bundle帶到下一頁
+            String checkInDate = fYear + "-" + fMonth + "-" + fDay;
+            String checkOutDate = lYear + "-" + lMonth + "-" + lDay;
+            SharedPreferences data = getActivity().getSharedPreferences(Common.RESERVATION_DATA, MODE_PRIVATE);
+            data.edit().putString("checkInDate", checkInDate)
+                    .putString("checkOutDate", checkOutDate)
+                    .putString("adultQuantity", tvAdultQuantity.getText().toString())
+                    .putString("childQuantity", tvChildQuantity.getText().toString());
+            Log.d(TAG, data.getString("checkInDate", checkInDate));
+            Log.d(TAG, data.getString("checkOutDate", checkOutDate));
+            Log.d(TAG, data.getString("adultQuantity", tvAdultQuantity.getText().toString()));
+            Log.d(TAG, data.getString("childQuantity", tvChildQuantity.getText().toString()));
             bundle.putString("checkInDate", checkInDate);
             bundle.putString("checkOutDate", checkOutDate);
-            bundle.putInt("AdultQuantity", Integer.valueOf(tvAdultQuantity.
-                    getText().toString()));
-            bundle.putInt("ChildQuantity", Integer.valueOf(tvChildQuantity.
-                    getText().toString()));
-            Log.d(TAG, "大人 " + tvAdultQuantity.getText().toString());
-            Log.d(TAG, "孩童 " + tvChildQuantity.getText().toString());
             roomChooseFragment.setArguments(bundle);
             transaction.commit();
         }

@@ -8,6 +8,18 @@ public class RoomType implements Serializable {
     private int id, price, roomQuantity, adultQuantity, childQuantity;
     private String name, roomSize, bed;
 
+    public RoomType(int id, String name, String roomSize, String bed, int adultQuantity, int childQuantity,
+                    int roomQuantity) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.roomSize = roomSize;
+        this.bed = bed;
+        this.adultQuantity = adultQuantity;
+        this.childQuantity = childQuantity;
+        this.roomQuantity = roomQuantity;
+    }
+
     public RoomType(int id, String name, String roomSize, String bed, int adultQuantity, int childQuantity, int roomQuantity, int price) {
         super();
         this.price = price;

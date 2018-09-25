@@ -105,13 +105,11 @@ public class MainActivity extends AppCompatActivity {
 
         switch (pageId) {
             case 2:
-                if (request_code == 2) {
                     Fragment profileFragment = new ProfileFragment();
                     changeFragment(profileFragment);
                     setTitle(R.string.profile);
                     navigation.setSelectedItemId(R.id.item_profile);
                     break;
-                }
             default:
                 if (request_code == 0) {
                     Fragment homeFragment = new HomeFragment();
