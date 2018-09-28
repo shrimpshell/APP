@@ -27,7 +27,7 @@ import com.example.hsinhwang.shrimpshell.Classes.CommonTask;
 import com.example.hsinhwang.shrimpshell.Classes.Events;
 import com.example.hsinhwang.shrimpshell.Classes.ImageTask;
 import com.example.hsinhwang.shrimpshell.Classes.MainOptions;
-import com.example.hsinhwang.shrimpshell.Classes.Rooms;
+import com.example.hsinhwang.shrimpshell.Classes.RoomType;
 import com.example.hsinhwang.shrimpshell.GeneralPages.AllRatingActivity;
 import com.example.hsinhwang.shrimpshell.GeneralPages.EventActivity;
 import com.example.hsinhwang.shrimpshell.GeneralPages.IntroductionActivity;
@@ -41,19 +41,15 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import android.content.Context;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.hsinhwang.shrimpshell.Classes.LogIn;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
-import static android.app.Activity.RESULT_OK;
 import static android.content.Context.MODE_PRIVATE;
-
 
 public class HomeFragment extends Fragment implements OnMapReadyCallback {
     private final static String TAG = "HomeFragment";
@@ -254,12 +250,12 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
 
     private class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
         LayoutInflater inflater;
-        List<Rooms> roomList;
+        List<RoomType> roomList;
         ImageView roomImageView;
         TextView roomTextView;
         RelativeLayout roomItem;
 
-        public RoomAdapter(Context context, List<Rooms> roomList) {
+        public RoomAdapter(Context context, List<RoomType> roomList) {
             this.inflater = LayoutInflater.from(context);
             this.roomList = roomList;
         }
@@ -272,8 +268,8 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
 
         @Override
         public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-            final Rooms room = roomList.get(i);
-            String url = Common.URL + "/RoomServlet";
+            final RoomType room = roomList.get(i);
+            String url = Common.URL + "/RoomTypeServlet";
             int imageSize = getResources().getDisplayMetrics().widthPixels / 3;
             Bitmap bitmap = null;
 
@@ -293,7 +289,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                 public void onClick(View view) {
                     Intent intent = new Intent(getActivity(), RoomDetailActivity.class);
                     Bundle bundle = new Bundle();
-                    Rooms innerRoom = new Rooms(room.getId(), room.getName(), room.getRoomSize(), room.getBed(), room.getAdultQuantity(), room.getChildQuantity(), room.getRoomQuantity(), room.getPrice());
+                    RoomType innerRoom = new RoomType(room.getId(), room.getName(), room.getRoomSize(), room.getBed(), room.getAdultQuantity(), room.getChildQuantity(), room.getRoomQuantity(), room.getPrice());
                     bundle.putSerializable("room", innerRoom);
                     intent.putExtras(bundle);
                     startActivity(intent);
@@ -361,15 +357,15 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
 
     private void showAllRooms() {
         if (Common.networkConnected(activity)) {
-            String url = Common.URL + "/RoomServlet";
-            List<Rooms> rooms = null;
+            String url = Common.URL + "/RoomTypeServlet";
+            List<RoomType> rooms = null;
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("action", "getFive");
             String jsonOut = jsonObject.toString();
             roomGetAllTask = new CommonTask(url, jsonOut);
             try {
                 String jsonIn = roomGetAllTask.execute().get();
-                Type listType = new TypeToken<List<Rooms>>() {
+                Type listType = new TypeToken<List<RoomType>>() {
                 }.getType();
                 rooms = new Gson().fromJson(jsonIn, listType);
             } catch (Exception e) {

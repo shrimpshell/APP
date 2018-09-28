@@ -27,6 +27,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hsinhwang.shrimpshell.Classes.RoomType;
 import com.example.hsinhwang.shrimpshell.Classes.Rooms;
 import com.example.hsinhwang.shrimpshell.R;
 import com.google.gson.Gson;
@@ -90,11 +91,11 @@ public class RoomFragment extends Fragment {
 
     private class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
         LayoutInflater inflater;
-        List<Rooms> roomList;
+        List<RoomType> roomList;
         TextView roomName, roomDetail, itemId;
         RelativeLayout roomItem;
 
-        public RoomAdapter(Context context, List<Rooms> roomList) {
+        public RoomAdapter(Context context, List<RoomType> roomList) {
             this.inflater = LayoutInflater.from(context);
             this.roomList = roomList;
         }
@@ -107,7 +108,7 @@ public class RoomFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull RoomAdapter.ViewHolder viewHolder, int i) {
-            final Rooms room = roomList.get(i);
+            final RoomType room = roomList.get(i);
             itemId.setText(String.valueOf(room.getId()));
             roomName.setText(room.getName());
             roomDetail.setText(room.getDetail());
@@ -116,7 +117,7 @@ public class RoomFragment extends Fragment {
                 public void onClick(View view) {
                     Intent intent = new Intent(activity, ManagerEditActivity.class);
                     Bundle bundle = new Bundle();
-                    Rooms innerRoom = new Rooms(room.getId(), room.getName(), room.getRoomSize(), room.getBed(), room.getAdultQuantity(), room.getChildQuantity(), room.getRoomQuantity(), room.getPrice());
+                    RoomType innerRoom = new RoomType(room.getId(), room.getName(), room.getRoomSize(), room.getBed(), room.getAdultQuantity(), room.getChildQuantity(), room.getRoomQuantity(), room.getPrice());
                     bundle.putSerializable("room", innerRoom);
                     intent.putExtras(bundle);
                     startActivity(intent);
@@ -134,7 +135,7 @@ public class RoomFragment extends Fragment {
                             switch (item.getItemId()) {
                                 case R.id.item_remove:
                                     if (Common.networkConnected(activity)) {
-                                        String url = Common.URL + "/RoomServlet";
+                                        String url = Common.URL + "/RoomTypeServlet";
                                         JsonObject jsonObject = new JsonObject();
                                         jsonObject.addProperty("action", "roomRemove");
                                         jsonObject.addProperty("room", new Gson().toJson(room));
@@ -187,15 +188,15 @@ public class RoomFragment extends Fragment {
 
     private void showAllRooms() {
         if (Common.networkConnected(activity)) {
-            String url = Common.URL + "/RoomServlet";
-            List<Rooms> rooms = null;
+            String url = Common.URL + "/RoomTypeServlet";
+            List<RoomType> rooms = null;
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("action", "getAll");
             String jsonOut = jsonObject.toString();
             roomGetAllTask = new CommonTask(url, jsonOut);
             try {
                 String jsonIn = roomGetAllTask.execute().get();
-                Type listType = new TypeToken<List<Rooms>>() {
+                Type listType = new TypeToken<List<RoomType>>() {
                 }.getType();
                 rooms = new Gson().fromJson(jsonIn, listType);
             } catch (Exception e) {
