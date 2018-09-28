@@ -20,7 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.example.hsinhwang.shrimpshell.Classes.Rooms;
+import com.example.hsinhwang.shrimpshell.Classes.RoomType;
 import com.google.gson.*;
 import com.example.hsinhwang.shrimpshell.R;
 import com.example.hsinhwang.shrimpshell.Classes.Common;
@@ -131,8 +131,8 @@ public class AddRoomActivity extends AppCompatActivity {
         bed = bed + "張雙人床";
 
         if (Common.networkConnected(this)) {
-            String url = Common.URL + "/RoomServlet";
-            Rooms room = new Rooms(0, name, roomSize, bed, adult, child, quantity, price);
+            String url = Common.URL + "/RoomTypeServlet";
+            RoomType room = new RoomType(0, name, roomSize, bed, adult, child, quantity, price);
             String imageBase64 = "";
             if (image != null) imageBase64 = Base64.encodeToString(image, Base64.DEFAULT);
             JsonObject jsonObject = new JsonObject();
