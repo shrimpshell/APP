@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.hsinhwang.shrimpshell.Classes.ChatMessage;
+import com.example.hsinhwang.shrimpshell.Classes.ChatWebSocketClient;
 import com.example.hsinhwang.shrimpshell.Classes.Common;
 import com.example.hsinhwang.shrimpshell.Classes.CommonTask;
 import com.example.hsinhwang.shrimpshell.Classes.DinlingServiceMsg;
@@ -33,6 +34,7 @@ import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
 import static android.support.constraint.Constraints.TAG;
+import static com.example.hsinhwang.shrimpshell.Classes.Common.chatwebSocketClient;
 
 
 public class DinlingServiceFragment extends Fragment {
@@ -67,6 +69,11 @@ public class DinlingServiceFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+
+        if (chatwebSocketClient == null) {
+            Common.connectServer(activity,customerName,"0");
+        }
+
 
         SharedPreferences pref = getActivity().getSharedPreferences(Common.INSTANT_TEST, MODE_PRIVATE);
         if (customerName.equals("cc@gmail.com")) {
@@ -169,9 +176,12 @@ public class DinlingServiceFragment extends Fragment {
                                     ("商品：C餐", "價格：200 元",
                                             R.drawable.icon_dinling_c, 3));
 
+                            myViewHolder.layout_dinling.setOnClickListener(null);
+
                             notifyItemInserted(dinlingServiceMsgs.size());
 
                             break;
+
                         case 1:
 
 
@@ -244,7 +254,12 @@ public class DinlingServiceFragment extends Fragment {
                 public void onClick(View v) {
                     ChatMessage chatMessage;
                     String chatMessageJson;
-                    String UserEnter = String.valueOf(myViewHolder.etDinling.getText().toString());
+                    String UserEnter = myViewHolder.etDinling.getText().toString();
+
+                    if (chatwebSocketClient == null) {
+                        Common.connectServer(activity,customerName,"0");
+                    }
+
 
                     switch (dinlingServiceMsg.getNumber()) {
 
@@ -285,6 +300,7 @@ public class DinlingServiceFragment extends Fragment {
                                         Common.showToast(activity, R.string.id_InstantSuccess);
                                     } else {
                                         Common.showToast(activity, R.string.id_InstantFail);
+                                        myViewHolder.layout_dinling.setEnabled(false);
                                     }
                                 } else {
                                     Common.showToast(activity, R.string.msg_NoNetwork);
@@ -295,9 +311,10 @@ public class DinlingServiceFragment extends Fragment {
                                         new ChatMessage(customerName, "0", "0",
                                                 "3", 3, idInstantDetail);
                                 chatMessageJson = new Gson().toJson(chatMessage);
-                                Common.chatwebSocketClient.send(chatMessageJson);
+                                chatwebSocketClient.send(chatMessageJson);
                                 Log.d(TAG, "output: " + chatMessageJson);
 
+                                myViewHolder.layout_dinling.setEnabled(true);
 
                                 myViewHolder.etDinling.setText("");
 
@@ -369,9 +386,5 @@ public class DinlingServiceFragment extends Fragment {
         return dinlingServiceMsgs;
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        Common.disconnectServer();
-    }
+
 }

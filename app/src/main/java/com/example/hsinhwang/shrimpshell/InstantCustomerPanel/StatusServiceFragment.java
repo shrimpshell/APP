@@ -39,6 +39,7 @@ import java.util.List;
 
 import static android.content.ContentValues.TAG;
 import static android.content.Context.MODE_PRIVATE;
+import static com.example.hsinhwang.shrimpshell.Classes.Common.chatwebSocketClient;
 
 
 public class StatusServiceFragment extends Fragment {
@@ -97,6 +98,10 @@ public class StatusServiceFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+
+        if (chatwebSocketClient == null) {
+            Common.connectServer(activity,customerName,"0");
+        }
 
         roomNumber = getActivity().getSharedPreferences(Common.INSTANT_TEST, MODE_PRIVATE);
         if (customerName.equals("cc@gmail.com")) {
@@ -319,9 +324,5 @@ public class StatusServiceFragment extends Fragment {
 
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        Common.disconnectServer();
-    }
+
 }

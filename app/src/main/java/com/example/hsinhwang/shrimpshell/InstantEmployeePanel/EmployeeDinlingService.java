@@ -17,8 +17,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import static com.example.hsinhwang.shrimpshell.Classes.Common.chatwebSocketClient;
 import com.example.hsinhwang.shrimpshell.Classes.ChatMessage;
+import com.example.hsinhwang.shrimpshell.Classes.ChatWebSocketClient;
 import com.example.hsinhwang.shrimpshell.Classes.Common;
 import com.example.hsinhwang.shrimpshell.Classes.CommonTask;
 import com.example.hsinhwang.shrimpshell.Classes.EmployeeDinling;
@@ -33,17 +33,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.support.constraint.Constraints.TAG;
+import static com.example.hsinhwang.shrimpshell.Classes.Common.chatwebSocketClient;
 
 public class EmployeeDinlingService extends AppCompatActivity {
     private static final String TAG = "EmployeeDinling";
     private LocalBroadcastManager broadcastManager;
     RecyclerView rvEmployeeDinling;
-    SharedPreferences preferences, type;
+    SharedPreferences preferences;
     private String employeeName;
     private CommonTask employeeStatus;
     EmployeeDinlingAdapter adapter;
     List<EmployeeDinling> employeeDinlings;
     int idInstantDetail;
+
 
 
     @Override
@@ -80,6 +82,10 @@ public class EmployeeDinlingService extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
+        if (chatwebSocketClient == null) {
+            Common.connectServer(this,employeeName,"3");
+        }
 
         if (Common.networkConnected(this)) {
             String url = Common.URL + "/InstantServlet";
@@ -253,15 +259,18 @@ public class EmployeeDinlingService extends AppCompatActivity {
                     int status = 0;
                     String roomNumber = employeeDinling.getRoomNumber();
                     idInstantDetail = employeeDinling.getIdInstantDetail();
+
+
                     if (employeeDinling.getStatus() == 1) {
 
                         status = 2;
 
-                    } else if (employeeDinling.getStatus() == 2) {
+                    } else if (employeeDinling.getStatus() == 2 || employeeDinling.getStatus() == 3) {
 
                         status = 3;
 
                     }
+
                     if (Common.networkConnected(EmployeeDinlingService.this)) {
                         String url = Common.URL + "/InstantServlet";
                         JsonObject jsonObject = new JsonObject();
@@ -306,11 +315,15 @@ public class EmployeeDinlingService extends AppCompatActivity {
                             rvEmployeeDinling.setAdapter(null);
                             rvEmployeeDinling.setAdapter
                                     (new EmployeeDinlingAdapter(EmployeeDinlingService.this, employeeDinlings));
+                            myViewHolder.itemView.setEnabled(false);
+
                         }
 
                     } else {
                         Common.showToast(EmployeeDinlingService.this, R.string.msg_NoNetwork);
                     }
+
+
 
                     ChatMessage chatMessage =
                             new ChatMessage(employeeName, roomNumber, "3",
@@ -319,7 +332,11 @@ public class EmployeeDinlingService extends AppCompatActivity {
                     Common.chatwebSocketClient.send(chatMessageJson);
                     Log.d(TAG, "output: " + chatMessageJson);
 
+                    myViewHolder.itemView.setEnabled(true);
+
                     adapter.notifyDataSetChanged();
+
+
 
                 }
             });
@@ -330,9 +347,5 @@ public class EmployeeDinlingService extends AppCompatActivity {
     }
 
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Common.disconnectServer();
-    }
+
 }
