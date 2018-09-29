@@ -15,11 +15,9 @@ import static android.content.Context.NOTIFICATION_SERVICE;
 import com.example.hsinhwang.shrimpshell.InstantCustomerPanel.StatusServiceFragment;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.drafts.Draft_6455;
 import org.java_websocket.handshake.ServerHandshake;
-
 import java.net.URI;
 import java.util.Locale;
 
@@ -56,7 +54,6 @@ public class ChatWebSocketClient extends WebSocketClient {
         sendMessageBroadcast(serviceId, message);
         Log.d(TAG, "onMessage: " + message);
 
-
     }
 
     @Override
@@ -78,6 +75,41 @@ public class ChatWebSocketClient extends WebSocketClient {
         Intent intent = new Intent(serviceId);
         intent.putExtra("message", message);
         broadcastManager.sendBroadcast(intent);
+    }
+
+    private void showNotification(ChatMessage chatMessage) {
+        NotificationManager notificationManager =
+                (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
+        // API 26開始要加上channel設定
+        String channelId = "channel_id_01";
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            String name = "channel_01";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(channelId, name, importance);
+            if (notificationManager != null) {
+                notificationManager.createNotificationChannel(channel);
+            }
+        }
+
+        Intent intent = new Intent(context, StatusServiceFragment.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("SenderGroupId", chatMessage.getSenderId());
+        bundle.putInt("ServiceId", chatMessage.getServiceId());
+        intent.putExtras(bundle);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(context,0,
+                intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        Notification notification = new NotificationCompat.Builder(context,channelId)
+                .setContentTitle("message from" + chatMessage.getSenderGroupId())
+                .setContentText(String.valueOf(chatMessage.getServiceId()))
+                .setSmallIcon(android.R.drawable.ic_menu_info_details)
+                .setAutoCancel(true)
+                .setContentIntent(pendingIntent)
+                .build();
+
+        if (notificationManager != null) {
+            notificationManager.notify(0, notification);
+        }
     }
 
 

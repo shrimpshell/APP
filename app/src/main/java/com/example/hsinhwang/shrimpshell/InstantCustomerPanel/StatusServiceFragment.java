@@ -39,6 +39,7 @@ import java.util.List;
 
 import static android.content.ContentValues.TAG;
 import static android.content.Context.MODE_PRIVATE;
+import static com.example.hsinhwang.shrimpshell.Classes.Common.chatwebSocketClient;
 
 
 public class StatusServiceFragment extends Fragment {
@@ -47,9 +48,9 @@ public class StatusServiceFragment extends Fragment {
     private LocalBroadcastManager broadcastManager;
     private CommonTask customerStatus;
     List<StatusService> statusServiceList;
+    StatusServiceAdapter adapter;
     SharedPreferences preferences, roomNumber;
     String customerName;
-    StatusServiceAdapter adapter;
     int idInstantDetail;
     String roomNumber_A;
 
@@ -79,11 +80,6 @@ public class StatusServiceFragment extends Fragment {
 
 
 
-
-
-        Common.connectServer(activity,customerName,"0");
-
-
         return view;
 
     }
@@ -97,6 +93,10 @@ public class StatusServiceFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+
+        if (chatwebSocketClient == null) {
+            Common.connectServer(activity,customerName,"0");
+        }
 
         roomNumber = getActivity().getSharedPreferences(Common.INSTANT_TEST, MODE_PRIVATE);
         if (customerName.equals("cc@gmail.com")) {
@@ -311,7 +311,15 @@ public class StatusServiceFragment extends Fragment {
                     break;
             }
 
-            myViewHolder.tvQuantity.setText(String.valueOf(statusService.getQuantity()));
+            if (String.valueOf(statusService.getQuantity()).equals("0")) {
+
+                myViewHolder.tvQuantity.setVisibility(View.GONE);
+
+            } else {
+
+                myViewHolder.tvQuantity.setText(String.valueOf(statusService.getQuantity()));
+            }
+
 
 
 
@@ -319,9 +327,5 @@ public class StatusServiceFragment extends Fragment {
 
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        Common.disconnectServer();
-    }
+
 }
