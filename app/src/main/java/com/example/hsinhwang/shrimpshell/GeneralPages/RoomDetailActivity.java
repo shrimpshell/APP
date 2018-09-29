@@ -13,10 +13,8 @@ import android.widget.TextView;
 
 import com.example.hsinhwang.shrimpshell.Classes.Common;
 import com.example.hsinhwang.shrimpshell.Classes.ImageTask;
-import com.example.hsinhwang.shrimpshell.Classes.Rooms;
+import com.example.hsinhwang.shrimpshell.Classes.RoomType;
 import com.example.hsinhwang.shrimpshell.R;
-
-import java.io.ByteArrayOutputStream;
 
 public class RoomDetailActivity extends AppCompatActivity {
     private final static String TAG = "RoomDetailActivity";
@@ -47,7 +45,7 @@ public class RoomDetailActivity extends AppCompatActivity {
         int id = 0;
         if (bundle != null) {
             Object score = bundle.getSerializable("room");
-            Rooms room = (Rooms) score;
+            RoomType room = (RoomType) score;
             if (score != null) {
                 id = room.getId();
                 text = room.getDetail();
@@ -58,7 +56,7 @@ public class RoomDetailActivity extends AppCompatActivity {
     }
 
     private void loadRoomImage(int id) {
-        String url = Common.URL + "/RoomServlet";
+        String url = Common.URL + "/RoomTypeServlet";
         int imageSize = getResources().getDisplayMetrics().widthPixels / 3;
         Bitmap bitmap = null;
 
