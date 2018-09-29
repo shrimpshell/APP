@@ -48,9 +48,9 @@ public class StatusServiceFragment extends Fragment {
     private LocalBroadcastManager broadcastManager;
     private CommonTask customerStatus;
     List<StatusService> statusServiceList;
+    StatusServiceAdapter adapter;
     SharedPreferences preferences, roomNumber;
     String customerName;
-    StatusServiceAdapter adapter;
     int idInstantDetail;
     String roomNumber_A;
 
@@ -78,11 +78,6 @@ public class StatusServiceFragment extends Fragment {
         customerName = preferences.getString("email", "");
 
 
-
-
-
-
-        Common.connectServer(activity,customerName,"0");
 
 
         return view;
@@ -316,7 +311,15 @@ public class StatusServiceFragment extends Fragment {
                     break;
             }
 
-            myViewHolder.tvQuantity.setText(String.valueOf(statusService.getQuantity()));
+            if (String.valueOf(statusService.getQuantity()).equals("0")) {
+
+                myViewHolder.tvQuantity.setVisibility(View.GONE);
+
+            } else {
+
+                myViewHolder.tvQuantity.setText(String.valueOf(statusService.getQuantity()));
+            }
+
 
 
 

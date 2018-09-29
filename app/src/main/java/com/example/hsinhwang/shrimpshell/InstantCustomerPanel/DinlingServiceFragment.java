@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.hsinhwang.shrimpshell.Classes.ChatMessage;
 import com.example.hsinhwang.shrimpshell.Classes.ChatWebSocketClient;
 import com.example.hsinhwang.shrimpshell.Classes.Common;
@@ -58,8 +59,6 @@ public class DinlingServiceFragment extends Fragment {
         customerName = preferences.getString("email", "");
 
 
-
-
         handleViews(view);
 
 
@@ -71,18 +70,18 @@ public class DinlingServiceFragment extends Fragment {
         super.onStart();
 
         if (chatwebSocketClient == null) {
-            Common.connectServer(activity,customerName,"0");
+            Common.connectServer(activity, customerName, "0");
         }
 
 
         SharedPreferences pref = getActivity().getSharedPreferences(Common.INSTANT_TEST, MODE_PRIVATE);
         if (customerName.equals("cc@gmail.com")) {
-            roomNumber = pref.getString("roomNumber1","");
-            idRoomStatus = pref.getInt("idRoomStatus1",0);
+            roomNumber = pref.getString("roomNumber1", "");
+            idRoomStatus = pref.getInt("idRoomStatus1", 0);
 
         } else {
-            roomNumber = pref.getString("roomNumber2","");
-            idRoomStatus = pref.getInt("idRoomStatus2",0);
+            roomNumber = pref.getString("roomNumber2", "");
+            idRoomStatus = pref.getInt("idRoomStatus2", 0);
 
         }
     }
@@ -170,10 +169,10 @@ public class DinlingServiceFragment extends Fragment {
                                     ("商品：A餐", "價格：300 元",
                                             R.drawable.icon_dinling_a, 1));
                             dinlingServiceMsgs.add(new DinlingServiceMsg
-                                    ("商品：B餐", "價格：250 元",
+                                    ("商品：B餐", "價格：200 元",
                                             R.drawable.icon_dinling_b, 2));
                             dinlingServiceMsgs.add(new DinlingServiceMsg
-                                    ("商品：C餐", "價格：200 元",
+                                    ("商品：C餐", "價格：100 元",
                                             R.drawable.icon_dinling_c, 3));
 
                             myViewHolder.layout_dinling.setOnClickListener(null);
@@ -256,10 +255,6 @@ public class DinlingServiceFragment extends Fragment {
                     String chatMessageJson;
                     String UserEnter = myViewHolder.etDinling.getText().toString();
 
-                    if (chatwebSocketClient == null) {
-                        Common.connectServer(activity,customerName,"0");
-                    }
-
 
                     switch (dinlingServiceMsg.getNumber()) {
 
@@ -277,7 +272,6 @@ public class DinlingServiceFragment extends Fragment {
                                         Toast.LENGTH_SHORT).show();
 
 
-
                                 int idInstantService = 3;
                                 int status = 1;
                                 int quantity = Integer.parseInt(UserEnter);
@@ -286,7 +280,7 @@ public class DinlingServiceFragment extends Fragment {
                                 if (Common.networkConnected(activity)) {
                                     String url = Common.URL + "/InstantServlet";
                                     Instant instant = new Instant(idInstantDetail, idInstantService, roomNumber, status,
-                                             quantity, idInstantType, idRoomStatus);
+                                            quantity, idInstantType, idRoomStatus);
                                     JsonObject jsonObject = new JsonObject();
                                     jsonObject.addProperty("action", "insertInstant");
                                     jsonObject.addProperty("instant", new Gson().toJson(instant));
@@ -294,7 +288,7 @@ public class DinlingServiceFragment extends Fragment {
                                         String result = new CommonTask(url, jsonObject.toString()).execute().get();
                                         idInstantDetail = Integer.valueOf(result);
                                     } catch (Exception e) {
-                                        Log.e(TAG,"Josh :" + e.toString());
+                                        Log.e(TAG, "Josh :" + e.toString());
                                     }
                                     if (idInstantDetail != 0) {
                                         Common.showToast(activity, R.string.id_InstantSuccess);
@@ -335,6 +329,45 @@ public class DinlingServiceFragment extends Fragment {
                                         Toast.LENGTH_SHORT).show();
 
 
+                                int idInstantService = 3;
+                                int status = 1;
+                                int quantity = Integer.parseInt(UserEnter);
+                                int idInstantType = 2;
+                                int idInstantDetail = 0;
+                                if (Common.networkConnected(activity)) {
+                                    String url = Common.URL + "/InstantServlet";
+                                    Instant instant = new Instant(idInstantDetail, idInstantService, roomNumber, status,
+                                            quantity, idInstantType, idRoomStatus);
+                                    JsonObject jsonObject = new JsonObject();
+                                    jsonObject.addProperty("action", "insertInstant");
+                                    jsonObject.addProperty("instant", new Gson().toJson(instant));
+                                    try {
+                                        String result = new CommonTask(url, jsonObject.toString()).execute().get();
+                                        idInstantDetail = Integer.valueOf(result);
+                                    } catch (Exception e) {
+                                        Log.e(TAG, "Josh :" + e.toString());
+                                    }
+                                    if (idInstantDetail != 0) {
+                                        Common.showToast(activity, R.string.id_InstantSuccess);
+                                    } else {
+                                        Common.showToast(activity, R.string.id_InstantFail);
+                                        myViewHolder.layout_dinling.setEnabled(false);
+                                    }
+                                } else {
+                                    Common.showToast(activity, R.string.msg_NoNetwork);
+                                }
+
+
+                                chatMessage =
+                                        new ChatMessage(customerName, "0", "0",
+                                                "3", 3, idInstantDetail);
+                                chatMessageJson = new Gson().toJson(chatMessage);
+                                chatwebSocketClient.send(chatMessageJson);
+                                Log.d(TAG, "output: " + chatMessageJson);
+
+                                myViewHolder.layout_dinling.setEnabled(true);
+
+                                myViewHolder.etDinling.setText("");
 
 
                             }
@@ -352,13 +385,48 @@ public class DinlingServiceFragment extends Fragment {
                                 Toast.makeText(context, "你點的 C餐 數量為" + UserEnter + "份",
                                         Toast.LENGTH_SHORT).show();
 
+                                int idInstantService = 3;
+                                int status = 1;
+                                int quantity = Integer.parseInt(UserEnter);
+                                int idInstantType = 3;
+                                int idInstantDetail = 0;
+                                if (Common.networkConnected(activity)) {
+                                    String url = Common.URL + "/InstantServlet";
+                                    Instant instant = new Instant(idInstantDetail, idInstantService, roomNumber, status,
+                                            quantity, idInstantType, idRoomStatus);
+                                    JsonObject jsonObject = new JsonObject();
+                                    jsonObject.addProperty("action", "insertInstant");
+                                    jsonObject.addProperty("instant", new Gson().toJson(instant));
+                                    try {
+                                        String result = new CommonTask(url, jsonObject.toString()).execute().get();
+                                        idInstantDetail = Integer.valueOf(result);
+                                    } catch (Exception e) {
+                                        Log.e(TAG,"Josh :" + e.toString());
+                                    }
+                                    if (idInstantDetail != 0) {
+                                        Common.showToast(activity, R.string.id_InstantSuccess);
+                                    } else {
+                                        Common.showToast(activity, R.string.id_InstantFail);
+                                        myViewHolder.layout_dinling.setEnabled(false);
+                                    }
+                                } else {
+                                    Common.showToast(activity, R.string.msg_NoNetwork);
+                                }
 
 
+                                chatMessage =
+                                        new ChatMessage(customerName, "0", "0",
+                                                "3", 3, idInstantDetail);
+                                chatMessageJson = new Gson().toJson(chatMessage);
+                                chatwebSocketClient.send(chatMessageJson);
+                                Log.d(TAG, "output: " + chatMessageJson);
 
+                                myViewHolder.layout_dinling.setEnabled(true);
+
+                                myViewHolder.etDinling.setText("");
 
 
                             }
-
 
                             break;
 

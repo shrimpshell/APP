@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -23,20 +24,27 @@ import android.widget.Toast;
 
 import com.example.hsinhwang.shrimpshell.Classes.ChatMessage;
 import com.example.hsinhwang.shrimpshell.Classes.Common;
+import com.example.hsinhwang.shrimpshell.Classes.CommonTask;
+import com.example.hsinhwang.shrimpshell.Classes.Instant;
 import com.example.hsinhwang.shrimpshell.Classes.RoomServiceMsg;
 import com.example.hsinhwang.shrimpshell.R;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
 import static android.support.constraint.Constraints.TAG;
+import static com.example.hsinhwang.shrimpshell.Classes.Common.chatwebSocketClient;
 
 public class RoomServiceCleanFragment extends Fragment {
     RecyclerView rvRoomService;
     SharedPreferences preferences;
     String customerName;
+    String roomNumber;
+    int idRoomStatus;
+    FragmentActivity activity;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,6 +52,7 @@ public class RoomServiceCleanFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_room_service_fab,
                 container, false);
 
+        activity = getActivity();
         preferences = getActivity().getSharedPreferences(Common.LOGIN, MODE_PRIVATE);
         customerName = preferences.getString("email", "");
 
@@ -51,6 +60,27 @@ public class RoomServiceCleanFragment extends Fragment {
         return view;
 
 
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        if (chatwebSocketClient == null) {
+            Common.connectServer(activity, customerName, "0");
+        }
+
+
+        SharedPreferences pref = getActivity().getSharedPreferences(Common.INSTANT_TEST, MODE_PRIVATE);
+        if (customerName.equals("cc@gmail.com")) {
+            roomNumber = pref.getString("roomNumber1", "");
+            idRoomStatus = pref.getInt("idRoomStatus1", 0);
+
+        } else {
+            roomNumber = pref.getString("roomNumber2", "");
+            idRoomStatus = pref.getInt("idRoomStatus2", 0);
+
+        }
     }
 
     private void handlerView(View view) {
@@ -77,7 +107,6 @@ public class RoomServiceCleanFragment extends Fragment {
             LinearLayout layout_roomService;
             TextView tvRoomService1, tvRoomService2;
             EditText etRoomService1, etRoomService2;
-            TimePicker tpRoomService;
             CheckBox cbRoomService1, cbRoomService2;
             Button btRoomService;
 
@@ -274,13 +303,47 @@ public class RoomServiceCleanFragment extends Fragment {
 
 
                             Toast.makeText(context, "我們將為您打掃房間", Toast.LENGTH_SHORT).show();
-//
-//                            chatMessage =
-//                                    new ChatMessage(customerName, "0", "0",
-//                                            "1", idInstantDetail);
-//                            chatMessageJson = new Gson().toJson(chatMessage);
-//                            Common.chatwebSocketClient.send(chatMessageJson);
-//                            Log.d(TAG, "output: " + chatMessageJson);
+
+
+                            int idInstantService = 1;
+                            int status = 1;
+                            int quantity = 0;
+                            int idInstantType = 7;
+                            int idInstantDetail = 0;
+                            if (Common.networkConnected(activity)) {
+                                String url = Common.URL + "/InstantServlet";
+                                Instant instant = new Instant(idInstantDetail, idInstantService, roomNumber, status,
+                                        quantity, idInstantType, idRoomStatus);
+                                JsonObject jsonObject = new JsonObject();
+                                jsonObject.addProperty("action", "insertInstant");
+                                jsonObject.addProperty("instant", new Gson().toJson(instant));
+                                try {
+                                    String result = new CommonTask(url, jsonObject.toString()).execute().get();
+                                    idInstantDetail = Integer.valueOf(result);
+                                } catch (Exception e) {
+                                    Log.e(TAG, "Josh :" + e.toString());
+                                }
+                                if (idInstantDetail != 0) {
+                                    Common.showToast(activity, R.string.id_InstantSuccess);
+                                } else {
+                                    Common.showToast(activity, R.string.id_InstantFail);
+                                    myViewHolder.layout_roomService.setEnabled(false);
+                                }
+                            } else {
+                                Common.showToast(activity, R.string.msg_NoNetwork);
+                            }
+
+
+                            chatMessage =
+                                    new ChatMessage(customerName, "0", "0",
+                                            "1", 1, idInstantDetail);
+                            chatMessageJson = new Gson().toJson(chatMessage);
+                            chatwebSocketClient.send(chatMessageJson);
+                            Log.d(TAG, "output: " + chatMessageJson);
+
+                            myViewHolder.layout_roomService.setEnabled(true);
+
+
 
 
                             break;
@@ -289,12 +352,44 @@ public class RoomServiceCleanFragment extends Fragment {
 
                             Toast.makeText(context, "我們將為您清洗換洗衣物", Toast.LENGTH_SHORT).show();
 
-//                            chatMessage =
-//                                    new ChatMessage(customerName, "0", "0",
-//                                            "2", idInstantDetail);
-//                            chatMessageJson = new Gson().toJson(chatMessage);
-//                            Common.chatwebSocketClient.send(chatMessageJson);
-//                            Log.d(TAG, "output: " + chatMessageJson);
+                            idInstantService = 2;
+                            status = 1;
+                            quantity = 0;
+                            idInstantType = 8;
+                            idInstantDetail = 0;
+                            if (Common.networkConnected(activity)) {
+                                String url = Common.URL + "/InstantServlet";
+                                Instant instant = new Instant(idInstantDetail, idInstantService, roomNumber, status,
+                                        quantity, idInstantType, idRoomStatus);
+                                JsonObject jsonObject = new JsonObject();
+                                jsonObject.addProperty("action", "insertInstant");
+                                jsonObject.addProperty("instant", new Gson().toJson(instant));
+                                try {
+                                    String result = new CommonTask(url, jsonObject.toString()).execute().get();
+                                    idInstantDetail = Integer.valueOf(result);
+                                } catch (Exception e) {
+                                    Log.e(TAG, "Josh :" + e.toString());
+                                }
+                                if (idInstantDetail != 0) {
+                                    Common.showToast(activity, R.string.id_InstantSuccess);
+                                } else {
+                                    Common.showToast(activity, R.string.id_InstantFail);
+                                    myViewHolder.layout_roomService.setEnabled(false);
+                                }
+                            } else {
+                                Common.showToast(activity, R.string.msg_NoNetwork);
+                            }
+
+
+                            chatMessage =
+                                    new ChatMessage(customerName, "0", "0",
+                                            "2", 2, idInstantDetail);
+                            chatMessageJson = new Gson().toJson(chatMessage);
+                            chatwebSocketClient.send(chatMessageJson);
+                            Log.d(TAG, "output: " + chatMessageJson);
+
+                            myViewHolder.layout_roomService.setEnabled(true);
+
 
 
                             break;
@@ -316,14 +411,85 @@ public class RoomServiceCleanFragment extends Fragment {
                                     Toast.makeText(context, "已收到您需要枕頭 " + UserEnteritem1
                                             + " 個及盥洗用具" + UserEnteritem2 + " 組", Toast.LENGTH_SHORT).show();
 
-//
-//                                    chatMessage =
-//                                            new ChatMessage(customerName, "0", "0",
-//                                                    "2", idInstantDetail);
-//                                    chatMessageJson = new Gson().toJson(chatMessage);
-//                                    Common.chatwebSocketClient.send(chatMessageJson);
-//                                    Log.d(TAG, "output: " + chatMessageJson);
-//
+                                    idInstantService = 2;
+                                    status = 1;
+                                    quantity = Integer.parseInt(UserEnteritem1);
+                                    idInstantType = 9;
+                                    idInstantDetail = 0;
+                                    if (Common.networkConnected(activity)) {
+                                        String url = Common.URL + "/InstantServlet";
+                                        Instant instant = new Instant(idInstantDetail, idInstantService, roomNumber, status,
+                                                quantity, idInstantType, idRoomStatus);
+                                        JsonObject jsonObject = new JsonObject();
+                                        jsonObject.addProperty("action", "insertInstant");
+                                        jsonObject.addProperty("instant", new Gson().toJson(instant));
+                                        try {
+                                            String result = new CommonTask(url, jsonObject.toString()).execute().get();
+                                            idInstantDetail = Integer.valueOf(result);
+                                        } catch (Exception e) {
+                                            Log.e(TAG, "Josh :" + e.toString());
+                                        }
+                                        if (idInstantDetail != 0) {
+                                            Common.showToast(activity, R.string.id_InstantSuccess);
+                                        } else {
+                                            Common.showToast(activity, R.string.id_InstantFail);
+                                            myViewHolder.layout_roomService.setEnabled(false);
+                                        }
+                                    } else {
+                                        Common.showToast(activity, R.string.msg_NoNetwork);
+                                    }
+
+
+                                    idInstantService = 2;
+                                    status = 1;
+                                    quantity = Integer.parseInt(UserEnteritem2);
+                                    idInstantType = 10;
+                                    idInstantDetail = 0;
+                                    if (Common.networkConnected(activity)) {
+                                        String url = Common.URL + "/InstantServlet";
+                                        Instant instant = new Instant(idInstantDetail, idInstantService, roomNumber, status,
+                                                quantity, idInstantType, idRoomStatus);
+                                        JsonObject jsonObject = new JsonObject();
+                                        jsonObject.addProperty("action", "insertInstant");
+                                        jsonObject.addProperty("instant", new Gson().toJson(instant));
+                                        try {
+                                            String result = new CommonTask(url, jsonObject.toString()).execute().get();
+                                            idInstantDetail = Integer.valueOf(result);
+                                        } catch (Exception e) {
+                                            Log.e(TAG, "Josh :" + e.toString());
+                                        }
+                                        if (idInstantDetail != 0) {
+                                            Common.showToast(activity, R.string.id_InstantSuccess);
+                                        } else {
+                                            Common.showToast(activity, R.string.id_InstantFail);
+                                            myViewHolder.layout_roomService.setEnabled(false);
+                                        }
+                                    } else {
+                                        Common.showToast(activity, R.string.msg_NoNetwork);
+                                    }
+
+
+                                    chatMessage =
+                                            new ChatMessage(customerName, "0", "0",
+                                                    "2", 2, idInstantDetail);
+                                    chatMessageJson = new Gson().toJson(chatMessage);
+                                    chatwebSocketClient.send(chatMessageJson);
+                                    Log.d(TAG, "output: " + chatMessageJson);
+
+                                    chatMessage =
+                                            new ChatMessage(customerName, "0", "0",
+                                                    "2", 2, idInstantDetail);
+                                    chatMessageJson = new Gson().toJson(chatMessage);
+                                    chatwebSocketClient.send(chatMessageJson);
+                                    Log.d(TAG, "output: " + chatMessageJson);
+
+                                    myViewHolder.layout_roomService.setEnabled(true);
+
+                                    myViewHolder.etRoomService1.setText("");
+                                    myViewHolder.etRoomService2.setText("");
+
+
+
 
                                 }
 
@@ -337,14 +503,45 @@ public class RoomServiceCleanFragment extends Fragment {
 
                                     Toast.makeText(context, "已收到您需要枕頭 " + UserEnteritem1
                                             + "個", Toast.LENGTH_SHORT).show();
-//
-//                                    chatMessage =
-//                                            new ChatMessage(customerName, "0", "0",
-//                                                    "2", idInstantDetail);
-//                                    chatMessageJson = new Gson().toJson(chatMessage);
-//                                    Common.chatwebSocketClient.send(chatMessageJson);
-//                                    Log.d(TAG, "output: " + chatMessageJson);
-//
+
+                                    idInstantService = 2;
+                                    status = 1;
+                                    quantity = Integer.parseInt(UserEnteritem1);
+                                    idInstantType = 9;
+                                    idInstantDetail = 0;
+                                    if (Common.networkConnected(activity)) {
+                                        String url = Common.URL + "/InstantServlet";
+                                        Instant instant = new Instant(idInstantDetail, idInstantService, roomNumber, status,
+                                                quantity, idInstantType, idRoomStatus);
+                                        JsonObject jsonObject = new JsonObject();
+                                        jsonObject.addProperty("action", "insertInstant");
+                                        jsonObject.addProperty("instant", new Gson().toJson(instant));
+                                        try {
+                                            String result = new CommonTask(url, jsonObject.toString()).execute().get();
+                                            idInstantDetail = Integer.valueOf(result);
+                                        } catch (Exception e) {
+                                            Log.e(TAG, "Josh :" + e.toString());
+                                        }
+                                        if (idInstantDetail != 0) {
+                                            Common.showToast(activity, R.string.id_InstantSuccess);
+                                        } else {
+                                            Common.showToast(activity, R.string.id_InstantFail);
+                                            myViewHolder.layout_roomService.setEnabled(false);
+                                        }
+                                    } else {
+                                        Common.showToast(activity, R.string.msg_NoNetwork);
+                                    }
+
+
+                                    chatMessage =
+                                            new ChatMessage(customerName, "0", "0",
+                                                    "2", 2, idInstantDetail);
+                                    chatMessageJson = new Gson().toJson(chatMessage);
+                                    chatwebSocketClient.send(chatMessageJson);
+                                    Log.d(TAG, "output: " + chatMessageJson);
+
+                                    myViewHolder.etRoomService1.setText("");
+
 
                                 }
 
@@ -360,12 +557,44 @@ public class RoomServiceCleanFragment extends Fragment {
                                     Toast.makeText(context, "已收到您需要盥洗用具 " + UserEnteritem2
                                             + " 組", Toast.LENGTH_SHORT).show();
 
-//                                    chatMessage =
-//                                            new ChatMessage(customerName, "0", "0",
-//                                                    "2",idInstantDeatil);
-//                                    chatMessageJson = new Gson().toJson(chatMessage);
-//                                    Common.chatwebSocketClient.send(chatMessageJson);
-//                                    Log.d(TAG, "output: " + chatMessageJson);
+                                    idInstantService = 2;
+                                    status = 1;
+                                    quantity = Integer.parseInt(UserEnteritem2);
+                                    idInstantType = 10;
+                                    idInstantDetail = 0;
+                                    if (Common.networkConnected(activity)) {
+                                        String url = Common.URL + "/InstantServlet";
+                                        Instant instant = new Instant(idInstantDetail, idInstantService, roomNumber, status,
+                                                quantity, idInstantType, idRoomStatus);
+                                        JsonObject jsonObject = new JsonObject();
+                                        jsonObject.addProperty("action", "insertInstant");
+                                        jsonObject.addProperty("instant", new Gson().toJson(instant));
+                                        try {
+                                            String result = new CommonTask(url, jsonObject.toString()).execute().get();
+                                            idInstantDetail = Integer.valueOf(result);
+                                        } catch (Exception e) {
+                                            Log.e(TAG, "Josh :" + e.toString());
+                                        }
+                                        if (idInstantDetail != 0) {
+                                            Common.showToast(activity, R.string.id_InstantSuccess);
+                                        } else {
+                                            Common.showToast(activity, R.string.id_InstantFail);
+                                            myViewHolder.layout_roomService.setEnabled(false);
+                                        }
+                                    } else {
+                                        Common.showToast(activity, R.string.msg_NoNetwork);
+                                    }
+
+
+                                    chatMessage =
+                                            new ChatMessage(customerName, "0", "0",
+                                                    "2", 2, idInstantDetail);
+                                    chatMessageJson = new Gson().toJson(chatMessage);
+                                    chatwebSocketClient.send(chatMessageJson);
+                                    Log.d(TAG, "output: " + chatMessageJson);
+
+                                    myViewHolder.etRoomService2.setText("");
+
 
 
                                 }

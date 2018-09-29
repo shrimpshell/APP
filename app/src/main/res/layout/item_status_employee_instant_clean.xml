@@ -38,14 +38,13 @@
                 android:textSize="25sp" />
 
             <TextView
-                android:id="@+id/tvEmployeeCleanStatus"
+                android:id="@+id/tvEmployeeCleanType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="20dp"
-                android:text="狀態碼"
-                android:textSize="25sp"
-                android:visibility="gone"/>
+                android:text="服務"
+                android:textSize="25sp"/>
 
 
         </LinearLayout>
