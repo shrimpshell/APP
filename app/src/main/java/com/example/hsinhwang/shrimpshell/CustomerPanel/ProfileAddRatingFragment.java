@@ -26,7 +26,7 @@ import com.google.gson.JsonObject;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 
-public class ProfileAddRatingFragment extends AppCompatActivity{
+public class ProfileAddRatingFragment extends AppCompatActivity {
     final static String TAG = "ProfileAddRatingFragment";
     private Activity activity;
     private Button btRatingCancel, btRatingOK;
@@ -70,54 +70,54 @@ public class ProfileAddRatingFragment extends AppCompatActivity{
 
                 if (Common.networkConnected(ProfileAddRatingFragment.this)) {
                     //由Bundle中獲得IdRoomReservation資訊
-//                    Bundle bundle = activity.getIntent().getExtras();
-//                    if (bundle != null) {
-//                        final Object object = bundle.getSerializable("profileReceiptDetail");
-//                        if (object != null) {
-//                            final ProfileReceiptDetail profileReceiptDetail = (ProfileReceiptDetail) object;
-//                            int idRoomReservation = Integer.valueOf();
+                    Bundle bundle = activity.getIntent().getExtras();
+                    if (bundle != null) {
+                        final Object object = bundle.getSerializable("profileReceiptDetail");
+                        if (object != null) {
+                            final ProfileReceiptDetail profileReceiptDetail = (ProfileReceiptDetail) object;
+                            int idRoomReservation = profileReceiptDetail.getIdRoomReservation();
 
-                        //RatingInsert
-                        String url = Common.URL + "/RatingServlet";
-                        Rating comment = new Rating(0, ratingStar, time, opinion, "", 15);
-                        JsonObject jsonObject = new JsonObject();
-                        jsonObject.addProperty("action", "ratingInsert");
-                        jsonObject.addProperty("rating", new Gson().toJson(comment));
-                        String result = null;
-                        int count = 0;
-                        try {
-                            result = new CommonTask(url, jsonObject.toString()).execute().get();
-                            count = Integer.valueOf(result);
-                        } catch (Exception e) {
-                            Log.e(TAG, e.toString());
-                        }
-                        if (result == null) {
-                            Common.showToast(activity, R.string.msg_InsertFail);
+                            //RatingInsert
+                            String url = Common.URL + "/RatingServlet";
+                            Rating comment = new Rating(0, ratingStar, time, opinion, "", idRoomReservation);
+                            JsonObject jsonObject = new JsonObject();
+                            jsonObject.addProperty("action", "ratingInsert");
+                            jsonObject.addProperty("rating", new Gson().toJson(comment));
+                            String result = null;
+                            int count = 0;
+                            try {
+                                result = new CommonTask(url, jsonObject.toString()).execute().get();
+                                count = Integer.valueOf(result);
+                            } catch (Exception e) {
+                                Log.e(TAG, e.toString());
+                            }
+                            if (result == null) {
+                                Common.showToast(activity, R.string.msg_InsertFail);
+                            } else {
+                                Toast.makeText(activity, "評論已送出，感謝您的支持。", Toast.LENGTH_SHORT).show();
+                            }
                         } else {
-                            Toast.makeText(activity, "評論已送出，感謝您的支持。", Toast.LENGTH_SHORT).show();
+                            Common.showToast(activity, R.string.msg_NoNetwork);
                         }
-                    } else {
-                        Common.showToast(activity, R.string.msg_NoNetwork);
+                        activity.finish();
+
                     }
-                    activity.finish();
+
+                }
+
+
+                //取消評論
+                btRatingCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        rbRating.setRating(0);
+                        etOpinion.setText("");
+                        Toast.makeText(activity, "取消", Toast.LENGTH_SHORT).show();
+                        activity.finish();
+                    }
+                });
 
             }
-
         });
-
-
-
-
-        //取消評論
-        btRatingCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                rbRating.setRating(0);
-                etOpinion.setText("");
-                Toast.makeText(activity, "取消", Toast.LENGTH_SHORT).show();
-                activity.finish();
-            }
-        });
-
     }
 }

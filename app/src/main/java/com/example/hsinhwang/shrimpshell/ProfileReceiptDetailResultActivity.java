@@ -24,11 +24,12 @@ public class ProfileReceiptDetailResultActivity extends Activity {
     private TextView tvSp_line;
     private TextView orderNumber, date, roomType, roomQuantity, meals, mealsQuantity, total_price, discount, discounted_detail, discount2, price, last_price, last_prices;
     private ProfileReceiptDetail profileReceiptDetail;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_receipt_detail_result);
-        initialization();
+//        initialization();
         handleView();
     }
 
@@ -53,7 +54,7 @@ public class ProfileReceiptDetailResultActivity extends Activity {
         meals = findViewById(R.id.meals);
         mealsQuantity = findViewById(R.id.mealsQuantity);
         total_price = findViewById(R.id.total_price);
-        tvSp_line =  findViewById(R.id.tvSp_line);
+        tvSp_line = findViewById(R.id.tvSp_line);
         discount = findViewById(R.id.discount);
         discounted_detail = findViewById(R.id.discounted_detail);
         discount2 = findViewById(R.id.discount2);
@@ -61,6 +62,8 @@ public class ProfileReceiptDetailResultActivity extends Activity {
         last_price = findViewById(R.id.last_price);
         last_prices = findViewById(R.id.last_prices);
         btheckout = findViewById(R.id.btheckout);
+    }
+
 
         /* 呼叫getIntent()取得Intent物件，再呼叫getExtras()取得Bundle物件 */
         Bundle bundle = getIntent().getExtras();

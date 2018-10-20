@@ -40,6 +40,7 @@ public class RatingReviewActivity extends AppCompatActivity {
     private SwipeMenuRecyclerView rvRatings;
     private SwipeRefreshLayout swipeRefreshLayout;
     private CommonTask ratingGetAllTask, ratingDeleteTask;
+    private TextView tvRatingHistory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,8 @@ public class RatingReviewActivity extends AppCompatActivity {
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
+
+        tvRatingHistory.setText(R.string.manager_review);
 
     }
 
@@ -95,6 +98,7 @@ public class RatingReviewActivity extends AppCompatActivity {
     private void findview() {
         rvRatings = findViewById(R.id.rvRatings);
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        tvRatingHistory = (TextView)findViewById(R.id.tvRatingHistory);
 
     }
 
@@ -190,7 +194,7 @@ public class RatingReviewActivity extends AppCompatActivity {
                     int IdRoomReservation = rating.getIdRoomReservation();
                     if (Common.networkConnected(activity)) {
                         String url = Common.URL + "/RatingServlet";
-                        Rating comment = new Rating(IdRoomReservation, review);
+                        Rating comment = new Rating(IdRoomReservation, review, 2);
                         JsonObject jsonObject = new JsonObject();
                         jsonObject.addProperty("action", "updateReview");
                         jsonObject.addProperty("rating", new Gson().toJson(comment));
@@ -210,7 +214,7 @@ public class RatingReviewActivity extends AppCompatActivity {
                     }else{
                         Common.showToast(activity, R.string.msg_NoNetwork);
                     }
-                    finish();
+                    showAllRatings();
                 }
             });
 
@@ -258,7 +262,6 @@ public class RatingReviewActivity extends AppCompatActivity {
                 rbCardStar = (RatingBar) itemView.findViewById(R.id.rbCardStar);
                 ibDelete = (ImageButton) itemView.findViewById(R.id.ibDelete);
                 btReviewOK = (Button) itemView.findViewById(R.id.btReviewOK);
-
 
             }
         }

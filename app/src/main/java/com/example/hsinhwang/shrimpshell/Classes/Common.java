@@ -21,8 +21,10 @@ public class Common {
     public static final int REQ_EXTERNAL_STORAGE = 0;
     private static final String TAG = "Common";
 
+//    public static final String SERVER_URI = "ws://192.168.50.188:8080/ShellService/WsServer/";
     public static final String SERVER_URI = "ws://10.0.2.2:8080/ShellService/WsServer/"; //socket
-    public static final String URL = "http://10.0.2.2:8080/ShellService"; // 模擬機用
+public static final String URL = "http://192.168.50.188:8080/ShellService";
+//    public static final String URL = "http://10.0.2.2:8080/ShellService"; // 模擬機用
 //    public static final String SERVER_URI = "ws://192.168.50.124:8080/ShellService/WsServer/";
 //    public static String URL = "http://192.168.50.124:8080/ShellService/"; // 手機用
     private static SharedPreferences preferences;

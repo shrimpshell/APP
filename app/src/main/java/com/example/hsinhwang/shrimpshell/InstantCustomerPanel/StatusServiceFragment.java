@@ -319,9 +319,4 @@ public class StatusServiceFragment extends Fragment {
 
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        Common.disconnectServer();
-    }
 }

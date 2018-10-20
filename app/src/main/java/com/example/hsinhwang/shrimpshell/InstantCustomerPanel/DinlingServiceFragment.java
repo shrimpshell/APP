@@ -369,9 +369,4 @@ public class DinlingServiceFragment extends Fragment {
         return dinlingServiceMsgs;
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        Common.disconnectServer();
-    }
 }

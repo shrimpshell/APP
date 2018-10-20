@@ -262,6 +262,7 @@
     <string name="service_2">房務服務</string>
     <string name="service_3">餐點服務</string>
     <string name="msg_NoCommentsFound">No Rating Found</string>
+    <string name="manager_review">Manager Review Page</string>
 
 
     <string-array name="department_options">

@@ -3,13 +3,14 @@ package com.example.hsinhwang.shrimpshell.Classes;
 import java.io.Serializable;
 
 public class Rating implements Serializable{
-    private int IdRating, IdRoomReservation;
+    private int IdRating, IdRoomReservation, ratingStatus;
     private float ratingStar;
     private String opinion, review, time, Name;
 
-    public Rating (int IdRoomReservation, String review){
+    public Rating (int IdRoomReservation, String review, int ratingStatus){
         this.review = review;
         this.IdRoomReservation = IdRoomReservation;
+        this.ratingStatus = ratingStatus;
     }
 
     public Rating(int IdRating, float ratingStar, String time, String opinion, String review,
@@ -94,5 +95,13 @@ public class Rating implements Serializable{
 
     public void setName(String name) {
         Name = name;
+    }
+
+    public int getRatingStatus() {
+        return ratingStatus;
+    }
+
+    public void setRatingStatus(int ratingStatus) {
+        this.ratingStatus = ratingStatus;
     }
 }
