@@ -62,7 +62,8 @@ public class InstantActivity extends AppCompatActivity {
                 .putString("roomNumber2","301")
                 .putInt("idRoomStatus2",2).apply();
 
-        Common.connectServer(this,customerName,"0");
+
+
 
         initContent();
 
@@ -71,6 +72,12 @@ public class InstantActivity extends AppCompatActivity {
 
 
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Common.connectServer(this,customerName,"0");
     }
 
     private void initContent() {
