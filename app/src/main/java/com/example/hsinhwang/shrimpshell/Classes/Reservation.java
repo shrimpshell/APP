@@ -2,22 +2,24 @@ package com.example.hsinhwang.shrimpshell.Classes;
 
 import java.io.Serializable;
 
-public class Reservation implements Serializable{
+public class Reservation implements Serializable {
     private String roomTypeName, checkInDate, checkOutDate;
-    private int quantity,addBed,price;
+    private int roomTypeId, quantity, addBed, price;
 
-    public Reservation(String roomTypeName, String checkInDate, String checkOutDate, int quantity, int price) {
+    public Reservation(int roomTypeId, String roomTypeName, String checkInDate, String checkOutDate, int quantity, int price) {
         this.roomTypeName = roomTypeName;
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
+        this.roomTypeId = roomTypeId;
         this.quantity = quantity;
         this.price = price;
     }
 
-    public Reservation(String roomTypeName, String checkInDate, String checkOutDate, int quantity, int addBed, int price) {
+    public Reservation(int roomTypeId, String roomTypeName, String checkInDate, String checkOutDate, int quantity, int addBed, int price) {
         this.roomTypeName = roomTypeName;
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
+        this.roomTypeId = roomTypeId;
         this.quantity = quantity;
         this.addBed = addBed;
         this.price = price;
@@ -45,6 +47,14 @@ public class Reservation implements Serializable{
 
     public void setCheckOutDate(String checkOutDate) {
         this.checkOutDate = checkOutDate;
+    }
+
+    public int getRoomTypeId() {
+        return roomTypeId;
+    }
+
+    public void setRoomTypeId(int roomTypeId) {
+        this.roomTypeId = roomTypeId;
     }
 
     public int getQuantity() {

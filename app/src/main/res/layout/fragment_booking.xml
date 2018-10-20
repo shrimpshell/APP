@@ -24,18 +24,18 @@
     <!--Checking Day-->
     <RelativeLayout
         android:id="@+id/rlFirstDate"
-        android:layout_width="125dp"
+        android:layout_width="130dp"
         android:layout_height="160dp"
         android:layout_below="@+id/tvResrvationTitle"
-        android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/tvFirstDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
+            android:layout_marginStart="20dp"
             android:text="@string/first_day_selected"
             android:textColor="@color/white"
             android:textSize="20sp" />
@@ -45,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvFirstDate"
-            android:layout_marginStart="25dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:text="@string/firstyear"
             android:textColor="@color/white"
@@ -53,10 +53,11 @@
 
         <TextView
             android:id="@+id/tvFirstDaySelected"
-            android:layout_width="80dp"
+            android:layout_width="75dp"
             android:layout_height="80dp"
             android:layout_below="@+id/tvFirstYearSelected"
             android:layout_marginTop="-5dp"
+            android:layout_marginStart="5dp"
             android:gravity="center"
             android:text="@string/firstday"
             android:textColor="@color/white"
@@ -79,6 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvFirstMonSelected"
             android:layout_marginTop="5dp"
+            android:layout_marginStart="5dp"
             android:layout_toEndOf="@+id/tvFirstDaySelected"
             android:gravity="center"
             android:text="@string/firstweek"
@@ -98,7 +100,7 @@
     <!--Check out day-->
     <RelativeLayout
         android:id="@+id/rlLastDate"
-        android:layout_width="125dp"
+        android:layout_width="130dp"
         android:layout_height="160dp"
         android:layout_below="@+id/tvResrvationTitle"
         android:layout_marginStart="10dp"
@@ -108,7 +110,7 @@
             android:id="@+id/tvLastDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
+            android:layout_marginStart="20dp"
             android:text="@string/last_day_selected"
             android:textColor="@color/white"
             android:textSize="20sp" />
@@ -118,7 +120,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvLastDate"
-            android:layout_marginStart="25dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:text="@string/lastyear"
             android:textColor="@color/white"
@@ -126,10 +128,11 @@
 
         <TextView
             android:id="@+id/tvLastDaySelected"
-            android:layout_width="80dp"
+            android:layout_width="75dp"
             android:layout_height="80dp"
             android:layout_below="@+id/tvLastYearSelected"
             android:layout_marginTop="-5dp"
+            android:layout_marginStart="5dp"
             android:gravity="center"
             android:text="@string/lastday"
             android:textColor="@color/white"
@@ -152,6 +155,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvLastMonSelected"
             android:layout_marginTop="5dp"
+            android:layout_marginStart="5dp"
             android:layout_toEndOf="@+id/tvLastDaySelected"
             android:text="@string/lastweek"
             android:textColor="@color/white"
