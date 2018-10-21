@@ -1,43 +1,111 @@
 package com.example.hsinhwang.shrimpshell.CustomerPanel;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.ChangedPackages;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
-import com.example.hsinhwang.shrimpshell.Classes.ProfileReceiptDetail;
-import com.example.hsinhwang.shrimpshell.ProfileReceiptDetailResultActivity;
+import com.example.hsinhwang.shrimpshell.Classes.Common;
+import com.example.hsinhwang.shrimpshell.Classes.CommonTask;
+import com.example.hsinhwang.shrimpshell.Classes.OrderInstantDetail;
+import com.example.hsinhwang.shrimpshell.Classes.OrderRoomDetail;
 import com.example.hsinhwang.shrimpshell.R;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
-import java.text.SimpleDateFormat;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class ProfileReceiptListFragment extends Fragment {
+    private final static String TAG = "RoomListFragment";
     private String order_id;
+    private int customerId;
+    private FragmentActivity activity;
+    private SharedPreferences preferences;
+    private CommonTask roomDetailTask, instantDetailTask;
+    private List<OrderRoomDetail> orderRoomDetails;
+    private List<OrderInstantDetail> orderInstantDetails;
+    private HashMap<String, HashMap<String, ArrayList<?>>> detailContainer = new HashMap<String, HashMap<String, ArrayList<?>>>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        activity = getActivity();
 
+        preferences = activity.getSharedPreferences(Common.LOGIN, MODE_PRIVATE);
+        customerId = preferences.getInt("IdCustomer", 0);
+
+        orderRoomDetails = showRoomDetailList();
+        orderInstantDetails = showInstantDetailList();
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile_receipt, container, false);
+
+        List<OrderRoomDetail> details = orderRoomDetails;
+        List<OrderInstantDetail> instantDetails = orderInstantDetails;
+        HashMap<String, ArrayList<?>> orders = new HashMap<>();
+        List<OrderRoomDetail> orderRooms = new ArrayList<>();
+        List<OrderInstantDetail> orderInstants = new ArrayList<>();
+        if (!details.isEmpty()) {
+            for (OrderRoomDetail detailRoom : details) {
+                detailContainer.put(detailRoom.getRoomGroup(), null);
+            }
+
+            for (OrderRoomDetail detailRoom : details) {
+                orderRooms.clear();
+                if (detailContainer.containsKey(detailRoom.getRoomGroup())
+                        && detailContainer.get(detailRoom.getRoomGroup()) != null) {
+                    orderRooms = (ArrayList<OrderRoomDetail>) detailContainer.get(detailRoom.getRoomGroup()).get("roomDetail");
+                }
+
+                OrderRoomDetail targetRoom = new OrderRoomDetail(detailRoom.getIdRoomReservation(),
+                        detailRoom.getRoomGroup(),
+                        detailRoom.getCheckInDate(),
+                        detailRoom.getCheckOuntDate(),
+                        detailRoom.getRoomNumber(),
+                        detailRoom.getPrice(),
+                        detailRoom.getRoomQuantity(),
+                        detailRoom.getRoomTypeName(),
+                        detailRoom.getRoomReservationStatus());
+
+                orderRooms.add(targetRoom);
+                orders.put("roomDetail", (ArrayList<?>) orderRooms);
+                detailContainer.put(detailRoom.getRoomGroup(), orders);
+            }
+
+            for (OrderInstantDetail detailInstant : instantDetails) {
+                if (detailInstant.getQuantity().equals("0") || detailInstant.getQuantity() == null || Integer.valueOf(detailInstant.getQuantity()) == 0) {
+                    break;
+                }
+                orderInstants.clear();
+                if (detailContainer.containsKey(detailInstant.getRoomGroup())
+                        && detailContainer.get(detailInstant.getRoomGroup()).get("instantDetail") != null) {
+                    orderInstants = (ArrayList<OrderInstantDetail>) detailContainer.get(detailInstant.getRoomGroup()).get("instantDetail");
+                }
+                OrderInstantDetail targetInstant = new OrderInstantDetail(detailInstant.getDiningTypeName(),
+                        detailInstant.getQuantity(),
+                        detailInstant.getDtPrice(),
+                        detailInstant.getRoomGroup());
+
+                orderInstants.add(targetInstant);
+                orders.put("instantDetail", (ArrayList<?>) orderInstants);
+                detailContainer.put(detailInstant.getRoomGroup(), orders);
+            }
+        }
+
+        Log.d(TAG, detailContainer + "");
+
 //        handleViews(view);
 
 
@@ -187,9 +255,55 @@ public class ProfileReceiptListFragment extends Fragment {
 //
 //        return dateString;
 //    }
-//
 
+    private List<OrderRoomDetail> showRoomDetailList() {
+        List<OrderRoomDetail> roomDetails = null;
+        if (Common.networkConnected(activity)) {
+            String url = Common.URL + "/PayDetailServlet";
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("action", "getRoomPayDetailById");
+            jsonObject.addProperty("idCustomer", customerId);
+            String jsonOut = jsonObject.toString();
+            roomDetailTask = new CommonTask(url, jsonOut);
+            try {
+                String jsonIn = roomDetailTask.execute().get();
+                Type listType = new TypeToken<List<OrderRoomDetail>>() {
+                }.getType();
+                roomDetails = new Gson().fromJson(jsonIn, listType);
+                return roomDetails;
+            } catch (Exception e) {
+                Log.e(TAG, e.toString());
+            }
+        } else {
+            Common.showToast(activity, R.string.msg_NoNetwork);
+        }
+        return roomDetails;
     }
+
+    private List<OrderInstantDetail> showInstantDetailList() {
+        List<OrderInstantDetail> instantDetails = null;
+        if (Common.networkConnected(activity)) {
+            String url = Common.URL + "/PayDetailServlet";
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("action", "getInstantPayDetail");
+            jsonObject.addProperty("idCustomer", customerId);
+            String jsonOut = jsonObject.toString();
+            instantDetailTask = new CommonTask(url, jsonOut);
+            try {
+                String jsonIn = instantDetailTask.execute().get();
+                Type listType = new TypeToken<List<OrderInstantDetail>>() {
+                }.getType();
+                instantDetails = new Gson().fromJson(jsonIn, listType);
+                return instantDetails;
+            } catch (Exception e) {
+                Log.e(TAG, e.toString());
+            }
+        } else {
+            Common.showToast(activity, R.string.msg_NoNetwork);
+        }
+        return instantDetails;
+    }
+}
 
 
 
