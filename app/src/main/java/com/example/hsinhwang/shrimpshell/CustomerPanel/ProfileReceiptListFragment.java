@@ -22,6 +22,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -52,59 +53,7 @@ public class ProfileReceiptListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile_receipt, container, false);
 
-        List<OrderRoomDetail> details = orderRoomDetails;
-        List<OrderInstantDetail> instantDetails = orderInstantDetails;
-        HashMap<String, ArrayList<?>> orders = new HashMap<>();
-        List<OrderRoomDetail> orderRooms = new ArrayList<>();
-        List<OrderInstantDetail> orderInstants = new ArrayList<>();
-        if (!details.isEmpty()) {
-            for (OrderRoomDetail detailRoom : details) {
-                detailContainer.put(detailRoom.getRoomGroup(), null);
-            }
-
-            for (OrderRoomDetail detailRoom : details) {
-                orderRooms.clear();
-                if (detailContainer.containsKey(detailRoom.getRoomGroup())
-                        && detailContainer.get(detailRoom.getRoomGroup()) != null) {
-                    orderRooms = (ArrayList<OrderRoomDetail>) detailContainer.get(detailRoom.getRoomGroup()).get("roomDetail");
-                }
-
-                OrderRoomDetail targetRoom = new OrderRoomDetail(detailRoom.getIdRoomReservation(),
-                        detailRoom.getRoomGroup(),
-                        detailRoom.getCheckInDate(),
-                        detailRoom.getCheckOuntDate(),
-                        detailRoom.getRoomNumber(),
-                        detailRoom.getPrice(),
-                        detailRoom.getRoomQuantity(),
-                        detailRoom.getRoomTypeName(),
-                        detailRoom.getRoomReservationStatus());
-
-                orderRooms.add(targetRoom);
-                orders.put("roomDetail", (ArrayList<?>) orderRooms);
-                detailContainer.put(detailRoom.getRoomGroup(), orders);
-            }
-
-            for (OrderInstantDetail detailInstant : instantDetails) {
-                if (detailInstant.getQuantity().equals("0") || detailInstant.getQuantity() == null || Integer.valueOf(detailInstant.getQuantity()) == 0) {
-                    break;
-                }
-                orderInstants.clear();
-                if (detailContainer.containsKey(detailInstant.getRoomGroup())
-                        && detailContainer.get(detailInstant.getRoomGroup()).get("instantDetail") != null) {
-                    orderInstants = (ArrayList<OrderInstantDetail>) detailContainer.get(detailInstant.getRoomGroup()).get("instantDetail");
-                }
-                OrderInstantDetail targetInstant = new OrderInstantDetail(detailInstant.getDiningTypeName(),
-                        detailInstant.getQuantity(),
-                        detailInstant.getDtPrice(),
-                        detailInstant.getRoomGroup());
-
-                orderInstants.add(targetInstant);
-                orders.put("instantDetail", (ArrayList<?>) orderInstants);
-                detailContainer.put(detailInstant.getRoomGroup(), orders);
-            }
-        }
-
-        Log.d(TAG, detailContainer + "");
+        showRefactoredData(); // 資料放在detailContainer裡面
 
 //        handleViews(view);
 
@@ -302,6 +251,63 @@ public class ProfileReceiptListFragment extends Fragment {
             Common.showToast(activity, R.string.msg_NoNetwork);
         }
         return instantDetails;
+    }
+
+    private void showRefactoredData() {
+        List<OrderRoomDetail> details = orderRoomDetails;
+        List<OrderInstantDetail> instantDetails = orderInstantDetails;
+        HashMap<String, ArrayList<?>> orders = new HashMap<>();
+        List<OrderRoomDetail> orderRooms = new ArrayList<>();
+        List<OrderInstantDetail> orderInstants = new ArrayList<>();
+        if (!details.isEmpty()) {
+            for (OrderRoomDetail detailRoom : details) {
+                detailContainer.put(detailRoom.getRoomGroup(), null);
+            }
+
+            for (OrderRoomDetail detailRoom : details) {
+                orderRooms.clear();
+
+                OrderRoomDetail targetRoom = new OrderRoomDetail(detailRoom.getIdRoomReservation(),
+                        detailRoom.getRoomGroup(),
+                        detailRoom.getCheckInDate(),
+                        detailRoom.getCheckOuntDate(),
+                        detailRoom.getRoomNumber(),
+                        detailRoom.getPrice(),
+                        detailRoom.getRoomQuantity(),
+                        detailRoom.getRoomTypeName(),
+                        detailRoom.getRoomReservationStatus());
+
+                if (detailContainer.get(detailRoom.getRoomGroup()) != null
+                        && detailContainer.get(detailRoom.getRoomGroup()).get("roomDetail") != null) {
+                    orderRooms = (ArrayList<OrderRoomDetail>) detailContainer.get(detailRoom.getRoomGroup()).get("roomDetail");
+                }
+
+                orderRooms.add(targetRoom);
+                orders.put("roomDetail", (ArrayList<?>) orderRooms);
+                detailContainer.put(detailRoom.getRoomGroup(), orders);
+            }
+
+            for (OrderInstantDetail detailInstant : instantDetails) {
+                if (detailInstant.getQuantity().equals("0") || detailInstant.getQuantity() == null || Integer.valueOf(detailInstant.getQuantity()) == 0) {
+                    break;
+                }
+                orderInstants.clear();
+
+                OrderInstantDetail targetInstant = new OrderInstantDetail(detailInstant.getDiningTypeName(),
+                        detailInstant.getQuantity(),
+                        detailInstant.getDtPrice(),
+                        detailInstant.getRoomGroup());
+
+                if (detailContainer.get(detailInstant.getRoomGroup()) != null
+                        && detailContainer.get(detailInstant.getRoomGroup()).get("instantDetail") != null) {
+                    orderInstants = (ArrayList<OrderInstantDetail>) detailContainer.get(detailInstant.getRoomGroup()).get("instantDetail");
+                }
+
+                orderInstants.add(targetInstant);
+                orders.put("instantDetail", (ArrayList<?>) orderInstants);
+                detailContainer.put(detailInstant.getRoomGroup(), orders);
+            }
+        }
     }
 }
 
