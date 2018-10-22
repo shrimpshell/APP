@@ -54,7 +54,7 @@ public class ProfileReceiptListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profile_receipt, container, false);
 
         showRefactoredData(); // 資料放在detailContainer裡面
-
+        Log.d(TAG, String.valueOf(detailContainer));
 //        handleViews(view);
 
 
