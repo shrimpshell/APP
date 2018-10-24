@@ -18,11 +18,14 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -53,8 +56,9 @@ public class ProfileReceiptListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile_receipt, container, false);
 
-        showRefactoredData(); // 資料放在detailContainer裡面
-        Log.d(TAG, String.valueOf(detailContainer));
+        JSONObject json = showRefactoredData(); // 回傳JSON格式的資料 下面log有顯示
+        Log.d(TAG, String.valueOf(json));
+
 //        handleViews(view);
 
 
@@ -253,61 +257,69 @@ public class ProfileReceiptListFragment extends Fragment {
         return instantDetails;
     }
 
-    private void showRefactoredData() {
+    private JSONObject showRefactoredData() {
         List<OrderRoomDetail> details = orderRoomDetails;
         List<OrderInstantDetail> instantDetails = orderInstantDetails;
-        HashMap<String, ArrayList<?>> orders = new HashMap<>();
-        List<OrderRoomDetail> orderRooms = new ArrayList<>();
-        List<OrderInstantDetail> orderInstants = new ArrayList<>();
-        if (!details.isEmpty()) {
-            for (OrderRoomDetail detailRoom : details) {
-                detailContainer.put(detailRoom.getRoomGroup(), null);
-            }
+        JSONObject obJSON = new JSONObject();
 
-            for (OrderRoomDetail detailRoom : details) {
-                orderRooms.clear();
-
-                OrderRoomDetail targetRoom = new OrderRoomDetail(detailRoom.getIdRoomReservation(),
-                        detailRoom.getRoomGroup(),
-                        detailRoom.getCheckInDate(),
-                        detailRoom.getCheckOuntDate(),
-                        detailRoom.getRoomNumber(),
-                        detailRoom.getPrice(),
-                        detailRoom.getRoomQuantity(),
-                        detailRoom.getRoomTypeName(),
-                        detailRoom.getRoomReservationStatus());
-
-                if (detailContainer.get(detailRoom.getRoomGroup()) != null
-                        && detailContainer.get(detailRoom.getRoomGroup()).get("roomDetail") != null) {
-                    orderRooms = (ArrayList<OrderRoomDetail>) detailContainer.get(detailRoom.getRoomGroup()).get("roomDetail");
-                }
-
-                orderRooms.add(targetRoom);
-                orders.put("roomDetail", (ArrayList<?>) orderRooms);
-                detailContainer.put(detailRoom.getRoomGroup(), orders);
-            }
-
-            for (OrderInstantDetail detailInstant : instantDetails) {
-                if (detailInstant.getQuantity().equals("0") || detailInstant.getQuantity() == null || Integer.valueOf(detailInstant.getQuantity()) == 0) {
-                    break;
-                }
-                orderInstants.clear();
-
-                OrderInstantDetail targetInstant = new OrderInstantDetail(detailInstant.getDiningTypeName(),
-                        detailInstant.getQuantity(),
-                        detailInstant.getDtPrice(),
-                        detailInstant.getRoomGroup());
-
-                if (detailContainer.get(detailInstant.getRoomGroup()) != null
-                        && detailContainer.get(detailInstant.getRoomGroup()).get("instantDetail") != null) {
-                    orderInstants = (ArrayList<OrderInstantDetail>) detailContainer.get(detailInstant.getRoomGroup()).get("instantDetail");
-                }
-
-                orderInstants.add(targetInstant);
-                orders.put("instantDetail", (ArrayList<?>) orderInstants);
-                detailContainer.put(detailInstant.getRoomGroup(), orders);
+        for (OrderRoomDetail roomItem : details) {
+            try {
+                obJSON.put(roomItem.getRoomGroup(), null);
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
         }
+
+        Gson gson = new Gson();
+        JSONArray roomJSON = null, instantJSON = null;
+        String roomListString = gson.toJson(orderRoomDetails,
+                new TypeToken<ArrayList<OrderRoomDetail>>() {}.getType()),
+        instantListString = gson.toJson(orderInstantDetails,
+                new TypeToken<ArrayList<OrderInstantDetail>>() {}.getType());
+        try {
+            roomJSON = new JSONArray(roomListString);
+            instantJSON = new JSONArray(instantListString);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        for (int i=0; i<roomJSON.length(); i++) {
+            try {
+                JSONObject target = (JSONObject) roomJSON.get(i);
+                String group = (String)target.get("roomGroup");
+                if (obJSON.has(group)) {
+                    JSONArray existingRoomList = obJSON.getJSONObject(group).getJSONArray("roomDetail");
+                    existingRoomList.put(target);
+                    obJSON.put(group, (new JSONObject()).put("roomDetail", existingRoomList));
+                } else {
+                    JSONArray newRoomList = new JSONArray();
+                    newRoomList.put(target);
+                    obJSON.put(group, (new JSONObject()).put("roomDetail", newRoomList));
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        for (int j=0; j<instantJSON.length(); j++) {
+            try {
+                JSONObject target = (JSONObject) instantJSON.get(j);
+                String group = (String)target.get("roomGroup");
+                if (obJSON.has(group)) {
+                    JSONArray existingInstantList = obJSON.getJSONObject(group).getJSONArray("instantDetail");
+                    existingInstantList.put(target);
+                    obJSON.put(group, (new JSONObject()).put("instantDetail", existingInstantList));
+                } else {
+                    JSONArray newInstantList = new JSONArray();
+                    newInstantList.put(target);
+                    obJSON.put(group, (new JSONObject()).put("instantDetail", newInstantList));
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return obJSON;
     }
 }
 
