@@ -26,6 +26,7 @@ import com.example.hsinhwang.shrimpshell.Classes.Common;
 import com.example.hsinhwang.shrimpshell.Classes.CommonTask;
 import com.example.hsinhwang.shrimpshell.Classes.EmployeeDinling;
 import com.example.hsinhwang.shrimpshell.Classes.Instant;
+import com.example.hsinhwang.shrimpshell.Classes.OrderRoomDetail;
 import com.example.hsinhwang.shrimpshell.Classes.StatusService;
 import com.example.hsinhwang.shrimpshell.InstantEmployeePanel.EmployeeDinlingService;
 import com.example.hsinhwang.shrimpshell.R;
@@ -49,10 +50,12 @@ public class StatusServiceFragment extends Fragment {
     private CommonTask customerStatus;
     List<StatusService> statusServiceList;
     StatusServiceAdapter adapter;
-    SharedPreferences preferences, roomNumber;
+    SharedPreferences preferences;
     String customerName;
     int idInstantDetail;
-    String roomNumber_A;
+    String roomNumber;
+    int idRoomStatus;
+    private CommonTask userRoomNumber;
 
 
 
@@ -94,15 +97,46 @@ public class StatusServiceFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
+        List<OrderRoomDetail> orderRoomDetails = null;
+
         if (chatwebSocketClient == null) {
-            Common.connectServer(activity,customerName,"0");
+            Common.connectServer(activity, customerName, "0");
         }
 
-        roomNumber = getActivity().getSharedPreferences(Common.INSTANT_TEST, MODE_PRIVATE);
-        if (customerName.equals("cc@gmail.com")) {
-            roomNumber_A = roomNumber.getString("roomNumber1","");
+        int idCustomer = preferences.getInt("IdCustomer", 0);
+        String id = String.valueOf(idCustomer);
+        if (idCustomer == 0){
+            Common.showToast(activity, R.string.msg_NoProfileFound);
+        }
+
+        if (Common.networkConnected(activity)) {
+            String url = Common.URL + "/PayDetailServlet";
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("action", "getUserRoomNumber");
+            jsonObject.addProperty("idCustomer", id);
+            String jsonOut = jsonObject.toString();
+            userRoomNumber = new CommonTask(url, jsonOut);
+            try {
+                String jsonIn = userRoomNumber.execute().get();
+                Type listType = new TypeToken<List<OrderRoomDetail>>() {
+                }.getType();
+                orderRoomDetails = new Gson().fromJson(jsonIn, listType);
+            } catch (Exception e) {
+                Log.e(TAG, e.toString());
+            }
         } else {
-            roomNumber_A = roomNumber.getString("roomNumber2","");
+            Common.showToast(activity, R.string.msg_NoNetwork);
+        }
+        for (OrderRoomDetail detail : orderRoomDetails) {
+            if (detail.getRoomReservationStatus().equals("1")) {
+                if (roomNumber == null || roomNumber.isEmpty()) {
+                    roomNumber = "0";
+                }
+                roomNumber = detail.getRoomNumber();
+                idRoomStatus = detail.getIdRoomStatus();
+                Log.d(TAG,roomNumber);
+
+            }
         }
 
 
@@ -112,7 +146,7 @@ public class StatusServiceFragment extends Fragment {
             List<StatusService> statusServices = null;
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("action", "getCustomerStatus");
-            jsonObject.addProperty("roomNumber", roomNumber_A);
+            jsonObject.addProperty("roomNumber", roomNumber);
             String jsonOut = jsonObject.toString();
             customerStatus = new CommonTask(url, jsonOut);
             try {
@@ -166,7 +200,7 @@ public class StatusServiceFragment extends Fragment {
                     List<StatusService> statusServices = null;
                     JsonObject jsonObject = new JsonObject();
                     jsonObject.addProperty("action", "getCustomerStatus");
-                    jsonObject.addProperty("roomNumber", roomNumber_A);
+                    jsonObject.addProperty("roomNumber", roomNumber);
                     String jsonOut = jsonObject.toString();
                     customerStatus = new CommonTask(url, jsonOut);
                     try {

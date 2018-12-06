@@ -3,8 +3,10 @@ package com.example.hsinhwang.shrimpshell.InstantCustomerPanel;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,17 +23,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hsinhwang.shrimpshell.Classes.ChatMessage;
-import com.example.hsinhwang.shrimpshell.Classes.ChatWebSocketClient;
 import com.example.hsinhwang.shrimpshell.Classes.Common;
 import com.example.hsinhwang.shrimpshell.Classes.CommonTask;
 import com.example.hsinhwang.shrimpshell.Classes.DinlingServiceMsg;
 import com.example.hsinhwang.shrimpshell.Classes.Instant;
+import com.example.hsinhwang.shrimpshell.Classes.OrderRoomDetail;
 import com.example.hsinhwang.shrimpshell.R;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.lang.reflect.Type;
 
 import static android.content.Context.MODE_PRIVATE;
 import static android.support.constraint.Constraints.TAG;
@@ -39,12 +45,15 @@ import static com.example.hsinhwang.shrimpshell.Classes.Common.chatwebSocketClie
 
 
 public class DinlingServiceFragment extends Fragment {
+    private String TAG = "Debug";
     FragmentActivity activity;
     private RecyclerView rvDinlingService;
     SharedPreferences preferences;
     private String customerName;
     String roomNumber;
     int idRoomStatus;
+    private CommonTask userRoomNumber;
+
 
 
     @Override
@@ -68,21 +77,46 @@ public class DinlingServiceFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        List<OrderRoomDetail> orderRoomDetails = null;
 
         if (chatwebSocketClient == null) {
             Common.connectServer(activity, customerName, "0");
         }
 
-
-        SharedPreferences pref = getActivity().getSharedPreferences(Common.INSTANT_TEST, MODE_PRIVATE);
-        if (customerName.equals("cc@gmail.com")) {
-            roomNumber = pref.getString("roomNumber1", "");
-            idRoomStatus = pref.getInt("idRoomStatus1", 0);
-
+        int idCustomer = preferences.getInt("IdCustomer", 0);
+        String id = String.valueOf(idCustomer);
+        if (idCustomer == 0){
+            Common.showToast(activity, R.string.msg_NoProfileFound);
+        }
+        
+        if (Common.networkConnected(activity)) {
+            String url = Common.URL + "/PayDetailServlet";
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("action", "getUserRoomNumber");
+            jsonObject.addProperty("idCustomer", id);
+            String jsonOut = jsonObject.toString();
+            userRoomNumber = new CommonTask(url, jsonOut);
+            try {
+                String jsonIn = userRoomNumber.execute().get();
+                Type listType = new TypeToken<List<OrderRoomDetail>>() {
+                }.getType();
+                orderRoomDetails = new Gson().fromJson(jsonIn, listType);
+            } catch (Exception e) {
+                Log.e(TAG, e.toString());
+            }
         } else {
-            roomNumber = pref.getString("roomNumber2", "");
-            idRoomStatus = pref.getInt("idRoomStatus2", 0);
+            Common.showToast(activity, R.string.msg_NoNetwork);
+        }
+        for (OrderRoomDetail detail : orderRoomDetails) {
+            if (detail.getRoomReservationStatus().equals("1")) {
+                if (roomNumber == null || roomNumber.isEmpty()) {
+                    roomNumber = "0";
+                }
+                roomNumber = detail.getRoomNumber();
+                idRoomStatus = detail.getIdRoomStatus();
+                Log.d(TAG,roomNumber);
 
+            }
         }
     }
 

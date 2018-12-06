@@ -26,11 +26,14 @@ import com.example.hsinhwang.shrimpshell.Classes.ChatMessage;
 import com.example.hsinhwang.shrimpshell.Classes.Common;
 import com.example.hsinhwang.shrimpshell.Classes.CommonTask;
 import com.example.hsinhwang.shrimpshell.Classes.Instant;
+import com.example.hsinhwang.shrimpshell.Classes.OrderRoomDetail;
 import com.example.hsinhwang.shrimpshell.Classes.TrafficServiceMsg;
 import com.example.hsinhwang.shrimpshell.R;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +48,7 @@ public class TrafficServiceFragment extends Fragment {
     String roomNumber;
     int idRoomStatus;
     FragmentActivity activity;
+    private CommonTask userRoomNumber;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -65,21 +69,46 @@ public class TrafficServiceFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        List<OrderRoomDetail> orderRoomDetails = null;
 
         if (chatwebSocketClient == null) {
             Common.connectServer(activity, customerName, "0");
         }
 
+        int idCustomer = preferences.getInt("IdCustomer", 0);
+        String id = String.valueOf(idCustomer);
+        if (idCustomer == 0){
+            Common.showToast(activity, R.string.msg_NoProfileFound);
+        }
 
-        SharedPreferences pref = getActivity().getSharedPreferences(Common.INSTANT_TEST, MODE_PRIVATE);
-        if (customerName.equals("cc@gmail.com")) {
-            roomNumber = pref.getString("roomNumber1", "");
-            idRoomStatus = pref.getInt("idRoomStatus1", 0);
-
+        if (Common.networkConnected(activity)) {
+            String url = Common.URL + "/PayDetailServlet";
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("action", "getUserRoomNumber");
+            jsonObject.addProperty("idCustomer", id);
+            String jsonOut = jsonObject.toString();
+            userRoomNumber = new CommonTask(url, jsonOut);
+            try {
+                String jsonIn = userRoomNumber.execute().get();
+                Type listType = new TypeToken<List<OrderRoomDetail>>() {
+                }.getType();
+                orderRoomDetails = new Gson().fromJson(jsonIn, listType);
+            } catch (Exception e) {
+                Log.e(TAG, e.toString());
+            }
         } else {
-            roomNumber = pref.getString("roomNumber2", "");
-            idRoomStatus = pref.getInt("idRoomStatus2", 0);
+            Common.showToast(activity, R.string.msg_NoNetwork);
+        }
+        for (OrderRoomDetail detail : orderRoomDetails) {
+            if (detail.getRoomReservationStatus().equals("1")) {
+                if (roomNumber == null || roomNumber.isEmpty()) {
+                    roomNumber = "0";
+                }
+                roomNumber = detail.getRoomNumber();
+                idRoomStatus = detail.getIdRoomStatus();
+                Log.d(TAG, roomNumber);
 
+            }
         }
     }
 
