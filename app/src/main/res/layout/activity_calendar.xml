@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:calendar="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,29 +9,14 @@
     android:orientation="vertical"
     tools:context=".ReservationPanel.CalendarActivity">
 
-    <!--<CalendarView-->
-        <!--android:id="@+id/calendarView"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:firstDayOfWeek="2"-->
-        <!--android:maxDate="01/01/2100"-->
-        <!--android:minDate="09/11/2018"-->
-        <!--android:selectedDateVerticalBar="@color/white"-->
-        <!--android:selectedWeekBackgroundColor="@color/whiteBlue"-->
-        <!--android:showWeekNumber="false"-->
-        <!--android:unfocusedMonthDateColor="@color/red"-->
-        <!--android:weekNumberColor="@color/red"-->
-        <!--android:weekSeparatorLineColor="#0f0" />-->
-
     <com.savvi.rangedatepicker.CalendarPickerView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/calendar_view"
         android:layout_width="match_parent"
-        android:layout_height="320dp"
+        android:layout_height="match_parent"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-        android:paddingBottom="16dp"
         android:scrollbarStyle="outsideOverlay"
         android:clipToPadding="false"
         app:tsquare_dividerColor="@color/white"
@@ -61,4 +46,4 @@
             tools:ignore="RtlHardcoded"
             tools:targetApi="lollipop" />
     </RelativeLayout>
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

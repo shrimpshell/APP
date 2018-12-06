@@ -32,10 +32,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -45,7 +42,7 @@ public class RoomCheckFragment extends Fragment {
     private List<Reservation> reservationList = new ArrayList<>();
     //    private HashMap<String, Integer> reservationRoom;
     private String key, checkInDate, checkOutDate;
-    private int quantity, price;
+    private int quantity, price, addbed;
     private FloatingActionButton fabRoomCheck;
     private String TAG = "Debug";
 
@@ -63,9 +60,6 @@ public class RoomCheckFragment extends Fragment {
 
     private void handleViews(View view) {
         Bundle bundle = getArguments();
-//        reservationRoom = new HashMap<>();
-//        reservationRoom = (HashMap<String, Integer>) bundle.getSerializable("reservationMap");
-//        Log.d(TAG, String.valueOf(reservationRoom.size()));
         checkInDate = bundle.getString("checkInDate");
         checkOutDate = bundle.getString("checkOutDate");
         reservationList = (List<Reservation>) bundle.getSerializable("reservationList");
@@ -94,30 +88,25 @@ public class RoomCheckFragment extends Fragment {
                             Intent intent = new Intent(getActivity(), LoginActivity.class);
                             startActivity(intent);
                         } else {
-//                            if (Common.networkConnected(getActivity())) {
-//                                String url = Common.URL + "/ReservationServlet";
-//                                Reservation reservation = new Reservation(roomTypeName, checkInDate, checkOutDate, quantity, addBed, price);
-//                                if (image != null)
-//                                Log.e(TAG, new Gson().toJson(employee));
-//                                JsonObject jsonObject = new JsonObject();
-//                                jsonObject.addProperty("action", "insert");
-//                                jsonObject.addProperty("employee", new Gson().toJson(employee));
-//                                jsonObject.addProperty("imageBase64", imageBase64);
-//                                int count = 0;
-//                                try {
-//                                    String result = new CommonTask(url, jsonObject.toString()).execute().get();
-//                                    count = Integer.valueOf(result);
-//                                } catch (Exception e) {
-//                                    Log.e(TAG, e.toString());
-//                                }
-//                                if (count == 0) {
-//                                    Common.showToast(this, R.string.msg_InsertFail);
-//                                } else {
-//                                    Common.showToast(this, R.string.msg_InsertSuccess);
-//                                }
-//                            } else {
-//                                Common.showToast(this, R.string.msg_NoNetwork);
-//                            }
+                            if (Common.networkConnected(getActivity())) {
+                                String url = Common.URL + "/ReservationServlet";
+                                JsonObject jsonObject = new JsonObject();
+                                jsonObject.addProperty("action", "insert");
+                                int count = 0;
+                                try {
+                                    String result = new CommonTask(url, jsonObject.toString()).execute().get();
+                                    count = Integer.valueOf(result);
+                                } catch (Exception e) {
+                                    Log.e(TAG, e.toString());
+                                }
+                                if (count == 0) {
+                                    Common.showToast(getActivity(), R.string.msg_InsertFail);
+                                } else {
+                                    Common.showToast(getActivity(), R.string.msg_InsertSuccess);
+                                }
+                            } else {
+                                Common.showToast(getActivity(), R.string.msg_NoNetwork);
+                            }
                             BookingFragment bookingFragment = new BookingFragment();
                             FragmentManager manager = getActivity().getSupportFragmentManager();
                             FragmentTransaction transaction = manager.beginTransaction();
@@ -135,15 +124,6 @@ public class RoomCheckFragment extends Fragment {
         rvCheckReservation.setLayoutManager(
                 new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
 
-//        Set<String> setKey = reservationRoom.keySet();
-//        Iterator<String> iterator = setKey.iterator();
-//        // 從while迴圈中取key
-//        while (iterator.hasNext()) {
-//            key = iterator.next();
-//            quantity = reservationRoom.get(key);
-//
-//            Log.d(TAG, "房間名稱 " + key + "數量 " + quantity);
-//        reservationList.add(new Reservation(key, checkInDate, checkOutDate, quantity, price));
         rvCheckReservation.setAdapter(new
                 ReservationListAdapter(getActivity(), reservationList));
     }
@@ -152,11 +132,11 @@ public class RoomCheckFragment extends Fragment {
     private class ReservationListAdapter extends
             RecyclerView.Adapter<ReservationListAdapter.MyViewHolder> {
         private Context context;
-        private List<Reservation> reservationList;
+        private List<Reservation> reservations;
 
-        ReservationListAdapter(Context context, List<Reservation> reservationList) {
+        ReservationListAdapter(Context context, List<Reservation> reservations) {
             this.context = context;
-            this.reservationList = reservationList;
+            this.reservations = reservations;
         }
 
         class MyViewHolder extends RecyclerView.ViewHolder {
@@ -179,10 +159,10 @@ public class RoomCheckFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            if (reservationList.size() == 0) {
+            if (reservations.size() == 0) {
                 getFragmentManager().popBackStack("roomChooseFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
-            return reservationList.size();
+            return reservations.size();
         }
 
         @NonNull
@@ -195,8 +175,8 @@ public class RoomCheckFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, int i) {
-            final Reservation reservation = reservationList.get(i);
-            Log.d(TAG, reservationList.get(i).getRoomTypeName() + reservationList.get(i).getCheckInDate() + reservationList.get(i).getCheckOutDate() + reservationList.get(i).getQuantity() + reservationList.get(i).getPrice());
+            final Reservation reservation = reservations.get(i);
+            Log.d(TAG, reservations.get(i).getRoomTypeName() + reservations.get(i).getCheckInDate() + reservations.get(i).getCheckOutDate() + reservations.get(i).getQuantity() + reservations.get(i).getPrice());
             final int roomQuantity = reservation.getQuantity();
             final String[] total = new String[roomQuantity];
             myViewHolder.tvRoomTypeName.setText(reservation.getRoomTypeName());
@@ -233,7 +213,7 @@ public class RoomCheckFragment extends Fragment {
             myViewHolder.btDeletRoom.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    reservationList.remove(reservation);
+                    reservations.remove(reservation);
                     ReservationListAdapter.this.notifyDataSetChanged();
                     Toast.makeText(getActivity(), "請重新選擇房間", Toast.LENGTH_SHORT).show();
                 }
@@ -241,7 +221,11 @@ public class RoomCheckFragment extends Fragment {
             myViewHolder.cbAddBed.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    myViewHolder.tvRoomPrice.setText(String.valueOf(reservation.getPrice() + 1000));
+                    if (myViewHolder.cbAddBed.isChecked()) {
+                        myViewHolder.tvRoomPrice.setText(String.valueOf(reservation.getPrice() + 1000));
+                    } else {
+                        myViewHolder.tvRoomPrice.setText(String.valueOf(reservation.getPrice() * reservation.getQuantity()));
+                    }
                 }
             });
         }

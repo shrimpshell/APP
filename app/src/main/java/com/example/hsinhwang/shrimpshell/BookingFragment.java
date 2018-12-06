@@ -196,7 +196,7 @@ public class BookingFragment extends Fragment {
         //把今天的日期設定到入住日期
         tvFirstYearSelected.setText(String.valueOf(year) + " 年");
         tvFirstDaySelected.setText(String.valueOf(day));
-        tvFirstMonSelected.setText(" " + String.valueOf(month) + " 月");
+        tvFirstMonSelected.setText(" " + String.valueOf(month) + "月");
         tvFirstWeekSelected.setText(changeWeekName(week));
     }
 
@@ -216,7 +216,7 @@ public class BookingFragment extends Fragment {
         //把明天的日期設定到退房日期
         tvLastYearSelected.setText(String.valueOf(lastYear) + " 年");
         tvLastDaySelected.setText(String.valueOf(lastDay));
-        tvLastMonSelected.setText(" " + String.valueOf(lastMonth) + " 月");
+        tvLastMonSelected.setText(" " + String.valueOf(lastMonth) + "月");
         tvLastWeekSelected.setText(changeWeekName(lastWeek));
     }
 

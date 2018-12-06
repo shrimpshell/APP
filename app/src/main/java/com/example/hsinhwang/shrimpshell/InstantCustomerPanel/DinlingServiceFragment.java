@@ -487,6 +487,4 @@ public class DinlingServiceFragment extends Fragment {
 
         return dinlingServiceMsgs;
     }
-
-
 }

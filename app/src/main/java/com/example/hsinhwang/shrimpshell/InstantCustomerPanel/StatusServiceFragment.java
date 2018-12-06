@@ -360,6 +360,4 @@ public class StatusServiceFragment extends Fragment {
         }
 
     }
-
-
 }
