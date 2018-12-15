@@ -6,7 +6,7 @@
     android:layout_margin="16dp"
     android:orientation="vertical"
     android:padding="6dp"
-    app:cardBackgroundColor="@color/yellow"
+    app:cardBackgroundColor="@color/employeeBlue"
     app:cardCornerRadius="16dp"
     app:cardElevation="6dp">
 
@@ -24,6 +24,29 @@
             android:src="@drawable/icon_playing" />
 
         <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="房號："
+                android:textSize="25sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:text="服務："
+                android:textSize="25sp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -32,8 +55,6 @@
                 android:id="@+id/tvEmployeeCleanRoomId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="20dp"
                 android:text="房號"
                 android:textSize="25sp" />
 
@@ -41,8 +62,7 @@
                 android:id="@+id/tvEmployeeCleanType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
                 android:text="服務"
                 android:textSize="25sp"/>
 
