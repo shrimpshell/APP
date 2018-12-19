@@ -38,6 +38,11 @@ public class ImageTask extends AsyncTask<Object, Integer, Bitmap> {
         this.imageViewWeakReference = new WeakReference<>(imageView);
     }
 
+    public ImageTask(String url, int id){
+        this.url = url;
+        this.id = id;
+    }
+
     @Override
     protected Bitmap doInBackground(Object... objects) {
         JsonObject jsonObject = new JsonObject();
@@ -49,14 +54,16 @@ public class ImageTask extends AsyncTask<Object, Integer, Bitmap> {
 
     @Override
     protected void onPostExecute(Bitmap bitmap) {
-        ImageView imageView = imageViewWeakReference.get();
-        if (isCancelled() || imageView == null) {
-            return;
-        }
-        if (bitmap != null) {
-            imageView.setImageBitmap(bitmap);
-        } else {
-            imageView.setImageResource(R.drawable.room_review);
+        if(imageViewWeakReference != null) {
+            ImageView imageView = imageViewWeakReference.get();
+            if (isCancelled() || imageView == null) {
+                return;
+            }
+            if (bitmap != null) {
+                imageView.setImageBitmap(bitmap);
+            } else {
+                imageView.setImageResource(R.drawable.room_review);
+            }
         }
     }
 

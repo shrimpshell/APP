@@ -83,8 +83,8 @@ public class EmployeeFragment extends Fragment {
             return view;
     }
 
-private class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.ViewHolder> {
-    private LayoutInflater inflater;
+    private class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.ViewHolder> {
+        private LayoutInflater inflater;
         private List<Employees> innerEmployeeList;
 
         public EmployeeAdapter(Context context, List<Employees> innerEmployeeList) {
@@ -143,7 +143,10 @@ private class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.ViewH
                                             Common.showToast(activity, R.string.msg_DeleteFail);
                                         } else {
                                             innerEmployeeList.remove(employee);
-                                            EmployeeAdapter.this.notifyDataSetChanged();
+                                            swiperefreshlayout.setRefreshing(true);
+                                            employeeFragmentRecyclerView.setAdapter(null);
+                                            showAllEmployees();
+                                            swiperefreshlayout.setRefreshing(false);
                                             Common.showToast(activity, R.string.msg_DeleteSuccess);
                                         }
                                     } else {

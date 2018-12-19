@@ -1,96 +1,108 @@
 package com.example.hsinhwang.shrimpshell.Classes;
 
-public class RoomType {
-    int ivRoomType, tvRoomTypeLastQuantity, tvRoomTypeQuantity, tvRoomTypePrice;
-    String tvRoomTypeName, tvRoomTypeSize, tvRoomTypeBed, tvRoomTypeAdult, tvRoomTypeChild;
+import java.io.Serializable;
 
-    public RoomType() {
+@SuppressWarnings("serial")
+public class RoomType implements Serializable {
+
+    private int id, price, roomQuantity, adultQuantity, childQuantity;
+    private String name, roomSize, bed;
+
+    public RoomType(int id, String name, String roomSize, String bed, int adultQuantity, int childQuantity,
+                    int roomQuantity) {
         super();
+        this.id = id;
+        this.name = name;
+        this.roomSize = roomSize;
+        this.bed = bed;
+        this.adultQuantity = adultQuantity;
+        this.childQuantity = childQuantity;
+        this.roomQuantity = roomQuantity;
     }
 
-    public RoomType(int ivRoomType, int tvRoomTypeLastQuantity, int tvRoomTypeQuantity,
-                    int tvRoomTypePrice, String tvRoomTypeName, String tvRoomTypeSize,
-                    String tvRoomTypeBed, String tvRoomTypeAdult, String tvRoomTypeChild) {
-        this.ivRoomType = ivRoomType;
-        this.tvRoomTypeQuantity = tvRoomTypeQuantity;
-        this.tvRoomTypeLastQuantity = tvRoomTypeLastQuantity;
-        this.tvRoomTypePrice = tvRoomTypePrice;
-        this.tvRoomTypeName = tvRoomTypeName;
-        this.tvRoomTypeSize = tvRoomTypeSize;
-        this.tvRoomTypeBed = tvRoomTypeBed;
-        this.tvRoomTypeAdult = tvRoomTypeAdult;
-        this.tvRoomTypeChild = tvRoomTypeChild;
+    public RoomType(int id, String name, String roomSize, String bed, int adultQuantity, int childQuantity, int roomQuantity, int price) {
+        super();
+        this.price = price;
+        this.roomQuantity = roomQuantity;
+        this.adultQuantity = adultQuantity;
+        this.childQuantity = childQuantity;
+        this.name = name;
+        this.roomSize = roomSize;
+        this.bed = bed;
+        this.id = id;
     }
 
-    public int getIvRoomType() {
-        return ivRoomType;
+    public String getRoomSize() {
+        return roomSize;
     }
 
-    public void setIvRoomType(int ivRoomType) {
-        this.ivRoomType = ivRoomType;
+    public void setRoomSize(String roomSize) {
+        this.roomSize = roomSize;
     }
 
-    public int getTvRoomTypeQuantity() {
-        return tvRoomTypeQuantity;
+    public String getBed() {
+        return bed;
     }
 
-    public void setTvRoomTypeQuantity(int tvRoomTypeQuantity) {
-        this.tvRoomTypeQuantity = tvRoomTypeQuantity;
+    public void setBed(String bed) {
+        this.bed = bed;
     }
 
-    public int getTvRoomTypeLastQuantity() {
-        return tvRoomTypeLastQuantity;
+    public int getId() {
+        return id;
     }
 
-    public void setTvRoomTypeLastQuantity(int tvRoomTypeLastQuantity) {
-        this.tvRoomTypeLastQuantity = tvRoomTypeLastQuantity;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getTvRoomTypePrice() {
-        return tvRoomTypePrice;
+    public int getPrice() {
+        return price;
     }
 
-    public void setTvRoomTypePrice(int tvRoomTypePrice) {
-        this.tvRoomTypePrice = tvRoomTypePrice;
+    public void setPrice(int price) {
+        this.price = price;
     }
 
-    public String getTvRoomTypeName() {
-        return tvRoomTypeName;
+    public int getRoomQuantity() {
+        return roomQuantity;
     }
 
-    public void setTvRoomTypeName(String tvRoomTypeName) {
-        this.tvRoomTypeName = tvRoomTypeName;
+    public void setRoomQuantity(int roomQuantity) {
+        this.roomQuantity = roomQuantity;
     }
 
-    public String getTvRoomTypeSize() {
-        return tvRoomTypeSize;
+    public int getAdultQuantity() {
+        return adultQuantity;
     }
 
-    public void setTvRoomTypeSize(String tvRoomTypeSize) {
-        this.tvRoomTypeSize = tvRoomTypeSize;
+    public void setAdultQuantity(int adultQuantity) {
+        this.adultQuantity = adultQuantity;
     }
 
-    public String getTvRoomTypeBed() {
-        return tvRoomTypeBed;
+    public int getChildQuantity() {
+        return childQuantity;
     }
 
-    public void setTvRoomTypeBed(String tvRoomTypeBed) {
-        this.tvRoomTypeBed = tvRoomTypeBed;
+    public void setChildQuantity(int childQuantity) {
+        this.childQuantity = childQuantity;
     }
 
-    public String getTvRoomTypeAdult() {
-        return tvRoomTypeAdult;
+    public String getName() {
+        return name;
     }
 
-    public void setTvRoomTypeAdult(String tvRoomTypeAdult) {
-        this.tvRoomTypeAdult = tvRoomTypeAdult;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getTvRoomTypeChild() {
-        return tvRoomTypeChild;
-    }
-
-    public void setTvRoomTypeChild(String tvRoomTypeChild) {
-        this.tvRoomTypeChild = tvRoomTypeChild;
+    public String getDetail() {
+        String str = this.getName() + "\n" +
+                "房間型號：" + this.getRoomSize() + "\n" +
+                "床型：" + this.getBed() + "\n" +
+                "大人人數：" + this.getAdultQuantity() + "\n" +
+                "小孩人數：" + this.getChildQuantity() + "\n" +
+                "定價：＄" + this.getPrice();
+        return "房間資訊\n" + str;
     }
 }

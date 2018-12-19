@@ -26,6 +26,9 @@
     <!--<color name="red">#da004a</color>-->
     <color name="btcheckout">#5F94D2</color>
 
+    <color name="yellow">#fded03</color>
+    <color name="orange">#FF9800</color>
+    <color name="employeeBlue">#00ffd0</color>
 
 </resources>
 

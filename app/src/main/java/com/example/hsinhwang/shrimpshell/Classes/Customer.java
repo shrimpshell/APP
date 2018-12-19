@@ -19,6 +19,7 @@ public class Customer {
         this.Birthday = birthday;
         this.Phone = phone;
         this.Address = address;
+        this.Password = password;
 
     }
 
@@ -69,6 +70,13 @@ public class Customer {
         this.Birthday = birthday;
         this.Phone = phone;
         this.Address = address;
+    }
+
+    public Customer(int IdCustomer, String Password, String Phone, String Address) {
+        this.IdCustomer = IdCustomer;
+        this.Password = Password;
+        this.Phone = Phone;
+        this.Address = Address;
     }
 
     public String getCustomerID() {
@@ -138,3 +146,4 @@ public class Customer {
         Birthday = birthday;
     }
 }
+

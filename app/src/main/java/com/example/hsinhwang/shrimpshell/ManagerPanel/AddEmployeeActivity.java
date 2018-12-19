@@ -131,10 +131,10 @@ public class AddEmployeeActivity extends AppCompatActivity {
         int gender = employeeAddGenderGroup.getCheckedRadioButtonId();
         switch (gender) {
             case R.id.Male:
-                genderStr = "先生";
+                genderStr = "MALE";
                 break;
             case R.id.Female:
-                genderStr = "女士";
+                genderStr = "FEMALE";
                 break;
             default:
                 Toast.makeText(AddEmployeeActivity.this, "請選擇性別", Toast.LENGTH_SHORT);
@@ -154,6 +154,14 @@ public class AddEmployeeActivity extends AppCompatActivity {
             case "Meal Service":
                 department = 3;
                 break;
+            case "櫃檯部門":
+            case "Concierge Service":
+                department = 4;
+                break;
+            case "主管":
+            case "Manager":
+                department = 5;
+                break;
         }
         String name = etEmployeeAddName.getText().toString().trim(),
                 pass = etEmployeeAddPass.getText().toString().trim(),
@@ -166,7 +174,6 @@ public class AddEmployeeActivity extends AppCompatActivity {
             Employees employee = new Employees(0, email, name, pass, email, genderStr, phone, address, department);
             String imageBase64 = "";
             if (image != null) imageBase64 = Base64.encodeToString(image, Base64.DEFAULT);
-            Log.e(TAG, new Gson().toJson(employee));
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("action", "employeeInsert");
             jsonObject.addProperty("employee", new Gson().toJson(employee));

@@ -1,86 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:calendar="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="10dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".ReservationPanel.CalendarActivity">
 
-    <RelativeLayout
+    <com.savvi.rangedatepicker.CalendarPickerView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/calendar_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/firstDay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="6dp"
-                android:gravity="center"
-                android:text="@string/first_day_selected"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/tvFirstDay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:ellipsize="end"
-                android:gravity="center"
-                android:maxLines="1"
-                android:maxWidth="250dp"
-                android:singleLine="true"
-                android:text="@string/day_month_year"
-                android:textSize="20sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="6dp"
-                android:gravity="center"
-                android:singleLine="true"
-                android:text="@string/last_day_selected"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/tvLastDay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:ellipsize="end"
-                android:gravity="center"
-                android:maxLines="1"
-                android:maxWidth="250dp"
-                android:singleLine="true"
-                android:text="@string/day_month_year"
-                android:textSize="20sp" />
-        </LinearLayout>
-    </RelativeLayout>
-
-    <CalendarView
-        android:id="@+id/calendarView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:scrollbarStyle="outsideOverlay"
+        android:clipToPadding="false"
+        app:tsquare_dividerColor="@color/white"
+        app:tsquare_headerTextColor="@color/lightBlue"
+        />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -95,7 +36,7 @@
             android:layout_alignParentRight="true"
             android:layout_gravity="end|bottom"
             android:layout_margin="16dp"
-            android:backgroundTint="@color/lightBlue"
+            android:backgroundTint="@color/greenBlue"
             android:elevation="5dp"
             android:tint="@android:color/white"
             app:borderWidth="0dp"
@@ -105,4 +46,4 @@
             tools:ignore="RtlHardcoded"
             tools:targetApi="lollipop" />
     </RelativeLayout>
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

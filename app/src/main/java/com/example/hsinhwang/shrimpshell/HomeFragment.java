@@ -27,7 +27,8 @@ import com.example.hsinhwang.shrimpshell.Classes.CommonTask;
 import com.example.hsinhwang.shrimpshell.Classes.Events;
 import com.example.hsinhwang.shrimpshell.Classes.ImageTask;
 import com.example.hsinhwang.shrimpshell.Classes.MainOptions;
-import com.example.hsinhwang.shrimpshell.Classes.Rooms;
+import com.example.hsinhwang.shrimpshell.Classes.RoomType;
+import com.example.hsinhwang.shrimpshell.GeneralPages.AllRatingActivity;
 import com.example.hsinhwang.shrimpshell.GeneralPages.EventActivity;
 import com.example.hsinhwang.shrimpshell.GeneralPages.IntroductionActivity;
 import com.example.hsinhwang.shrimpshell.GeneralPages.RoomDetailActivity;
@@ -40,19 +41,15 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.hsinhwang.shrimpshell.Classes.LogIn;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
-import static android.app.Activity.RESULT_OK;
 import static android.content.Context.MODE_PRIVATE;
-
 
 public class HomeFragment extends Fragment implements OnMapReadyCallback {
     private final static String TAG = "HomeFragment";
@@ -63,6 +60,9 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
     private FragmentActivity activity;
     private CommonTask roomGetAllTask, eventGetAllTask;
     private SharedPreferences pref;
+
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -81,13 +81,18 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         initialization();
+        SharedPreferences pref = getActivity().getSharedPreferences(Common.LOGIN,
+                MODE_PRIVATE);
         List<MainOptions> optionList = new ArrayList<>();
-        SharedPreferences preferences = getActivity().getSharedPreferences(Common.LOGIN, MODE_PRIVATE);
-        boolean login = preferences.getBoolean("login", false);
-        if (!login) {
+        SharedPreferences customer_pref = getActivity().getSharedPreferences(Common.LOGIN, MODE_PRIVATE);
+        SharedPreferences employee_pref = getActivity().getSharedPreferences(Common.EMPLOYEE_LOGIN, MODE_PRIVATE);
+        boolean customer_login = customer_pref.getBoolean("login", false);
+        boolean employee_login = employee_pref.getBoolean("login", false);
+        if (!customer_login && !employee_login) {
             optionList.add(new MainOptions(R.string.login_title, (String)getText(R.string.login), R.drawable.login));
         }
         optionList.add(new MainOptions(R.string.intro_title, (String)getText(R.string.about), R.drawable.introduction));
+        optionList.add(new MainOptions(R.string.all_rating, (String)getText(R.string.rating), R.drawable.view_rating));
         mainRecyclerView = view.findViewById(R.id.mainRecyclerView);
         mainRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mainRecyclerView.setAdapter(new MainAdapter(inflater, optionList));
@@ -151,9 +156,14 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                         case R.string.intro_title:
                             onClickIntro();
                             break;
+                        case R.string.all_rating:
+                            onClickRating();
+
                     }
 
                 }
+
+
             });
         }
 
@@ -240,12 +250,12 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
 
     private class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
         LayoutInflater inflater;
-        List<Rooms> roomList;
+        List<RoomType> roomList;
         ImageView roomImageView;
         TextView roomTextView;
         RelativeLayout roomItem;
 
-        public RoomAdapter(Context context, List<Rooms> roomList) {
+        public RoomAdapter(Context context, List<RoomType> roomList) {
             this.inflater = LayoutInflater.from(context);
             this.roomList = roomList;
         }
@@ -258,8 +268,8 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
 
         @Override
         public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-            final Rooms room = roomList.get(i);
-            String url = Common.URL + "/RoomServlet";
+            final RoomType room = roomList.get(i);
+            String url = Common.URL + "/RoomTypeServlet";
             int imageSize = getResources().getDisplayMetrics().widthPixels / 3;
             Bitmap bitmap = null;
 
@@ -279,7 +289,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                 public void onClick(View view) {
                     Intent intent = new Intent(getActivity(), RoomDetailActivity.class);
                     Bundle bundle = new Bundle();
-                    Rooms innerRoom = new Rooms(room.getId(), room.getName(), room.getRoomSize(), room.getBed(), room.getAdultQuantity(), room.getChildQuantity(), room.getRoomQuantity(), room.getPrice());
+                    RoomType innerRoom = new RoomType(room.getId(), room.getName(), room.getRoomSize(), room.getBed(), room.getAdultQuantity(), room.getChildQuantity(), room.getRoomQuantity(), room.getPrice());
                     bundle.putSerializable("room", innerRoom);
                     intent.putExtras(bundle);
                     startActivity(intent);
@@ -302,6 +312,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
+    //轉頁在這裡
     public void onClickLogin() {
         Intent intent = new Intent(getActivity(), LoginActivity.class);
         startActivity(intent);
@@ -309,6 +320,11 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
 
     public void onClickIntro() {
         Intent intent = new Intent(getActivity(), IntroductionActivity.class);
+        startActivity(intent);
+    }
+
+    public void onClickRating(){
+        Intent intent = new Intent(getActivity(), AllRatingActivity.class);
         startActivity(intent);
     }
 
@@ -341,15 +357,15 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
 
     private void showAllRooms() {
         if (Common.networkConnected(activity)) {
-            String url = Common.URL + "/RoomServlet";
-            List<Rooms> rooms = null;
+            String url = Common.URL + "/RoomTypeServlet";
+            List<RoomType> rooms = null;
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("action", "getFive");
             String jsonOut = jsonObject.toString();
             roomGetAllTask = new CommonTask(url, jsonOut);
             try {
                 String jsonIn = roomGetAllTask.execute().get();
-                Type listType = new TypeToken<List<Rooms>>() {
+                Type listType = new TypeToken<List<RoomType>>() {
                 }.getType();
                 rooms = new Gson().fromJson(jsonIn, listType);
             } catch (Exception e) {
