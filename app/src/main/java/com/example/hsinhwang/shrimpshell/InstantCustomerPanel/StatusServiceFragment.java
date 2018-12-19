@@ -147,6 +147,7 @@ public class StatusServiceFragment extends Fragment {
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("action", "getCustomerStatus");
             jsonObject.addProperty("roomNumber", roomNumber);
+            jsonObject.addProperty("idCustomer", id);
             String jsonOut = jsonObject.toString();
             customerStatus = new CommonTask(url, jsonOut);
             try {
@@ -192,6 +193,8 @@ public class StatusServiceFragment extends Fragment {
             String message = intent.getStringExtra("message");
             ChatMessage chatMessage = new Gson().fromJson(message, ChatMessage.class);
             idInstantDetail = chatMessage.getInstantNumber();
+            int idCustomer = preferences.getInt("IdCustomer", 0);
+            String id = String.valueOf(idCustomer);
 
             if (idInstantDetail != 0) {
 
@@ -201,6 +204,7 @@ public class StatusServiceFragment extends Fragment {
                     JsonObject jsonObject = new JsonObject();
                     jsonObject.addProperty("action", "getCustomerStatus");
                     jsonObject.addProperty("roomNumber", roomNumber);
+                    jsonObject.addProperty("idCustomer", id);
                     String jsonOut = jsonObject.toString();
                     customerStatus = new CommonTask(url, jsonOut);
                     try {
