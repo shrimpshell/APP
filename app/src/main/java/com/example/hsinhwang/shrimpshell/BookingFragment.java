@@ -62,7 +62,7 @@ public class BookingFragment extends Fragment {
             fYear = fd[0];
             tvFirstYearSelected.setText(fYear);
             fMonth = fd[1];
-            tvFirstMonSelected.setText(fMonth);
+            tvFirstMonSelected.setText(" " + fMonth + "月");
             fDay = fd[2];
             tvFirstDaySelected.setText(fDay);
             fWeek = fd[3];
@@ -71,7 +71,7 @@ public class BookingFragment extends Fragment {
             lYear = ld[0];
             tvLastYearSelected.setText(lYear);
             lMonth = ld[1];
-            tvLastMonSelected.setText(lMonth);
+            tvLastMonSelected.setText(" " + lMonth + "月");
             lDay = ld[2];
             tvLastDaySelected.setText(lDay);
             lWeek = ld[3];
