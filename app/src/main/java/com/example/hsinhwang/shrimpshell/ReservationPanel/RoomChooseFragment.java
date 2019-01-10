@@ -28,6 +28,7 @@ import com.example.hsinhwang.shrimpshell.Classes.CommonTask;
 import com.example.hsinhwang.shrimpshell.Classes.Events;
 import com.example.hsinhwang.shrimpshell.Classes.Reservation;
 import com.example.hsinhwang.shrimpshell.Classes.RoomType;
+import com.example.hsinhwang.shrimpshell.Classes.ShoppingCar;
 import com.example.hsinhwang.shrimpshell.R;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -41,20 +42,19 @@ import java.util.List;
 public class RoomChooseFragment extends Fragment {
     //    private HashMap<String, Integer> reservationMap;
     private RecyclerView rvRoomChoose;
-    private List<RoomType> roomTypeList, roomTypeReservationList;
-    private List<Reservation> reservationList = new ArrayList<>();
-    List<Events> events;
+    private List<RoomType> roomTypeList = new ArrayList<>();
+    private List<ShoppingCar> reservationList = new ArrayList<>();
+    private Events events;
     private CommonTask eventGetAllTask;
     private Button btRoomCheck;
     private FragmentManager manager;
     private FragmentTransaction transaction;
-    private int id, price, roomQuantity, adultQuantity, childQuantity;
-    private String name, roomSize, bed;
     private float discount;
     private String checkInDate, checkOutDate;
     private String TAG = "Debug";
     private CommonTask roomTypeGetAllTask;
     public static String URL = "http://10.0.2.2:8080/ShellService";
+//    public static String URL = "http://192.168.50.188:8080/ShellService/"; // 手機用
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,6 +65,7 @@ public class RoomChooseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_room_choose, container, false);
         handleViews(view);
+        reservationList.clear();
         return view;
     }
 
@@ -102,89 +103,28 @@ public class RoomChooseFragment extends Fragment {
         //連上DB抓取房型資料
         if (networkConnected(getActivity())) {
             String roomTypeUrl = URL + "/RoomTypeServlet";
-            roomTypeList.clear();
-            JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("action", "getAll");
-            String jsonOut = jsonObject.toString();
-            roomTypeGetAllTask = new CommonTask(roomTypeUrl, jsonOut);
+            roomTypeList = null;
+            JsonObject roomTypenJsonObject = new JsonObject();
+            roomTypenJsonObject.addProperty("action", "getRoomType");
+            roomTypenJsonObject.addProperty("checkInDate", checkInDate);
+            roomTypenJsonObject.addProperty("checkOutDate", checkOutDate);
+            String roomTypeJsonOut = roomTypenJsonObject.toString();
+            roomTypeGetAllTask = new CommonTask(roomTypeUrl, roomTypeJsonOut);
             try {
                 String jsonIn = roomTypeGetAllTask.execute().get();
-                Type listType = new TypeToken<List<RoomType>>() {
+                Type roomTypeListType = new TypeToken<List<RoomType>>() {
                 }.getType();
-                roomTypeList = new Gson().fromJson(jsonIn, listType);
+                roomTypeList = new Gson().fromJson(jsonIn, roomTypeListType);
             } catch (Exception e) {
                 Log.e(TAG, e.toString());
-            }
-            if (roomTypeList.isEmpty()) {
-                showToast(getActivity(), "房間載入失敗");
-            } else {
-                for (RoomType rt : roomTypeList) {
-                    Log.d(TAG, "RoomType " + rt.getId());
-                    Log.d(TAG, "RoomType " + rt.getName());
-                    Log.d(TAG, "RoomType " + rt.getRoomSize());
-                    Log.d(TAG, "RoomType " + rt.getBed());
-                    Log.d(TAG, "RoomType " + rt.getAdultQuantity());
-                    Log.d(TAG, "RoomType " + rt.getRoomQuantity());
-                    Log.d(TAG, "RoomType " + rt.getPrice());
-                }
-
-                getDiscount();
-
-                if (networkConnected(getActivity())) {
-                    String roomTypeReservationUrl = URL + "/RoomTypeServlet";
-                    roomTypeReservationList = null;
-                    JsonObject reservationJsonObject = new JsonObject();
-                    reservationJsonObject.addProperty("action", "getReservation");
-                    reservationJsonObject.addProperty("checkInDate", checkInDate);
-                    reservationJsonObject.addProperty("checkOutDate", checkOutDate);
-                    String roomTypeReservationJsonOut = reservationJsonObject.toString();
-                    roomTypeGetAllTask = new CommonTask(roomTypeReservationUrl, roomTypeReservationJsonOut);
-                    try {
-                        String jsonIn = roomTypeGetAllTask.execute().get();
-                        Type roomTypeReservationListType = new TypeToken<List<RoomType>>() {
-                        }.getType();
-                        roomTypeReservationList = new Gson().fromJson(jsonIn, roomTypeReservationListType);
-                    } catch (Exception e) {
-                        Log.e(TAG, e.toString());
-                    }
-                    if (roomTypeReservationList.isEmpty()) {
-                        Log.d(TAG, "roomTypeReservationList: " + String.valueOf(roomTypeReservationList));
-                        roomTypeReservationList = roomTypeList;
-                    } else {
-                        for (RoomType rt : roomTypeList) {
-                            if (rt.getId() > 0) {
-                                id = rt.getId();
-                                name = rt.getName();
-                                roomSize = rt.getRoomSize();
-                                bed = rt.getBed();
-                                adultQuantity = rt.getAdultQuantity();
-                                childQuantity = rt.getChildQuantity();
-                                roomQuantity = rt.getRoomQuantity();
-                                price = rt.getPrice();
-                                for (RoomType rtrn : roomTypeReservationList) {
-                                    if (id == rtrn.getId()) {
-                                        roomQuantity -= rtrn.getRoomQuantity();
-                                        Log.d(TAG, "roomQuantity: " + String.valueOf(roomQuantity));
-                                        rt.setRoomQuantity(roomQuantity);
-                                        if (roomQuantity == 0) {
-                                            roomTypeList.remove(rt);
-                                        }
-                                    }
-                                }
-                            } else {
-                                continue;
-                            }
-                        }
-                    }
-                } else {
-                    showToast(getActivity(), R.string.msg_NoNetwork);
-                }
-                rvRoomChoose.setAdapter(new RoomTypeAdapter(getActivity(), roomTypeList));
             }
         } else {
             showToast(getActivity(), R.string.msg_NoNetwork);
         }
+        rvRoomChoose.setAdapter(new RoomTypeAdapter(getActivity(), roomTypeList));
 
+        // 取得優惠
+        getDiscount();
 
         /* 不處理捲動事件所以監聽器設為null */
         rvRoomChoose.setOnFlingListener(null);
@@ -227,20 +167,20 @@ public class RoomChooseFragment extends Fragment {
             eventGetAllTask = new CommonTask(eventurl, jsonOut);
             try {
                 String jsonIn = eventGetAllTask.execute().get();
-                Type listType = new TypeToken<List<Events>>() {
+                Type listType = new TypeToken<Events>() {
                 }.getType();
                 events = new Gson().fromJson(jsonIn, listType);
             } catch (Exception e) {
                 Log.e(TAG, e.toString());
             }
         }
-        Log.d(TAG, "discount " + String.valueOf(events.get(0).getDiscount()));
-        if (events.get(0).getDiscount() == 0.0) {
+        Log.d(TAG, "discount " + String.valueOf(events.getDiscount()));
+        if (events.getDiscount() == 0.0) {
             discount = 1;
         } else {
-            discount = events.get(0).getDiscount();
+            discount = events.getDiscount();
         }
-        Log.d(TAG, "disconu " + discount);
+        Log.d(TAG, "discoun " + discount);
         return discount;
     }
 
@@ -294,9 +234,8 @@ public class RoomChooseFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, int i) {
             final RoomType roomType = roomTypeList.get(i);
-            int price, quantity, lastQuantity;
+            int price;
             Log.d(TAG, "id" + String.valueOf(roomType.getId()));
-            reservationList.clear();
             myViewHolder.ivRoomType.setImageResource(R.drawable.pic_roomtype_2seaview);
             myViewHolder.tvRoomTypeName.setText(roomType.getName());
             myViewHolder.tvRoomTypeSize.setText(roomType.getRoomSize());
@@ -322,7 +261,7 @@ public class RoomChooseFragment extends Fragment {
             myViewHolder.ibAddRoom.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Reservation reservation;
+                    ShoppingCar reservation;
                     int roomQuantity = Integer.valueOf(myViewHolder.tvRoomTypeLastQuantity.getText().toString());
                     Log.d(TAG, "roomQuantity " + String.valueOf(roomQuantity));
                     int index = getindex(myViewHolder.tvRoomTypeName.getText().toString(), reservationList);
@@ -334,7 +273,7 @@ public class RoomChooseFragment extends Fragment {
                             myViewHolder.tvRoomTypeLastQuantity.setText(String.valueOf(roomQuantity));
                             Log.d(TAG, roomType.getName() + roomType.getRoomSize() + roomType.getBed() + roomType.getAdultQuantity() + roomType.getRoomQuantity() + roomType.getPrice());
                             if (index == -1) {
-                                reservation = new Reservation(roomType.getId(), myViewHolder.tvRoomTypeName.getText().toString(),
+                                reservation = new ShoppingCar(roomType.getId(), myViewHolder.tvRoomTypeName.getText().toString(),
                                         checkInDate, checkOutDate, 1, roomType.getPrice());
                                 reservationList.add(reservation);
                             } else {
@@ -350,7 +289,7 @@ public class RoomChooseFragment extends Fragment {
                             myViewHolder.tvRoomTypeLastQuantity.setText(String.valueOf(roomQuantity));
                             Log.d(TAG, "roomType " + roomType.getName() + roomType.getRoomSize() + roomType.getBed() + roomType.getAdultQuantity() + roomType.getRoomQuantity() + eventPrice);
                             if (index == -1) {
-                                reservation = new Reservation(roomType.getId(), myViewHolder.tvRoomTypeName.getText().toString(),
+                                reservation = new ShoppingCar(roomType.getId(), myViewHolder.tvRoomTypeName.getText().toString(),
                                         checkInDate, checkOutDate, 1, eventPrice);
                                 reservationList.add(reservation);
                             } else {
@@ -370,8 +309,8 @@ public class RoomChooseFragment extends Fragment {
             });
         }
 
-        private int getindex(String roomTypeName, List<Reservation> reservationList) {
-            for (Reservation reservation : reservationList) {
+        private int getindex(String roomTypeName, List<ShoppingCar> reservationList) {
+            for (ShoppingCar reservation : reservationList) {
                 if (roomTypeName.equals(reservation.getRoomTypeName())) {
                     return reservationList.indexOf(reservation);
                 }

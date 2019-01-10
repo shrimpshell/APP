@@ -26,9 +26,8 @@ import com.example.hsinhwang.shrimpshell.Authentication.LoginActivity;
 import com.example.hsinhwang.shrimpshell.BookingFragment;
 import com.example.hsinhwang.shrimpshell.Classes.Common;
 import com.example.hsinhwang.shrimpshell.Classes.CommonTask;
-import com.example.hsinhwang.shrimpshell.Classes.Reservation;
+import com.example.hsinhwang.shrimpshell.Classes.ShoppingCar;
 import com.example.hsinhwang.shrimpshell.R;
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
@@ -39,10 +38,9 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class RoomCheckFragment extends Fragment {
     private RecyclerView rvCheckReservation;
-    private List<Reservation> reservationList = new ArrayList<>();
+    private List<ShoppingCar> shoppingCarList = new ArrayList<>();
     //    private HashMap<String, Integer> reservationRoom;
-    private String key, checkInDate, checkOutDate;
-    private int quantity, price, addbed;
+    private String checkInDate, checkOutDate;
     private FloatingActionButton fabRoomCheck;
     private String TAG = "Debug";
 
@@ -62,10 +60,10 @@ public class RoomCheckFragment extends Fragment {
         Bundle bundle = getArguments();
         checkInDate = bundle.getString("checkInDate");
         checkOutDate = bundle.getString("checkOutDate");
-        reservationList = (List<Reservation>) bundle.getSerializable("reservationList");
+        shoppingCarList = (List<ShoppingCar>) bundle.getSerializable("reservationList");
         Log.d(TAG, checkInDate);
         Log.d(TAG, checkOutDate);
-        Log.d(TAG, String.valueOf(reservationList.size()));
+        Log.d(TAG, String.valueOf(shoppingCarList.size()));
         fabRoomCheck = view.findViewById(R.id.fabRoomCheck);
         fabRoomCheck.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +89,7 @@ public class RoomCheckFragment extends Fragment {
                             if (Common.networkConnected(getActivity())) {
                                 String url = Common.URL + "/ReservationServlet";
                                 JsonObject jsonObject = new JsonObject();
-                                jsonObject.addProperty("action", "insert");
+                                jsonObject.addProperty("action", "insertReservation");
                                 int count = 0;
                                 try {
                                     String result = new CommonTask(url, jsonObject.toString()).execute().get();
@@ -125,18 +123,18 @@ public class RoomCheckFragment extends Fragment {
                 new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
 
         rvCheckReservation.setAdapter(new
-                ReservationListAdapter(getActivity(), reservationList));
+                ReservationListAdapter(getActivity(), shoppingCarList));
     }
 
 
     private class ReservationListAdapter extends
             RecyclerView.Adapter<ReservationListAdapter.MyViewHolder> {
         private Context context;
-        private List<Reservation> reservations;
+        private List<ShoppingCar> shoppingCars;
 
-        ReservationListAdapter(Context context, List<Reservation> reservations) {
+        ReservationListAdapter(Context context, List<ShoppingCar> shoppingCarList) {
             this.context = context;
-            this.reservations = reservations;
+            this.shoppingCars = shoppingCarList;
         }
 
         class MyViewHolder extends RecyclerView.ViewHolder {
@@ -159,10 +157,10 @@ public class RoomCheckFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            if (reservations.size() == 0) {
+            if (shoppingCarList.size() == 0) {
                 getFragmentManager().popBackStack("roomChooseFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
-            return reservations.size();
+            return shoppingCars.size();
         }
 
         @NonNull
@@ -175,15 +173,15 @@ public class RoomCheckFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, int i) {
-            final Reservation reservation = reservations.get(i);
-            Log.d(TAG, reservations.get(i).getRoomTypeName() + reservations.get(i).getCheckInDate() + reservations.get(i).getCheckOutDate() + reservations.get(i).getQuantity() + reservations.get(i).getPrice());
-            final int roomQuantity = reservation.getQuantity();
+            final ShoppingCar shoppingCar = shoppingCars.get(i);
+            Log.d(TAG, shoppingCars.get(i).getRoomTypeName() + shoppingCars.get(i).getCheckInDate() + shoppingCars.get(i).getCheckOutDate() + shoppingCars.get(i).getQuantity() + shoppingCars.get(i).getPrice());
+            final int roomQuantity = shoppingCar.getQuantity();
             final String[] total = new String[roomQuantity];
-            myViewHolder.tvRoomTypeName.setText(reservation.getRoomTypeName());
-            myViewHolder.tvCheckInDate.setText(reservation.getCheckInDate());
-            myViewHolder.tvCheckOutDate.setText(reservation.getCheckOutDate());
-            myViewHolder.tvRoomPrice.setText(String.valueOf(reservation.getPrice() * reservation.getQuantity()));
-            myViewHolder.tvRoomQuantity.setText(String.valueOf(reservation.getQuantity()));
+            myViewHolder.tvRoomTypeName.setText(shoppingCar.getRoomTypeName());
+            myViewHolder.tvCheckInDate.setText(shoppingCar.getCheckInDate());
+            myViewHolder.tvCheckOutDate.setText(shoppingCar.getCheckOutDate());
+            myViewHolder.tvRoomPrice.setText(String.valueOf(shoppingCar.getPrice() * shoppingCar.getQuantity()));
+            myViewHolder.tvRoomQuantity.setText(String.valueOf(shoppingCar.getQuantity()));
             myViewHolder.btChangeQuantity.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -201,7 +199,7 @@ public class RoomCheckFragment extends Fragment {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 myViewHolder.tvRoomQuantity.setText(total[which]);
-                                int price = reservation.getPrice() * Integer.valueOf(total[which]);
+                                int price = shoppingCar.getPrice() * Integer.valueOf(total[which]);
                                 myViewHolder.tvRoomPrice.setText(String.valueOf(price));
                                 Toast.makeText(getActivity(), "已更改數量", Toast.LENGTH_SHORT).show();
                             }
@@ -213,7 +211,7 @@ public class RoomCheckFragment extends Fragment {
             myViewHolder.btDeletRoom.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    reservations.remove(reservation);
+                    shoppingCars.remove(shoppingCar);
                     ReservationListAdapter.this.notifyDataSetChanged();
                     Toast.makeText(getActivity(), "請重新選擇房間", Toast.LENGTH_SHORT).show();
                 }
@@ -221,10 +219,12 @@ public class RoomCheckFragment extends Fragment {
             myViewHolder.cbAddBed.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    int allPrice = shoppingCar.getPrice() * shoppingCar.getQuantity();
+                    int quantity = Integer.valueOf((String) myViewHolder.tvRoomQuantity.getText());
                     if (myViewHolder.cbAddBed.isChecked()) {
-                        myViewHolder.tvRoomPrice.setText(String.valueOf(reservation.getPrice() + 1000));
+                        myViewHolder.tvRoomPrice.setText(String.valueOf(allPrice + 1000 * quantity));
                     } else {
-                        myViewHolder.tvRoomPrice.setText(String.valueOf(reservation.getPrice() * reservation.getQuantity()));
+                        myViewHolder.tvRoomPrice.setText(String.valueOf(allPrice));
                     }
                 }
             });
